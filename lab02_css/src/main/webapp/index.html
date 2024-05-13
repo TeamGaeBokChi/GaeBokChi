@@ -3,12 +3,28 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Lab2 CSS</title>
+        
+        <!-- 외부 CSS 파일 링크 --> <!-- 외부 내부는 순서에 따라 다른데 아래 적혀진 코드가 최종 적용. -->
+        <link rel="stylesheet" href="css/mystyle.css" />
+        
+        <!-- 내부 CSS -->
+        <style>
+            /* style 태그 안에서는 CSS 문법 적용됨. */
+            div {
+                border: 4px dotted crimson;
+            }
+        </style>
 	</head>
 	<body>
 		<main>
             <section>
                 <h1>CSS</h1>
                 <h2>Cascading Style Sheet</h2>
+                
+                <div>Division1</div>
+                <div>Division2</div>
+                <!-- inline CSS -->
+                <div style="border: 1px dashed black; ">Division3</div>
             </section>        
         </main>        
 	</body>

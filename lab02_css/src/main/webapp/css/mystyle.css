@@ -1,0 +1,18 @@
+@charset "UTF-8"; /* CSS 파일 인코딩 선언 */
+
+/* CSS 문법 
+  selector {
+    property: value;
+    ...
+ }    
+*/
+ 
+body {
+    background-color: aqua; /* 바탕색 */
+}
+
+div {
+    border: 2px solid black; /* 테두리선 두께(width-px), 종류(style-solid), 색깔(color-black) */
+    margin: 8px; /* 테두리선(border)의 바깥 여백 */
+    padding: 20px; /* 테두리선 안쪽 여백 */
+}
