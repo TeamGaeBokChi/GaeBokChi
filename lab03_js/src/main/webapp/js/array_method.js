@@ -42,7 +42,7 @@ arr2.sort((x, y) => x - y);
 console.log(arr2);
 
 
-// filter, map, reduce:
+// forEach, filter, map, reduce:
 const numbers = [1, 2, 3, 4, 5, 6];
 console.log(numbers);
 // 배열 numbers의 원소들 중에서 홀수들로만 이루어진 새로운 배열 만드세요.
@@ -70,18 +70,38 @@ console.log(squares);
 result = numbers.map((x) => (x * x));
 console.log(result);
 
+result.forEach((x) => console.log(x));
 
 
+// 배열 numbers의 모든 원소들의 합계
+let sum = 0;
+for (let value of numbers){
+    sum += value ; // sum = sum + value;
+}
+console.log(`sum = ${sum}`);
 
+sum = numbers.reduce((acc, cur) => acc + cur, 0); 
+// reduce(callback, initialValue)
+console.log(`sum = ${sum}`);
 
+// numbers의 모든 원소들의 곱:
+result = 1;
 
+result = numbers.reduce((acc, cur) => acc * cur, 1);
+console.log(result);
+result = 0;
 
-
-
-
-
-
-
+// numbers의 원소들 중에서 짝수들의 합: 2 + 4 + 6 
+result = numbers.filter((x) => x % 2 === 0).reduce((acc, cur) => acc + cur, 0);
+console.log(result);
+// numbers의 원소들의 제곱의 합: 1 + 4 + 9 + .. + 36
+result = 0;
+result = numbers.map((x) => (x * x)).reduce((acc, cur) => acc + cur, 0);
+console.log(result);
+// numbers의 원소들 중에서 짝수들의 제곱의 합: 4 + 16 + 36
+result = 0;
+result = numbers.filter((x) => (x % 2 != 1 )).map((x) => x * x).reduce((acc, cur) => acc + cur, 0);
+console.log(result);
 
 
 
