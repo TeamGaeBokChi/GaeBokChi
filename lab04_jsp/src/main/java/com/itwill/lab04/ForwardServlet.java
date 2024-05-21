@@ -27,6 +27,12 @@ public class ForwardServlet extends HttpServlet {
 		// 서블릿이 JSP로 요청을 전달하고, JSP가 HTML 코드를 작성하는 것이 더 쉬움.
 		
 		request.getRequestDispatcher("example.jsp").forward(request, response);
+		
+		// "forward" 방식의 웹 페이지 이동:
+		// - 같은 WAS의 같은 웹 애플리케이션 안에서만 페이지를 이동하는 방식.
+		// - 최초 요청 주소가 바뀌지 않음.
+		// - request, response 객체가 유지됨.
+		// - 다른 WAS 또는 다른 웹 애플리케이션의 페이지로는 포워드(forward)할 수 없음!
 	}
 
 }
