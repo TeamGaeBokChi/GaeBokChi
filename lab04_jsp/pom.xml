@@ -8,6 +8,13 @@ xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/
   <packaging>war</packaging>
   <name>Lab04</name>
   <description>Servlet &amp; JSP</description>
+  <dependencies>
+    <dependency>
+    <groupId>jakarta.servlet.jsp.jstl</groupId>
+    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+    <version>3.0.0</version>
+</dependency>
+  </dependencies>
   <build>
     <plugins>
       <plugin>
