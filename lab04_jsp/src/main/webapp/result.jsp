@@ -31,7 +31,7 @@
         <c:if test="${ param.username == 'admin' }">
             <h3>Admin Page</h3>
         </c:if>
-        <c:if test="${ param.username != 'admin' }">
+        <c:if test="${ param.username ne 'admin' }">
             <h3>User Page</h3>
         </c:if>
         
