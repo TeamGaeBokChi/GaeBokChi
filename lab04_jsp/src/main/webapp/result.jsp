@@ -28,10 +28,10 @@
             </c:otherwise>
         </c:choose>
         
-        <c:if test="${ param.username eq 'admin' }">
+        <c:if test="${ param.username == 'admin' }">
             <h3>Admin Page</h3>
         </c:if>
-        <c:if test="${ param.username ne 'admin' }">
+        <c:if test="${ param.username != 'admin' }">
             <h3>User Page</h3>
         </c:if>
         
