@@ -13,7 +13,7 @@
     <main>
         <h1>RESULT</h1>
         <h2>안녕하세요, <span style="color: ${param.color}">${ param.username }!</span></h2>
-        <%-- EL에서 requerst.getParameter("username")을 대신하는 방법 --%>
+        <%-- EL에서 request.getParameter("username")을 대신하는 방법 --%>
         
         <%-- JSTL의 조건문 --%>
         <c:choose>
