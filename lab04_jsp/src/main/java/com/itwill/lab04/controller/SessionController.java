@@ -32,7 +32,7 @@ public class SessionController extends HttpServlet {
 		// 응답을 보낼 때 JSESSIONID 쿠키가 클라이언트로 전송됨.
 		
 		session.setAttribute("nickname", "관리자");
-		session.setMaxInactiveInterval(10); // 세선 만료기간 설정. 단위: 초.
+//		session.setMaxInactiveInterval(10); // 세선 만료기간 설정. 단위: 초.
 		
 		// 뷰 이동
 		request.getRequestDispatcher("/WEB-INF/views/session.jsp").forward(request, response);
