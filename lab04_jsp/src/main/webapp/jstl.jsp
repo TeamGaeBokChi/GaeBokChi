@@ -35,7 +35,7 @@
         
         <h2>JSTL, EL을 사용한 리스트</h2>
         <ul>
-            <c:forEach var="s" items="${ sites }" >
+            <c:forEach var="s" items="${ sites }" >   
                 <li>${ s }</li>
             </c:forEach>
         </ul>
