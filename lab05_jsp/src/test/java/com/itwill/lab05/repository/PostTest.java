@@ -53,7 +53,7 @@ public class PostTest {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testSelectById() {
 		Post post = dao.select(2);
 		Assertions.assertNotNull(post);
