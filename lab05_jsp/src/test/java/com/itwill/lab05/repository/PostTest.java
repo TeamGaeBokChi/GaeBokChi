@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 public class PostTest {
 	private static final Logger log = LoggerFactory.getLogger(PostTest.class);
 	
-	private PostDao dao = PostDao.INSTANCE;
+	private PostDao dao = PostDao.INSTANCE; // singleton 객체
 	
 	// JUnit 모듈에서 단위 테스트를 하기 위해서 호출하는 메서드.
 	// (1) public void. (2) 아규먼트를 갖지 않음.
@@ -31,7 +31,17 @@ public class PostTest {
 		log.debug("dao = {}", dao);
 		
 		List<Post> result  = dao.select();
-		Assertions.assertNull(result);
+		Assertions.assertEquals(3, result.size());
+		for (Post p : result) {
+			log.debug(p.toString());
+		}
 	}
 	
+	@Test
+	public void testInsert() {
+		// PostDao.insert 메서드 단위 테스트
+		Post post = Post.builder().title("insert 테스트").content("JDBC, Connection Pool test").author("admin").build();
+		int result = dao.insert(post); // PostDao의 insert 메서드 호출.
+		Assertions.assertEquals(1, result); // insert 메서드의 리턴 값(삽입된 행의 개수)가 1이면 단위 테스트 성공.
+	}
 }
