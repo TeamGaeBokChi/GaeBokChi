@@ -81,6 +81,59 @@ public enum PostDao {
 		return result;
 	}
 	
+	// posts 테이블에서 id(PK)로 행 1개를 삭제하는 SQL:
+	private static final String SQL_DELETE = "delete from posts where id = ?";
+	
+	public int delete(int id) {
+		log.debug("delete(id={})",id);
+		log.debug(SQL_DELETE);
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			stmt = conn.prepareStatement(SQL_DELETE);
+			stmt.setInt(1, id);
+			result = stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources(conn, stmt);
+		}
+		
+		return result;
+	}
+	
+	// posts 테이블에서 id(PK)로 검색하는 SQL:
+	private static final String SQL_SELECT_BY_ID = "select * from posts where id = ?";
+	
+	public Post select(int id) {
+		log.debug("select(id={})",id);
+		log.debug(SQL_SELECT_BY_ID);
+		
+		Post post = new Post();
+		Connection conn = null;
+		PreparedStatement stmt = null;		
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+					post = fromResultSetToPost(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources(conn, stmt, rs);
+		}
+		
+		return post;
+	}
+	
 	private Post fromResultSetToPost(ResultSet rs) throws SQLException {
 			int id = rs.getInt("id");
 			String title = rs.getString("title");

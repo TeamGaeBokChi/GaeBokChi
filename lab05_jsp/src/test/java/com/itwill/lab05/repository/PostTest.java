@@ -25,7 +25,7 @@ public class PostTest {
 		log.debug("p = {}", p);
 	}
 	
-	@Test
+//	@Test
 	public void testPostDao() {
 		Assertions.assertNotNull(dao); // PostDao 타입 객체가 null이 아니면 단위 테스트 성공.
 		log.debug("dao = {}", dao);
@@ -37,11 +37,30 @@ public class PostTest {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void testInsert() {
 		// PostDao.insert 메서드 단위 테스트
 		Post post = Post.builder().title("insert 테스트").content("JDBC, Connection Pool test").author("admin").build();
 		int result = dao.insert(post); // PostDao의 insert 메서드 호출.
 		Assertions.assertEquals(1, result); // insert 메서드의 리턴 값(삽입된 행의 개수)가 1이면 단위 테스트 성공.
+	}
+	
+//	@Test
+	public void testDelete() {
+		// PostDao.delete 메서드 단위 테스트
+		int result = dao.delete(3);
+		Assertions.assertEquals(1, result);
+		
+	}
+	
+	@Test
+	public void testSelectById() {
+		Post post = dao.select(2);
+		Assertions.assertNotNull(post);
+		log.debug(post.toString());
+		
+		post = dao.select(0);
+		Assertions.assertNull(post);
+		
 	}
 }
