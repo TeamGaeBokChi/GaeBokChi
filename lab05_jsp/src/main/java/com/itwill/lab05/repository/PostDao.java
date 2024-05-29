@@ -136,13 +136,13 @@ public enum PostDao {
 	
 	private Post fromResultSetToPost(ResultSet rs) throws SQLException {
 			int id = rs.getInt("id");
-			String title = rs.getString("title");
+			String title = rs.getString("title");	
 			String content = rs.getString("content");
 			String author = rs.getString("author");
 			LocalDateTime createdTime = rs.getTimestamp("created_time").toLocalDateTime();
 			LocalDateTime modifiedTime = rs.getTimestamp("modified_time").toLocalDateTime();
 			
-			return Post.builder().id(id).title(title).author(author).createdTime(createdTime).modifiedTime(modifiedTime).build();
+			return Post.builder().id(id).title(title).author(author).content(content).createdTime(createdTime).modifiedTime(modifiedTime).build();
 	}
 
 	private void closeResources(Connection conn, Statement stmt, ResultSet rs) {
