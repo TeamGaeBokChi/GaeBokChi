@@ -48,4 +48,23 @@ public enum PostService {
 		return post; // 컨트롤러에게 검색한 Post 객체를 리턴.
 	}
 	
+	public int delete(int id) {
+		log.debug("delete(id={})", id);
+		
+		int result = postDao.delete(id);
+		log.debug("delete result = {}", result);
+		
+		return result;
+	}
+	
+	public int update(Post post) {
+		log.debug("update({})", post);
+		
+		// 영속성 계층의 메서드를 호출해서 DB posts 테이블을 update.
+		int result = postDao.update(post);
+		log.debug("update result = {}", result);
+		
+		return result;
+	}
+	
 }
