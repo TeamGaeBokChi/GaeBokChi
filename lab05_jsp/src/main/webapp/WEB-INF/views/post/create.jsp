@@ -28,8 +28,8 @@
                         <div class="mt-2">
                             <textarea class="form-control" rows="5" name="content" placeholder="내용" required></textarea>
                         </div>
-                        <div class="mt-2">
-                            <input class="form-control" type="text" name="author" placeholder="작성자" required/>
+                        <div class="mt-2 d-none">
+                            <input class="form-control" type="text" name="author" value="${ signedInUser }" readonly/>
                         </div>
                         <div class="mt-2">
                             <input class="form-control btn btn-outline-success" type="submit" value="저장"/>
