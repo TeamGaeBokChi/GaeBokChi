@@ -81,6 +81,54 @@ public enum UserDao {
 		return result;
 	}
 	
+	// TODO: SQL 문자열, 메서드 추가(USERS.POINTS 컬럼 업데이트)
+	private static final String SQL_UPDATE = "update users set points = points + ? where userid = ?";
+	public int update(String userid, int points) {
+		log.debug(SQL_UPDATE);
+		
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = ds.getConnection();
+			stmt = conn.prepareStatement(SQL_UPDATE);
+			stmt.setInt(1, points);
+			stmt.setString(2, userid);
+			result = stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources(conn, stmt);
+		}
+		
+		return result;
+	}
+	
+	private static final String SQL_ALL = "select * from users where userid= ?";
+	public User MyPage(String id) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		User result = null;
+		try {
+			conn = ds.getConnection();
+			stmt = conn.prepareStatement(SQL_ALL);
+			stmt.setString(1, id);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				result = fromResultSetToUser(rs);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources(conn, stmt, rs);
+		}
+			
+		return result;
+	
+	}
+	
 	private User fromResultSetToUser(ResultSet rs) throws SQLException {
 		int id = rs.getInt("id");
 		String userid = rs.getString("userid");

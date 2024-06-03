@@ -34,4 +34,10 @@ public enum UserService {
 		return user;
 	}
 	
+	public User MyPage(String id) {
+		User mypage = userDao.MyPage(id);
+		
+		return mypage;
+	}
+	
 }
