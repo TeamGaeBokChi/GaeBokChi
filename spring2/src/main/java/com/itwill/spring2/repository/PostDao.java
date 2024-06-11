@@ -5,7 +5,9 @@ import java.util.List;
 public interface PostDao {
 	
 	// post-mapper.xml에서 id="selectOrderByIdDesc"인 SQL을 실행하는 메서드.
-	List<Post> selectOrderByIdDesc();
-	
-	
+	List<Post> selectOrderByIdDesc();	
+	Post selectById(Integer id);
+	int insertPost(Post post);
+	int updatePost(Post post);
+	int deletePost(Integer id);
 }
