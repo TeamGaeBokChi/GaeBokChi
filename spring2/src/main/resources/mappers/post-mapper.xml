@@ -32,10 +32,10 @@
     
     <!-- posts 테이블에서 제목/내용/작성자로 검색. -->
     <select id="search" resultType="Post">
-        <bind name="searchKeyword" value="'%' + keyword + '%'"/>
+        <bind name="searchKeyword" value="'%' + keyword + '%'"/> <!-- keyword = param.getKeyword => PostSearchDao의 게터 메서드 호출. -->
         select * from posts
         <where>
-            <choose>
+            <choose><!-- category = param.getCategory => PostSearchDao의 게터 메서드 호출. -->
                 <when test='category.equals("t")'>
                     upper(title) like upper(#{searchKeyword})
                 </when>

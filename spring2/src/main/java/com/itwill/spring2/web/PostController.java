@@ -60,6 +60,9 @@ public class PostController {
         log.debug("GET: create()");
     }
     
+    // DTO 클래스를 따로 작성하면 @RequestParam해서 하나씩 가져오는 것들을 기본 생성자로 한번에 가져온다고 생각하면 됨.
+    // 디스패쳐 서블릿이 dto클래스의 세터 메서드를 호출해서 값을 할당하고 게터 메서드로 그 값을 가져옴.
+    
     @PostMapping("/create")
     public String create(PostCreateDto dto) {
         log.debug("POST: create(dto={})", dto);
