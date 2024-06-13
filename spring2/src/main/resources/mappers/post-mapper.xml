@@ -11,7 +11,7 @@
     
     <!-- posts 테이블에서 id(PK)로 검색. 상세보기. -->
     <select id="selectById" resultType="Post">
-        select * from posts where id = #{id}
+        select * from posts where id = #{id} <!-- ==> post.getId -->
     </select>
     
     <!-- posts 테이블에 행 삽입. 새 글 작성. -->
@@ -55,7 +55,24 @@
         order by id desc
     </select>
     
+    
+    
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
