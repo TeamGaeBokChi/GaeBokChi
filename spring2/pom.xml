@@ -9,7 +9,7 @@
     <name>Spring Legacy 2</name>
     <description>Spring Legacy Project</description>
 
-    <!-- Xml 파일에서 사용할 속성(변수) 선언 -->
+    <!-- XML 파일에서 사용할 속성(변수) 선언 -->
     <properties>
         <jstl-version>3.0.0</jstl-version>
         <jslt-impl-version>3.0.1</jslt-impl-version>
@@ -135,9 +135,16 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson-version}</version>
         </dependency>
+        <!-- Add-on module to support JSR-310 (Java 8 Date & Time API) data types -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
 
         <!-- Spice up your java: Automatic Resource Management, automatic
-        generation of getters, setters, equals, hashCode and toString, and more! -->
+        generation of 
+        getters, setters, equals, hashCode and toString, and more! -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -145,7 +152,7 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- Spring JDBC -->
+        <!-- Sping JDBC -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
@@ -158,21 +165,20 @@
             <artifactId>spring-tx</artifactId>
             <version>${spring-version}</version>
         </dependency>
-        
+
         <!-- MyBatis SQL mapper framework -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <version>${mybatis-version}</version>
         </dependency>
-        
-        <!-- An easy-to-use Spring bridge for mybatis SQL mappler framework -->
+
+        <!-- An easy-to-use Spring bridge for MyBatis SQL mapper framework -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>${mybatis-spring-version}</version>
         </dependency>
-
     </dependencies>
 
     <!-- 빌드 툴(플러그인) 설정 -->
