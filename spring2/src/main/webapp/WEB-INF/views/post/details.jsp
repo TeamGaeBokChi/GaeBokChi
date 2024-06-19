@@ -109,22 +109,24 @@
         </section>
         
         <!-- 댓글 업데이트 모달(다이얼로그) -->
-        <div class="modal" tabindex="-1">
+        <div id="commentModal" class="modal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title">댓글 업데이트</h5>
                         <button type="button" class="btn-close"
                             data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Modal body text goes here.</p>
+                        <!-- 수정할 댓글 아이디(번호) -->
+                        <input class="d-none" id="modalCommentId" />
+                        <!-- 수정할 댓글 내용 -->
+                        <textarea class="form-control" id="modalCommentText" ></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save
-                            changes</button>
+                        <button type="button" class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">취소</button>
+                        <button type="button" id="btnUpdateComment"class="btn btn-outline-primary">저장</button>
                     </div>
                 </div>
             </div>
