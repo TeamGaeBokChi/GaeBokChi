@@ -121,8 +121,8 @@ h4 {
             <div class="form-group">
                 <label for="id" class="form-label">아이디</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="id"
-                        name="id" placeholder="아이디를 입력하세요">
+                    <input type="text" class="form-control" id="userid"
+                        name="userid" placeholder="아이디를 입력하세요">
                     <button class="btn btn-outline-secondary"
                         type="button">중복체크</button>
                 </div>
@@ -151,7 +151,7 @@ h4 {
             <div class="form-group">
                 <label class="form-label">휴대폰 번호</label>
                 <div class="flex">
-                    <select class="form-select" name="phone1">
+                    <select class="form-select" name="phone0">
                         <option value="SKT">SKT</option>
                         <option value="KT">KT</option>
                         <option value="LG U+">LG U+</option>
@@ -159,8 +159,10 @@ h4 {
                         <option value="KT 알뜰폰">KT 알뜰폰</option>
                         <option value="LG U+ 알뜰폰">LG U+ 알뜰폰</option>
                     </select> <input type="text" class="form-control"
-                        name="phone2" placeholder="앞자리"> <input
-                        type="text" class="form-control" name="phone3"
+                        name="phone1" placeholder="010"> <input
+                        type="text" class="form-control" name="phone2"
+                        placeholder="앞자리"> <input type="text"
+                        class="form-control" name="phone3"
                         placeholder="뒷자리">
                 </div>
             </div>
@@ -267,8 +269,6 @@ h4 {
                     <input type="text" class="form-control"
                         id="LicenseUpload" name="LicenseUpload"
                         placeholder="라이센스 번호를 등록하세요">
-                    <button class="btn btn-outline-secondary"
-                        type="button">승인요청</button>
                 </div>
             </div>
 
