@@ -229,7 +229,7 @@ h4 {
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="accountGroup">
                 <label class="form-label">계좌번호 입력</label>
                 <div class="flex">
                     <select class="form-select" id="bank" name="bank">
@@ -254,14 +254,13 @@ h4 {
                         <option value="KEB">하나</option>
                         <option value="SC">SC제일</option>
 
-
                     </select> <input type="text" class="form-control"
                         id="account" name="account"
                         placeholder="계좌번호를 입력하세요">
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="licenseGroup">
                 <label for="LicenseUpload" class="form-label">라이센스
                     등록</label>
                 <div class="input-group">
@@ -273,26 +272,65 @@ h4 {
                 </div>
             </div>
 
-            <div class="d-grid gap-2 mt-4">
+            <div class="d-grid gap-2 mt-4" id="submitButtonContainer">
                 <button type="submit" class="btn btn-primary btn-lg">회원가입</button>
             </div>
-        </form>
-    </div>
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script
-        src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script>
-					function openAddressSearch() {
-						new daum.Postcode(
-								{
-									oncomplete : function(data) {
-										document.getElementById('address').value = data.address;
-									}
-								}).open();
-					}
-				</script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script
+                src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+            <script>
+													function openAddressSearch() {
+														new daum.Postcode(
+																{
+																	oncomplete : function(
+																			data) {
+																		document
+																				.getElementById('address').value = data.address;
+																	}
+																}).open();
+													}
+												</script>
+            <script>
+													// 사용자 유형에 따라 계좌번호 입력창과 라이센스 등록창을 보여주거나 숨기는 함수
+													function toggleFormFields() {
+														var expertUserChecked = document
+																.getElementById('expertUser').checked;
+														var accountGroup = document
+																.getElementById('accountGroup');
+														var licenseGroup = document
+																.getElementById('licenseGroup');
+														var submitButtonContainer = document
+																.getElementById('submitButtonContainer');
+
+														if (expertUserChecked) {
+															accountGroup.style.display = 'block';
+															licenseGroup.style.display = 'block';
+															submitButtonContainer.style.display = 'block'; // 전문가일 때 버튼 보이기
+														} else {
+															accountGroup.style.display = 'none';
+															licenseGroup.style.display = 'none';
+															submitButtonContainer.style.display = 'block'; // 일반회원일 때도 버튼 보이기
+														}
+													}
+
+													// 페이지 로드시 초기 호출
+													toggleFormFields();
+
+													// 라디오 버튼 변경 이벤트 감지
+													var radios = document
+															.querySelectorAll('input[type=radio][name=userType]');
+													radios
+															.forEach(function(
+																	radio) {
+																radio
+																		.addEventListener(
+																				'change',
+																				toggleFormFields);
+															});
+												</script>
 </body>
 </html>
