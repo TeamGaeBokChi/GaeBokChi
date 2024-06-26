@@ -15,20 +15,6 @@ public class HomeController {
 		
 		return "home"; // 뷰(JSP 파일)의 이름.
 	}
-	
-	@GetMapping("/user/signin")
-	public void signIn () {
-		
-	}
-	
-	@GetMapping("/user/signup")
-	public void signUp () {
-		
-	}
-	
-	@GetMapping("/user/exchange")
-	public void exchange () {
-		
-	}
+
 	
 }

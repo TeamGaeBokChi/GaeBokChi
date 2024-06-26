@@ -20,7 +20,7 @@
                     <h2>로그인 페이지</h2>
                 </div>
                 <div class="card-body">
-                    <form method="post">
+                    <form method="post" name="signinForm">
                         <c:if test="${not empty param.result and param.result eq 'f'}">
                             <div class="text-danger">아이디와 비밀번호를 확인하세요.</div>
                         </c:if>
@@ -45,5 +45,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
         crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 </html>

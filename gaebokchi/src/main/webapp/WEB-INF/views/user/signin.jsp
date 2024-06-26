@@ -82,7 +82,7 @@ body {
                             name="password" placeholder="비밀번호" required />
                     </div>
                     <div class="d-grid">
-                        <button class="btn btn-login text-white py-2"
+                        <button class="btn btn-login text-white py-2" name="btnSignin"
                             type="submit">로그인</button>
                     </div>
                 </form>
