@@ -125,30 +125,32 @@ h4 {
                 <label for="id" class="form-label">아이디</label>
                 <div class="input-group">
                     <input type="text" class="form-control" id="userid"
-                        name="userid" placeholder="아이디를 입력하세요">
+                        name="userid" placeholder="아이디를 입력하세요" required>
                     <button class="btn btn-outline-secondary"
-                        type="button" name="idbutton">중복체크</button>
+                        type="button" name="idbutton" id="idbutton">중복체크</button>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="userPassword1" class="form-label">비밀번호</label>
+                <label for="userPassword" class="form-label">비밀번호</label>
                 <input type="password" class="form-control"
-                    id="password" name="password"
-                    placeholder="비밀번호를 입력하세요">
+                    id="userPassword" name="password"
+                    placeholder="8~20자의 숫자, 특수문자, 영문자 조합" required>
+                <div id="passwordStrength"></div>
             </div>
 
             <div class="form-group">
-                <label for="userPassword2" class="form-label">비밀번호
+                <label for="userPasswordConfirm" class="form-label">비밀번호
                     확인</label> <input type="password" class="form-control"
-                    id="password1" name="password1"
-                    placeholder="비밀번호를 다시 입력하세요">
+                    id="userPasswordConfirm" name="passwordConfirm"
+                    placeholder="비밀번호를 다시 입력하세요" required>
+                <div id="passwordMatch"></div>
             </div>
 
             <div class="form-group">
                 <label for="userName" class="form-label">이름</label> <input
                     type="text" class="form-control" id="name"
-                    name="name" placeholder="이름을 입력하세요">
+                    name="name" placeholder="이름을 입력하세요" required>
             </div>
 
             <div class="form-group">
@@ -156,9 +158,10 @@ h4 {
                 <div class="input-group">
                     <input type="text" class="form-control"
                         id="nickname" name="nickname"
-                        placeholder="별명 입력하세요">
+                        placeholder="별명 입력하세요" required>
                     <button class="btn btn-outline-secondary"
-                        type="button" name="nicknamebutton">중복체크</button>
+                        type="button" name="nicknamebutton"
+                        id="nicknamebutton">중복체크</button>
                 </div>
             </div>
 
@@ -174,14 +177,15 @@ h4 {
                         <option value="KT 알뜰폰">KT 알뜰폰</option>
                         <option value="LG U+ 알뜰폰">LG U+ 알뜰폰</option>
                     </select> <input type="text" class="form-control" id="phone1"
-                        name="phone1" style="width: 20%;"> <input
-                        type="text" class="form-control" id="phone2"
-                        name="phone2" placeholder="앞자리"
-                        style="width: 25%;"> <input type="text"
-                        class="form-control" id="phone3" name="phone3"
-                        placeholder="뒷자리" style="width: 25%;">
+                        name="phone1" style="width: 20%;" required>
+                    <input type="text" class="form-control" id="phone2"
+                        name="phone2" placeholder="앞자리" required
+                        style="width: 25%;"> <input required
+                        type="text" class="form-control" id="phone3"
+                        name="phone3" placeholder="뒷자리"
+                        style="width: 25%;">
                 </div>
-                <input type="hidden" name="fullnumber" />
+
             </div>
 
             <div class="form-group" id="emailGroup">
@@ -189,9 +193,9 @@ h4 {
                 <div class="flex">
                     <input type="text" class="form-control"
                         id="emailPrefix" name="emailPrefix"
-                        placeholder="이메일 주소" style="width: 40%;">
-                    <span class="email-separator">@</span> <select
-                        class="form-select" id="emailSeparator"
+                        placeholder="이메일 주소" style="width: 40%;"
+                        required> <span class="email-separator">@</span>
+                    <select class="form-select" id="emailSeparator"
                         name="emailSeparator" style="width: 40%;">
                         <option value="naver.com">naver.com</option>
                         <option value="google.com">google.com</option>
@@ -205,7 +209,7 @@ h4 {
             <div class="form-group">
                 <label class="form-label">생년월일</label>
                 <div class="flex">
-                    <select class="form-select" id="birth-Year"
+                    <select class="form-select" id="birth-Year" required
                         name="birthYear" style="width: 40%;">
                         <option disabled selected>출생 연도</option>
                         <!-- 1940년부터 현재 년도까지 옵션 추가 -->
@@ -220,7 +224,7 @@ h4 {
 																									}
 																								</script>
                     </select> <select class="form-select" id="birth-month"
-                        name="birthMonth" style="width: 30%;">
+                        required name="birthMonth" style="width: 30%;">
                         <option disabled selected>월</option>
                         <option value="1">1월</option>
                         <option value="2">2월</option>
@@ -234,7 +238,7 @@ h4 {
                         <option value="10">10월</option>
                         <option value="11">11월</option>
                         <option value="12">12월</option>
-                    </select> <select class="form-select" id="birth-day"
+                    </select> <select class="form-select" id="birth-day" required
                         name="birthDay" style="width: 30%;">
                         <option disabled selected>일</option>
                         <!-- 1일부터 31일까지 옵션 추가 -->
@@ -278,7 +282,7 @@ h4 {
             <div class="form-group">
                 <label for="addressMain" class="form-label">주소</label>
                 <div class="input-group">
-                    <input type="text" class="form-control"
+                    <input type="text" class="form-control" required
                         id="addressMain" name="addressMain"
                         placeholder="주소를 입력하세요" readonly>
                     <button class="btn btn-outline-secondary"
@@ -291,7 +295,7 @@ h4 {
             <div class="form-group">
                 <label for="addressDetail" class="form-label">상세주소</label>
                 <input type="text" class="form-control"
-                    id="addressDetail" name="addressDetail"
+                    id="addressDetail" name="addressDetail" required
                     placeholder="상세주소를 입력하세요">
             </div>
 
@@ -354,7 +358,8 @@ h4 {
             </div>
 
             <div class="d-grid gap-2 mt-4" id="submitButtonContainer">
-                <button type="submit" class="btn btn-primary btn-lg">회원가입</button>
+                <button type="submit" class="btn btn-primary btn-lg"
+                    id="submitButton">회원가입</button>
             </div>
         </form>
         <script
@@ -456,6 +461,12 @@ h4 {
 																});
 													});
 								</script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <!-- 우리가 만드는 JS 파일 -->
+        <c:url var="userSignUpJS" value="/js/user_signup.js" />
+        <script src="${userSignUpJS}"></script>
     </div>
 </body>
 </html>
