@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itwill.gaebokchi.dto.expertUserCreateDto;
+import com.itwill.gaebokchi.dto.findIdDto;
+import com.itwill.gaebokchi.dto.findPasswordDto;
 import com.itwill.gaebokchi.dto.normalUserCreateDto;
 import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.repository.UserDao;
@@ -63,6 +65,18 @@ public class UserService {
 		log.debug("UserSignInDto({})", dto);
 		User user = userDao.selectByUseridAndPassword(dto.toEntity());
 
+		return user;
+	}
+
+	public User findUserid(findIdDto dto) {
+		log.debug("findIdDto({})", dto);
+		User user = userDao.FindUserid(dto.toEntity());
+		return user;
+	}
+
+	public User findPassword(findPasswordDto dto) {
+		log.debug("findPasswordDto({})", dto);
+		User user = userDao.FindPassword(dto.toEntity());
 		return user;
 	}
 

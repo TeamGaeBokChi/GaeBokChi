@@ -58,6 +58,19 @@
         from users
         where userid = #{userid} and password = #{password}
     </select>
+    <select id="FindUserid">
+        select * from users where name = #{name} and email
+        = #{email}
+    </select>
 
+    <select id="FindPassword">
+        select * from users where userid = #{userid} and
+        email = #{email} and phone = #{phone}
+    </select>
 
 </mapper>
+
+
+
+
+

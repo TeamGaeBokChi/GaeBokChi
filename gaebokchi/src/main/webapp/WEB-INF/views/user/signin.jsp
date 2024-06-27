@@ -119,7 +119,7 @@ body {
                         </div>
                         <div class="modal-body">
                             <!-- 아이디 찾기 폼 내용 -->
-                            <form>
+                            <form >
                                 <div class="mb-3">
                                     <label for="findIdName"
                                         class="form-label">이름</label> <input
@@ -156,7 +156,7 @@ body {
                         </div>
                         <div class="modal-body">
                             <!-- 비밀번호 찾기 폼 내용 -->
-                            <form>
+                            <form >
                                 <div class="mb-3">
                                     <label for="findPwId"
                                         class="form-label">아이디</label> <input
