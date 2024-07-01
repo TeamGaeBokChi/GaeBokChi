@@ -38,5 +38,6 @@ public class User {
 	private int female;
 	private String emailPrefix;
 	private String emailSeparator;
+	private int point;
 	
 }

@@ -11,6 +11,7 @@ import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.repository.UserDao;
 import com.itwill.gaebokchi.dto.UpdatePasswordDto;
 import com.itwill.gaebokchi.dto.UserSignInDto;
+import com.itwill.gaebokchi.dto.exchangeDto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -85,15 +86,27 @@ public class UserService {
 		}
 	}
 
-	public boolean UpdatePassword(UpdatePasswordDto dto) {
+	public int UpdatePassword(UpdatePasswordDto dto) {
 		log.debug("UpdatePassword({})", dto);
 
-		User user = userDao.UpdatePassword(dto.toEntity());
+		int result = userDao.UpdatePassword(dto.toEntity());
 
-		if (user == null) {
-			return false;
+		if (result == 0) {
+			return 0;
 		} else {
-			return true;
+			return 1;
+		}
+	}
+
+	public int UpdatePoint(exchangeDto dto) {
+		log.debug("UpdatePoint({})", dto);
+
+		int result = userDao.UpdatePoint(dto.toEntity());
+
+		if (result == 0) {
+			return 0;
+		} else {
+			return 1;
 		}
 	}
 

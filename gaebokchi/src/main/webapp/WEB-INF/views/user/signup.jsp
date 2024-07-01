@@ -99,7 +99,7 @@ h4 {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link"
-                        href="home.jsp">메인</a></li>
+                        href="/gaebokchi">메인</a></li>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown"><a
@@ -108,9 +108,9 @@ h4 {
                         data-bs-toggle="dropdown"> 접속하기 </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item"
-                                href="singin.jsp">로그인</a></li>
+                                href="singin">로그인</a></li>
                             <li><a class="dropdown-item"
-                                href="signup.jsp">회원가입</a></li>
+                                href="signup">회원가입</a></li>
                         </ul></li>
                 </ul>
             </div>
@@ -135,7 +135,7 @@ h4 {
                 <label for="userPassword" class="form-label">비밀번호</label>
                 <input type="password" class="form-control"
                     id="userPassword" name="password"
-                    placeholder="8~20자의 숫자, 특수문자, 영문자 조합" required>
+                    placeholder="8~15자의 숫자, 특수문자, 영문자 조합" required>
                 <div id="passwordStrength"></div>
             </div>
 

@@ -21,6 +21,8 @@ public interface UserDao {
 	User FindUserid(User user);
 
 	User FindPassword(User user);
-	
-	User UpdatePassword(User user);
+
+	int UpdatePassword(User user);
+
+	int UpdatePoint(User user);
 }

@@ -185,7 +185,8 @@ body {
                                 <div class="form-group">
                                     <label class="form-label">휴대폰
                                         번호</label>
-                                    <div class="flex">
+                                    <div class="flex"
+                                        style="display: flex; flex-direction: row; gap: 5px;">
                                         <select class="form-select"
                                             name="phone0"
                                             style="width: 30%;">
@@ -211,7 +212,7 @@ body {
                                         <input required type="text"
                                             class="form-control"
                                             id="phone3" name="phone3"
-                                            placeholder="뒷자리"
+                                            placeholder="뒷자리" required
                                             style="width: 25%;">
                                     </div>
                                     <button type="submit"
@@ -229,7 +230,7 @@ body {
                                         비밀번호</label> <input type="password"
                                         class="form-control"
                                         id="userPassword"
-                                        placeholder="8~20자의 숫자, 특수문자, 영문자 조합"
+                                        placeholder="8~15자의 숫자, 특수문자, 영문자 조합"
                                         name="password" required>
                                     <div id="passwordStrength"></div>
                                 </div>

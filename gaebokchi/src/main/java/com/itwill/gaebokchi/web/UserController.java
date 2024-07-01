@@ -26,6 +26,7 @@ import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.service.UserService;
 import com.itwill.gaebokchi.dto.UpdatePasswordDto;
 import com.itwill.gaebokchi.dto.UserSignInDto;
+import com.itwill.gaebokchi.dto.exchangeDto;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +41,9 @@ public class UserController {
 	private final UserService userService;
 
 	@GetMapping("/signin")
-	public void signIn() {
+	public String signIn() {
 		log.debug("GET signIn()");
+		return "user/signin";
 	}
 
 	@PostMapping("/signin")
@@ -145,8 +147,8 @@ public class UserController {
 	public ResponseEntity<String> updatePw(@RequestBody UpdatePasswordDto dto) {
 		log.debug("updatePw(updatePw={})", dto);
 
-		boolean result = userService.UpdatePassword(dto);
-		if (result) {
+		int result = userService.UpdatePassword(dto);
+		if (result == 1) {
 			return ResponseEntity.ok("Y");
 		} else {
 			return ResponseEntity.ok("N");
@@ -155,8 +157,22 @@ public class UserController {
 	}
 
 	@GetMapping("/exchange")
-	public void exchange() {
+	public String exchange() {
 		log.debug("GET exchange()");
+		return "user/exchange";
+	}
+
+	@PostMapping("/exchange")
+	public int UpdatePoint(exchangeDto dto) {
+		log.debug("POST exchange()");
+
+		int result = userService.UpdatePoint(dto);
+		if (result == 1) {
+			return 1;
+		} else {
+			return 0;
+		}
+
 	}
 
 }

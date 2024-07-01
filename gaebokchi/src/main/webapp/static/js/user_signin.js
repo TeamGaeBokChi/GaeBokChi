@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // 폼 제출 이벤트 리스너 추가
     document.getElementById('findIdForm').addEventListener('submit', function(e) {
         e.preventDefault();
-
         const name = document.getElementById('findIdName').value;
         const email = document.getElementById('findIdEmail').value;
         const findIdUrl = './findId';
@@ -48,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then((response) => {
                 if (response.data === 'Y') {
                     document.getElementById('setNewPwForm').style.display = 'block';
+
                 } else {
                     document.getElementById('errorMessagePw').textContent = '해당 정보와 일치하는 계정이 없습니다.';
                     document.getElementById('findPwError').style.display = 'block';
@@ -61,85 +61,112 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 
-    document.getElementById('setNewPwForm').addEventListener('submit', function(e) {
-        const password = document.getElementById('newPassword');
-        const passwordConfirm = document.getElementById('newPasswordConfirm');
-        const passwordStrength = document.getElementById('passwordStrength');
-        const passwordMatch = document.getElementById('passwordMatch');
+    const setNewPwBtn = document.querySelector('button#setNewPwBtn');
 
-        function checkPasswordStrength(password) {
-            let strength = 0;
-            if (password.match(/[a-z]+/)) strength += 1;
-            if (password.match(/[A-Z]+/)) strength += 1;
-            if (password.match(/[0-9]+/)) strength += 1;
-            if (password.match(/[@$!%*#?&]+/)) strength += 1;
+    setNewPwBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var phone0 = document.querySelector('select[name="phone0"]').value;
+        var phone1 = document.getElementById('phone1').value;
+        var phone2 = document.getElementById('phone2').value;
+        var phone3 = document.getElementById('phone3').value;
 
-            return strength;
-        }
+        var phone = phone0 + '/' + phone1 + '-' + phone2 + '-' + phone3;
 
-        function getStrengthText(strength) {
-            switch (strength) {
-                case 0: return "매우 약함";
-                case 1: return "약함";
-                case 2: return "보통";
-                case 3: return "강함";
-                case 4: return "매우 강함";
-            }
-        }
-
-        function getStrengthColor(strength) {
-            switch (strength) {
-                case 0: return "red";
-                case 1: return "orange";
-                case 2: return "blue";
-                case 3: return "lightgreen";
-                case 4: return "green";
-            }
-        }
-
-        if (password && passwordConfirm && passwordStrength && passwordMatch) {
-            password.addEventListener('input', function() {
-                if (this.value.length > 0) {
-                    const strength = checkPasswordStrength(this.value);
-                    const strengthText = getStrengthText(strength);
-                    const strengthColor = getStrengthColor(strength);
-
-                    passwordStrength.textContent = `비밀번호 안정성: ${strengthText}`;
-                    passwordStrength.style.color = strengthColor;
-                } else {
-                    passwordStrength.textContent = '';
-                }
-            });
-
-            passwordConfirm.addEventListener('input', function() {
-                if (this.value === password.value) {
-                    passwordMatch.textContent = '비밀번호가 일치합니다.';
-                    passwordMatch.style.color = 'green';
-                } else {
-                    passwordMatch.textContent = '비밀번호가 일치하지 않습니다.';
-                    passwordMatch.style.color = 'red';
-                }
-            });
-        } else {
-            console.error('비밀번호 관련 요소를 찾을 수 없습니다.');
-        }
-        
+        const password = document.getElementById('userPassword').value;
+        const userid = document.getElementById('findPwId').value;
+        const email = document.getElementById('findPwEmail').value;
         const data = { userid, email, phone, password }
         const updatePwUrl = `./updatePw`;
-        axios.post(updatePwUrl,data)
+        axios.post(updatePwUrl, data)
             .then((response) => {
 
                 if (response.data === 'Y') {
-                    alert('비밀번호가 성공적으로 변경 되었습니다.')
+                    alert('비밀번호가 성공적으로 변경 되었습니다.');
+                    window.location.href = '/gaebokchi/user/signin';
                 } else {
-                    alert('비밀번호를 다시 확인하세요.')
+                    alert('비밀번호를 다시 확인하세요.');
                 }
 
             })
             .catch((error) => console.log(error));
 
     });
+    const password = document.getElementById('userPassword');
+    const passwordConfirm = document.getElementById('userPasswordConfirm');
+    const passwordStrength = document.getElementById('passwordStrength');
+    const passwordMatch = document.getElementById('passwordMatch');
 
+    function checkPasswordMatch() {
+        if (password.value === '' || passwordConfirm.value === '' || password.value !== passwordConfirm.value) {
+            setNewPwBtn.disabled = true; // 비밀번호가 비어있거나 비밀번호와 비밀번호 확인이 일치하지 않으면 버튼 비활성화
+        } else {
+            setNewPwBtn.disabled = false; // 비밀번호가 모두 입력되고 일치하면 버튼 활성화
+        }
+    }
+
+    // 페이지 로드 시 한 번 호출하여 초기 상태 설정
+    checkPasswordMatch();
+
+    // 비밀번호 입력과 확인 입력이 변경될 때마다 비교하여 버튼 상태 업데이트
+    password.addEventListener('input', checkPasswordMatch);
+    passwordConfirm.addEventListener('input', checkPasswordMatch);
+
+    function checkPasswordStrength(password) {
+        let strength = 0;
+        if (password.match(/[a-z]+/)) strength += 1;
+        if (password.match(/[A-Z]+/)) strength += 1;
+        if (password.match(/[0-9]+/)) strength += 1;
+        if (password.match(/[@$!%*#?&]+/)) strength += 1;
+
+        return strength;
+    }
+
+    function getStrengthText(strength) {
+        switch (strength) {
+            case 0: return "매우 약함";
+            case 1: return "약함";
+            case 2: return "보통";
+            case 3: return "강함";
+            case 4: return "매우 강함";
+        }
+    }
+
+    function getStrengthColor(strength) {
+        switch (strength) {
+            case 0: return "red";
+            case 1: return "orange";
+            case 2: return "blue";
+            case 3: return "lightgreen";
+            case 4: return "green";
+        }
+    }
+
+    if (password && passwordConfirm && passwordStrength && passwordMatch) {
+        password.addEventListener('input', function() {
+            if (this.value.length > 0) {
+                const strength = checkPasswordStrength(this.value);
+                const strengthText = getStrengthText(strength);
+                const strengthColor = getStrengthColor(strength);
+
+                passwordStrength.textContent = `비밀번호 안정성: ${strengthText}`;
+                passwordStrength.style.color = strengthColor;
+            } else {
+                passwordStrength.textContent = '';
+            }
+        });
+
+        passwordConfirm.addEventListener('input', function() {
+            if (this.value === password.value) {
+                passwordMatch.textContent = '비밀번호가 일치합니다.';
+                passwordMatch.style.color = 'green';
+            } else {
+                passwordMatch.textContent = '비밀번호가 일치하지 않습니다.';
+                passwordMatch.style.color = 'red';
+            }
+        });
+    } else {
+        console.error('비밀번호 관련 요소를 찾을 수 없습니다.');
+    }
 });
 
 
