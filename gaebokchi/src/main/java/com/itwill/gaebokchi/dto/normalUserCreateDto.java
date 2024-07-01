@@ -30,18 +30,19 @@ public class normalUserCreateDto {
 	private int female;
 	private String emailPrefix;
 	private String emailSeparator;
-	
+
 	public User toEntity() {
 		birth = Integer.parseInt(String.format("%04d%02d%02d", birthYear, birthMonth, birthDay));
 		phone = phone0 + "/" + phone1 + "-" + phone2 + "-" + phone3;
 		address = postCode + "/" + addressMain + "/" + addressDetail;
-		email = emailPrefix + emailSeparator;
+		email = emailPrefix + "@" + emailSeparator;
 		if (male == 1) {
 			gender = male;
 		} else {
 			gender = female;
 		}
-		
-		return User.builder().userid(userid).password(password).name(name).nickname(nickname).phone(phone).email(email).birth(birth).gender(gender).address(address).build();
+
+		return User.builder().userid(userid).password(password).name(name).nickname(nickname).phone(phone).email(email)
+				.birth(birth).gender(gender).address(address).build();
 	}
 }

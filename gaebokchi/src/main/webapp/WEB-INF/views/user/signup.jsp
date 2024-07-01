@@ -170,6 +170,7 @@ h4 {
                 <div class="flex">
                     <select class="form-select" name="phone0"
                         style="width: 30%;">
+                        <option value="">통신사 선택</option>
                         <option value="SKT">SKT</option>
                         <option value="KT">KT</option>
                         <option value="LG U+">LG U+</option>

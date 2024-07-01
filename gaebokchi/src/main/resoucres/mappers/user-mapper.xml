@@ -68,6 +68,11 @@
         email = #{email} and phone = #{phone}
     </select>
 
+    <update id="UpdatePassword">
+        update users set password = #{password} where
+        userid = #{userid} and email = #{email} and phone = #{phone}
+    </update>
+
 </mapper>
 
 

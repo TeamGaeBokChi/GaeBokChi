@@ -5,7 +5,7 @@ import com.itwill.gaebokchi.repository.User;
 import lombok.Data;
 
 @Data
-public class findPasswordDto {
+public class UpdatePasswordDto {
 	private String userid;
 	private String email;
 	private String phone;

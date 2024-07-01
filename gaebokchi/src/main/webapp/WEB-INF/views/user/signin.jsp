@@ -92,8 +92,7 @@ body {
                     </div>
                 </form>
                 <c:if test="${not empty errorMessage}">
-                    <div class="error-message text-center mt-3">
-                        ${errorMessage}</div>
+                    <div class="error-message text-center mt-3">${errorMessage}</div>
                 </c:if>
             </div>
             <div class="card-footer bg-white border-top-0 pb-3">
@@ -119,24 +118,35 @@ body {
                         </div>
                         <div class="modal-body">
                             <!-- 아이디 찾기 폼 내용 -->
-                            <form >
+                            <form id="findIdForm">
                                 <div class="mb-3">
                                     <label for="findIdName"
                                         class="form-label">이름</label> <input
                                         type="text" class="form-control"
-                                        id="findIdName" required>
+                                        id="findIdName" name="name"
+                                        required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="findIdEmail"
-                                        class="form-label">이메일</label> <input
-                                        type="email"
+                                        class="form-control-label">이메일</label>
+                                    <input type="email"
                                         class="form-control"
-                                        id="findIdEmail" required>
+                                        id="findIdEmail" name="email"
+                                        required>
                                 </div>
                                 <button type="submit"
-                                    class="btn btn-primary">아이디
-                                    찾기</button>
+                                    class="btn btn-primary"
+                                    id="findIdBtn">아이디 찾기</button>
                             </form>
+                            <div id="findIdError"
+                                class="alert alert-danger mt-3"
+                                style="display: none;">
+                                <p id="errorMessage"></p>
+                            </div>
+                            <div id="findIdResult" class="mt-3"
+                                style="display: none;">
+                                <p id="foundId"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -156,41 +166,107 @@ body {
                         </div>
                         <div class="modal-body">
                             <!-- 비밀번호 찾기 폼 내용 -->
-                            <form >
+                            <form id="findPwForm">
                                 <div class="mb-3">
                                     <label for="findPwId"
                                         class="form-label">아이디</label> <input
                                         type="text" class="form-control"
-                                        id="findPwId" required>
+                                        id="findPwId" name="userid"
+                                        required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="findPwEmail"
                                         class="form-label">이메일</label> <input
                                         type="email"
                                         class="form-control"
-                                        id="findPwEmail" required>
+                                        id="findPwEmail" name="email"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">휴대폰
+                                        번호</label>
+                                    <div class="flex">
+                                        <select class="form-select"
+                                            name="phone0"
+                                            style="width: 30%;">
+                                            <option value="SKT">SKT</option>
+                                            <option value="KT">KT</option>
+                                            <option value="LG U+">LG
+                                                U+</option>
+                                            <option value="SKT 알뜰폰">SKT
+                                                알뜰폰</option>
+                                            <option value="KT 알뜰폰">KT
+                                                알뜰폰</option>
+                                            <option value="LG U+ 알뜰폰">LG
+                                                U+ 알뜰폰</option>
+                                        </select> <input type="text"
+                                            class="form-control"
+                                            id="phone1" name="phone1"
+                                            style="width: 20%;" required>
+                                        <input type="text"
+                                            class="form-control"
+                                            id="phone2" name="phone2"
+                                            placeholder="앞자리" required
+                                            style="width: 25%;">
+                                        <input required type="text"
+                                            class="form-control"
+                                            id="phone3" name="phone3"
+                                            placeholder="뒷자리"
+                                            style="width: 25%;">
+                                    </div>
+                                    <button type="submit"
+                                        class="btn btn-primary"
+                                        id="findPwBtn" name="findPwBtn">비밀번호
+                                        찾기</button>
+                            </form>
+
+                            <!-- 새 비밀번호 설정 폼 (초기에는 숨김) -->
+                            <form id="setNewPwForm"
+                                style="display: none;" class="mt-3">
+                                <div class="mb-3">
+                                    <label for="newPassword"
+                                        class="form-label">새
+                                        비밀번호</label> <input type="password"
+                                        class="form-control"
+                                        id="userPassword"
+                                        placeholder="8~20자의 숫자, 특수문자, 영문자 조합"
+                                        name="password" required>
+                                    <div id="passwordStrength"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="findPwPhone"
-                                        class="form-label">휴대폰
-                                        번호</label> <input type="tel"
+                                    <label for="userPasswordConfirm"
+                                        class="form-label">새
+                                        비밀번호 확인</label> <input type="password"
                                         class="form-control"
-                                        id="findPwPhone" required>
+                                        id="userPasswordConfirm"
+                                        placeholder="비밀번호를 다시 입력하세요"
+                                        required>
+                                    <div id="passwordMatch"></div>
                                 </div>
                                 <button type="submit"
-                                    class="btn btn-primary">비밀번호
-                                    찾기</button>
+                                    class="btn btn-primary"
+                                    id="setNewPwBtn">새 비밀번호 설정</button>
                             </form>
+
+                            <!-- 오류 메시지 표시 영역 -->
+                            <div id="findPwError"
+                                class="alert alert-danger mt-3"
+                                style="display: none;">
+                                <p id="errorMessagePw"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                crossorigin="anonymous"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+            <c:url var="userSignInJS" value="/js/user_signin.js" />
+            <script src="${userSignInJS}"></script>
 </body>
 </html>

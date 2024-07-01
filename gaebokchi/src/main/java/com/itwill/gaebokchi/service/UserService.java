@@ -9,6 +9,7 @@ import com.itwill.gaebokchi.dto.findPasswordDto;
 import com.itwill.gaebokchi.dto.normalUserCreateDto;
 import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.repository.UserDao;
+import com.itwill.gaebokchi.dto.UpdatePasswordDto;
 import com.itwill.gaebokchi.dto.UserSignInDto;
 
 import lombok.RequiredArgsConstructor;
@@ -74,10 +75,26 @@ public class UserService {
 		return user;
 	}
 
-	public User findPassword(findPasswordDto dto) {
+	public boolean findPassword(findPasswordDto dto) {
 		log.debug("findPasswordDto({})", dto);
 		User user = userDao.FindPassword(dto.toEntity());
-		return user;
+		if (user == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public boolean UpdatePassword(UpdatePasswordDto dto) {
+		log.debug("UpdatePassword({})", dto);
+
+		User user = userDao.UpdatePassword(dto.toEntity());
+
+		if (user == null) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 }
