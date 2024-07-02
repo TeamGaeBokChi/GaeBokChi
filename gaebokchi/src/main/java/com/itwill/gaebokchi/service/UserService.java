@@ -10,8 +10,9 @@ import com.itwill.gaebokchi.dto.normalUserCreateDto;
 import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.repository.UserDao;
 import com.itwill.gaebokchi.dto.UpdatePasswordDto;
+import com.itwill.gaebokchi.dto.UpdatePointDto;
 import com.itwill.gaebokchi.dto.UserSignInDto;
-import com.itwill.gaebokchi.dto.exchangeDto;
+import com.itwill.gaebokchi.dto.exchangeInfoDto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -98,16 +99,27 @@ public class UserService {
 		}
 	}
 
-	public int UpdatePoint(exchangeDto dto) {
-		log.debug("UpdatePoint({})", dto);
+	public exchangeInfoDto exchangeInfo(String userId) {
 
-		int result = userDao.UpdatePoint(dto.toEntity());
+		User user = userDao.selectByUserid(userId);
 
+		exchangeInfoDto dto = exchangeInfoDto.fromEntity(user);
+
+		log.debug("exchangeDto :{}", dto);
+
+		return dto;
+	}
+
+	public int UpdatePoint(String userid, UpdatePointDto dto) {
+		log.debug("UpdatePointDto :{}", dto);
+		log.debug("sessionId :{}", userid);
+		int result = userDao.UpdatePoint(userid, dto.getPassword(), dto.getPoint());
 		if (result == 0) {
 			return 0;
 		} else {
 			return 1;
 		}
+
 	}
 
 }

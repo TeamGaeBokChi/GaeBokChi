@@ -73,8 +73,8 @@
         userid = #{userid} and email = #{email} and phone = #{phone}
     </update>
     <update id="UpdatePoint">
-        update users set point = point - #{amount} where
-        userid = #{userid}
+        update users set point = point - #{point} where
+        userid = #{userid} and password = #{password}
     </update>
 
 </mapper>

@@ -1,9 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 폼 제출 이벤트 리스너 추가
+
     document.getElementById('findIdForm').addEventListener('submit', function(e) {
         e.preventDefault();
+
+
         const name = document.getElementById('findIdName').value;
         const email = document.getElementById('findIdEmail').value;
+
         const findIdUrl = './findId';
         const data = { name, email };
 

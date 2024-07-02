@@ -25,8 +25,9 @@ import com.itwill.gaebokchi.dto.normalUserCreateDto;
 import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.service.UserService;
 import com.itwill.gaebokchi.dto.UpdatePasswordDto;
+import com.itwill.gaebokchi.dto.UpdatePointDto;
 import com.itwill.gaebokchi.dto.UserSignInDto;
-import com.itwill.gaebokchi.dto.exchangeDto;
+import com.itwill.gaebokchi.dto.exchangeInfoDto;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -156,23 +157,55 @@ public class UserController {
 
 	}
 
+	@GetMapping("/signout")
+	public String signOut(HttpSession session) {
+		log.debug("singOut()");
+
+		session.removeAttribute(SESSION_ATTR_USER);
+		session.invalidate();
+
+		return "redirect:/user/signin";
+	}
+
 	@GetMapping("/exchange")
-	public String exchange() {
-		log.debug("GET exchange()");
-		return "user/exchange";
+	public String exchange(Model model, HttpSession session) {
+		Object userIdObj = session.getAttribute(SESSION_ATTR_USER);
+
+		String userId = userIdObj.toString();
+		log.debug("User ID from session: {}", userId);
+
+		exchangeInfoDto dto = userService.exchangeInfo(userId);
+
+		model.addAttribute("userPoint", dto.getPoint());
+		model.addAttribute("userAccount", dto.getAccount());
+		return "/user/exchange";
 	}
 
 	@PostMapping("/exchange")
-	public int UpdatePoint(exchangeDto dto) {
-		log.debug("POST exchange()");
+	public ResponseEntity<String> updatePoint(@RequestBody UpdatePointDto dto, HttpSession session) {
+		Object userIdObj = session.getAttribute(SESSION_ATTR_USER);
 
-		int result = userService.UpdatePoint(dto);
-		if (result == 1) {
-			return 1;
-		} else {
-			return 0;
+		String userid = userIdObj.toString();
+		log.debug("sessionId: {}", userid);
+
+		exchangeInfoDto edto = userService.exchangeInfo(userid);
+		int currentPoints = edto.getPoint();
+
+		// 출금 요청 금액 검사
+		if (dto.getPoint() > currentPoints) {
+			return ResponseEntity.ok("P");
 		}
 
+		try {
+			int result = userService.UpdatePoint(userid, dto);
+			if (result == 1) {
+				return ResponseEntity.ok("Y");
+			} else {
+				return ResponseEntity.ok("N");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.ok("N");
+		}
 	}
 
 }

@@ -3,6 +3,8 @@ package com.itwill.gaebokchi.repository;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.itwill.gaebokchi.dto.UpdatePointDto;
+
 @Mapper
 public interface UserDao {
 
@@ -24,5 +26,6 @@ public interface UserDao {
 
 	int UpdatePassword(User user);
 
-	int UpdatePoint(User user);
+	int UpdatePoint(@Param("userid") String userid, @Param("password") String password, @Param ("point") int point);
+
 }
