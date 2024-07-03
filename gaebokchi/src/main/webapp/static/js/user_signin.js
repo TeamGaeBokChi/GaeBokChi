@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const email = document.getElementById('findIdEmail').value;
 
         const findIdUrl = './findId';
+        const name12 = document.getElementById('findIdEmail').value;
         const data = { name, email };
 
         axios.post(findIdUrl, data)
