@@ -5,6 +5,41 @@ document.addEventListener('DOMContentLoaded', () => {
     let useridChecked = false;
     let nicknameChecked = false;
 
+    const emailPrefix = document.getElementById('emailPrefix');
+    const emailSeparator = document.getElementById('emailSeparator');
+    const emailDiv = document.getElementById('emailDiv');
+
+    function checkEmail() {
+        const email = emailPrefix.value + '@' + emailSeparator.value;
+        const emailUri = `./checkEmail?email=${email}`;
+        // 이메일이 비어있으면 체크하지 않음
+        if (emailPrefix.value === '') {
+            emailDiv.textContent = '';
+            return;
+        }
+
+        axios.get(emailUri)
+            .then(function(response) {
+                if (response.data === 'N') {
+                    emailDiv.textContent = '이미 가입된 사용자입니다.';
+                    emailDiv.style.color = 'red';
+                    updateSubmitButton();
+                } else {
+                    emailDiv.textContent = '사용 가능한 이메일입니다.';
+                    emailDiv.style.color = 'green';
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+                emailDiv.textContent = '이메일 확인 중 오류가 발생했습니다.';
+                emailDiv.style.color = 'red';
+            });
+    }
+
+    emailPrefix.addEventListener('blur', checkEmail);
+    
+    emailSeparator.addEventListener('blur', checkEmail);
+
     // Submit 버튼 비활성화 함수
     function updateSubmitButton() {
         submitButton.disabled = !(useridChecked && nicknameChecked);
@@ -64,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordConfirm = document.getElementById('userPasswordConfirm');
     const passwordStrength = document.getElementById('passwordStrength');
     const passwordMatch = document.getElementById('passwordMatch');
-
+    let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
     function checkPasswordStrength(password) {
         let strength = 0;
         if (password.match(/[a-z]+/)) strength += 1;
@@ -104,6 +139,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 passwordStrength.textContent = `비밀번호 안정성: ${strengthText}`;
                 passwordStrength.style.color = strengthColor;
+                if (reg.test(this.value)) {
+                    passwordStrength.textContent += ' (유효한 비밀번호)';
+                } else {
+                    passwordStrength.textContent += ' (유효하지 않은 비밀번호)';
+                    updateSubmitButton();
+                }
+
+
             } else {
                 passwordStrength.textContent = '';
             }
@@ -121,8 +164,5 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error('비밀번호 관련 요소를 찾을 수 없습니다.');
     }
-
-
-
 
 });

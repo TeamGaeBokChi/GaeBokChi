@@ -52,6 +52,10 @@
     <select id="selectByNickname">
         select * from users where nickname = #{nickname}
     </select>
+    
+    <select id="selectByEmail">
+        select * from users where email = #{email}
+    </select>
 
     <select id="selectByUseridAndPassword" resultType="User">
         select *

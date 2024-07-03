@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const findPwModal = document.getElementById('findPwModal');
+    const findPwForm = document.getElementById('findPwForm');
+    const findPwError = document.getElementById('findPwError');
+    const errorMessagePw = document.getElementById('errorMessagePw');
+    const setNewPwForm = document.getElementById('setNewPwForm');
+
+    function resetModal() {
+        findPwForm.reset();
+        findPwError.style.display = 'none';
+        findPwError.textContent = '';
+        errorMessagePw.style.display = 'none';
+        errorMessagePw.textContent = '';
+    }
+
+    findPwModal.addEventListener('hidden.bs.modal', function() {
+        resetModal();
+        setNewPwForm.style.display = 'none';
+    });
 
     document.getElementById('findIdForm').addEventListener('submit', function(e) {
         e.preventDefault();
@@ -50,6 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then((response) => {
                 if (response.data === 'Y') {
                     document.getElementById('setNewPwForm').style.display = 'block';
+                    findPwError.style.display = 'none';
+                    document.getElementById('findPwBtn').disabled = true;
 
                 } else {
                     document.getElementById('errorMessagePw').textContent = '해당 정보와 일치하는 계정이 없습니다.';
@@ -98,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const passwordConfirm = document.getElementById('userPasswordConfirm');
     const passwordStrength = document.getElementById('passwordStrength');
     const passwordMatch = document.getElementById('passwordMatch');
-
+    let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
     function checkPasswordMatch() {
         if (password.value === '' || passwordConfirm.value === '' || password.value !== passwordConfirm.value) {
             setNewPwBtn.disabled = true; // 비밀번호가 비어있거나 비밀번호와 비밀번호 확인이 일치하지 않으면 버튼 비활성화
@@ -153,6 +173,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 passwordStrength.textContent = `비밀번호 안정성: ${strengthText}`;
                 passwordStrength.style.color = strengthColor;
+                if (reg.test(this.value)) {
+                    passwordStrength.textContent += ' (유효한 비밀번호)';
+                } else {
+                    passwordStrength.textContent += ' (유효하지 않은 비밀번호)';
+                    updateSubmitButton();
+                }
             } else {
                 passwordStrength.textContent = '';
             }

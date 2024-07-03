@@ -205,6 +205,7 @@ h4 {
                         <option value="kakao.com">kakao.com</option>
                     </select>
                 </div>
+                <div id="emailDiv"></div>
             </div>
 
             <div class="form-group">
@@ -462,6 +463,7 @@ h4 {
 																});
 													});
 								</script>
+
         <script
             src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 

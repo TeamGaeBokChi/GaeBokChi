@@ -12,6 +12,7 @@
     rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
     crossorigin="anonymous" />
+
 <style>
 body {
     background-color: #f8f9fa;
@@ -69,6 +70,17 @@ body {
     margin-top: 10px;
 }
 </style>
+<c:if test="${not empty signupSuccess}">
+    <script>
+					var userType = '${signupSuccess}';
+					if (userType === 'normal') {
+						alert("일반회원 가입을 축하드립니다!");
+					} else if (userType === 'expert') {
+						alert("전문가 회원 가입을 축하드립니다! 관리자 승인 후 회원가입이 완료됩니다.");
+					}
+				</script>
+
+</c:if>
 </head>
 <body>
     <div class="container login-container">
@@ -259,6 +271,33 @@ body {
                     </div>
                 </div>
             </div>
+            <!-- 모달이 닫힐 때 입력 필드 초기화 -->
+            <script>
+													// 아이디 찾기 모달이 숨겨질 때 실행할 함수
+													const findIdModal = document
+															.getElementById('findIdModal');
+													findIdModal
+															.addEventListener(
+																	'hidden.bs.modal',
+																	function(
+																			event) {
+																		// 폼 초기화
+																		document
+																				.getElementById(
+																						'findIdForm')
+																				.reset();
+																		// 에러 메시지 영역 초기화
+																		document
+																				.getElementById('findIdError').style.display = 'none';
+																		document
+																				.getElementById('errorMessage').textContent = '';
+																		// 결과 영역 초기화
+																		document
+																				.getElementById('findIdResult').style.display = 'none';
+																		document
+																				.getElementById('foundId').textContent = '';
+																	});
+												</script>
 
             <script
                 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

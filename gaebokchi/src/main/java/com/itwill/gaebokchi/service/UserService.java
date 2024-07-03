@@ -44,6 +44,17 @@ public class UserService {
 		}
 	}
 
+	public boolean checkEmail(String email) {
+		log.debug("checkEmail(email={})", email);
+		User user = userDao.selectByEmail(email);
+		if (user == null) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 	public void nomalUserCreate(normalUserCreateDto dto) {
 		log.debug("create({})", dto);
 		User user = dto.toEntity();

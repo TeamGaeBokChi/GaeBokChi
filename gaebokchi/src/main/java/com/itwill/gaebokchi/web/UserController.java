@@ -73,12 +73,14 @@ public class UserController {
 
 	@PostMapping("/signup")
 	public String signUp(@RequestParam(name = "userType") String userType, normalUserCreateDto normalDto,
-			expertUserCreateDto expertDto) throws Exception {
+			expertUserCreateDto expertDto, RedirectAttributes redirectAttributes) throws Exception {
 		log.debug("POST signUp()");
 		if (userType.equals("일반회원")) {
 			userService.nomalUserCreate(normalDto);
+			redirectAttributes.addFlashAttribute("signupSuccess", "normal");
 		} else if (userType.equals("전문가")) {
 			userService.expertUserCreate(expertDto);
+			redirectAttributes.addFlashAttribute("signupSuccess", "expert");
 		}
 
 		return "redirect:/user/signin";
@@ -103,6 +105,19 @@ public class UserController {
 		log.debug("checkId(userid={})", nickname);
 
 		boolean result = userService.checkNickname(nickname);
+		if (result) {
+			return ResponseEntity.ok("Y");
+		} else {
+			return ResponseEntity.ok("N");
+		}
+	}
+
+	@GetMapping("checkEmail")
+	@ResponseBody
+	public ResponseEntity<String> checkEmail(@RequestParam(name = "email") String email) {
+		log.debug("checkEmail(email={})", email);
+
+		boolean result = userService.checkEmail(email);
 		if (result) {
 			return ResponseEntity.ok("Y");
 		} else {
