@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.gaebokchi.repository.CommPostDao">
+
+	<select id="selectOrderByIdDesc"
+		resultType="com.itwill.gaebokchi.repository.CommPost">
+		SELECT * FROM posts WHERE category IN ('F001', 'F002',
+		'F003') ORDER BY created_time DESC
+	</select>
+
+	<select id="selectById"
+		resultType="com.itwill.gaebokchi.repository.CommPost">
+		SELECT * FROM posts WHERE id = #{id}
+	</select>
+
+	<insert id="insertPost">
+		INSERT INTO posts (title, content, author, club_type,
+		category, media)
+		VALUES (#{title}, #{content}, #{author}, #{clubtype},
+		#{category},
+		#{media , jdbcType=VARCHAR})
+	</insert>
+
+
+	<update id="updatePost">
+		UPDATE posts
+		SET title = #{title}, content =
+		#{content}, category = #{category}, media
+		= #{media ,
+		jdbcType=VARCHAR},
+		modified_time =
+		systimestamp
+		WHERE id = #{id}
+	</update>
+
+
+	<update id="increaseViews">
+		update posts
+		set views = views + 1
+		where id = #{id}
+	</update>
+
+	<update id="increaseLikes">
+		update posts
+		set likes = likes + 1
+		where id = #{id}
+	</update>
+
+
+	<delete id="deletePost">
+		delete from posts where id = #{id}
+	</delete>
+
+	<select id="selectTop5ByF001"
+		resultType="com.itwill.gaebokchi.repository.CommPost">
+		SELECT *
+		FROM (
+		SELECT
+		id,title,content,author,club_type,category,views,likes,created_time,modified_time,
+		ROW_NUMBER() OVER (ORDER BY likes DESC) AS rn
+		FROM posts WHERE category
+		= 'F001'
+		) sub
+		WHERE sub.rn &lt;= 5
+	</select>
+
+
+	<select id="selectTop5ByF002"
+		resultType="com.itwill.gaebokchi.repository.CommPost">
+		SELECT *
+		FROM (
+		SELECT
+		id,title,content,author,club_type,category,views,likes,created_time,modified_time,
+		ROW_NUMBER() OVER
+		(ORDER BY likes DESC) AS rn
+		FROM posts WHERE category
+		='F002'
+		) sub
+		WHERE sub.rn &lt;= 5
+	</select>
+
+
+	<select id="selectByCategoryAndKeyword"
+		parameterType="com.itwill.gaebokchi.dto.CommPostSearchDto"
+		resultType="com.itwill.gaebokchi.repository.CommPost">
+		<bind name="searchKeyword" value="'%' + keyword + '%'" />
+		select * from posts
+		<where>
+			<if test="category != null and category != ''">
+				category = #{category}
+			</if>
+			<if
+				test="searchCategory != null and searchCategory != '' and keyword != null and keyword != ''">
+				<choose>
+					<when test='searchCategory.equals("t")'>
+						and upper(title) like upper(#{searchKeyword})
+					</when>
+					<when test='searchCategory.equals("c")'>
+						and upper(content) like upper(#{searchKeyword})
+					</when>
+					<when test='searchCategory.equals("tc")'>
+						and (upper(title) like upper(#{searchKeyword}) or
+						upper(content) like
+						upper(#{searchKeyword}))
+					</when>
+					<when test='searchCategory.equals("n")'>
+						and upper(author) like upper(#{searchKeyword})
+					</when>
+				</choose>
+			</if>
+		</where>
+		order by id desc
+	</select>
+
+	<select id="findPreviousPost"
+		resultType="com.itwill.gaebokchi.repository.CommPost">
+		SELECT * FROM (
+		SELECT * FROM posts
+		WHERE created_time &lt;
+		#{createdTime} AND CATEGORY IN ('F001', 'F002', 'F003')
+		ORDER BY
+		created_time DESC
+		)
+		WHERE ROWNUM = 1
+	</select>
+
+	<!-- 다음 글 가져오기 -->
+	<select id="findNextPost"
+		resultType="com.itwill.gaebokchi.repository.CommPost">
+		SELECT * FROM (
+		SELECT * FROM posts
+		WHERE created_time &gt;
+		#{createdTime} AND CATEGORY IN ('F001', 'F002', 'F003')
+		ORDER BY
+		created_time ASC
+		)
+		WHERE ROWNUM = 1
+	</select>
+
+	<select id="selectPagedPosts"
+		resultType="com.itwill.gaebokchi.repository.CommPost">
+		SELECT * FROM (
+		SELECT
+		A.*,
+		ROWNUM AS rnum
+		FROM (
+		SELECT *
+		FROM posts
+		WHERE category IN('F001' , 'F002' , 'F003')
+		ORDER BY created_time DESC
+		) A
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rnum &gt; #{startRow}
+	</select>
+
+	<select id="selectTotalPostCount" resultType="int">
+		SELECT COUNT(*) FROM posts where category IN('F001' , 'F002' , 'F003')
+	</select>
+
+
+</mapper>
+

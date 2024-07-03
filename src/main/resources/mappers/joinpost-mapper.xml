@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.gaebokchi.repository.JoinPostDao">
+
+    <select id="selectOrderByIdDesc"
+            resultType="com.itwill.gaebokchi.repository.JoinPost">
+        select * from posts where category = 'P003' order by teeoff desc
+    </select>
+
+    <select id="selectById"
+            resultType="com.itwill.gaebokchi.repository.JoinPost">
+        select * from posts where id = #{id}
+    </select>
+
+    <insert id="insertPost">
+        insert into posts (title, club_type, category,
+        gcadress, teeoff, greenfee,
+        hole, author, content)
+        values (#{title},
+        #{clubtype}, #{category}, #{gcadress}, #{teeoff},
+        #{greenfee}, #{hole},
+        #{author}, #{content})
+    </insert>
+
+    <update id="updatePost">
+        update posts
+        set title = #{title}, content =
+        #{content}, teeoff = #{teeoff}, gcadress
+        = #{gcadress}, greenfee =
+        #{greenfee}, modified_time = systimestamp
+        where id = #{id}
+    </update>
+
+    <delete id="deletePost">
+        delete from posts where id = #{id}
+    </delete>
+
+    <select id="findPreviousPost"
+            resultType="com.itwill.gaebokchi.repository.JoinPost">
+        SELECT * FROM (
+        SELECT * FROM posts
+        WHERE teeoff &lt;
+        #{teeoff} and category = 'P003'
+        ORDER BY teeoff DESC
+        )
+        WHERE ROWNUM = 1
+    </select>
+
+    <!-- 다음 글 가져오기 -->
+    <select id="findNextPost"
+            resultType="com.itwill.gaebokchi.repository.JoinPost">
+        SELECT * FROM (
+        SELECT * FROM posts
+        WHERE teeoff &gt;
+        #{teeoff} and category = 'P003'
+        ORDER BY teeoff ASC
+        )
+        WHERE ROWNUM = 1
+    </select>
+    
+    	<select id="search"
+		parameterType="com.itwill.gaebokchi.dto.JoinPostSearchDto"
+		resultType="com.itwill.gaebokchi.repository.JoinPost">
+		<bind name="searchKeyword" value="'%' + keyword + '%'" />
+		select * from posts
+		<where>
+			<if
+				test="category != null and category != '' and searchKeyword != null and searchKeyword != ''">
+				<choose>
+					<when test='category.equals("t")'>
+						and upper(title) like upper(#{searchKeyword})
+					</when>
+					<when test='category.equals("g")'>
+						and upper(gcadress) like upper(#{searchKeyword})
+					</when>
+					<when test='category.equals("h")'>
+						and upper(hole) like upper(#{searchKeyword})
+					</when>
+				</choose>
+			</if>
+		</where>
+		order by teeoff desc
+	</select>
+
+   <select id="selectByTeeoffDate" parameterType="java.time.LocalDate" resultType="com.itwill.gaebokchi.repository.JoinPost">
+        SELECT * FROM posts
+        WHERE TRUNC(teeoff) = #{teeoffDate}
+        AND category = 'P003'
+        ORDER BY teeoff
+    </select>
+    
+    <select id="selectPagedPosts"
+		resultType="com.itwill.gaebokchi.repository.JoinPost">
+		SELECT * FROM (
+		SELECT
+		A.*,
+		ROWNUM AS rnum
+		FROM (
+		SELECT *
+		FROM posts
+		WHERE category IN('P003')
+		ORDER BY teeoff DESC
+		) A
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rnum &gt; #{startRow}
+	</select>
+
+	<select id="selectTotalPostCount" resultType="int">
+		SELECT COUNT(*) FROM posts where category = 'P003'
+	</select>
+
+</mapper>
