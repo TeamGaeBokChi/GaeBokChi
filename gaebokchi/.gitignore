@@ -32,3 +32,4 @@ in the root of a volume .DocumentRevisions-V100 .fseventsd .Spotlight-V100
 remote AFP share .AppleDB .AppleDesktop Network Trash Folder Temporary 
 Items .apdisk ### macOS Patch ### # iCloud generated files *.icloud
 # End of https://www.toptal.com/developers/gitignore/api/java,macos,eclipse
+/target/
