@@ -200,7 +200,7 @@ footer.text-center {
 			</thead>
 			<tbody>
 				<c:forEach var="p" items="${posts}">
-					<tr
+					<tr 
 						class="<c:if test='${p.teeoff lt today}'>gray-td</c:if><c:if test='${p.teeoff ge today}'>white-td</c:if>">
 						<td>${p.teeoff}</td>
 						<td><c:url var="joinPostDetailsPage"

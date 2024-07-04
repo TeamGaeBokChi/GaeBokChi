@@ -20,11 +20,6 @@ body {
 	min-height: 1200px;
 }
 
-.container {
-	max-width: 1000px;
-	margin-top: 30px;
-}
-
 .card {
 	border-radius: 15px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -132,7 +127,15 @@ body {
 						class="bi bi-hand-thumbs-up"></i> <span id="likesCount">${post.likes}</span></span>
 					<span><i class="bi bi-chat-dots"></i> 댓글 수</span>
 				</div>
-				<div class="post-content">${post.content}</div>
+				<div class="post-content">
+					<c:if test="${not empty post.media}">
+					<div>
+						<c:url var="mediaUrl" value="/community/media/${post.media}" />
+						<img alt="" src="${mediaUrl}">
+					</div>
+					</c:if>
+					<div>${post.content}</div>
+				</div>
 				<div class="position-relative mb-4">
 					<button id="btnLikes"
 						class="btn btn-like btn-lg btn-custom center-btn">
