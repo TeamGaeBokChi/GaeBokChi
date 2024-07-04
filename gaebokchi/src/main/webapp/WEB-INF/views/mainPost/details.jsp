@@ -171,7 +171,7 @@
 				location.href = `delete?id=${post.id}`;
 			}
 		})
-	}); 
+	});
 </script>
 
 </body>
