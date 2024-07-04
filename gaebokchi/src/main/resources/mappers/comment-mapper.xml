@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.gaebokchi.repository.MainCommentDao">
+	<insert id="insertComment">
+		INSERT INTO comments (post_id, content, author) VALUES (#{postId}, #{content}, #{author})
+	</insert>
+	
+	<select id="selectCommentsByPostId" resultType="MainComment">
+		SELECT * FROM comments WHERE post_id = #{postId} order by selection desc
+	</select>
+	
+	<update id="selectComment">
+		UPDATE comments SET selection = 1 WHERE id = #{id}
+	</update>
+	
+	<update id="updateUserPoint">
+		UPDATE users SET point = point + 300 WHERE userid = (select author from comments where id = #{id})
+	</update>
+
+	<delete id="deleteCommentById">
+		DELETE FROM comments WHERE id = #{id}
+	</delete>
+</mapper>
