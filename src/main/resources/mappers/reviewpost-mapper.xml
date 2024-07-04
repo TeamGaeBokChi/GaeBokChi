@@ -20,16 +20,16 @@
 
 	<insert id="insertPost">
 		insert into posts (title, content, author, club_type,
-		category)
+		category , media)
 		values (#{title}, #{content}, #{author}, #{clubtype},
-		#{category})
+		#{category} , #{media})
 	</insert>
 
 
 	<update id="updatePost">
 		update posts
 		set title = #{title}, content =
-		#{content} ,
+		#{content} , media = #{media}
 		modified_time = systimestamp
 		where
 		id = #{id}

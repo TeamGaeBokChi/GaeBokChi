@@ -1,15 +1,13 @@
 package com.itwill.gaebokchi.service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.ibatis.annotations.Param;
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itwill.gaebokchi.dto.CommPostListDto;
 import com.itwill.gaebokchi.dto.CommentCreateDto;
 import com.itwill.gaebokchi.dto.CommentItemDto;
 import com.itwill.gaebokchi.dto.CommentUpdateDto;
@@ -17,16 +15,12 @@ import com.itwill.gaebokchi.dto.ReviewPostCreateDto;
 import com.itwill.gaebokchi.dto.ReviewPostListDto;
 import com.itwill.gaebokchi.dto.ReviewPostSearchDto;
 import com.itwill.gaebokchi.dto.ReviewPostUpdateDto;
-import com.itwill.gaebokchi.dto.ReviewPostCreateDto;
-import com.itwill.gaebokchi.dto.ReviewPostListDto;
-import com.itwill.gaebokchi.dto.ReviewPostUpdateDto;
-import com.itwill.gaebokchi.repository.CommPost;
+
 import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
 import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.repository.ReviewPostDao;
-import com.itwill.gaebokchi.repository.ReviewPost;
-import com.itwill.gaebokchi.repository.ReviewPostDao;
+
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +32,9 @@ public class ReviewPostService {
 
 	private final ReviewPostDao reviewPostDao;
 	private final CommentDao commentDao;
+	private final MediaService mediaService;
+
+	private static final String upload_DIR = "C:/tool/media";
 
 	public List<ReviewPostListDto> read() {
 		log.debug("read()");
@@ -51,18 +48,15 @@ public class ReviewPostService {
 	}
 
 	@Transactional
-	public int create(ReviewPostCreateDto dto) {
-		log.debug("create({})", dto);
+	public int Create(ReviewPostCreateDto dto) {
+		log.debug("ReviewPostCreate(post={})", dto);
 
-		int result = 0;
-		try {
-			result = reviewPostDao.insertPost(dto.toEntity());
-			log.debug("insert 결과 = {}", result);
-		} catch (Exception e) {
-			log.error("Error during insertPost: ", e);
+		if (dto.getMedia() != null && !dto.getMedia().isEmpty()) {
+			String fileName = mediaService.storeFile(dto.getMedia());
+			dto.setMediaPath(fileName);
 		}
 
-		return result;
+		return reviewPostDao.insertPost(dto.toEntity());
 	}
 
 	public int delete(int id) {

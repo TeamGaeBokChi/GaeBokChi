@@ -147,9 +147,11 @@
 		ROWNUM AS rnum
 		FROM (
 		SELECT *
-		FROM posts
+		FROM
+		posts
 		WHERE category IN('F001' , 'F002' , 'F003')
-		ORDER BY created_time DESC
+		ORDER BY created_time
+		DESC
 		) A
 		WHERE ROWNUM &lt;= #{endRow}
 		)
@@ -157,7 +159,8 @@
 	</select>
 
 	<select id="selectTotalPostCount" resultType="int">
-		SELECT COUNT(*) FROM posts where category IN('F001' , 'F002' , 'F003')
+		SELECT COUNT(*)
+		FROM posts where category IN('F001' , 'F002' , 'F003')
 	</select>
 
 

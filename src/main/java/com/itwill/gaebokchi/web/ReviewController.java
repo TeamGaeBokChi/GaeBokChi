@@ -10,11 +10,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.gaebokchi.dto.ReviewPostListDto;
+import com.itwill.gaebokchi.dto.CommPostCreateDto;
 import com.itwill.gaebokchi.dto.CommentCreateDto;
 import com.itwill.gaebokchi.dto.CommentItemDto;
 import com.itwill.gaebokchi.dto.CommentUpdateDto;
@@ -35,6 +39,7 @@ import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
 import com.itwill.gaebokchi.repository.ReviewPost;
+import com.itwill.gaebokchi.service.MediaService;
 import com.itwill.gaebokchi.service.ReviewPostService;
 import com.itwill.gaebokchi.service.ReviewPostService;
 
@@ -49,6 +54,7 @@ public class ReviewController {
 
 	private final CommentDao commentDao;
 	private final ReviewPostService reviewPostService;
+	private final MediaService mediaService;
 
 	@GetMapping("/review_create")
 	public void createReviewPost() {
@@ -56,11 +62,16 @@ public class ReviewController {
 	}
 
 	@PostMapping("/review_create")
-	public String create(ReviewPostCreateDto dto) {
-		log.debug("POST: create(dto={})", dto);
+	public String create(@ModelAttribute ReviewPostCreateDto dto,
+			@RequestParam(value = "media", required = false) MultipartFile mediaFile) {
+		log.debug("POST: create(dto = {}, mediaFile = {})", dto, mediaFile);
 
-		reviewPostService.create(dto);
+		if (mediaFile != null && !mediaFile.isEmpty()) {
+			String fileName = mediaService.storeFile(mediaFile);
+			dto.setMediaPath(fileName);
+		}
 
+		reviewPostService.Create(dto);
 		return "redirect:/review/review_main";
 	}
 
@@ -76,7 +87,7 @@ public class ReviewController {
 				ReviewPostListDto.fromEntity(reviewPostService.read(65)));
 
 		int pageBlockSize = 10;
-		
+
 		List<Integer> pinnedPostIds = pinnedPosts.stream().map(ReviewPostListDto::getId).collect(Collectors.toList());
 
 		if (Category != null && keyword != null && !keyword.isEmpty()) {
@@ -209,6 +220,14 @@ public class ReviewController {
 			}
 		}
 		return null;
+	}
+
+	@GetMapping("/media/{fileName}")
+	@ResponseBody
+	public ResponseEntity<ByteArrayResource> getMedia(@PathVariable String fileName) {
+		ByteArrayResource resource = mediaService.loadFileAsResource(fileName);
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
+				.body(resource);
 	}
 
 	// DELETE 요청의 URL 수정

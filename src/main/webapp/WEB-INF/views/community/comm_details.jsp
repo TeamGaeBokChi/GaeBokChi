@@ -109,6 +109,19 @@ body {
 	padding: 10px 20px; /* 버튼 안쪽 여백 조정 */
 	margin-left: 10px; /* 좌측 여백 설정 */
 }
+
+.image-container {
+	max-width: 100%; /* 최대 너비 설정 */
+	max-height: 100%; /* 최대 높이 설정 */
+	overflow: hidden; /* 넘치는 부분 숨기기 */
+	margin-bottom: 20px; /* 하단 여백 설정 */
+}
+
+.img-fluid {
+	max-width: 100%; /* 이미지 너비 최대 100%로 설정 */
+	height: auto; /* 높이 자동으로 조정 */
+	display: block; /* 인라인 요소를 블록 요소로 변환 */
+}
 </style>
 </head>
 <body>
@@ -125,14 +138,14 @@ body {
 					<span><i class="bi bi-person"></i> ${post.author}</span> <span><i
 						class="bi bi-eye"></i> ${post.views}</span> <span><i
 						class="bi bi-hand-thumbs-up"></i> <span id="likesCount">${post.likes}</span></span>
-					<span><i class="bi bi-chat-dots"></i> 댓글 수</span>
+					<span><i class="bi bi-chat-dots"></i> ${commentcount}</span>
 				</div>
 				<div class="post-content">
 					<c:if test="${not empty post.media}">
-					<div>
-						<c:url var="mediaUrl" value="/community/media/${post.media}" />
-						<img alt="" src="${mediaUrl}">
-					</div>
+						<div class="image-container">
+							<c:url var="mediaUrl" value="/community/media/${post.media}" />
+							<img alt="" src="${mediaUrl}" class="img-fluid max-size">
+						</div>
 					</c:if>
 					<div>${post.content}</div>
 				</div>

@@ -19,6 +19,9 @@ public class ReviewPost {
     private String author;
     private String clubtype;
     private String category;
+	private String media;
+	private String mediaPath;
+	private String mediaResource; 
     private Integer views;
     private Integer likes;
     private LocalDateTime createdTime;

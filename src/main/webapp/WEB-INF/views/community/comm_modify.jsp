@@ -124,50 +124,65 @@ body {
 
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 	<script>
-        var quill = new Quill('#editor-container', {
-            theme : 'snow',
-            modules : {
-                toolbar : [
-                    [{ 'font': [] }],
-                    [{ 'size': ['small', false, 'large', 'huge'] }],
-                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    [{ 'color': [] }, { 'background': [] }],
-                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                    [{ 'align': [] }],
-                    ['link', 'image', 'video'],
-                    ['clean']
-                ]
-            }
-        });
+	 var quill = new Quill('#editor-container', {
+	        theme: 'snow',
+	        modules: {
+	            toolbar: [
+	                [{ 'font': [] }],
+	                [{ 'size': ['small', false, 'large', 'huge'] }],
+	                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+	                ['bold', 'italic', 'underline', 'strike'],
+	                [{ 'color': [] }, { 'background': [] }],
+	                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+	                [{ 'align': [] }],
+	                ['video'],
+	                ['clean']
+	            ]
+	        }
+	    });
 
-        document.querySelector('form').onsubmit = function() {
-            var content = document.querySelector('textarea[name=content]');
-            content.value = quill.root.innerHTML;
-        };
-
-        // 동영상 링크 크기 조정
-        quill.on('text-change', function(delta, oldDelta, source) {
-            if (source === 'user') {
-                let editor = document.querySelector('.ql-editor');
-                let videos = editor.querySelectorAll('iframe');
-                videos.forEach(video => {
-                    video.setAttribute('width', '100%');
-                    video.setAttribute('height', '400px');
-                });
-            }
-        });
-        
-     // 페이지 로드 시 Quill 에디터에 기존 콘텐츠 설정
-        var content = document.querySelector('textarea[name=content]').value;
+	    // Quill 에디터에서 입력된 내용의 길이 체크 및 제한
+	    quill.on('text-change', function (delta, oldDelta, source) {
+	        if (source === 'user') {
+	            var quillContent = quill.root.innerHTML;
+	            
+	            // 내용 길이 체크
+	            if (quillContent.length > 1000) {
+	                alert('내용은 1000자 이내로 입력해주세요!');
+	                // 에디터의 내용을 1000자 이내로 잘라냄
+	                quill.deleteText(1000, quill.getLength());
+	            }
+	        }
+	    });
+	    
+	    var content = document.querySelector('textarea[name=content]').value;
         quill.root.innerHTML = content;
 
-        document.querySelector('form#modifyForm').onsubmit = function() {
-            var content = document.querySelector('textarea[name=content]');
-            content.value = quill.root.innerHTML;
-            return true; // 폼 제출을 계속 진행
-        };
-        
+	    // 폼 제출 시 Quill 에디터의 내용을 숨은 textarea에 설정
+	    document.querySelector('form').onsubmit = function () {
+	        var content = document.querySelector('textarea[name=content]');
+	        // Quill 에디터의 현재 내용 가져오기
+	        var quillContent = quill.root.innerHTML;
+	        
+	        // 내용 길이 체크
+	        if (quillContent.length > 1000) {
+	            alert('내용은 1000자 이내로 입력해주세요!');
+	            return false; // 폼 제출을 막음
+	        }
+	        
+	        content.value = quillContent; // 폼 데이터에 할당
+	    };
+
+	    function previewImage(event) {
+	        var reader = new FileReader();
+	        reader.onload = function () {
+	            var output = document.getElementById('imagePreview');
+	            output.src = reader.result;
+	            output.style.display = 'block';
+	        };
+	        reader.readAsDataURL(event.target.files[0]);
+	    }
+
     </script>
 </body>
 </html>

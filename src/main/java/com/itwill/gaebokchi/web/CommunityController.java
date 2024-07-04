@@ -102,7 +102,7 @@ public class CommunityController {
 
 		List<CommPostListDto> pinnedPosts = List.of(CommPostListDto.fromEntity(commPostService.read(62)),
 				CommPostListDto.fromEntity(commPostService.read(65)));
-
+		
 		List<Integer> pinnedPostIds = pinnedPosts.stream().map(CommPostListDto::getId).collect(Collectors.toList());
 
 		posts = posts.stream().filter(post -> !pinnedPostIds.contains(post.getId())).collect(Collectors.toList());
@@ -144,11 +144,14 @@ public class CommunityController {
 
 		// 댓글 목록 조회
 		List<CommentItemDto> commentlist = commPostService.readAllComment(id);
-
+		int commentcount = commPostService.selectCommentCount(id);
+		
 		// 모델에 속성 추가
-		model.addAttribute("post", post);
-		model.addAttribute("previousPost", previousPost);
-		model.addAttribute("nextPost", nextPost);
+		model.addAttribute("commentlist" , commentlist); // 댓글 목록 추가하기
+		model.addAttribute("post", post);	// 불러온 게시물 속성 추가
+		model.addAttribute("previousPost", previousPost);	// 이전 글
+		model.addAttribute("nextPost", nextPost);	// 다음 글
+		model.addAttribute("commentcount" , commentcount);
 
 		return "community/comm_details";
 	}
