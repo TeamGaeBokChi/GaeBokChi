@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+
+<c:url var="menuList" value="/css/menu_style.css" />
+<link rel="stylesheet" href="${menuList}" />
+<div class="col-4">
+    <c:url var="myPage" value="/" />
+    <a class="menu_link" href="${myPage}">
+        <h3>마이 페이지</h3>
+    </a>
+
+    <div class="mt-4">
+        <h4 class="menu_header">내 정보</h4>
+        <ul class="sub_menu">
+            <li class="menu_item">
+                <c:url var="loginInfo" value="/user/privacy" />
+                <a class="menu_link" href="${loginInfo}">로그인 정보</a>
+            </li>
+            <li class="menu_item">
+                <c:url var="userGrade" value="/user/grade" />
+                <a class="menu_link" href="${userGrade}">판매자 등급</a>
+            </li>
+            <li class="menu_item">
+                <c:url var="myPosts" value="/user/postList" />
+                <a class="menu_link" href="${myPosts}">내 게시글 목록</a>
+            </li>
+            <li class="menu_item">
+                <c:url var="myComments" value="/user/commentList" />
+                <a class="menu_link" href="${myComments}">내가 쓴 댓글 목록</a>
+            </li>
+            <li class="menu_item d-none">
+                <button id="viewGainPoints" class="menu_link">포인트 변동 내역</button>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+/build/
+/target/
+# Ignore specific file
+gaebokchi/src/main/webapp/static/images/0000.gif

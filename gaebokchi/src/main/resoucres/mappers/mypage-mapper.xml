@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.gaebokchi.repository.UserMypageDao">
+
+    <select id="selectProByUserid" resultType="Pro">
+        select u.userid as userid,
+               u.password as password,
+               u.name as name,
+               u.nickname as nickname,
+               u.birth as birth,
+               u.gender as gender,
+               u.phone as phone,
+               u.email as email,
+               u.address as address,
+               u.license as license,
+               u.account as account,
+               u.point as point,
+               u.grade as grade,
+               u.image as image,
+               p.career as career
+               from users u, pros p 
+               where userid = #{userid} and license = p.id
+    </select>
+    
+    <select id="selectByUserid" resultType="UserMypage">
+        select * from users where userid = #{userid}
+    </select>
+
+    <!-- 닉네임 중복 체크! -->
+    <select id="selectByNickname" resultType="UserMypage">
+        select * from users where nickname = #{nickname}
+    </select>
+
+    <update id="update">
+        update users
+        set password = #{password}
+        , nickname = #{nickname}
+        , phone = #{phone}
+        , address = #{address}
+        , account = #{account}
+        where userid = #{userid}
+    </update>
+
+    <update id="updateNickname">
+        update users
+        set nickname = #{nickname}
+        where userid = #{userid}
+    </update>
+
+    <update id="updateProCareer">
+        update pros
+        set career = #{career}
+        where id = (select license from users where userid = #{userid})
+    </update>
+    
+    <update id="updateImage">
+        update users
+        set image = #{image}
+        where userid = #{userid}
+    </update>
+    
+    <select id="selectPointsByUserid" resultType="Point">
+        
+    </select>
+    
+</mapper>

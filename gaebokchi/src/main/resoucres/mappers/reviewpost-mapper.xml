@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.gaebokchi.repository.ReviewPostDao">
+
+	<select id="selectOrderByIdDesc"
+		resultType="com.itwill.gaebokchi.repository.ReviewPost">
+		SELECT *
+		FROM posts
+		WHERE category = 'P004'
+		ORDER BY
+		created_time DESC
+	</select>
+
+	<select id="selectById"
+		resultType="com.itwill.gaebokchi.repository.ReviewPost">
+		select * from posts where id = #{id}
+	</select>
+
+	<insert id="insertPost">
+		insert into posts (title, content, author, club_type,
+		category)
+		values (#{title}, #{content}, #{author}, #{clubtype},
+		#{category})
+	</insert>
+
+
+	<update id="updatePost">
+		update posts
+		set title = #{title}, content =
+		#{content} ,
+		modified_time = systimestamp
+		where
+		id = #{id}
+	</update>
+
+	<update id="increaseViews">
+		update posts
+		set views = views + 1
+		where id = #{id}
+	</update>
+
+	<update id="increaseLikes">
+		update posts
+		set likes = likes + 1
+		where id = #{id}
+	</update>
+
+
+	<delete id="deletePost">
+		delete from posts where id = #{id}
+	</delete>
+
+	<select id="search"
+		resultType="com.itwill.gaebokchi.repository.ReviewPost">
+		<bind name="searchKeyword" value="'%' + keyword + '%'" />
+		select * from posts
+		<where>
+			<if test="category == null">
+				(upper(title) like upper(#{searchKeyword}) or
+				upper(content) like
+				upper(#{searchKeyword}))
+			</if>
+			<if test="category != null">
+				<choose>
+					<when test='category.equals("t")'>
+						upper(title) like upper(#{searchKeyword})
+					</when>
+					<when test='category.equals("c")'>
+						upper(content) like upper(#{searchKeyword})
+					</when>
+					<when test='category.equals("tc")'>
+						(upper(title) like upper(#{searchKeyword}) or
+						upper(content) like
+						upper(#{searchKeyword}))
+					</when>
+					<when test='category.equals("n")'>
+						upper(author) like upper(#{searchKeyword})
+					</when>
+				</choose>
+			</if>
+		</where>
+		order by id desc
+	</select>
+
+	<select id="findPreviousPost"
+		resultType="com.itwill.gaebokchi.repository.ReviewPost">
+		SELECT * FROM (
+		SELECT * FROM posts
+		WHERE created_time &lt;
+		#{createdTime} and category = 'P004'
+		ORDER BY created_time DESC
+		)
+		WHERE
+		ROWNUM = 1
+	</select>
+
+	<!-- 다음 글 가져오기 -->
+	<select id="findNextPost"
+		resultType="com.itwill.gaebokchi.repository.ReviewPost">
+		SELECT * FROM (
+		SELECT * FROM posts
+		WHERE created_time &gt;
+		#{createdTime} and category = 'P004'
+		ORDER BY created_time ASC
+		)
+		WHERE
+		ROWNUM = 1
+	</select>
+	
+	<select id="selectPagedPosts"
+		resultType="com.itwill.gaebokchi.repository.ReviewPost">
+		SELECT * FROM (
+		SELECT
+		A.*,
+		ROWNUM AS rnum
+		FROM (
+		SELECT *
+		FROM posts
+		WHERE category IN('P004')
+		ORDER BY created_time DESC
+		) A
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rnum &gt; #{startRow}
+	</select>
+
+	<select id="selectTotalPostCount" resultType="int">
+		SELECT COUNT(*) FROM posts where category = 'P004'
+	</select>
+
+</mapper>
