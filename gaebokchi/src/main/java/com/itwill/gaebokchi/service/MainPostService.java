@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.gaebokchi.dto.MainPostCreateDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
+import com.itwill.gaebokchi.dto.MainPostSearchDto;
 import com.itwill.gaebokchi.dto.MainPostUpdateDto;
 import com.itwill.gaebokchi.repository.Clubs;
 import com.itwill.gaebokchi.repository.Post;
@@ -178,8 +179,10 @@ public class MainPostService {
 		return postDao.selectLikes(postId);
 	}
 	
-	public List<Post> searchRead(){
-		return postDao.search();
+	public List<MainPostListDto> searchRead(MainPostSearchDto dto){
+		log.debug("search({})", dto);
+		List<Post> list = postDao.search(dto);
+		return list.stream().map(MainPostListDto::fromEntity).toList();
 	}
 	
 

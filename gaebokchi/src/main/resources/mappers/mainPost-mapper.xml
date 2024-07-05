@@ -133,62 +133,83 @@
 	</select>
 
 
-	<!-- 검색 매퍼 -->
 	<select id="search" resultType="Post">
-		<!-- textSearchSelect 값을 사용하여 검색어 바인딩 -->
-		<bind name="searchKeyword" value="'%' + textSearchSelect + '%'" />
+    <!-- textSearchSelect 값을 사용하여 검색어 바인딩 -->
+    <bind name="searchKeyword" value="'%' + textSearchSelect + '%'" />
 
-		SELECT * FROM posts
-		<where>
-			<choose>
-				<when test='searchCategory.equals("searchClubs")'>
-					<choose>
-						<when test='clubSelect == "WG"'>
-							AND WHERE club_type = 'WG'
-						</when>
-						<when test='clubSelect == "PT"'>
-							AND WHERE club_type = 'PT'
-						</when>
-						<when test='clubSelect == "UT"'>
-							AND WHERE club_type = 'UT'
-						</when>
-						<when test='clubSelect == "WD"'>
-							AND WHERE club_type = 'WD'
-						</when>
-						<when test='clubSelect == "DR"'>
-							AND WHERE club_type = 'DR'
-						</when>
-						<when test='clubSelect == "IR"'>
-							AND WHERE club_type = 'IR'
-						</when>
-					</choose>
-				</when>
-				<when test='searchCategory.equals("searchSelection")'>
-					<choose>
-						<when test='selectSelection == "selectTrue"'>
-							AND id IN (SELECT post_id FROM comments WHERE selection = 1)
-						</when>
-						<when test='selectSelection == "selectFalse"'>
-							AND id NOT IN (SELECT post_id FROM comments WHERE selection = 1)
-						</when>
-					</choose>
-				</when>
-				<when test='searchCategory.equals("searchTitle")'>
-					AND upper(title) like upper(#{searchKeyword})
-				</when>
-				<when test='searchCategory.equals("searchContent")'>
-					AND upper(content) like upper(#{searchKeyword})
-				</when>
-				<when test='searchCategory.equals("searchTitleContent")'>
-					AND (upper(title) like upper(#{searchKeyword})
-					OR upper(content) like upper(#{searchKeyword}))
-				</when>
-				<when test='searchCategory.equals("searchAuthor")'>
-					AND upper(author) like upper(#{searchKeyword})
-				</when>
-			</choose>
-		</where>
-		ORDER BY ID DESC
-	</select>
+    SELECT
+    a.id,
+    b.name AS clubType,
+    a.title,
+    c.nickname AS author,
+    a.views,
+    a.likes,
+    a.created_time,
+    CASE
+        WHEN EXISTS (SELECT 1 FROM comments d WHERE d.post_id = a.id AND d.selection = 1)
+            THEN '해결 완료'
+            ELSE '해결 중'
+    END AS selection
+    FROM
+    posts a
+    JOIN
+    clubs b ON a.club_type = b.id
+    JOIN
+    users c ON a.author = c.userid
+    <where>
+        <choose>
+            <when test='searchCategory.equals("searchClubs")'>
+                <choose>
+                    <when test='clubSelect == "WG"'>
+                        AND a.club_type = 'WG'
+                    </when>
+                    <when test='clubSelect == "PT"'>
+                        AND a.club_type = 'PT'
+                    </when>
+                    <when test='clubSelect == "UT"'>
+                        AND a.club_type = 'UT'
+                    </when>
+                    <when test='clubSelect == "WD"'>
+                        AND a.club_type = 'WD'
+                    </when>
+                    <when test='clubSelect == "DR"'>
+                        AND a.club_type = 'DR'
+                    </when>
+                    <when test='clubSelect == "IR"'>
+                        AND a.club_type = 'IR'
+                    </when>
+                </choose>
+            </when>
+            <when test='searchCategory.equals("searchSelection")'>
+                <choose>
+                    <when test='selectSelection == "selectTrue"'>
+                        AND EXISTS (SELECT 1 FROM comments d WHERE d.post_id = a.id AND d.selection = 1)
+                    </when>
+                    <when test='selectSelection == "selectFalse"'>
+                        AND NOT EXISTS (SELECT 1 FROM comments d WHERE d.post_id = a.id AND d.selection = 1)
+                    </when>
+                </choose>
+            </when>
+            <when test='searchCategory.equals("searchTitle")'>
+                AND upper(a.title) like upper(#{searchKeyword})
+            </when>
+            <when test='searchCategory.equals("searchContent")'>
+                AND upper(a.content) like upper(#{searchKeyword})
+            </when>
+            <when test='searchCategory.equals("searchTitleContent")'>
+                AND (upper(a.title) like upper(#{searchKeyword}) OR upper(a.content) like upper(#{searchKeyword}))
+            </when>
+            <when test='searchCategory.equals("searchAuthor")'>
+                AND upper(c.nickname) like upper(#{searchKeyword})
+            </when>
+        </choose>
+    </where>
+    ORDER BY a.id DESC
+</select>
+
+<select id="totalPosts" resultSets="Post">
+	SELECT COUNT(*) FROM posts ORDER BY DESC
+</select>
+	
 
 </mapper>
