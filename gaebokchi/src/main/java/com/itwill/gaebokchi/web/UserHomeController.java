@@ -14,19 +14,19 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Controller
 public class UserHomeController {
-	private final UserMypageService userService;
-	private String userid = "banggu";
-
-	@GetMapping("/")
-	public String main(Model model) {
-		log.debug("main()");
-
-		UserMypage user = userService.read(userid);
-		model.addAttribute("user", user);
-
-//      Point point = userService.change(userid);
-//      model.addAttribute("point", point);
-
-		return "main";
-	}
+//	private final UserMypageService userService;
+//	private String userid = "banggu";
+//
+//	@GetMapping("/")
+//	public String main(Model model) {
+//		log.debug("main()");
+//
+//		UserMypage user = userService.read(userid);
+//		model.addAttribute("user", user);
+//
+////      Point point = userService.change(userid);
+////      model.addAttribute("point", point);
+//
+//		return "main";
+//	}
 }
