@@ -8,8 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function resetModal() {
         findPwForm.reset();
         findPwError.style.display = 'none';
-        findPwError.textContent = '';
-        errorMessagePw.style.display = 'none';
         errorMessagePw.textContent = '';
     }
 
