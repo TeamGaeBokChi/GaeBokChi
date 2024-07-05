@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +12,7 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous" />
+</head>
 <style>
 body {
 	background-color: #ffffff;
@@ -79,10 +79,6 @@ footer.text-center {
 	margin-top: 20px; /* 필요에 따라 상단 마진을 조정할 수 있습니다. */
 }
 </style>
-
-
-</style>
-</head>
 <body>
 	<div class="container-fluid">
 		<header>

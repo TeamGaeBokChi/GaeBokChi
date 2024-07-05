@@ -1,6 +1,5 @@
 package com.itwill.gaebokchi.repository;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 

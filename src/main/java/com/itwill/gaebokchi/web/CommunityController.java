@@ -61,6 +61,7 @@ public class CommunityController {
 	@PostMapping("/comm_create")
 	public String create(@ModelAttribute CommPostCreateDto dto,
 			@RequestParam(value = "media", required = false) MultipartFile mediaFile) {
+		
 		log.debug("POST: create(dto = {}, mediaFile = {})", dto, mediaFile);
 
 		if (mediaFile != null && !mediaFile.isEmpty()) {
