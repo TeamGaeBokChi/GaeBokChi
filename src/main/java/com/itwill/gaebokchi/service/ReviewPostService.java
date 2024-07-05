@@ -135,5 +135,9 @@ public class ReviewPostService {
 	public int getTotalPostCount() {
 		return reviewPostDao.selectTotalPostCount();
 	}
+	
+	public int selectCommentCount(Integer id) {
+		return commentDao.selectCommentCount(id);
+	}
 
 }

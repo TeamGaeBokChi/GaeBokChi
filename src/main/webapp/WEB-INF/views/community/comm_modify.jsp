@@ -75,12 +75,12 @@ body {
 					<h2></h2>
 				</div>
 				<div class="card-body">
-					<form id="modifyForm">
+					<form id="modifyForm" enctype="multipart/form-data">
 						<input type="hidden" name="id" value="${post.id}" />
 						<div class="row mb-3">
 							<div class="col-auto">
-								<select class="form-control" name="category" id="categorySelect">
-									<option value="">카테고리 선택</option>
+								<select class="form-control" name="category" id="categorySelect" required >
+									<option value="${post.category}">카테고리 선택</option>
 									<option value="F001">잡담</option>
 									<option value="F002">팁/노하우</option>
 									<option value="F003">라운드/후기공유</option>
@@ -96,12 +96,21 @@ body {
 							<textarea name="content" id="content" style="display: none;">${post.content}</textarea>
 						</div>
 						<div class="row mb-3">
-							<div class="col">
-								<c:if test="${not empty post.media}">
-									<c:url var="mediaUrl" value="/community/media/${post.media}" />
-									<input class="form-control" type="file" name="mediaFile"
-										id="mediaFile" accept="image/*" value="${post.media}" />
-								</c:if>
+							<div class="row mb-3">
+								<div class="col">
+									<span id="currentFileName">${post.media}</span>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col">
+									<input class="form-control" type="file" name="media"
+										id="mediaFile" accept="image/*" onchange="previewImage(event)" />
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col">
+									<img id="imagePreview" alt="사진 미리보기" />
+								</div>
 							</div>
 						</div>
 						<div class="d-grid gap-2">
@@ -124,65 +133,70 @@ body {
 
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 	<script>
-	 var quill = new Quill('#editor-container', {
-	        theme: 'snow',
-	        modules: {
-	            toolbar: [
-	                [{ 'font': [] }],
-	                [{ 'size': ['small', false, 'large', 'huge'] }],
-	                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-	                ['bold', 'italic', 'underline', 'strike'],
-	                [{ 'color': [] }, { 'background': [] }],
-	                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-	                [{ 'align': [] }],
-	                ['video'],
-	                ['clean']
-	            ]
-	        }
-	    });
+		var quill = new Quill('#editor-container', {
+			theme : 'snow',
+			modules : {
+				toolbar : [ [ {
+					'font' : []
+				} ], [ {
+					'size' : [ 'small', false, 'large', 'huge' ]
+				} ], [ {
+					'header' : [ 1, 2, 3, 4, 5, 6, false ]
+				} ], [ 'bold', 'italic', 'underline', 'strike' ], [ {
+					'color' : []
+				}, {
+					'background' : []
+				} ], [ {
+					'list' : 'ordered'
+				}, {
+					'list' : 'bullet'
+				} ], [ {
+					'align' : []
+				} ], [ 'video' ], [ 'clean' ] ]
+			}
+		});
 
-	    // Quill 에디터에서 입력된 내용의 길이 체크 및 제한
-	    quill.on('text-change', function (delta, oldDelta, source) {
-	        if (source === 'user') {
-	            var quillContent = quill.root.innerHTML;
-	            
-	            // 내용 길이 체크
-	            if (quillContent.length > 1000) {
-	                alert('내용은 1000자 이내로 입력해주세요!');
-	                // 에디터의 내용을 1000자 이내로 잘라냄
-	                quill.deleteText(1000, quill.getLength());
-	            }
-	        }
-	    });
-	    
-	    var content = document.querySelector('textarea[name=content]').value;
-        quill.root.innerHTML = content;
+		// Quill 에디터에서 입력된 내용의 길이 체크 및 제한
+		quill.on('text-change', function(delta, oldDelta, source) {
+			if (source === 'user') {
+				var quillContent = quill.root.innerHTML;
 
-	    // 폼 제출 시 Quill 에디터의 내용을 숨은 textarea에 설정
-	    document.querySelector('form').onsubmit = function () {
-	        var content = document.querySelector('textarea[name=content]');
-	        // Quill 에디터의 현재 내용 가져오기
-	        var quillContent = quill.root.innerHTML;
-	        
-	        // 내용 길이 체크
-	        if (quillContent.length > 1000) {
-	            alert('내용은 1000자 이내로 입력해주세요!');
-	            return false; // 폼 제출을 막음
-	        }
-	        
-	        content.value = quillContent; // 폼 데이터에 할당
-	    };
+				// 내용 길이 체크
+				if (quillContent.length > 1000) {
+					alert('내용은 1000자 이내로 입력해주세요!');
+					// 에디터의 내용을 1000자 이내로 잘라냄
+					quill.deleteText(1000, quill.getLength());
+				}
+			}
+		});
 
-	    function previewImage(event) {
-	        var reader = new FileReader();
-	        reader.onload = function () {
-	            var output = document.getElementById('imagePreview');
-	            output.src = reader.result;
-	            output.style.display = 'block';
-	        };
-	        reader.readAsDataURL(event.target.files[0]);
-	    }
+		var content = document.querySelector('textarea[name=content]').value;
+		quill.root.innerHTML = content;
 
-    </script>
+		// 폼 제출 시 Quill 에디터의 내용을 숨은 textarea에 설정
+		document.querySelector('form').onsubmit = function() {
+			var content = document.querySelector('textarea[name=content]');
+			// Quill 에디터의 현재 내용 가져오기
+			var quillContent = quill.root.innerHTML;
+
+			// 내용 길이 체크
+			if (quillContent.length > 1000) {
+				alert('내용은 1000자 이내로 입력해주세요!');
+				return false; // 폼 제출을 막음
+			}
+
+			content.value = quillContent; // 폼 데이터에 할당
+		};
+
+		function previewImage(event) {
+			var reader = new FileReader();
+			reader.onload = function() {
+				var output = document.getElementById('imagePreview');
+				output.src = reader.result;
+				output.style.display = 'block';
+			};
+			reader.readAsDataURL(event.target.files[0]);
+		}
+	</script>
 </body>
 </html>

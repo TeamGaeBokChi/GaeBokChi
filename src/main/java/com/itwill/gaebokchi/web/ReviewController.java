@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,11 +140,14 @@ public class ReviewController {
 		// 댓글 목록 조회
 		List<CommentItemDto> commentlist = reviewPostService.readAllComment(id);
 
+		int commentcount = reviewPostService.selectCommentCount(id);
+
 		// 모델에 속성 추가
 		model.addAttribute("post", post);
 		model.addAttribute("previousPost", previousPost);
 		model.addAttribute("nextPost", nextPost);
 		model.addAttribute("commentlist", commentlist);
+		model.addAttribute("commentcount", commentcount);
 
 		return "review/review_details";
 	}
@@ -197,15 +201,28 @@ public class ReviewController {
 
 	@PostMapping("/comments")
 	@ResponseBody
-	public Comment addComment(@RequestBody CommentCreateDto commentCreateDto) {
+	public CommentItemDto addComment(@RequestBody CommentCreateDto commentCreateDto) {
 		Comment comment = new Comment();
 		comment.setPostId(commentCreateDto.getPostId());
 		comment.setAuthor(commentCreateDto.getAuthor());
 		comment.setContent(commentCreateDto.getContent());
-		int result = commentDao.insertComment(comment);
+		comment.setModifiedTime(LocalDateTime.now()); // 현재 시간 설정
 
-		// 저장된 댓글 객체를 반환하여 클라이언트에게 전달
-		return comment;
+		// 댓글을 데이터베이스에 저장
+		commentDao.insertComment(comment);
+
+		// 저장된 댓글의 ID가 설정되었는지 확인
+		System.out.println("Saved Comment ID: " + comment.getId());
+
+		// 저장된 댓글을 다시 읽어옴 (매퍼 사용)
+		Comment savedComment = commentDao.selectCommentById(comment.getId());
+
+		// 반환할 DTO 객체 생성
+		CommentItemDto commentItemDto = CommentItemDto.fromEntity(savedComment);
+		System.out.println("Returning CommentItemDto: " + commentItemDto);
+
+		// CommentItemDto로 변환하여 반환
+		return commentItemDto;
 	}
 
 	@PutMapping("/comments")

@@ -110,7 +110,7 @@ public class CommunityController {
 		model.addAttribute("pinnedPosts", pinnedPosts);
 		model.addAttribute("top5ByF001", commPostService.getTop5ByF001());
 		model.addAttribute("top5ByF002", commPostService.getTop5ByF002());
-
+		
 		// 카테고리 매핑 정보 추가하기
 		Map<String, String> categoryMap = new HashMap<>();
 		categoryMap.put("F001", "잡담");
@@ -147,10 +147,11 @@ public class CommunityController {
 		int commentcount = commPostService.selectCommentCount(id);
 		
 		// 모델에 속성 추가
-		model.addAttribute("commentlist" , commentlist); // 댓글 목록 추가하기
+		
 		model.addAttribute("post", post);	// 불러온 게시물 속성 추가
 		model.addAttribute("previousPost", previousPost);	// 이전 글
 		model.addAttribute("nextPost", nextPost);	// 다음 글
+		model.addAttribute("commentlist" , commentlist); // 댓글 목록 추가하기
 		model.addAttribute("commentcount" , commentcount);
 
 		return "community/comm_details";

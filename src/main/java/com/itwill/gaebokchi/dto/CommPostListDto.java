@@ -1,5 +1,7 @@
 package com.itwill.gaebokchi.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.itwill.gaebokchi.repository.CommPost;
 import org.springframework.core.io.ByteArrayResource;
 import lombok.AllArgsConstructor;
@@ -22,11 +24,13 @@ public class CommPostListDto {
 	private String title;
 	private String author;
 	private String category;
-	private LocalDateTime modifiedTime;
 	private Integer views;
 	private Integer likes;
 	private ByteArrayResource mediaResource; // 이미지 데이터 필드 추가
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd HH:mm:ss")
+	private LocalDateTime modifiedTime;
+	
 	public static CommPostListDto fromEntity(CommPost commpost) {
 		ByteArrayResource mediaResource = null;
 		if (commpost.getMediaPath() != null) {

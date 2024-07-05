@@ -107,6 +107,7 @@ body {
 							<div id="editor-container"></div>
 							<textarea name="content" id="content" style="display: none;"></textarea>
 						</div>
+						<div>
 						<div class="row mb-3">
 							<div class="col">
 								<input class="form-control" type="file" name="media"

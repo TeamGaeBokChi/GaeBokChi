@@ -137,8 +137,8 @@ body {
 				<div class="post-info d-flex justify-content-between mb-3">
 					<span><i class="bi bi-person"></i> ${post.author}</span> <span><i
 						class="bi bi-eye"></i> ${post.views}</span> <span><i
-						class="bi bi-hand-thumbs-up"></i> <span id="likesCount">${post.likes}</span></span>
-					<span><i class="bi bi-chat-dots"></i> 댓글 수</span>
+						class="bi bi-hand-thumbs-up"></i> <span id="likesCount"> ${post.likes}</span></span>
+					<span><i class="bi bi-chat-dots"></i> ${commentcount}</span>
 				</div>
 				<div class="post-content">
 					<c:if test="${not empty post.media}">

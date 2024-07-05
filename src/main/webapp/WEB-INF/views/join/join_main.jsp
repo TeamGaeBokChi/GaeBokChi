@@ -102,15 +102,28 @@ body {
 	color: white;
 }
 
-.gray-td {
-	background-color: #d3d3d3;
-	color: #a0a0a0;
+/* 테이블 행 전체에 대한 스타일 */
+.table tr.gray-td {
+	background-color: #d3d3d3 !important;
+	color: #a0a0a0 !important;
 	pointer-events: none;
 }
 
-.white-td {
-	background-color: #ffffff;
-	color: #000000;
+.table tr.white-td {
+	background-color: #ffffff !important;
+	color: #000000 !important;
+}
+
+/* 테이블 셀 각각에 대한 스타일 */
+.table tr.gray-td td {
+	background-color: #d3d3d3 !important;
+	color: #000000 !important;
+	pointer-events: none;
+}
+
+.table tr.white-td td {
+	background-color: #ffffff !important;
+	color: #000000 !important;
 }
 
 .custom-link {
@@ -200,8 +213,7 @@ footer.text-center {
 			</thead>
 			<tbody>
 				<c:forEach var="p" items="${posts}">
-					<tr 
-						class="<c:if test='${p.teeoff lt today}'>gray-td</c:if><c:if test='${p.teeoff ge today}'>white-td</c:if>">
+					<tr class="${p.teeoff lt today ? 'gray-td' : 'white-td'}">
 						<td>${p.teeoff}</td>
 						<td><c:url var="joinPostDetailsPage"
 								value="/join/join_details">

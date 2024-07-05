@@ -107,7 +107,7 @@ body {
 			<div>
 				<c:url var="listUrl" value="join_main" />
 				<a href="${listUrl}" class="btn btn-link"><i class="bi bi-list"></i>
-					목록으로</a>
+					메인으로</a>
 			</div>
 			<div class="card-body">
 				<c:url var="joinCreatePage" value="/join/join_create" />

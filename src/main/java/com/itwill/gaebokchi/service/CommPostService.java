@@ -71,6 +71,12 @@ public class CommPostService {
 
 	public int update(CommPostUpdateDto dto) {
 		log.debug("update({})", dto);
+
+		if (dto.getMedia() != null && !dto.getMedia().isEmpty()) {
+			String fileName = mediaService.storeFile(dto.getMedia());
+			dto.setMediaPath(fileName);
+		}
+
 		return commPostDao.updatePost(dto.toEntity());
 	}
 
@@ -154,10 +160,10 @@ public class CommPostService {
 	public int getTotalPostCount() {
 		return commPostDao.selectTotalPostCount();
 	}
-	
+
 	public int selectCommentCount(Integer id) {
-		int result =  commentDao.selectCommentCount(id);
+		int result = commentDao.selectCommentCount(id);
 		return result;
 	}
-	
+
 }
