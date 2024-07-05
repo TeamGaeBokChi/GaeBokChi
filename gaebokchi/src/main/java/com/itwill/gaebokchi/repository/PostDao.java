@@ -12,4 +12,5 @@ public interface PostDao {
 	int updatePostView(Integer id);
 	int updatePostLikes(Integer id);
 	int selectLikes(Integer id);
+	List<Post> search();
 }

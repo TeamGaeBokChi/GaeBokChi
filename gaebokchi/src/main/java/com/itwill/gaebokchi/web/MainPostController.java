@@ -64,7 +64,9 @@ public class MainPostController {
 		log.debug("list()");
 
 		List<MainPostListDto> list = mainPostService.readAll();
+		List<Clubs> clubs = mainPostService.clubTypes();
 		model.addAttribute("post", list);
+		model.addAttribute("clubs", clubs);
 
 	}
 
@@ -127,6 +129,13 @@ public class MainPostController {
 	public int getLikes(@PathVariable("id") int id) {
 		log.debug("getLikes(id={})", id);
 		return mainPostService.getPostLikes(id);
+	}
+
+	@GetMapping("/search")
+	public String showPosts(Model model) {
+		List<Post> posts = mainPostService.searchRead();
+		model.addAttribute("posts", posts);
+		return "/mainPost/list"; // 해당하는 뷰의 경로와 이름
 	}
 
 }

@@ -177,5 +177,11 @@ public class MainPostService {
 	public int getPostLikes(Integer postId) {
 		return postDao.selectLikes(postId);
 	}
+	
+	public List<Post> searchRead(){
+		return postDao.search();
+	}
+	
+
 
 }
