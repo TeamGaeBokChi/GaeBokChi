@@ -95,7 +95,7 @@ public class UserProfileController {
 		return ResponseEntity.ok(user);
 	}
 	
-	@PutMapping("/file/image")
+	@PostMapping("/file/image")
 	public ResponseEntity<String> saveUserImage(@RequestParam("file") MultipartFile file) {
 		// 파일이 비어있는지 체크
 		if (file.isEmpty()) {
@@ -132,7 +132,7 @@ public class UserProfileController {
 	
 	@GetMapping("/file/image")
 	@ResponseBody
-	public Resource test(@RequestParam(name = "file") String file) throws IOException {
+	public Resource viewUserImage(@RequestParam("file") String file) throws IOException {
 		log.info("file={}", file);
 
 		Path path = Paths.get(file);

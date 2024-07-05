@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	    const uri = `./file/image`;
 
-	    axios.put(uri, formData, {
+	    axios.post(uri, formData, {
 	        headers: {
 	            'Content-Type': 'multipart/form-data'
 	        },

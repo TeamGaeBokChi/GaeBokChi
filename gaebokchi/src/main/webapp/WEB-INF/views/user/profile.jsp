@@ -11,6 +11,8 @@
     <c:url var="profileUpdate" value="/css/profile_style.css" />
     <link rel="stylesheet" href="${profileUpdate}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -21,36 +23,29 @@
                 <h3 class="bold_title">프로필 관리</h3>
                 <div class="bottom_line">
                     <div class="info_card">
-                    <c:choose>
-                        <c:when test="${not empty user.image}">
-                            <div class="user_image m-4">
-                                <c:url var="imagePath" value="/file/image">
-                                    <c:param name="file" value="${user.image}" />
-                                </c:url>
-
-                                <img id="dynamicImage" alt="Dynamic Image" />
-
-                                <script>
-                                    // 이미지 태그의 src 속성을 JavaScript를 통해 동적으로 설정
-                                    var imagePath = "${imagePath}";  // JSP 변수를 JavaScript 변수로 가져오기
+                        <div class="user_image m-4">
+                            <input type="hidden" id="imagePath" value="${user.image}" />
+                            <img id="image" src="" alt="Uploaded Image">
+                                
+                            <script>
+                            	// 이미지 URL을 가져와서 이미지 태그에 설정
+                                var file = document.getElementById('imagePath').value;
+                                var imageUrl = './file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
                                     
-                                    // JavaScript 변수에서 JSTL 태그를 사용하지 않고 직접 URL을 설정
-                                    var imageUrl = imagePath;  // 동적으로 받아올 URL
-                                    
-                                    // 이미지 태그의 src 속성을 설정
-                                    document.getElementById('dynamicImage').src = imageUrl;
-                                </script>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="user_image m-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                                </svg>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
+                                fetch(imageUrl)
+                                	.then(response => response.blob())
+                                    .then(blob => {
+                                        var reader = new FileReader();
+                                        reader.onload = function() {
+                                            document.getElementById('image').src = reader.result;
+                                        };
+                                        reader.readAsDataURL(blob);
+                                    })
+                                    .catch(error => {
+                                        console.error('Error fetching image:', error);
+                                 	});
+    						</script>
+                        </div>
                         <div>
                             <h5 id="titleNickname" class="user_data m-0">${user.nickname}</h5>
                             <input type="hidden" id="userid" value="${user.userid}" />
@@ -104,8 +99,6 @@
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
     <c:url var="profile_management_js" value="/js/profile_management.js" />
     <script src="${profile_management_js}"></script>
