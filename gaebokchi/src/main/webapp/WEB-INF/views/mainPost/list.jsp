@@ -97,8 +97,7 @@
 						<c:forEach var="p" items="${post}">
 							<tr>
 								<td>${p.id}</td>
-								<td>
-									<c:choose>
+								<td><c:choose>
 										<c:when test="${p.clubType == 'WG'}">우드볼</c:when>
 										<c:when test="${p.clubType == 'PT'}">플라스틱</c:when>
 										<c:when test="${p.clubType == 'UT'}">유니티</c:when>
@@ -118,10 +117,31 @@
 								<td>${p.selection}</td>
 							</tr>
 						</c:forEach>
-
 					</tbody>
 					</thead>
 				</table>
+				<!-- 페이징 UI 추가 -->
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center">
+						<li class="page-item ${postPage.hasPrevious() ? '' : 'disabled'}">
+							<a class="page-link"
+							href="?page=${postPage.currentPage - 1}&size=${postPage.size}"
+							tabindex="-1">이전</a>
+						</li>
+
+						<c:forEach begin="1" end="${postPage.totalPages}" var="i">
+							<li
+								class="page-item ${i == postPage.currentPage ? 'active' : ''}">
+								<a class="page-link" href="?page=${i}&size=${postPage.size}">${i}</a>
+							</li>
+						</c:forEach>
+
+						<li class="page-item ${postPage.hasNext() ? '' : 'disabled'}">
+							<a class="page-link"
+							href="?page=${postPage.currentPage + 1}&size=${postPage.size}">다음</a>
+						</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 	</main>

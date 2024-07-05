@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.gaebokchi.dto.MainPostCreateDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
+import com.itwill.gaebokchi.dto.MainPostPageDto;
 import com.itwill.gaebokchi.dto.MainPostSearchDto;
 import com.itwill.gaebokchi.dto.MainPostUpdateDto;
 import com.itwill.gaebokchi.repository.Clubs;
@@ -61,14 +62,19 @@ public class MainPostController {
 	}
 
 	@GetMapping("/list")
-	public void mainPostList(Model model) {
-		log.debug("list()");
+	public String mainPostList(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size,
+			Model model) {
+		log.debug("list(page={}, size={})", page, size);
 
-		List<MainPostListDto> list = mainPostService.readAll();
+		MainPostPageDto pageDto = mainPostService.getPostPage(page, size);
 		List<Clubs> clubs = mainPostService.clubTypes();
-		model.addAttribute("post", list);
+		List<MainPostListDto> post = mainPostService.readAll();
+		
+		model.addAttribute("post", post);
+		model.addAttribute("postPage", pageDto);
 		model.addAttribute("clubs", clubs);
 
+		return "mainPost/list";
 	}
 
 	@GetMapping("/details")
@@ -137,13 +143,12 @@ public class MainPostController {
 		log.debug("searchPosts()");
 		List<MainPostListDto> posts = mainPostService.searchRead(dto);
 		model.addAttribute("post", posts);
-		
+
 		List<Clubs> clubs = mainPostService.clubTypes();
 		model.addAttribute("clubs", clubs);
 		return "/mainPost/list"; // 해당하는 뷰의 경로와 이름
 	}
-	
-	
+
 //	// mainPost/paging?page=number 를 구현 
 //	// 첫 페이지 요청은 1페이지로 본값 설정 
 //	@GetMapping("/paging")

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.gaebokchi.dto.MainPostCreateDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
+import com.itwill.gaebokchi.dto.MainPostPageDto;
 import com.itwill.gaebokchi.dto.MainPostSearchDto;
 import com.itwill.gaebokchi.dto.MainPostUpdateDto;
 import com.itwill.gaebokchi.repository.Clubs;
@@ -178,13 +179,27 @@ public class MainPostService {
 	public int getPostLikes(Integer postId) {
 		return postDao.selectLikes(postId);
 	}
-	
-	public List<MainPostListDto> searchRead(MainPostSearchDto dto){
+
+	public List<MainPostListDto> searchRead(MainPostSearchDto dto) {
 		log.debug("search({})", dto);
 		List<Post> list = postDao.search(dto);
 		return list.stream().map(MainPostListDto::fromEntity).toList();
 	}
-	
 
+	// 페이징에 사용 될 메서드
+	public MainPostPageDto getPostPage(int page, int size) {
+		int offset = (page - 1) * size;
+		List<Post> posts = postDao.getPostList(size, offset);
+		int totalPosts = postDao.getTotalCount();
+
+		MainPostPageDto pageDto = new MainPostPageDto();
+		pageDto.setContent(posts.stream().map(MainPostListDto::fromEntity).toList());
+		pageDto.setCurrentPage(page);
+		pageDto.setSize(size);
+		pageDto.setTotalElements(totalPosts);
+		pageDto.setTotalPages((int) Math.ceil((double) totalPosts / size));
+
+		return pageDto;
+	}
 
 }

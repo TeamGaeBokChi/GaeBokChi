@@ -16,4 +16,6 @@ public interface PostDao {
 	int updatePostLikes(Integer id);
 	int selectLikes(Integer id);
 	List<Post> search(MainPostSearchDto dto);
+    List<Post> getPostList(int limit, int offset);
+    int getTotalCount();
 }
