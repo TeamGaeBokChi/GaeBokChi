@@ -198,7 +198,7 @@ public class CommunityController {
 
 	@GetMapping("/media/{fileName}")
 	@ResponseBody
-	public ResponseEntity<ByteArrayResource> getMedia(@PathVariable String fileName) {
+	public ResponseEntity<ByteArrayResource> getMedia(@PathVariable("fileName") String fileName) {
 		ByteArrayResource resource = mediaService.loadFileAsResource(fileName);
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
 				.body(resource);
