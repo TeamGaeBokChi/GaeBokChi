@@ -3,8 +3,6 @@ package com.itwill.gaebokchi.repository;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.itwill.gaebokchi.dto.UpdatePointDto;
-
 @Mapper
 public interface UserDao {
 

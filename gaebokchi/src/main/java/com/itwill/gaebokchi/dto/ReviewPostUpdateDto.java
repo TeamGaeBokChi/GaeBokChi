@@ -1,6 +1,5 @@
 package com.itwill.gaebokchi.dto;
 
-import com.itwill.gaebokchi.repository.CommPost;
 import com.itwill.gaebokchi.repository.ReviewPost;
 
 import lombok.Data;

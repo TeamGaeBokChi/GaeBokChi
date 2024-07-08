@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.gaebokchi.repository.Post;
-import com.itwill.gaebokchi.web.MainPostController;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

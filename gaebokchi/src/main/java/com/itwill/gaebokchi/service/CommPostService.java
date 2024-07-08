@@ -1,19 +1,11 @@
 package com.itwill.gaebokchi.service;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.gaebokchi.dto.CommPostCreateDto;
 import com.itwill.gaebokchi.dto.CommPostListDto;
@@ -38,8 +30,6 @@ public class CommPostService {
 	private final CommPostDao commPostDao;
 	private final CommentDao commentDao;
 	private final MediaService mediaService;
-
-	private static final String upload_DIR = "C:/tool/media";
 
 	public List<CommPostListDto> read() {
 		log.debug("read()");

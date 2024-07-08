@@ -34,8 +34,6 @@ public class ReviewPostService {
 	private final CommentDao commentDao;
 	private final MediaService mediaService;
 
-	private static final String upload_DIR = "C:/tool/media";
-
 	public List<ReviewPostListDto> read() {
 		log.debug("read()");
 		List<ReviewPost> list = reviewPostDao.selectOrderByIdDesc();

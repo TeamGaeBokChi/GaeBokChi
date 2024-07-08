@@ -1,6 +1,5 @@
 package com.itwill.gaebokchi.service;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,19 +8,10 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itwill.gaebokchi.dto.CommPostListDto;
-import com.itwill.gaebokchi.dto.CommPostSearchDto;
 import com.itwill.gaebokchi.dto.JoinPostCreateDto;
 import com.itwill.gaebokchi.dto.JoinPostListDto;
 import com.itwill.gaebokchi.dto.JoinPostSearchDto;
 import com.itwill.gaebokchi.dto.JoinPostUpdateDto;
-import com.itwill.gaebokchi.dto.ReviewPostListDto;
-import com.itwill.gaebokchi.dto.JoinPostCreateDto;
-import com.itwill.gaebokchi.dto.JoinPostListDto;
-import com.itwill.gaebokchi.dto.JoinPostUpdateDto;
-import com.itwill.gaebokchi.repository.CommPost;
-import com.itwill.gaebokchi.repository.JoinPost;
-import com.itwill.gaebokchi.repository.JoinPostDao;
 import com.itwill.gaebokchi.repository.JoinPost;
 import com.itwill.gaebokchi.repository.JoinPostDao;
 

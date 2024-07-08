@@ -35,10 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -219,7 +215,7 @@ public class CommunityController {
 		comment.setPostId(commentCreateDto.getPostId());
 		comment.setAuthor(commentCreateDto.getAuthor());
 		comment.setContent(commentCreateDto.getContent());
-		int result = commentDao.insertComment(comment);
+		// int result = commentDao.insertComment(comment);
 
 		// 저장된 댓글 객체를 반환하여 클라이언트에게 전달
 		return comment;

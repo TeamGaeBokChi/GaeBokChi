@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.itwill.gaebokchi.dto.ReviewPostSearchDto;
-import com.itwill.gaebokchi.repository.ReviewPost;
 
 public interface ReviewPostDao {
 	List<ReviewPost> selectOrderByIdDesc();

@@ -1,9 +1,5 @@
 package com.itwill.gaebokchi.web;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -28,20 +24,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.gaebokchi.dto.ReviewPostListDto;
-import com.itwill.gaebokchi.dto.CommPostCreateDto;
 import com.itwill.gaebokchi.dto.CommentCreateDto;
 import com.itwill.gaebokchi.dto.CommentItemDto;
 import com.itwill.gaebokchi.dto.CommentUpdateDto;
 import com.itwill.gaebokchi.dto.ReviewPostCreateDto;
-import com.itwill.gaebokchi.dto.ReviewPostListDto;
 import com.itwill.gaebokchi.dto.ReviewPostSearchDto;
 import com.itwill.gaebokchi.dto.ReviewPostUpdateDto;
 import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
-import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.service.MediaService;
-import com.itwill.gaebokchi.service.ReviewPostService;
 import com.itwill.gaebokchi.service.ReviewPostService;
 
 import lombok.RequiredArgsConstructor;

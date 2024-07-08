@@ -2,9 +2,7 @@ package com.itwill.gaebokchi.dto;
 
 import java.time.LocalDateTime;
 
-import com.itwill.gaebokchi.repository.CommPost;
 import com.itwill.gaebokchi.repository.JoinPost;
-import com.itwill.gaebokchi.repository.ReviewPost;
 
 import lombok.Data;
 

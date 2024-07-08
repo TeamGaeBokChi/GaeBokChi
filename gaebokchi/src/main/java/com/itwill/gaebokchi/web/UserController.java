@@ -2,8 +2,6 @@ package com.itwill.gaebokchi.web;
 
 import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;

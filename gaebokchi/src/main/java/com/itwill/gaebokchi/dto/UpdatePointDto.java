@@ -1,8 +1,5 @@
 package com.itwill.gaebokchi.dto;
 
-import com.itwill.gaebokchi.repository.User;
-
-import lombok.Builder;
 import lombok.Data;
 
 @Data
