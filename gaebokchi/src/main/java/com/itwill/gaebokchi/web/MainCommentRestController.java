@@ -39,7 +39,7 @@ public class MainCommentRestController {
 
 	// postId에 작성된 모든 Comments를 읽는 메서
 	@GetMapping("/all/{postId}")
-	public ResponseEntity<List<MainCommentItemDto>> getMainCommentByPostId(@PathVariable int postId) {
+	public ResponseEntity<List<MainCommentItemDto>> getMainCommentByPostId(@PathVariable (name = "postId") int postId) {
 		log.debug("getMainCommentByPostId(postId={})", postId);
 
 		List<MainCommentItemDto> list = mainCommentService.commentReadByPostId(postId);
@@ -47,7 +47,7 @@ public class MainCommentRestController {
 	}
 
 	@PutMapping("/selectComment/{id}")
-	public ResponseEntity<Void> selectionComment(@PathVariable("id") int id) {
+	public ResponseEntity<Void> selectionComment(@PathVariable(name = "id") int id) {
 		log.debug("updateLikes(id={})", id);
 		try {
 			mainCommentService.selectCommentAndGiftPoint(id);
@@ -60,7 +60,7 @@ public class MainCommentRestController {
 	
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Integer> deleteComment(@PathVariable("id") int id){
+	public ResponseEntity<Integer> deleteComment(@PathVariable(name = "id") int id){
 		log.debug("deleteComment()", id);
 		int result = mainCommentService.deleteComment(id);
 		return ResponseEntity.ok(result);

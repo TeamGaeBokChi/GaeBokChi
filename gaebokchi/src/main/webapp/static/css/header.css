@@ -40,6 +40,7 @@
 /* 기본 폰트 설정 */
 body {
     font-family: Arial, sans-serif;
+    padding-top: 100px;
 }
 
 #헤더 {

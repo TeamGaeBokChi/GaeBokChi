@@ -28,6 +28,10 @@
     </style>
 </head>
 <body>
+    <header>
+        <%@ include file="../fragments/header.jspf"%>
+    </header>
+
     <div class="container">
         <div class="row">
             <%@ include file="../fragments/menu.jspf" %>
@@ -42,24 +46,24 @@
                             <div class="mt-2">
                                 <label class="form-label" for="userid">Login Id</label>
                                 <input class="form-control"
-                                    type="text" name="userid"
+                                    type="text" id="userid" name="userid"
                                     value="${user.userid}" readonly />
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="password">Password</label>
-                                <input class="form-control" type="password"
+                                <input class="form-control" id="password" type="password"
                                     name="password" value="${user.password}"
                                     readonly />
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="name">Name</label>
-                                <input class="form-control" type="text"
+                                <input class="form-control" id="name" type="text"
                                     name="name" value="${user.name}"
                                     readonly />
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="nickname">Nickname</label>
-                                <input class="form-control" type="text"
+                                <input class="form-control" id="nickname" type="text"
                                     name="nickname" value="${user.nickname}"
                                     readonly />
                             </div>
@@ -67,7 +71,7 @@
                                 <label class="form-label" for="birth">Birth</label>
                                 <c:set var="number" value="${user.birth}" />
                                 <input class="form-control" type="text"
-                                    name="birth"
+                                    id="birth" name="birth"
                                     value="${fn:substring(number,0,4)}.${fn:substring(number,4,6)}.${fn:substring(number,6,8)}"
                                     readonly />
                             </div>
@@ -76,12 +80,12 @@
                                 <c:choose>
                                     <c:when test="${user.gender eq 0}">
                                         <input class="form-control"
-                                            type="text" name="gender"
+                                            type="text" id="gender" name="gender"
                                             value="male" readonly />
                                     </c:when>
                                     <c:otherwise>
                                         <input class="form-control"
-                                            type="text" name="gender"
+                                            type="text" id="gender" name="gender"
                                             value="female" readonly />
                                     </c:otherwise>
                                 </c:choose>
@@ -108,15 +112,16 @@
                                         <option value="LG_U+_ALTTEUL"
                                             <c:if test="${fn:split(user.phone, '/')[0] == 'LG_U+_ALTTEUL'}">selected</c:if>>LG
                                             U+ 알뜰폰</option>
-                                    </select> <input class="form-control" type="text"
-                                        name="number"
+                                    </select>
+                                    <input class="form-control" type="text"
+                                         id="phone" name="number"
                                         value="${fn:split(user.phone, '/')[1]}"
                                         readonly />
                                 </div>
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="email">Email</label>
-                                <input class="form-control" type="email"
+                                <input class="form-control" id="email" type="email"
                                     name="email" value="${user.email}"
                                     readonly />
                             </div>
@@ -125,11 +130,13 @@
                                 <input class="form-control" type="text"
                                     name="postcode" size="5"
                                     value="${fn:split(user.address, '/')[0]}"
-                                    style="width: 15%" readonly /> <input
+                                    style="width: 15%" readonly />
+                                <input
                                     class="form-control mt-1" type="text"
-                                    name="mainAddress" size="50"
+                                    id="address" name="mainAddress" size="50"
                                     value="${fn:split(user.address, '/')[1]}"
-                                    readonly /> <input
+                                    readonly />
+                                <input
                                     class="form-control mt-1" type="text"
                                     name="detailAddress"
                                     value="${fn:split(user.address, '/')[2]}"
@@ -138,7 +145,7 @@
                             <div class="mt-2">
                                 <label class="form-label" for="license">License</label>
                                 <input class="form-control" type="text"
-                                    name="license" value="${user.license}"
+                                    id="license" name="license" value="${user.license}"
                                     readonly />
                             </div>
                             <div class="mt-2">
@@ -187,20 +194,20 @@
                                             <c:if test="${fn:split(user.account, '/')[0] == 'SC'}">selected</c:if>>SC제일</option>
                                     </select>
                                     <input class="form-control" type="text"
-                                        name="bank_account"
+                                        id="account" name="bank_account"
                                         value="${fn:split(user.account, '/')[1]}"
                                         readonly />
                                 </div>
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="point">Point</label>
-                                <input class="form-control" name="point"
+                                <input class="form-control" id="point" name="point"
                                     type="text" value="${user.point}"
                                     readonly />
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="grade">Grade</label>
-                                <input class="form-control" name="grade"
+                                <input class="form-control" id="grade" name="grade"
                                     type="text" value="${user.grade}"
                                     readonly />
                             </div>

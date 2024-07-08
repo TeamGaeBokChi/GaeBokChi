@@ -54,14 +54,21 @@ public class MainPostController {
 	}
 
 	@GetMapping("/list")
-	public void mainPostList(Model model) {
+	public void mainPostList(@RequestParam(name = "userid", required = false) String userid, Model model) {
 		log.debug("list()");
 
-		List<MainPostListDto> list = mainPostService.readAll();
-		List<Clubs> clubs = mainPostService.clubTypes();
-		model.addAttribute("post", list);
-		model.addAttribute("clubs", clubs);
-
+		if (userid == null) {
+			List<MainPostListDto> list = mainPostService.readAll();
+			List<Clubs> clubs = mainPostService.clubTypes();
+			model.addAttribute("post", list);
+			model.addAttribute("clubs", clubs);
+		} else {
+			List<MainPostListDto> list = mainPostService.readAllByUserid(userid);
+			List<Clubs> clubs = mainPostService.clubTypes();
+			model.addAttribute("userid", userid);
+			model.addAttribute("post", list);
+			model.addAttribute("clubs", clubs);
+		}
 	}
 
 	@GetMapping("/details")
@@ -84,7 +91,7 @@ public class MainPostController {
 
 	@GetMapping("/video")
 	@ResponseBody
-	public Resource test(@RequestParam String file) throws IOException {
+	public Resource test(@RequestParam (name = "file") String file) throws IOException {
 		log.info("file={}", file);
 
 		Path path = Paths.get(file);
@@ -112,7 +119,7 @@ public class MainPostController {
 	}
 
 	@PutMapping("/likes/{id}")
-	public ResponseEntity<Void> updateLikes(@PathVariable("id") int id) {
+	public ResponseEntity<Void> updateLikes(@PathVariable(name = "id") Integer id) {
 		log.debug("updateLikes(id={})", id);
 		mainPostService.updatePostLikes(id);
 		return ResponseEntity.ok().build();
@@ -120,7 +127,7 @@ public class MainPostController {
 
 	@GetMapping("/likes/{id}")
 	@ResponseBody
-	public int getLikes(@PathVariable("id") int id) {
+	public int getLikes(@PathVariable(name = "id") Integer id) {
 		log.debug("getLikes(id={})", id);
 		return mainPostService.getPostLikes(id);
 	}

@@ -6,6 +6,7 @@ public interface PostDao {
 	int insertMainPost(Post post);
 	List<Clubs> selectByClubType();
 	List<Post> selectReadAll();
+	List<Post> selectReadAllByUserid(String userid);
 	Post selectByPostId(Integer id);
 	int updateMainPost(Post post);
 	int selectDeleteById(Integer id);

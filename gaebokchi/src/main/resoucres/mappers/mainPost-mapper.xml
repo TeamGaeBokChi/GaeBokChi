@@ -97,19 +97,61 @@
 		BY
 		a.id
 	</select>
+    
+    <select id="selectReadAllByUserid" resultType="Post">
+        SELECT
+            a.id,
+            b.name as
+            clubType,
+            a.title,
+            c.nickname as author,
+            a.views,
+            a.likes,
+            a.created_time,
+            CASE WHEN EXISTS (
+                SELECT 1
+                FROM comments d
+                WHERE d.post_id = a.id
+                    AND d.selection = 1
+                )
+            THEN '해결 완료'
+            ELSE '해결 중'
+            END AS selection
+        FROM
+        posts a
+        JOIN clubs b ON a.club_type = b.id
+        JOIN users c ON a.author = c.userid
+        WHERE c.userid = #{userid}        
+        ORDER BY a.id
+    </select>
+    
 	<select id="selectByPostId" resultType="Post">
-		SELECT a.id, b.name as
-		clubType, a.title, c.nickname as author, a.views, a.likes,
-		a.created_time, a.content, a.media, a.height, a.career, a.handy,
-		a.ironDistance, a.driverDistance,
-		CASE WHEN EXISTS (SELECT 1 FROM
-		comments d WHERE
-		d.post_id = a.id AND
-		d.selection = 1) THEN '채택됨' ELSE
-		'미채택'
-		END AS
-		selection FROM posts a
-		JOIN clubs b ON a.club_type = b.id
+		SELECT
+            a.id,
+            b.name as clubType,
+            a.title,
+            c.nickname as author,
+            a.views,
+            a.likes,
+            a.created_time,
+            a.content,
+            a.media,
+            a.height,
+            a.career,
+            a.handy,
+		    a.ironDistance,
+            a.driverDistance,
+		CASE WHEN EXISTS (
+            SELECT 1
+            FROM comments d
+            WHERE d.post_id = a.id
+                AND d.selection = 1
+        )
+        THEN '채택됨'
+        ELSE '미채택'
+		END AS selection
+        FROM posts a JOIN clubs b
+        ON a.club_type = b.id
 		JOIN users c
 		ON a.author = c.userid
 		WHERE a.id = #{id}
@@ -127,7 +169,7 @@
 		UPDATE posts SET likes = likes + 1 where ID = #{id}
 	</update>
 
-	<select id="selectLikes" parameterType="int" resultType="int">
+	<select id="selectLikes" resultType="int">
 		SELECT
 		likes FROM posts WHERE id = #{id}
 	</select>
@@ -137,7 +179,7 @@
 	<select id="search" resultType="Post">
 		<!-- textSearchSelect 값을 사용하여 검색어 바인딩 -->
 		<bind name="searchKeyword" value="'%' + textSearchSelect + '%'" />
-
+        
 		SELECT * FROM posts
 		<where>
 			<choose>

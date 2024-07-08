@@ -8,13 +8,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Golfro</title>
-    <c:url var="profileUpdate" value="/css/profile_style.css" />
+    <c:url var="profileUpdate" value="../css/profile_style.css" />
     <link rel="stylesheet" href="${profileUpdate}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
+    <header>
+        <%@ include file="../fragments/header.jspf"%>
+    </header>
+
     <div class="container">
         <div class="row">
             <%@ include file="../fragments/menu.jspf" %>
@@ -51,8 +55,7 @@
                             <input type="hidden" id="userid" value="${user.userid}" />
                             <div>
                                 <label id="fileUpload" class="mt-2 btn active" for="input_file">이미지 변경</label>
-                                <c:url var="userRemoveImage" value="/user/remove" />
-                                <a class="mt-2 btn active" href="${userRemoveImage}">삭제</a>
+                                <a class="mt-2 btn active" id="fileRemove">삭제</a>
                                 <input type="file" id="input_file" name="input_file" class="d-none" />
                             </div>
                         </div>
