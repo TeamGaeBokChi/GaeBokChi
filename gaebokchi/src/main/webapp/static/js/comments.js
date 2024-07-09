@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		} else {
 			for (let mainComment of data) {
 				let highlightClass = mainComment.selection === 1 ? 'highlight' : '';
-				/* 최종 수정ㅅ간 추가해야함 */
+				/* 최종 수정시간 추가해야함 */
 
 
 				/* 댓글 본문 작성 */
@@ -130,11 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="comment ${highlightClass}" id="comments">
 				<div class="comment-thumb">
 				<input type="hidden" id="imagePath" value="${mainComment.image}" />
-				<img id="image" src="" alt="Uploaded Image">
+				<img id="image" src="" />
 				
 				<script>
 					var file = document.getElementById('imagePath').value;
-					var imageUrl = './file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
+					var imageUrl = '../../../user/file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
+					console.log(imageUrl);
 					                                    
 					fetch(imageUrl)
 						.then(response => response.blob())
