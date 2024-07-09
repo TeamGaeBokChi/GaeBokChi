@@ -11,6 +11,7 @@
 		SELECT a.* , b.nickname, b.image
         FROM comments a, users b
         WHERE a.author = b.userid and a.post_id = #{postId}
+        ORDER BY a.SELECTION DESC
 	</select>
 	
 	<update id="selectComment">
