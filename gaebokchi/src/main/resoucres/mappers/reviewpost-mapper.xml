@@ -19,10 +19,8 @@
 	</select>
 
 	<insert id="insertPost">
-		insert into posts (title, content, author, club_type,
-		category)
-		values (#{title}, #{content}, #{author}, #{clubtype},
-		#{category})
+		insert into posts (title, content, author, category)
+		values (#{title}, #{content}, #{author}, #{category})
 	</insert>
 
 
@@ -108,7 +106,7 @@
 		WHERE
 		ROWNUM = 1
 	</select>
-	
+
 	<select id="selectPagedPosts"
 		resultType="com.itwill.gaebokchi.repository.ReviewPost">
 		SELECT * FROM (
@@ -117,17 +115,20 @@
 		ROWNUM AS rnum
 		FROM (
 		SELECT *
-		FROM posts
+		FROM
+		posts
 		WHERE category IN('P004')
 		ORDER BY created_time DESC
 		) A
-		WHERE ROWNUM &lt;= #{endRow}
+		WHERE
+		ROWNUM &lt;= #{endRow}
 		)
 		WHERE rnum &gt; #{startRow}
 	</select>
 
 	<select id="selectTotalPostCount" resultType="int">
-		SELECT COUNT(*) FROM posts where category = 'P004'
+		SELECT COUNT(*)
+		FROM posts where category = 'P004'
 	</select>
 
 </mapper>

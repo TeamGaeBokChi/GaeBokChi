@@ -65,9 +65,9 @@ function navigateTo(section) {
 	if (section === 'MAIN') {
 		window.location.href = '/gaebokchi/mainPost/list';
 	} else if (section === 'MEET') {
-		window.location.href = '/gaebokchi/meet';
+		window.location.href = '/gaebokchi/join/join_main';
 	} else if (section === 'REVIEW') {
-		window.location.href = '/gaebokchi/review';
+		window.location.href = '/gaebokchi/review/review_main';
 	} else if (section === 'COMMUNITY') {
 		window.location.href = '/gaebokchi/community/comm_main';
 	}

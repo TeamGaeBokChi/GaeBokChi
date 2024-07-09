@@ -1,38 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const postIdElement = document.querySelector('input#postId');
-	const btnDelete = document.querySelector('button#btnDelete');
+	const btnDeletePost = document.querySelector('button#btnDelete');
 	const btnLikes = document.querySelector('button#btnLikes');
 	const likesCountElement = document.querySelector('#likesCount');
 	const btnRegisterComment = document.querySelector('button#btnRegisterComment');
 	const commentList = document.querySelector('.comment-list');
+	let likedByCurrentUser = false; // 현재 사용자가 좋아요를 눌렀는지 여부를 추적
 
-	btnDelete.addEventListener('click', () => {
-		const postId = postIdElement.value;
-		const result = confirm('게시물을 삭제하시겠습니까?');
-		if (result) {
-			fetch(`/gaebokchi/community/delete?id=${postId}`, {
-				method: 'GET'
-			})
-				.then(response => {
-					if (response.ok) {
-						alert('게시물이 삭제되었습니다.');
-						window.location.href = '/gaebokchi/community/comm_main';
-					} else {
-						throw new Error('게시물 삭제에 실패했습니다.');
-					}
+	// 게시물 삭제 버튼 클릭 이벤트 처리
+	if (btnDeletePost) {
+		btnDeletePost.addEventListener('click', () => {
+			const postId = postIdElement.value;
+			const result = confirm('게시물을 삭제하시겠습니까?');
+			if (result) {
+				fetch(`/gaebokchi/community/delete?id=${postId}`, {
+					method: 'GET'
 				})
-				.catch(error => {
-					console.error('Error:', error);
-				});
-		}
-	});
+					.then(response => {
+						if (response.ok) {
+							alert('게시물이 삭제되었습니다.');
+							window.location.href = '/gaebokchi/review/review_main';
+						} else {
+							throw new Error('게시물 삭제에 실패했습니다.');
+						}
+					})
+					.catch(error => {
+						console.error('Error:', error);
+					});
+			}
+		});
+	}
 
 	commentList.addEventListener('click', event => {
 		if (event.target.id === 'btnDeleteComment') {
 			const commentId = event.target.previousElementSibling.value;
 			const result = confirm('댓글을 삭제하시겠습니까?');
 			if (result) {
-				fetch(`/gaebokchi/community/comments/${commentId}`, {
+				fetch(`/gaebokchi/review/comments/${commentId}`, {
 					method: 'DELETE'
 				})
 					.then(response => {
@@ -80,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					content: updatedContent
 				};
 
-				fetch('/gaebokchi/community/comments', {
+				fetch('/gaebokchi/review/comments', {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json'
@@ -104,89 +108,100 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	btnLikes.addEventListener('click', () => {
-		const postId = postIdElement.value;
-		fetch('/gaebokchi/community/increaseLikes', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			body: new URLSearchParams({ 'id': postId })
-		})
-			.then(response => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw new Error('Failed to increase likes');
-				}
+	// 좋아요 버튼 클릭 이벤트 처리
+	if (btnLikes) {
+		btnLikes.addEventListener('click', () => {
+			if (likedByCurrentUser) {
+				alert('이미 좋아요를 누르셨습니다.');
+				return;
+			}
+
+			const postId = postIdElement.value;
+			fetch('/gaebokchi/review/increaseLikes', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: new URLSearchParams({ 'id': postId })
 			})
-			.then(data => {
-				likesCountElement.textContent = data.likes;
+				.then(response => {
+					if (response.ok) {
+						likedByCurrentUser = true; // 좋아요를 눌렀음을 표시
+						return response.json();
+					} else {
+						throw new Error('Failed to increase likes');
+					}
+				})
+				.then(data => {
+					likesCountElement.textContent = data.likes;
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+		});
+	}
+
+	// 댓글 등록 버튼 클릭 이벤트 처리
+	if (btnRegisterComment) {
+		btnRegisterComment.addEventListener('click', event => {
+			event.preventDefault();
+
+			const postId = postIdElement.value;
+			const author = document.querySelector('input[name="author"]').value;
+			const content = document.querySelector('textarea[name="content"]').value;
+
+			if (content.trim() === '') {
+				alert('댓글 내용을 입력하세요.');
+				return;
+			}
+
+			const data = {
+				postId: postId,
+				author: author,
+				content: content
+			};
+
+			fetch('/gaebokchi/review/comments', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
 			})
-			.catch(error => {
-				console.error('Error:', error);
-			});
-	});
+				.then(response => {
+					if (response.ok) {
+						return response.json();
+					} else {
+						throw new Error('댓글 등록에 실패했습니다.');
+					}
+				})
+				.then(newComment => {
+					console.log('New Comment:', newComment); // 서버 응답 데이터 확인
+					displayComment(newComment); // 댓글 표시
+					alert('댓글이 등록되었습니다.');
+					document.querySelector('input[name="author"]').value = '';
+					document.querySelector('textarea[name="content"]').value = '';
 
-	btnRegisterComment.addEventListener('click', event => {
-		event.preventDefault();
-
-		const postId = postIdElement.value;
-		const author = document.querySelector('input[name="author"]').value;
-		const content = document.querySelector('textarea[name="content"]').value;
-
-		if (author.trim() === '' || content.trim() === '') {
-			alert('댓글 내용과 작성자를 모두 입력하세요.');
-			return;
-		}
-
-		const data = {
-			postId: postId,
-			author: author,
-			content: content
-		};
-
-		fetch('/gaebokchi/community/comments', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		})
-			.then(response => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw new Error('댓글 등록에 실패했습니다.');
-				}
-			})
-			.then(newComment => {
-				console.log('New Comment:', newComment); // 서버 응답 데이터 확인
-				displayComment(newComment); // 댓글 표시
-				alert('댓글이 등록되었습니다.');
-				document.querySelector('input[name="author"]').value = '';
-				document.querySelector('textarea[name="content"]').value = '';
-				location.reload(); // 페이지 새로고침
-			})
-			.catch(error => {
-				console.error('Error:', error);
-			});
-	});
-
+					// 댓글 등록 후 페이지 새로고침
+					location.reload();
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+		});
+	}
 
 	function displayComment(comment) {
 		const commentDiv = document.createElement('div');
 		commentDiv.classList.add('comment');
 		commentDiv.innerHTML = `
-        <b>${comment.author}</b>
-        <p>${comment.content}</p>
-        <small>${comment.modifiedTime ? new Date(comment.modifiedTime).toLocaleString() : '시간 없음'}</small>
-        <input type="hidden" name="commentId" value="${comment.id}">
-        <button class="btn btn-success btn-register-comment" id="btnUpdateComment">수정</button>
-        <button class="btn btn-danger btn-register-comment" id="btnDeleteComment">삭제</button>
-    `;
+            <b>${comment.author}</b>
+            <p>${comment.content}</p>
+            <small>${comment.modifiedTime ? new Date(comment.modifiedTime).toLocaleString() : '시간 없음'}</small>
+            <input type="hidden" name="commentId" value="${comment.id}">
+            <button class="btn btn-outline-success btnUpdateComment">수정</button>
+            <button class="btn btn-outline-danger btnDeleteComment">삭제</button>
+        `;
 		commentList.appendChild(commentDiv);
 	}
-
-
 });

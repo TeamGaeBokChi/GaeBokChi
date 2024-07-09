@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import com.itwill.gaebokchi.dto.CommPostCreateDto;
 import com.itwill.gaebokchi.dto.CommPostListDto;
@@ -24,12 +25,15 @@ import com.itwill.gaebokchi.dto.CommPostUpdateDto;
 import com.itwill.gaebokchi.dto.CommentCreateDto;
 import com.itwill.gaebokchi.dto.CommentItemDto;
 import com.itwill.gaebokchi.dto.CommentUpdateDto;
+import com.itwill.gaebokchi.filter.AuthenticationFilter;
 import com.itwill.gaebokchi.repository.CommPost;
 import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
+import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.service.CommPostService;
 import com.itwill.gaebokchi.service.MediaService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,16 +52,30 @@ public class CommunityController {
 	private final CommPostService commPostService;
 	private final MediaService mediaService;
 
+	@ModelAttribute("loggedInUser")
+	public User addLoggedInUserToModel(HttpSession session) {
+		String userId = (String) session.getAttribute(AuthenticationFilter.SESSION_ATTR_USER);
+		if (userId != null) {
+			return commPostService.getLoggedInUser(userId);
+		}
+		return null;
+	}
+
 	@GetMapping("/comm_create")
-	public String createCommPost() {
-		log.debug("GET: create()");
+	public String createCommPost(@ModelAttribute("loggedInUser") User loggedInUser, Model model) {
+		if (loggedInUser != null) {
+			model.addAttribute("user", loggedInUser);
+		}
 		return "community/comm_create";
 	}
 
 	@PostMapping("/comm_create")
 	public String create(@ModelAttribute CommPostCreateDto dto,
-			@RequestParam(value = "media", required = false) MultipartFile mediaFile) {
-		log.debug("POST: create(dto = {}, mediaFile = {})", dto, mediaFile);
+			@RequestParam(value = "media", required = false) MultipartFile mediaFile,
+			@ModelAttribute("loggedInUser") User loggedInUser) {
+		if (loggedInUser != null) {
+			log.debug("user={}", loggedInUser);
+		}
 
 		if (mediaFile != null && !mediaFile.isEmpty()) {
 			String fileName = mediaService.storeFile(mediaFile);
@@ -98,7 +116,7 @@ public class CommunityController {
 
 		List<CommPostListDto> pinnedPosts = List.of(CommPostListDto.fromEntity(commPostService.read(62)),
 				CommPostListDto.fromEntity(commPostService.read(65)));
-		
+
 		List<Integer> pinnedPostIds = pinnedPosts.stream().map(CommPostListDto::getId).collect(Collectors.toList());
 
 		posts = posts.stream().filter(post -> !pinnedPostIds.contains(post.getId())).collect(Collectors.toList());
@@ -106,7 +124,7 @@ public class CommunityController {
 		model.addAttribute("pinnedPosts", pinnedPosts);
 		model.addAttribute("top5ByF001", commPostService.getTop5ByF001());
 		model.addAttribute("top5ByF002", commPostService.getTop5ByF002());
-		
+
 		// 카테고리 매핑 정보 추가하기
 		Map<String, String> categoryMap = new HashMap<>();
 		categoryMap.put("F001", "잡담");
@@ -127,8 +145,15 @@ public class CommunityController {
 	}
 
 	@GetMapping("/comm_details")
-	public String detailsCommunityPost(@RequestParam("id") Integer id, Model model) {
+	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,
+			@RequestParam("id") Integer id, Model model) {
 		// 조회수 증가
+
+		if (loggedInUser != null) {
+			log.debug("user={}", loggedInUser);
+			model.addAttribute("user", loggedInUser);
+		}
+
 		commPostService.increaseViews(id);
 
 		// 게시물 조회
@@ -141,14 +166,14 @@ public class CommunityController {
 		// 댓글 목록 조회
 		List<CommentItemDto> commentlist = commPostService.readAllComment(id);
 		int commentcount = commPostService.selectCommentCount(id);
-		
+
 		// 모델에 속성 추가
-		
-		model.addAttribute("post", post);	// 불러온 게시물 속성 추가
-		model.addAttribute("previousPost", previousPost);	// 이전 글
-		model.addAttribute("nextPost", nextPost);	// 다음 글
-		model.addAttribute("commentlist" , commentlist); // 댓글 목록 추가하기
-		model.addAttribute("commentcount" , commentcount);
+
+		model.addAttribute("post", post); // 불러온 게시물 속성 추가
+		model.addAttribute("previousPost", previousPost); // 이전 글
+		model.addAttribute("nextPost", nextPost); // 다음 글
+		model.addAttribute("commentlist", commentlist); // 댓글 목록 추가하기
+		model.addAttribute("commentcount", commentcount);
 
 		return "community/comm_details";
 	}
@@ -210,15 +235,29 @@ public class CommunityController {
 
 	@PostMapping("/comments")
 	@ResponseBody
-	public Comment addComment(@RequestBody CommentCreateDto commentCreateDto) {
+	public Comment addComment(@RequestBody CommentCreateDto commentCreateDto,
+			@ModelAttribute("loggedInUser") User loggedInUser) {
 		Comment comment = new Comment();
 		comment.setPostId(commentCreateDto.getPostId());
-		comment.setAuthor(commentCreateDto.getAuthor());
 		comment.setContent(commentCreateDto.getContent());
-		// int result = commentDao.insertComment(comment);
 
-		// 저장된 댓글 객체를 반환하여 클라이언트에게 전달
-		return comment;
+		if (loggedInUser != null) {
+			comment.setAuthor(loggedInUser.getNickname()); // 댓글 작성자 설정
+
+			// 댓글을 데이터베이스에 저장하고 자동 생성된 id를 받아옴
+			int result = commentDao.insertComment(comment);
+
+			// 저장된 댓글 객체를 반환하여 클라이언트에게 전달
+			if (result > 0) {
+				return comment;
+			} else {
+				// 저장에 실패한 경우 처리
+				return null;
+			}
+		} else {
+			// 로그인 되지 않은 경우 처리
+			return null;
+		}
 	}
 
 	@PutMapping("/comments")

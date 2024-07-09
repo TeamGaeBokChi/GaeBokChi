@@ -37,4 +37,6 @@ public interface CommPostDao {
 	List<CommPost> selectPagedPosts(@Param("startRow") int startRow, @Param("endRow") int endRow);
 
 	int selectTotalPostCount();
+	
+	User selectByUserid(@Param("userid") String userid);
 }

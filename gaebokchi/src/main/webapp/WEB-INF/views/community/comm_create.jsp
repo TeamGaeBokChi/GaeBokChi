@@ -99,7 +99,7 @@ body {
 								<input class="form-control mb-2" type="text" name="title"
 									placeholder="제목 입력" required autofocus /> <input
 									class="form-control mb-2" type="hidden" name="author"
-									value="${signedInUser}" />
+									value="${loggedInUser.nickname}" />
 							</div>
 						</div>
 						<div class="mb-3">

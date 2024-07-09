@@ -167,9 +167,19 @@ footer.text-center {
 						</div>
 						<div class="col-2">
 							<c:url var="createPostUrl" value="/join/join_create" />
-							<button type="button"
-								class="form-control btn btn-outline-secondary"
-								onclick="location.href='${createPostUrl}'">글쓰기</button>
+							<c:url var="signinUrl" value="/user/signin" />
+							<c:choose>
+								<c:when test="${not empty signedInUser}">
+									<!-- signedInUser가 있는 경우: 글쓰기 링크 -->
+									<a href="${createPostUrl}"
+										class="form-control btn btn-outline-secondary">글쓰기</a>
+								</c:when>
+								<c:otherwise>
+									<!-- signedInUser가 없는 경우: 로그인 링크 -->
+									<a href="${signinUrl}"
+										class="form-control btn btn-outline-secondary">글쓰기</a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</form>

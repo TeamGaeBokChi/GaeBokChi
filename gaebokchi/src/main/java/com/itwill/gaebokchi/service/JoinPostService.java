@@ -14,6 +14,8 @@ import com.itwill.gaebokchi.dto.JoinPostSearchDto;
 import com.itwill.gaebokchi.dto.JoinPostUpdateDto;
 import com.itwill.gaebokchi.repository.JoinPost;
 import com.itwill.gaebokchi.repository.JoinPostDao;
+import com.itwill.gaebokchi.repository.User;
+import com.itwill.gaebokchi.repository.UserDao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class JoinPostService {
 
 	private final JoinPostDao joinPostDao;
+	private final UserDao userDao;
 
 	public List<JoinPostListDto> read() {
 		log.debug("read()");
@@ -95,6 +98,10 @@ public class JoinPostService {
 
 	public int getTotalPostCount() {
 		return joinPostDao.selectTotalPostCount();
+	}
+	
+	public User getLoggedInUser(String userId) {
+		return userDao.selectByUserid(userId);
 	}
 
 }

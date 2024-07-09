@@ -18,6 +18,8 @@ import com.itwill.gaebokchi.repository.CommPost;
 import com.itwill.gaebokchi.repository.CommPostDao;
 import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
+import com.itwill.gaebokchi.repository.User;
+import com.itwill.gaebokchi.repository.UserDao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,7 @@ public class CommPostService {
 	private final CommPostDao commPostDao;
 	private final CommentDao commentDao;
 	private final MediaService mediaService;
+	private final UserDao userDao;
 
 	public List<CommPostListDto> read() {
 		log.debug("read()");
@@ -154,6 +157,10 @@ public class CommPostService {
 	public int selectCommentCount(Integer id) {
 		int result = commentDao.selectCommentCount(id);
 		return result;
+	}
+
+	public User getLoggedInUser(String userId) {
+		return userDao.selectByUserid(userId);
 	}
 
 }

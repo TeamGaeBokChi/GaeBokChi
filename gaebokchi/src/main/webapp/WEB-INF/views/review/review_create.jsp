@@ -64,8 +64,9 @@ body {
 		<header class="toolbar">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
-					<c:url var="reviewMainPage" value="/review/review_main" />
-					<a class="navbar-brand" href="${commMainPage}">메인으로</a>
+					<c:url var="commMainPage" value="/review/review_main" />
+					<a class="navbar-brand" href="${commMainPage}"
+						onclick="return confirmMain()">메인으로</a>
 					<button class="navbar-toggler" type="button"
 						data-bs-toggle="collapse" data-bs-target="#navbarNav"
 						aria-controls="navbarNav" aria-expanded="false"
@@ -83,7 +84,7 @@ body {
 				<div class="card-body">
 					<c:url var="reviewPostCreatePage" value="/review/review_create" />
 					<form method="post" action="${reviewPostCreatePage}"
-						enctype="multipart/form-data">
+						enctype="multipart/form-data" id="postForm">
 						<div class="row mb-3">
 							<div class="col-auto">
 								<select class="form-control" name="category" id="categorySelect"
@@ -94,29 +95,29 @@ body {
 							<div class="col">
 								<input class="form-control mb-2" type="text" name="title"
 									placeholder="제목 입력" required autofocus /> <input
-									class="form-control mb-2" type="text" name="author"
-									placeholder="작성자" required /> <input class="form-control mb-2"
-									type="text" name="clubtype" placeholder="클럽타입" required />
+									class="form-control mb-2" type="hidden" name="author"
+									value="${loggedInUser.nickname}" />
 							</div>
 						</div>
 						<div class="mb-3">
 							<div id="editor-container"></div>
 							<textarea name="content" id="content" style="display: none;"></textarea>
 						</div>
-						<div class="row mb-3">
-							<div class="col">
-								<input class="form-control" type="file" name="media"
-									id="mediaFile" accept="image/*" onchange="previewImage(event)" />
+						<div>
+							<div class="row mb-3">
+								<div class="col">
+									<input class="form-control" type="file" name="media"
+										id="mediaFile" accept="image/*" onchange="previewImage(event)" />
+								</div>
 							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col">
-								<img id="imagePreview" alt="사진 미리보기" />
+							<div class="row mb-3">
+								<div class="col">
+									<img id="imagePreview" alt="사진 미리보기" />
+								</div>
 							</div>
-						</div>
-						<div class="d-grid gap-2">
-							<input class="btn btn-outline-success" type="submit" value="저장" />
-						</div>
+							<div class="d-grid gap-2">
+								<input class="btn btn-outline-success" type="submit" value="저장" />
+							</div>
 					</form>
 				</div>
 			</div>
@@ -149,30 +150,18 @@ body {
     quill.on('text-change', function (delta, oldDelta, source) {
         if (source === 'user') {
             var quillContent = quill.root.innerHTML;
-            
+
             // 내용 길이 체크
             if (quillContent.length > 1000) {
                 alert('내용은 1000자 이내로 입력해주세요!');
                 // 에디터의 내용을 1000자 이내로 잘라냄
                 quill.deleteText(1000, quill.getLength());
+                quillContent = quill.root.innerHTML; // 잘라낸 후의 내용 다시 가져오기
             }
+            // 숨겨진 textarea에 콘텐츠 할당
+            document.getElementById('content').value = quillContent;
         }
     });
-
-    // 폼 제출 시 Quill 에디터의 내용을 숨은 textarea에 설정
-    document.querySelector('form').onsubmit = function () {
-        var content = document.querySelector('textarea[name=content]');
-        // Quill 에디터의 현재 내용 가져오기
-        var quillContent = quill.root.innerHTML;
-        
-        // 내용 길이 체크
-        if (quillContent.length > 1000) {
-            alert('내용은 1000자 이내로 입력해주세요!');
-            return false; // 폼 제출을 막음
-        }
-        
-        content.value = quillContent; // 폼 데이터에 할당
-    };
 
     function previewImage(event) {
         var reader = new FileReader();
@@ -184,18 +173,34 @@ body {
         reader.readAsDataURL(event.target.files[0]);
     }
 
- 	   document.addEventListener('DOMContentLoaded', () => {
-	        const form = document.querySelector('form'); // 폼 요소 가져오기
-	        // 제목, 내용
-	        const title = document.querySelector('input[name="title"]');
-	        // 제목, 내용 길이 체크 이벤트 리스너
-	        title.addEventListener('input', function() {
-	            if (title.value.trim().length > 20) {
-	                alert('제목은 20자 이내로 입력해주세요!');
-	                title.value = title.value.trim().substring(0, 20);
-	            }
-	        });
- 	   });
+    function confirmMain() {
+        return confirm('메인 페이지로 이동하시겠습니까?');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('postForm'); // 폼 요소 가져오기
+
+        // 폼 제출 시 처리
+        form.addEventListener('submit', function(event) {
+            // Quill 에디터의 현재 내용 길이 체크
+            var quillContent = quill.root.innerHTML;
+            if (quillContent.length > 1000) {
+                alert('내용은 1000자 이내로 입력해주세요!');
+                event.preventDefault(); // 제출을 막음
+            }
+            // 숨겨진 textarea에 콘텐츠 할당
+            document.getElementById('content').value = quillContent;
+        });
+
+        // 제목 길이 체크
+        const title = form.querySelector('input[name="title"]');
+        title.addEventListener('input', function() {
+            if (title.value.trim().length > 20) {
+                alert('제목은 20자 이내로 입력해주세요!');
+                title.value = title.value.trim().substring(0, 20);
+            }
+        });
+    });
     </script>
 </body>
 </html>

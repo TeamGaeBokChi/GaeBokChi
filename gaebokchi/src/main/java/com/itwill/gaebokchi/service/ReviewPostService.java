@@ -20,7 +20,8 @@ import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
 import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.repository.ReviewPostDao;
-
+import com.itwill.gaebokchi.repository.User;
+import com.itwill.gaebokchi.repository.UserDao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,7 @@ public class ReviewPostService {
 	private final ReviewPostDao reviewPostDao;
 	private final CommentDao commentDao;
 	private final MediaService mediaService;
+	private final UserDao userDao;
 
 	public List<ReviewPostListDto> read() {
 		log.debug("read()");
@@ -133,9 +135,13 @@ public class ReviewPostService {
 	public int getTotalPostCount() {
 		return reviewPostDao.selectTotalPostCount();
 	}
-	
+
 	public int selectCommentCount(Integer id) {
 		return commentDao.selectCommentCount(id);
+	}
+
+	public User getLoggedInUser(String userId) {
+		return userDao.selectByUserid(userId);
 	}
 
 }
