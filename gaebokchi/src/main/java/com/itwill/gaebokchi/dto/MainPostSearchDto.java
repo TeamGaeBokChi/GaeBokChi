@@ -9,5 +9,5 @@ public class MainPostSearchDto {
 	private String searchCategory;
 	private String clubSelect;
 	private String selectSelection;
-
+	
 }

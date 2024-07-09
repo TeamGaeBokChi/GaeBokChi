@@ -41,6 +41,7 @@
                 		<div class="card-header">
                 			<c:url var="mainPostSearch" value="/mainPost/search" />
                 			<form method="get" action="${mainPostSearch}">
+                                <input type="hidden" name="userid" value="${userid}" />
                 				<!-- 검색 전채 영역 -->
                 				<div class="row searchArea">
                 					<!-- select 태그 영역(카테고리 선택) -->
@@ -167,6 +168,8 @@
 <script src="${ listJS }"></script>
 
 <script type="text/javascript">
+	searchButton
+	
 	function toggleSearchField() {
 		var searchCategory = document.getElementById("searchCategory").value;
 		var clubSelectField = document.getElementById("clubSelectField");

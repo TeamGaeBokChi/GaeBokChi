@@ -24,6 +24,7 @@ import com.itwill.gaebokchi.dto.MainPostCreateDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.MainPostSearchDto;
 import com.itwill.gaebokchi.dto.MainPostUpdateDto;
+import com.itwill.gaebokchi.dto.MyPostSearchDto;
 import com.itwill.gaebokchi.repository.Clubs;
 import com.itwill.gaebokchi.repository.Post;
 import com.itwill.gaebokchi.service.MainPostService;
@@ -66,9 +67,9 @@ public class MainPostController {
 		} else {
 			List<MainPostListDto> list = mainPostService.readAllByUserid(userid);
 			List<Clubs> clubs = mainPostService.clubTypes();
-			model.addAttribute("userid", userid);
 			model.addAttribute("post", list);
 			model.addAttribute("clubs", clubs);
+			model.addAttribute("userid", userid);
 		}
 	}
 
@@ -134,14 +135,28 @@ public class MainPostController {
 	}
 
 	@GetMapping("/search")
-	public String searchPosts(MainPostSearchDto dto, Model model) {
-		log.debug("searchPosts()");
-		List<MainPostListDto> posts = mainPostService.searchRead(dto);
-		model.addAttribute("post", posts);
+	public String searchPosts(MainPostSearchDto dto, MyPostSearchDto myDto, Model model) {
+		if (myDto.getUserid().equals("")) {
+			log.debug("searchPosts()");
+			List<MainPostListDto> posts = mainPostService.searchRead(dto);
+			model.addAttribute("post", posts);
 
-		List<Clubs> clubs = mainPostService.clubTypes();
-		model.addAttribute("clubs", clubs);
-		return "/mainPost/list"; // 해당하는 뷰의 경로와 이름
+			List<Clubs> clubs = mainPostService.clubTypes();
+			model.addAttribute("clubs", clubs);
+			
+			return "/mainPost/list"; // 해당하는 뷰의 경로와 이름
+		} else {
+			log.debug("searchPosts()");
+			List<MainPostListDto> posts = mainPostService.searchReadByUserid(myDto);
+			model.addAttribute("post", posts);
+
+			List<Clubs> clubs = mainPostService.clubTypes();
+			model.addAttribute("clubs", clubs);
+			
+			model.addAttribute("userid", myDto.getUserid());
+			
+			return "/mainPost/list";
+		}
 	}
 	
 //	// mainPost/paging?page=number 를 구현 

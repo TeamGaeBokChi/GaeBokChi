@@ -12,6 +12,7 @@ import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.MainPostPageDto;
 import com.itwill.gaebokchi.dto.MainPostSearchDto;
 import com.itwill.gaebokchi.dto.MainPostUpdateDto;
+import com.itwill.gaebokchi.dto.MyPostSearchDto;
 import com.itwill.gaebokchi.repository.Clubs;
 import com.itwill.gaebokchi.repository.Post;
 import com.itwill.gaebokchi.repository.PostDao;
@@ -183,6 +184,12 @@ public class MainPostService {
 	public List<MainPostListDto> searchRead(MainPostSearchDto dto) {
 		log.debug("search({})", dto);
 		List<Post> list = postDao.search(dto);
+		return list.stream().map(MainPostListDto::fromEntity).toList();
+	}
+	
+	public List<MainPostListDto> searchReadByUserid(MyPostSearchDto dto) {
+		log.debug("search({})", dto);
+		List<Post> list = postDao.searchMyPost(dto);
 		return list.stream().map(MainPostListDto::fromEntity).toList();
 	}
 
