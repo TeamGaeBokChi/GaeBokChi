@@ -23,7 +23,7 @@
 <body>
     <section class="header container-fluid">
         <div class="title">
-            <c:url var="mainTitle" value="images/0000.gif" />
+            <c:url var="mainTitle" value="images/main.png" />
             <img src="${mainTitle}" alt="main picture">
         </div>
     </section>
@@ -105,10 +105,10 @@
         <h2>HOT 게시글</h2>
 
         <div class="btn-group" role="group">
-            <button onclick="showTable('mainTable')"
-                class="btn btn-primary">메인게시판</button>
-            <button onclick="showTable('cmTable')"
-                class="btn btn-secondary">커뮤니티</button>
+            <button id="mainBtn" onclick="showTable('mainTable')"
+                class="btn">메인게시판</button>
+            <button id="cmBtn" onclick="showTable('cmTable')"
+                class="btn">커뮤니티</button>
         </div>
         <div class="bn">
             <div class="bn1" id="bnv">
@@ -126,31 +126,24 @@
                         <tr>
                             <th>제목</th>
                             <th>작성자</th>
-                            <th>조회수
-                            <th>
+                            <th>조회수</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>메인게시판 게시글 제목 1</td>
-                            <td>작성자 1</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>메인게시판 게시글 제목 2</td>
-                            <td>작성자 2</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>메인게시판 게시글 제목 2</td>
-                            <td>작성자 3</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>메인게시판 게시글 제목 2</td>
-                            <td>작성자 4</td>
-                            <td>123</td>
-                        </tr>
+                        <c:forEach var="p" items="${top5ByF001}">
+                            <tr class="table">
+                                <td><c:url
+                                        var="commPostDetailsPage"
+                                        value="/community/comm_details">
+                                        <c:param name="id"
+                                            value="${p.id}"></c:param>
+                                    </c:url> <a href="${commPostDetailsPage}"
+                                    class="custom-link">${p.title}</a></td>
+                                <td>${p.views}👓</td>
+                                <td>${p.likes}❤️</td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -164,26 +157,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>메인게시판 게시글 제목 1</td>
-                            <td>작성자 1</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>메인게시판 게시글 제목 2</td>
-                            <td>작성자 2</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>메인게시판 게시글 제목 2</td>
-                            <td>작성자 3</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>메인게시판 게시글 제목 2</td>
-                            <td>작성자 4</td>
-                            <td>123</td>
-                        </tr>
+                        <c:forEach var="p" items="${top5ByF002}">
+                            <tr class="table">
+                                <td><c:url
+                                        var="commPostDetailsPage"
+                                        value="/community/comm_details">
+                                        <c:param name="id"
+                                            value="${p.id}"></c:param>
+                                    </c:url> <a href="${commPostDetailsPage}"
+                                    class="custom-link">${p.title}</a></td>
+                                <td>${p.views}👓</td>
+                                <td>${p.likes}❤️</td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -330,15 +316,43 @@
 						document.getElementById('cmTableView').style.display = 'none';
 						document.getElementById('cmTableRecc').style.display = 'none';
 
+						
 						// 클릭한 버튼에 맞는 테이블을 보이게 함
 						if (tableId === 'mainTable') {
 							document.getElementById('mainTableView').style.display = 'table';
 							document.getElementById('mainTableRecc').style.display = 'table';
 						} else if (tableId === 'cmTable') {
 							document.getElementById('cmTableView').style.display = 'table';
-							document.getElementById('cmTableRecc').style.display = 'table';
+							document.getElementById('cmTableRecc').style.display = 'table';							
 						}
 					}
+					
+					 // 초기에 설정할 색상 클래스
+				    var mainBtnClass = 'btn-success';
+				    var cmBtnClass = 'btn-secondary';
+
+				    // 버튼 클릭 시 호출되는 함수
+				    function switchButtonColor(clickedBtn) {
+				        var mainBtn = document.getElementById('mainBtn');
+				        var cmBtn = document.getElementById('cmBtn');
+
+				        // 버튼 색상을 변경
+				        if (clickedBtn === 'mainBtn') {
+				            mainBtn.classList.remove(mainBtnClass);
+				            cmBtn.classList.remove(cmBtnClass);
+				            mainBtnClass = 'btn-success';
+				            cmBtnClass = 'btn-secondary';
+				        } else if (clickedBtn === 'cmBtn') {
+				            mainBtn.classList.remove(mainBtnClass);
+				            cmBtn.classList.remove(cmBtnClass);
+				            mainBtnClass = 'btn-secondary';
+				            cmBtnClass = 'btn-success';
+				        }
+
+				        // 변경된 클래스 적용
+				        mainBtn.classList.add(mainBtnClass);
+				        cmBtn.classList.add(cmBtnClass);
+				    }
 				</script>
 </body>
 </html>
