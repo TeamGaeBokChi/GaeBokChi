@@ -30,28 +30,29 @@
 
         <div class="center">
             <ul class="nav">
-                <li class="nav-item"><a class="mainFolder"
-                    href="mainPost/list" type="button">레슨</a>
+                <li class="nav-item">
+                    <span class="mainFolder" type="button" onclick="navigateTo('MAIN')">레슨</span>
                     <ul class="submenu">
                         <c:url var="postListPage" value="/post/list" />
-                        <li><a class="nav-link"
-                            href="${postListPage}">전체 클럽</a></li>
+                        <li><a class="nav-link" href="${postListPage}">전체 클럽</a></li>
                         <li><a href="/mainPost/list2">웨지</a></li>
                         <li><a href="/mainPost/list2">유틸</a></li>
                         <li><a href="/mainPost/list2">우드</a></li>
                         <li><a href="/mainPost/list2">아이언</a></li>
                         <li><a href="/mainPost/list2">드라이버</a></li>
-                    </ul></li>
-                <li class="nav-item"><a href="/meet" type="button">모임</a>
+                    </ul>
                 </li>
-                <li class="nav-item"><a href="/review"
-                    type="button">리뷰</a></li>
-                <li class="nav-item"><a
-                    href="community/comm_main" type="button">커뮤니티</a>
+                <li class="nav-item">
+                    <span type="button" onclick="navigateTo('MEET')">모임</span>
+                </li>
+                <li class="nav-item">
+                    <span type="button" onclick="navigateTo('REVIEW')">리뷰</span>
+                </li>
+                <li class="nav-item">
+                    <span type="button" onclick="navigateTo('COMMUNITY')">커뮤니티</span>
                 </li>
             </ul>
         </div>
-
 
         <div class="right-section">
             <div class="search">
@@ -79,14 +80,14 @@
                 <c:if test="${not empty signedInUser}">
                     <ul class="dropdown-menu">
                         <li><a href="/gaebokchi/user/mypage?userid=${signedInUser}">마이페이지</a></li>
-                        <li><a href="/gaebokchi/user/signout">로그아웃</a></li>
+                        <li><a href="/gaebokchi/user/signout"">로그아웃</a></li>
                         <li><a href="/">고객센터</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${empty signedInUser}">
                     <%-- 세션에 로그인 정보가 없는 경우 --%>
                     <ul class="dropdown-menu">
-                        <li><a href="/gaebokchi/user/signin">로그인</a></li>
+                        <li><a href="./user/signin">로그인</a></li>
                         <li><a href="/">고객센터</a></li>
                     </ul>
                 </c:if>
@@ -99,11 +100,14 @@
     <script src="${script}"></script>
 
     <!-- script.js 파일을 로드합니다 -->
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz4fnFO9gybBogGzB6NTbGA6JY9E3p6hJjzGJo5yiJGyzXUOnLg4gk2+04"
+        crossorigin="anonymous"></script>
 
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        integrity="sha384-ho+j7jyWK8fNQe+A12P8HljVAp6RdY8zDOD42jU3f+w6acCZW/hU06FgIYb3mf1d"
         crossorigin="anonymous"></script>
 </body>
 </html>

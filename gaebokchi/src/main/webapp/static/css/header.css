@@ -40,7 +40,6 @@
 /* 기본 폰트 설정 */
 body {
     font-family: Arial, sans-serif;
-    padding-top: 100px;
 }
 
 #헤더 {
@@ -100,7 +99,7 @@ body {
     margin-right: 0; /* 마지막 nav-item에는 마진을 제거 */
 }
 
-.center .nav-item>li {
+.center .nav-item>span {
     font-family: 'Freesentation-9Black', Freesentation-9Black;
     background: none;
     border: none;
@@ -178,10 +177,6 @@ body {
 }
 
 .right-section svg:hover {
-    color: #000000;
-}
-
-.right-section .login svg:hover {
     color: #000000;
 }
 

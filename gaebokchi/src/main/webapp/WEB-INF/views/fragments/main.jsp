@@ -16,14 +16,14 @@
     crossorigin="anonymous">
 
 
-
+    
 <c:url var="mainCss" value="css/main.css" />
 <link rel="stylesheet" type="text/css" href="${mainCss}">
 </head>
 <body>
     <section class="header container-fluid">
         <div class="title">
-            <c:url var="mainTitle" value="images/0000.gif" />
+            <c:url var="mainTitle" value="images/main.png" />
             <img src="${mainTitle}" alt="main picture">
         </div>
     </section>
@@ -32,71 +32,63 @@
 
     <section class="image-category container">
         <h2>클럽별 레슨받기</h2>
-        <ul class="row list-unstyled" id="clubCategory">
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="#"> <img src="images/전체클럽.png"
+        <div class="row" id="clubCategory">
+            <div class="col-md-2 col-6">
+                <div class="card">
+                    <a href=""><img src="images/전체클럽.png"
                         class="card-img-top" alt="Category 1">
                         <div class="card-body">
                             <h5 class="card-title">전체 클럽</h5>
-                        </div>
-                    </a>
+                        </div></a>
                 </div>
-            </li>
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="#"> <img src="images/웨지.png"
-                        class="card-img-top" alt="Category 2">
-                        <div class="card-body">
-                            <h5 class="card-title">웨지</h5>
-                        </div>
-                    </a>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="card">
+                    <img src="images/웨지.png" class="card-img-top"
+                        alt="Category 2">
+                    <div class="card-body">
+                        <h5 class="card-title">웨지</h5>
+                    </div>
                 </div>
-            </li>
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="#"> <img src="images/유틸.png"
-                        class="card-img-top" alt="Category 3">
-                        <div class="card-body">
-                            <h5 class="card-title">유틸</h5>
-                        </div>
-                    </a>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="card">
+                    <img src="images/유틸.png" class="card-img-top"
+                        alt="Category 3">
+                    <div class="card-body">
+                        <h5 class="card-title">유틸</h5>
+                    </div>
                 </div>
-            </li>
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="#"> <img src="images/우드.png"
-                        class="card-img-top" alt="Category 4">
-                        <div class="card-body">
-                            <h5 class="card-title">우드</h5>
-                        </div>
-                    </a>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="card">
+                    <img src="images/우드.png" class="card-img-top"
+                        alt="Category 4">
+                    <div class="card-body">
+                        <h5 class="card-title">우드</h5>
+                    </div>
                 </div>
-            </li>
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="#"> <img src="images/아이언.png"
-                        class="card-img-top" alt="Category 5">
-                        <div class="card-body">
-                            <h5 class="card-title">아이언</h5>
-                        </div>
-                    </a>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="card">
+                    <img src="images/아이언.png" class="card-img-top"
+                        alt="Category 5">
+                    <div class="card-body">
+                        <h5 class="card-title">아이언</h5>
+                    </div>
                 </div>
-            </li>
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="#"> <img src="images/드라이버.png"
-                        class="card-img-top" alt="Category 6">
-                        <div class="card-body">
-                            <h5 class="card-title">드라이버</h5>
-                        </div>
-                    </a>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="card">
+                    <img src="images/드라이버.png" class="card-img-top"
+                        alt="Category 6">
+                    <div class="card-body">
+                        <h5 class="card-title">드라이버</h5>
+                    </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </div>
     </section>
-
-
 
 
     <!--------------- HOT 게시글 ------------------>
@@ -110,48 +102,29 @@
             <button onclick="showTable('cmTable')"
                 class="btn btn-secondary">커뮤니티</button>
         </div>
-        <div class="bn">
-            <div class="bn1" id="bnv">
-                <Strong>조회수 높은</Strong>
-            </div>
-            <div class="bn1" id="bnr">
-                <strong>추천수 높은</strong>
-            </div>
-        </div>
+        
 
         <div class="row">
             <div class="col-md-6">
                 <table id="mainTableView" class="table">
                     <thead>
-                        <tr>
-                            <th>제목</th>
-                            <th>작성자</th>
-                            <th>조회수
-                            <th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>메인게시판 게시글 제목 1</td>
-                            <td>작성자 1</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>메인게시판 게시글 제목 2</td>
-                            <td>작성자 2</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>메인게시판 게시글 제목 2</td>
-                            <td>작성자 3</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>메인게시판 게시글 제목 2</td>
-                            <td>작성자 4</td>
-                            <td>123</td>
-                        </tr>
-                    </tbody>
+								<tr>
+									<th class="text-center" colspan="3">조회수 높은 글</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="p" items="${top5ByF001}">
+									<tr class="table">
+										<td><c:url var="commPostDetailsPage"
+												value="/community/comm_details">
+												<c:param name="id" value="${p.id}"></c:param>
+											</c:url> <a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
+										</td>
+										<td>${p.views}👓</td>
+										<td>${p.likes}❤️</td>
+									</tr>
+								</c:forEach>
+							</tbody>
                 </table>
             </div>
             <div class="col-md-6">
@@ -315,7 +288,7 @@
 
     </section>
 
-    <c:url var="main_header" value="js/main_header.js" />
+   <c:url var="main_header" value="js/main_header.js" />
     <script src="${main_header}"></script>
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -340,5 +313,5 @@
 						}
 					}
 				</script>
-</body>
+</body> 
 </html>
