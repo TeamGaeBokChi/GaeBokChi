@@ -36,7 +36,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
-
+	private static final String SESSION_USER_GRADE = "signedInUserGrade";
+	public static int SESSION_TIME = 30*60; // 30분
+	
 	private final UserService userService;
 
 	@GetMapping("/signin")
@@ -52,7 +54,9 @@ public class UserController {
 		try {
 			User user = userService.read(dto);
 			if (user != null) {
+				session.setMaxInactiveInterval(SESSION_TIME);
 				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
+				session.setAttribute(SESSION_USER_GRADE, user.getGrade());
 				return "redirect:/";
 			} else {
 				model.addAttribute("errorMessage", "일치하는 아이디와 비밀번호가 없습니다.");
