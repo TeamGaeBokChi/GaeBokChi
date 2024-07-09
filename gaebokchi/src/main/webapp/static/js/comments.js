@@ -128,9 +128,30 @@ document.addEventListener('DOMContentLoaded', () => {
 				/* 댓글 본문 작성 */
 				htmlString += ` 
 			<div class="comment ${highlightClass}" id="comments">
-				<div class="comment-thumb"> </div>
+				<div class="comment-thumb">
+				<input type="hidden" id="imagePath" value="${mainComment.image}" />
+				<img id="image" src="" alt="Uploaded Image">
+				
+				<script>
+					var file = document.getElementById('imagePath').value;
+					var imageUrl = './file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
+					                                    
+					fetch(imageUrl)
+						.then(response => response.blob())
+					    .then(blob => {
+					    	var reader = new FileReader();
+					        reader.onload = function() {
+					        	document.getElementById('image').src = reader.result;
+					       	};
+					        reader.readAsDataURL(blob);
+					   	})
+					  	.catch(error => {
+					    	console.error('Error fetching image:', error);
+						});
+				</script>
+				</div>
 				<div class="comment-content">
-						<strong>${mainComment.author}</strong>
+						<strong>${mainComment.nickname}</strong>
 						<div class="comment-text">
 						<p class="commentId d-none"></p>
 						<p> <span>${mainComment.content}</span> </p>
@@ -143,8 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			</div>
 		 	`;
 			}
-
-
 		}
 		divComments.innerHTML = htmlString;
 
