@@ -120,33 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	        htmlString = `<p id="nullComment">아직 피드백이 작성되지 않은 게시물입니다.</p>`;
 	    } else {
 	        for (let mainComment of data) {
-	            let highlightClass = mainComment.selection === 1 ? 'highlight' : '';
-
-	            // 이미지 로드 코드를 별도의 함수로 분리
-	            let imageLoadingScript = `
-	                <script>
-	                    var file = '${mainComment.image}';
-	                    var imageUrl = './file/image?file=' + encodeURIComponent(file);
-	                    fetch(imageUrl)
-	                        .then(response => response.blob())
-	                        .then(blob => {
-	                            var reader = new FileReader();
-	                            reader.onload = function() {
-	                                document.getElementById('image-${mainComment.id}').src = reader.result;
-	                            };
-	                            reader.readAsDataURL(blob);
-	                        })
-	                        .catch(error => {
-	                            console.error('Error fetching image:', error);
-	                        });
-	                </script>
-	            `;
+                let highlightClass = mainComment.selection === 1 ? 'highlight' : '';
 
 	            htmlString += `
 	                <div class="comment ${highlightClass}" id="comment-${mainComment.id}">
 	                    <div class="comment-thumb">
-	                        <img id="image-${mainComment.id}" src="" alt="Uploaded Image">
-	                        ${imageLoadingScript} <!-- 이미지 로드 스크립트 추가 -->
+	                        <img id="image-${mainComment.id}" class="pofile-image" src="../user/file/image?file=${encodeURIComponent(mainComment.image)}" alt="Uploaded Image">
 	                    </div>
 	                    <div class="comment-content">
 	                        <strong>${mainComment.nickname}</strong>
