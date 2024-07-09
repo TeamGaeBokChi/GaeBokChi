@@ -98,9 +98,8 @@ body {
 							<div class="col">
 								<input class="form-control mb-2" type="text" name="title"
 									placeholder="제목 입력" required autofocus /> <input
-									class="form-control mb-2" type="text" name="author"
-									placeholder="작성자" required /> <input class="form-control mb-2"
-									type="text" name="clubtype" placeholder="클럽타입" required />
+									class="form-control mb-2" type="hidden" name="author"
+									value="${signedInUser}" />
 							</div>
 						</div>
 						<div class="mb-3">

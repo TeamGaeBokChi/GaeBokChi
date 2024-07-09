@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Component
 public class CommPostCreateDto {
-	private String clubtype;
 	private String author;
 	private String title;
 	private MultipartFile media;
@@ -29,7 +28,7 @@ public class CommPostCreateDto {
 
 	public CommPost toEntity() {
 		log.debug("postToEntity()");
-		return CommPost.builder().clubtype(clubtype).category(category).media(mediaPath).author(author).title(title)
+		return CommPost.builder().category(category).media(mediaPath).author(author).title(title)
 				.content(content).build();
 	}
 }

@@ -28,4 +28,6 @@ public interface UserDao {
 
 	int UpdatePoint(@Param("userid") String userid, @Param("password") String password, @Param ("point") int point);
 
+	String FindNicknameByUserId(String userid);
+	
 }

@@ -23,7 +23,6 @@ public class CommPost {
 	private String title;
 	private String content;
 	private String author;
-	private String clubtype;
 	private String category;
 	private String media;
 	private String mediaPath;
