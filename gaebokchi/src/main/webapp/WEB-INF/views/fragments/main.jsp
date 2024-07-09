@@ -21,7 +21,7 @@
 <link rel="stylesheet" type="text/css" href="${mainCss}">
 </head>
 <body>
-    <section class="header container-fluid">
+    <section class="header container-fluid"> 
         <div class="title">
             <c:url var="mainTitle" value="images/main.png" />
             <img src="${mainTitle}" alt="main picture">
