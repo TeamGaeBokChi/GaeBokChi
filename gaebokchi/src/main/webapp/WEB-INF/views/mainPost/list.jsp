@@ -33,7 +33,7 @@
 			<div class="row">
 				<%@ include file="../fragments/menu.jspf"%>
 
-				<div class="col-8">
+				<div class="col-10">
 	</c:if>
 	<main>
 		<!-- 인기 게시물 리스트업부 -->
@@ -45,12 +45,12 @@
 					<!-- 검색 전채 영역 -->
 					<div class="row searchArea d-flex justify-content-center">
 						<!-- select 태그 영역(카테고리 선택) -->
-						<div class="col-1">
+						<div class="col-2">
 							<select class="form-control" name="searchCategory"
 								id="searchCategory" onchange="toggleSearchField()">
-								<%-- 							<c:forEach items="${clubs}" var="c">
-                								<option value="${c.id}">${c.name}</option>
-                							</c:forEach> --%>
+								<%-- <c:forEach items="${clubs}" var="c">
+                				<option value="${c.id}">${c.name}</option>
+                							             </c:forEach> --%>
 								<option value="searchClubs">클럽별 검색</option>
 								<option value="searchSelection">채택별 검색</option>
 								<option value="searchTitle">제목 검색</option>
@@ -87,18 +87,18 @@
 						</div>
 
 						<!-- 검색 버튼 영역 -->
-						<div class="col-1">
+						<div class="col-2">
 							<input type="submit" class="form-control" value="검색"
 								id="searchButton" />
 						</div>
 
 						<!-- 전체 목록 보기 버튼 -->
-						<div class="col-1">
+						<div class="col-2">
 							<button type="button" class="form-control"  id="btnAllRead" onclick="location.href='list'" >전체 목록 보기</button>
 						</div>
 
 						<!-- 글 작성하기 버튼 -->
-						<div class="col-1">
+						<div class="col-2">
 							<button type="button" class="form-control" id="btnCreateMainPost" onclick="location.href='create'"> 작성하기 </button>
 						</div>
 
