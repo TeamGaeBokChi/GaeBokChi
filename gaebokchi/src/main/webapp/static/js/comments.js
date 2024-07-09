@@ -113,60 +113,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// 댓글 목을 전달 받아 html 작성
 	function makeCommentElements(data) {
+	    const divComments = document.querySelector('div.comments-section');
+	    let htmlString = '';
 
-		const divComments = document.querySelector('div.comments-section');
-		let htmlString = '';
+	    if (data === '' || data.length === 0) {
+	        htmlString = `<p id="nullComment">아직 피드백이 작성되지 않은 게시물입니다.</p>`;
+	    } else {
+	        for (let mainComment of data) {
+                let highlightClass = mainComment.selection === 1 ? 'highlight' : '';
 
-		if (data === '' || data.length === 0) {
-			htmlString = `<p id="nullComment">아직 피드백이 작성되지 않은 게시물입니다.</p>`;
-		} else {
-			for (let mainComment of data) {
-				let highlightClass = mainComment.selection === 1 ? 'highlight' : '';
-				/* 최종 수정시간 추가해야함 */
-
-
-				/* 댓글 본문 작성 */
-				htmlString += ` 
-			<div class="comment ${highlightClass}" id="comments">
-				<div class="comment-thumb">
-				<input type="hidden" id="imagePath" value="${mainComment.image}" />
-				<img id="image" src="" />
-				
-				<script>
-					var file = document.getElementById('imagePath').value;
-					var imageUrl = '../../../user/file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
-					console.log(imageUrl);
-					                                    
-					fetch(imageUrl)
-						.then(response => response.blob())
-					    .then(blob => {
-					    	var reader = new FileReader();
-					        reader.onload = function() {
-					        	document.getElementById('image').src = reader.result;
-					       	};
-					        reader.readAsDataURL(blob);
-					   	})
-					  	.catch(error => {
-					    	console.error('Error fetching image:', error);
-						});
-				</script>
-				</div>
-				<div class="comment-content">
-						<strong>${mainComment.nickname}</strong>
-						<div class="comment-text">
-						<p class="commentId d-none"></p>
-						<p> <span>${mainComment.content}</span> </p>
-				</div>
-				<div class="button-container">	
-				<button class="btn btn-outline-success selectComment" data-id="${mainComment.id}"> 채택하기 </button>
-				<button class="btn btn-outline-danger deleteComment" data-id="${mainComment.id}"> 삭제하기 </button>
-				</div>
-				</div>
-			</div>
-		 	`;
-			}
-		}
-		divComments.innerHTML = htmlString;
+	            htmlString += `
+	                <div class="comment ${highlightClass}" id="comment-${mainComment.id}">
+	                    <div class="comment-thumb">
+	                        <img id="image-${mainComment.id}" class="pofile-image" src="../user/file/image?file=${encodeURIComponent(mainComment.image)}" alt="Uploaded Image">
+	                    </div>
+	                    <div class="comment-content">
+	                        <strong>${mainComment.nickname}</strong>
+	                        <div class="comment-text">
+	                            <p class="commentId d-none"></p>
+	                            <p><span>${mainComment.content}</span></p>
+	                        </div>
+	                        <div class="button-container"> 
+	                            <button class="btn btn-outline-success selectComment" data-id="${mainComment.id}"> 채택하기 </button>
+	                            <button class="btn btn-outline-danger deleteComment" data-id="${mainComment.id}"> 삭제하기 </button>
+	                        </div>
+	                    </div>
+	                </div>
+	            `;
+	        }
+	    }
+	    divComments.innerHTML = htmlString;
 
 		const selectComment = document.querySelectorAll('.selectComment');
 		for (let selectButton of selectComment) {
