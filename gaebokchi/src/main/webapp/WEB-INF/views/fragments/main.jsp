@@ -35,7 +35,7 @@
         <div class="row" id="clubCategory">
             <div class="col-md-2 col-6">
                 <div class="card">
-                    <a href=""><img src="images/전체클럽.png"
+                    <a href=""><img src="images/전체클럽.png" 
                         class="card-img-top" alt="Category 1">
                         <div class="card-body">
                             <h5 class="card-title">전체 클럽</h5>

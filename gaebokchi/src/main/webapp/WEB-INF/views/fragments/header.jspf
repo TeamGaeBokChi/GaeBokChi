@@ -33,7 +33,7 @@
                 <li class="nav-item">
                     <span class="mainFolder" type="button" onclick="navigateTo('MAIN')">레슨</span>
                     <ul class="submenu">
-                        <c:url var="postListPage" value="/post/list" />
+                        <c:url var="postListPage" value="/mainPost/list" />
                         <li><a class="nav-link" href="${postListPage}">전체 클럽</a></li>
                         <li><a href="/mainPost/list2">웨지</a></li>
                         <li><a href="/mainPost/list2">유틸</a></li>
