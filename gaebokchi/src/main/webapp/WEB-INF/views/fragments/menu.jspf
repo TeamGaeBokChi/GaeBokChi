@@ -4,7 +4,7 @@
 
 <c:url var="menuList" value="/css/menu_style.css" />
 <link rel="stylesheet" href="${menuList}" />
-<div class="col-4">
+<div class="col-3">
     <c:url var="myPage" value="/user/mypage?userid=${signedInUser}" />
     <a class="menu_link" href="${myPage}">
         <h3>마이 페이지</h3>

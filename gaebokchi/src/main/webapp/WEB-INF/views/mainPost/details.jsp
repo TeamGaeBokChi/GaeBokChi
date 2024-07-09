@@ -11,7 +11,15 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
-<title></title>
+    
+    <style type="text/css">
+        .container {
+            width: 1080px;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+    </style>
+<title>Golfro</title>
 <c:url var="details" value="../css/details.css" />
 <link rel="stylesheet" type="text/css" href="${details}">
 </head>
@@ -21,7 +29,7 @@
 		<%@ include file="../fragments/header.jspf"%>
 	</header>
 	<main>
-		<div class="container mt-4">
+		<div class="container">
 			<div>
 
 				<!-- 상단 제목 부분 -->

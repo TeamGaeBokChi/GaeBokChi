@@ -11,6 +11,14 @@
 	   rel="stylesheet"
 	   integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	   crossorigin="anonymous">
+    
+    <style type="text/css">
+        .container {
+            width: 1080px;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+    </style>
 
        <title>Golfro</title>
 </head>
@@ -115,10 +123,31 @@
                 							<td>${p.selection}</td>
                 						</tr>
                 					</c:forEach>
-                
                 				</tbody>
                 				</thead>
                 			</table>
+                            <!-- 페이징 UI 추가 -->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item ${postPage.hasPrevious() ? '' : 'disabled'}">
+                                        <a class="page-link"
+                                        href="?page=${postPage.currentPage - 1}&size=${postPage.size}"
+                                        tabindex="-1">이전</a>
+                                    </li>
+            
+                                    <c:forEach begin="1" end="${postPage.totalPages}" var="i">
+                                        <li
+                                            class="page-item ${i == postPage.currentPage ? 'active' : ''}">
+                                            <a class="page-link" href="?page=${i}&size=${postPage.size}">${i}</a>
+                                        </li>
+                                    </c:forEach>
+            
+                                    <li class="page-item ${postPage.hasNext() ? '' : 'disabled'}">
+                                        <a class="page-link"
+                                        href="?page=${postPage.currentPage + 1}&size=${postPage.size}">다음</a>
+                                    </li>
+                                </ul>
+                            </nav>
                 		</div>
                 	</div>
                 </main>
@@ -160,9 +189,6 @@
 			searchSelectionField.style.display = "none";
 		}
 	}
-	
-	
-	
 </script>
 
 

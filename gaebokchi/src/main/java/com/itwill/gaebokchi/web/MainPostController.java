@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwill.gaebokchi.dto.MainPostCreateDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
+import com.itwill.gaebokchi.dto.MainPostSearchDto;
 import com.itwill.gaebokchi.dto.MainPostUpdateDto;
 import com.itwill.gaebokchi.repository.Clubs;
 import com.itwill.gaebokchi.repository.Post;
@@ -133,10 +134,21 @@ public class MainPostController {
 	}
 
 	@GetMapping("/search")
-	public String showPosts(Model model) {
-		List<Post> posts = mainPostService.searchRead();
-		model.addAttribute("posts", posts);
+	public String searchPosts(MainPostSearchDto dto, Model model) {
+		log.debug("searchPosts()");
+		List<MainPostListDto> posts = mainPostService.searchRead(dto);
+		model.addAttribute("post", posts);
+
+		List<Clubs> clubs = mainPostService.clubTypes();
+		model.addAttribute("clubs", clubs);
 		return "/mainPost/list"; // 해당하는 뷰의 경로와 이름
 	}
-
+	
+//	// mainPost/paging?page=number 를 구현 
+//	// 첫 페이지 요청은 1페이지로 본값 설정 
+//	@GetMapping("/paging")
+//	public String Paging(@RequestParam(value = "page", required = false, defaultValue = "1") int page), Model model) {
+//		System.out.println("page = " + page);
+//		return "/list";
+//	}
 }
