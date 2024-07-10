@@ -206,42 +206,44 @@ body {
 						다음 글 <i class="bi bi-chevron-right"></i>
 					</a>
 				</div>
-				<form class="comment-form">
-					<div class="input-group mb-3">
-						<div class="col-2">
-							<input name="author" type="hidden" class="form-control"
-								value="${loggedInUser.nickname}">
-						</div>
-						<div class="col-8">
-							<textarea name="content" id="content" class="form-control"
-								rows="2" placeholder="댓글을 입력하세요"></textarea>
-						</div>
-						<div class="col-2">
-							<input type="hidden" name="postId" value="${post.id}">
-							<button id="btnRegisterComment"
-								class="btn btn-success btn-register-comment" type="submit">등록</button>
-						</div>
-					</div>
-				</form>
-				<div class="comment-list">
-					<c:forEach var="comment" items="${commentlist}">
-						<div class="comment">
-							<b>${comment.author}</b>
-							<p>${comment.content}</p>
-							<div>
-								<small class="text-muted">${comment.modifiedTime}</small> <input
-									type="hidden" name="commentId" value="${comment.id}">
-								<c:if test="${comment.author eq loggedInUser.nickname}">
-									<button id="btnUpdateComment"
-										class="btn btn-success btn-register-comment" type="submit">수정</button>
-									<input type="hidden" name="commentId" value="${comment.id}">
-									<button id="btnDeleteComment"
-										class="btn btn-success btn-register-comment" type="submit">삭제</button>
-								</c:if>
+				<c:if test="${not empty loggedInUser}">
+					<form class="comment-form">
+						<div class="input-group mb-3">
+							<div class="col-2">
+								<input name="author" type="hidden" class="form-control"
+									value="${loggedInUser.nickname}">
+							</div>
+							<div class="col-8">
+								<textarea name="content" id="content" class="form-control"
+									rows="2" placeholder="댓글을 입력하세요"></textarea>
+							</div>
+							<div class="col-2">
+								<input type="hidden" name="postId" value="${post.id}">
+								<button id="btnRegisterComment"
+									class="btn btn-success btn-register-comment" type="submit">등록</button>
 							</div>
 						</div>
-					</c:forEach>
-				</div>
+					</form>
+				</c:if>
+						<div class="comment-list">
+							<c:forEach var="comment" items="${commentlist}">
+								<div class="comment">
+									<b>${comment.author}</b>
+									<p>${comment.content}</p>
+									<div>
+										<small class="text-muted">${comment.modifiedTime}</small> <input
+											type="hidden" name="commentId" value="${comment.id}">
+										<c:if test="${comment.author eq loggedInUser.nickname}">
+											<button id="btnUpdateComment"
+												class="btn btn-success btn-register-comment" type="submit">수정</button>
+											<input type="hidden" name="commentId" value="${comment.id}">
+											<button id="btnDeleteComment"
+												class="btn btn-success btn-register-comment" type="submit">삭제</button>
+										</c:if>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
 			</div>
 		</div>
 	</div>
