@@ -6,8 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -26,16 +26,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itwill.gaebokchi.dto.CommPostListDto;
 import com.itwill.gaebokchi.dto.MainCommentItemDto;
-import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.UserProfileDto;
 import com.itwill.gaebokchi.dto.UserUpdateDto;
-import com.itwill.gaebokchi.repository.Clubs;
 import com.itwill.gaebokchi.repository.Pro;
 // import com.itwill.gaebokchi.repository.Point;
 import com.itwill.gaebokchi.repository.UserMypage;
+import com.itwill.gaebokchi.service.CommPostService;
 import com.itwill.gaebokchi.service.MainCommentService;
-import com.itwill.gaebokchi.service.MainPostService;
 import com.itwill.gaebokchi.service.UserMypageService;
 
 import lombok.RequiredArgsConstructor;
@@ -49,6 +48,7 @@ public class UserProfileController {
 
 	private final UserMypageService userService;
 	private final MainCommentService mainCommentService;
+	private final CommPostService commPostService;
 //	private String userid = "banggu";
 	
 	@GetMapping({ "/profile", "/privacy" })
@@ -186,7 +186,11 @@ public class UserProfileController {
 	}
 	
 	@GetMapping("/announcements")
-	public void announcements() {
+	public void announcements(Model model) {
 		log.debug("announcements()");
+		
+		List<CommPostListDto> pinnedPosts = commPostService.Fixingthetop();
+		
+		model.addAttribute("pinnedPosts", pinnedPosts);
 	}
 }

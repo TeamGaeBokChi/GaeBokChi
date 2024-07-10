@@ -103,11 +103,22 @@ body {
     color: #006030;
 }
 
+
+
+
+
+
+
+
+
+
+
+
 .modal {
     font-family: 'Pretendard-Regular', Pretendard-Regular;
 }
 #modal-id {
-    height: 700px; /* 원하는 너비를 지정 */
+    height: 300px; /* 원하는 너비를 지정 */
 }
 .modal-dialog {
     display: flex;
@@ -115,8 +126,12 @@ body {
     justify-content: center;
 }
 
-#findPwModalLabel{
-    width: 1080px;
+.modal-header {
+    background: white;
+}
+
+.modal-header h5 {
+    font-weight: bold;
 }
 
 

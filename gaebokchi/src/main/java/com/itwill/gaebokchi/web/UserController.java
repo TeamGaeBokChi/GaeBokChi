@@ -62,9 +62,6 @@ public class UserController {
 				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
 				session.setAttribute(SESSION_USER_GRADE, user.getGrade());
 				
-				if ("admin".equals(user.getUserid())) {
-					return "redirect:/admin/adminHome";
-				}
 				return "redirect:/";
 			} else {
 				model.addAttribute("errorMessage", "일치하는 아이디와 비밀번호가 없습니다.");

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Golfro Login</title>
+<title>로그인｜GOLFRO</title>
 <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet"
@@ -17,13 +17,13 @@
 
 <c:if test="${not empty signupSuccess}">
     <script>
-					var userType = '${signupSuccess}';
-					if (userType === 'normal') {
-						alert("일반회원 가입을 축하드립니다!");
-					} else if (userType === 'expert') {
-						alert("전문가 회원 가입을 축하드립니다! 관리자 승인 후 전문가 등급으로 변경됩니다.");
-					}
-				</script>
+		var userType = '${signupSuccess}';
+		if (userType === 'normal') {
+			alert("일반회원 가입을 축하드립니다!");
+		} else if (userType === 'expert') {
+			alert("전문가 회원 가입을 축하드립니다! 관리자 승인 후 전문가 등급으로 변경됩니다.");
+		}
+	</script>
 
 </c:if>
 </head>
@@ -89,7 +89,7 @@
                                 <div class="mb-3">
                                     <label for="findIdName"
                                         class="form-label">이름</label> <input
-                                        type="text" class="form-control"
+                                        type="text" class="form-control mb-2"
                                         id="findIdName" name="name"
                                         required>
                                 </div>
@@ -97,12 +97,12 @@
                                     <label for="findIdEmail"
                                         class="form-control-label">이메일</label>
                                     <input type="email"
-                                        class="form-control"
+                                        class="form-control mb-5"
                                         id="findIdEmail" name="email"
                                         required>
                                 </div>
                                 <button type="submit"
-                                    class="btn btn-primary"
+                                    class="btn"
                                     id="findIdBtn">아이디 찾기</button>
                             </form>
                             <div id="findIdError"
