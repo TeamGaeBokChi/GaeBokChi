@@ -39,4 +39,7 @@ public interface CommPostDao {
 	int selectTotalPostCount();
 	
 	User selectByUserid(@Param("userid") String userid);
+	
+	List<CommPost> Fixingthetop();
+	
 }

@@ -20,7 +20,8 @@ body {
 
 .container {
 	max-width: 1000px;
-	margin-top: 30px;
+	margin: 0 auto;
+	margin-top: 100px;
 }
 
 .card {
@@ -100,12 +101,16 @@ body {
 </head>
 <body>
 	<main class="container">
+		<header>
+			<%@ include file="../fragments/header.jspf"%>
+		</header>
 		<div class="mt-2 card">
 			<div class="card-header">
-				<h2>조인 변경</h2>
+				<h2>조인 수정하기</h2>
 			</div>
 			<div class="card-body">
-				<form id="modifyForm"> <!-- action과 method 추가 -->
+				<form id="modifyForm">
+					<!-- action과 method 추가 -->
 					<input type="hidden" name="id" value="${post.id}" />
 					<div class="mt-2">
 						<input class="form-control" type="text" name="title"
@@ -154,7 +159,7 @@ body {
 	</main>
 
 	<c:url var="join_modify_js" value="/js/join_modify.js" />
-    <script src="${join_modify_js}"></script>
+	<script src="${join_modify_js}"></script>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

@@ -21,7 +21,8 @@ body {
 
 .container {
 	max-width: 1000px;
-	margin-top: 30px;
+	margin: 0 auto;
+	margin-top: 100px;
 }
 
 .details-header {

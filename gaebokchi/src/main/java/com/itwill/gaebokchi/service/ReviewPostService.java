@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.itwill.gaebokchi.dto.CommPostListDto;
 import com.itwill.gaebokchi.dto.CommentCreateDto;
 import com.itwill.gaebokchi.dto.CommentItemDto;
 import com.itwill.gaebokchi.dto.CommentUpdateDto;
@@ -15,7 +16,7 @@ import com.itwill.gaebokchi.dto.ReviewPostCreateDto;
 import com.itwill.gaebokchi.dto.ReviewPostListDto;
 import com.itwill.gaebokchi.dto.ReviewPostSearchDto;
 import com.itwill.gaebokchi.dto.ReviewPostUpdateDto;
-
+import com.itwill.gaebokchi.repository.CommPost;
 import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
 import com.itwill.gaebokchi.repository.ReviewPost;
@@ -57,6 +58,12 @@ public class ReviewPostService {
 		}
 
 		return reviewPostDao.insertPost(dto.toEntity());
+	}
+
+	public List<ReviewPostListDto> Fixingthetop() {
+		log.debug("Fixingthetop()");
+		List<ReviewPost> list = reviewPostDao.Fixingthetop();
+		return list.stream().map(ReviewPostListDto::fromEntity).collect(Collectors.toList());
 	}
 
 	public int delete(int id) {

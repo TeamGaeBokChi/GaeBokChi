@@ -78,8 +78,9 @@
 					</when>
 				</choose>
 			</if>
+			and category = 'P004' 
 		</where>
-		order by id desc where category = 'P004'
+		order by id desc 
 	</select>
 
 	<select id="findPreviousPost"
@@ -124,6 +125,10 @@
 		ROWNUM &lt;= #{endRow}
 		)
 		WHERE rnum &gt; #{startRow}
+	</select>
+
+	<select id="Fixingthetop">
+		select * from posts where author = 'admin'
 	</select>
 
 	<select id="selectTotalPostCount" resultType="int">

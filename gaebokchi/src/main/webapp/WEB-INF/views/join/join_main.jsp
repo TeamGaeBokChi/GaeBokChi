@@ -18,9 +18,14 @@ body {
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.container {
+.container-fluid {
+	background-color: white;
+	border-radius: 10px;
+	padding: 20px;
 	max-width: 1000px;
-	margin-top: 30px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	margin: 0 auto;
+	margin-top: 85px;
 }
 
 .card {
@@ -143,7 +148,10 @@ footer.text-center {
 </style>
 </head>
 <body>
-	<div class="container mt-3">
+	<div class="container-fluid">
+		<header>
+			<%@ include file="../fragments/header.jspf"%>
+		</header>
 		<div class="card">
 			<div class="card-header">
 				<!-- 카테고리 선택 폼 추가 -->

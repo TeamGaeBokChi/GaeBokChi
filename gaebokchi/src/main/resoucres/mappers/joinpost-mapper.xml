@@ -17,9 +17,11 @@
 
 	<insert id="insertPost">
 		insert into posts (title, category,
-		gcadress, teeoff, greenfee,
+		gcadress, teeoff,
+		greenfee,
 		hole, author, content)
-		values (#{title}, #{category}, #{gcadress}, #{teeoff},
+		values (#{title}, #{category},
+		#{gcadress}, #{teeoff},
 		#{greenfee}, #{hole},
 		#{author}, #{content})
 	</insert>
@@ -41,10 +43,12 @@
 		resultType="com.itwill.gaebokchi.repository.JoinPost">
 		SELECT * FROM (
 		SELECT * FROM posts
-		WHERE teeoff &lt; #{teeoff}
+		WHERE teeoff &lt;
+		#{teeoff}
 		AND category = 'P003'
 		AND teeoff &gt; SYSTIMESTAMP
-		ORDER BY teeoff DESC
+		ORDER BY
+		teeoff DESC
 		)
 		WHERE ROWNUM = 1
 	</select>
@@ -83,6 +87,7 @@
 					</when>
 				</choose>
 			</if>
+			and category = 'P003'
 		</where>
 		order by teeoff desc
 	</select>

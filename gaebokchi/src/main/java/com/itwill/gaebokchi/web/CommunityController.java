@@ -114,9 +114,8 @@ public class CommunityController {
 		int startPage = ((page - 1) / pageBlockSize) * pageBlockSize + 1;
 		int endPage = Math.min(startPage + pageBlockSize - 1, totalPages);
 
-		List<CommPostListDto> pinnedPosts = List.of(CommPostListDto.fromEntity(commPostService.read(62)),
-				CommPostListDto.fromEntity(commPostService.read(65)));
-
+		List<CommPostListDto> pinnedPosts = commPostService.Fixingthetop();
+				
 		List<Integer> pinnedPostIds = pinnedPosts.stream().map(CommPostListDto::getId).collect(Collectors.toList());
 
 		posts = posts.stream().filter(post -> !pinnedPostIds.contains(post.getId())).collect(Collectors.toList());

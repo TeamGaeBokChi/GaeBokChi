@@ -95,8 +95,7 @@ public class ReviewController {
 		log.debug("GET: ViewCommMain()");
 
 		List<ReviewPostListDto> posts;
-		List<ReviewPostListDto> pinnedPosts = List.of(ReviewPostListDto.fromEntity(reviewPostService.read(62)),
-				ReviewPostListDto.fromEntity(reviewPostService.read(65)));
+		List<ReviewPostListDto> pinnedPosts = reviewPostService.Fixingthetop();
 
 		int pageBlockSize = 10;
 

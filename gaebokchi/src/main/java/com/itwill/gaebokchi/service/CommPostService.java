@@ -85,6 +85,12 @@ public class CommPostService {
 		List<CommPost> list = commPostDao.selectTop5ByF001();
 		return list.stream().map(CommPostListDto::fromEntity).collect(Collectors.toList());
 	}
+	
+	public List<CommPostListDto> Fixingthetop() {
+		log.debug("Fixingthetop()");
+		List<CommPost> list = commPostDao.Fixingthetop();
+		return list.stream().map(CommPostListDto::fromEntity).collect(Collectors.toList());
+	}
 
 	public List<CommPostListDto> getTop5ByF002() {
 		log.debug("getTop5ByF002()");
@@ -162,5 +168,6 @@ public class CommPostService {
 	public User getLoggedInUser(String userId) {
 		return userDao.selectByUserid(userId);
 	}
+	
 
 }
