@@ -13,7 +13,7 @@
     rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
     crossorigin="anonymous" />
-<link rel="stylesheet" href="../css/modify.css" />    
+<link rel="stylesheet" href="../css/user_modify.css" />    
     
 </head>
 <body>
@@ -21,25 +21,25 @@
         <%@ include file="../fragments/header.jspf"%>
     </header>
 
-    <div class="container">
+    <div class="container" id="mypage">
         <div class="row">
             <%@ include file="../fragments/menu.jspf" %>
 
             <div class="col-8">
-                <div class="card mt-2">
-                    <div class="card-header">
-                        <h2>내 정보</h2>
+                <div class="card" id="card">
+                    <div class="card-header" id="login-info">
+                        <h3>내 정보 수정</h3>
                     </div>
                     <div class="card-body">
                         <form id="modifyForm">
                             <div class="mt-2">
-                                <label class="form-label" for="userid">Login Id</label>
+                                <label class="form-label" for="userid">아이디</label>
                                 <input class="form-control"
                                     type="text" id="userid" name="userid"
                                     value="${user.userid}" readonly />
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="password">Password</label>
+                                <label class="form-label" for="password">비밀번호</label>
                                 <input class="form-control" id="password"
                                     type="text" name="password"
                                     value="${user.password}" readonly />
@@ -47,24 +47,24 @@
                                     type="password" name="changePassword" />
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="name">Name</label>
+                                <label class="form-label" for="name">이름</label>
                                 <input class="form-control" id="name" type="text"
                                     name="name" value="${user.name}"
                                     readonly />
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="nickname">Nickname</label>
+                                <label class="form-label" for="nickname">닉네임</label>
                                 <div class="flex">
                                     <input class="form-control"
                                         id="nickname" type="text"
                                         name="nickname"
                                         value="${user.nickname}" />
                                     <button id="btnConfirm"
-                                        class="btn btn-primary disabled">중복확인</button>
+                                        class="btn disabled">중복확인</button>
                                 </div>
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="birth">Birth</label>
+                                <label class="form-label" for="birth">생년월일</label>
                                 <c:set var="number" value="${user.birth}" />
                                 <input class="form-control" type="text"
                                     id="birth" name="birth"
@@ -72,7 +72,7 @@
                                     readonly />
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="gender">Gender</label>
+                                <label class="form-label" for="gender">성별</label>
                                 <c:choose>
                                     <c:when test="${user.gender eq 0}">
                                         <input class="form-control"
@@ -87,7 +87,7 @@
                                 </c:choose>
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="phone">Phone</label>
+                                <label class="form-label" for="phone">휴대폰 번호</label>
                                 <div class="flex">
                                     <select class="form-select"
                                         name="carrier" style="width: 20%">
@@ -114,13 +114,13 @@
                                 </div>
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="email">Email</label>
+                                <label class="form-label" for="email">이메일</label>
                                 <input class="form-control" id="email" type="email"
                                     name="email" value="${user.email}"
                                     readonly />
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="mainAddress">Address</label>
+                                <label class="form-label" for="mainAddress">주소</label>
                                 <div class="flex">
                                     <input class="form-control" type="text"
                                         id="postcode" name="postcode" size="5"
@@ -139,12 +139,12 @@
                                     value="${fn:split(user.address, '/')[2]}" />
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="license">License</label>
+                                <label class="form-label" for="license">라이센스</label>
                                 <input class="form-control" id="license" type="text"
                                     name="license" value="${user.license}" />
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="account">Account</label>
+                                <label class="form-label" for="account">어카운트</label>
                                 <div class="flex">
                                     <select class="form-select" name="bank"
                                         size="1" style="width: 20%">
@@ -194,22 +194,22 @@
                                 </div>
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="point">Point</label>
+                                <label class="form-label" for="point">포인트</label>
                                 <input class="form-control" id="point" name="point"
                                     type="text" value="${user.point}"
                                     readonly />
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="grade">Grade</label>
+                                <label class="form-label" for="grade">등급</label>
                                 <input class="form-control" id="grade" name="grade"
                                     type="text" value="${user.grade}"
                                     readonly />
                             </div>
                         </form>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer" id="card-footer">
                         <button id="btnUpdate"
-                            class="btn btn-outline-success">저장</button>
+                            class="btn">저장</button>
                     </div>
                 </div>
             </div>
