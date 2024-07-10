@@ -44,7 +44,7 @@ public class UserController {
 	@GetMapping("/signin")
 	public String signIn() {
 		log.debug("GET signIn()");
-		return "user/signin";
+		return "/user/signin";
 	}
 
 	@PostMapping("/signin")
@@ -179,6 +179,7 @@ public class UserController {
 		log.debug("singOut()");
 
 		session.removeAttribute(SESSION_ATTR_USER);
+		session.removeAttribute(SESSION_USER_GRADE);
 		session.invalidate();
 
 		return "redirect:/user/signin";
