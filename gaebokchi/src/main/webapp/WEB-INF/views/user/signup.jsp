@@ -284,7 +284,7 @@
                     등록</label>
                 <div class="input-group">
                     <input type="text" class="form-control" id="license"
-                        name="license" placeholder="라이센스 번호를 등록하세요">
+                        name="accept" placeholder="라이센스 번호를 등록하세요">
                 </div>
             </div>
 
