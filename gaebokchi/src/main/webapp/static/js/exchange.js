@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const exchangeError = document.getElementById('exchangeError');
     const errorMessage = document.getElementById('errorMessage');
 
-    const amountInput = document.getElementById('amount');
+    const withdrawInput = document.getElementById('withdraw');
     const amountError = document.getElementById('amountError');
 
-    amountInput.addEventListener('input', function() {
+    withdrawInput.addEventListener('input', function() {
 
-        let input = amountInput.value;
+        let input = withdrawInput.value;
 
         if (/[^0-9]/.test(input)) {
             amountError.classList.remove('d-none');
@@ -22,17 +22,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     btnExchange.addEventListener('click', function() {
-        const point = document.getElementById('amount').value;
+        const withdraw = document.getElementById('withdraw').value;
         const password = document.getElementById('exchangePw').value;
 
-        if (!point || !password) {
+        if (!withdraw || !password) {
             showError('금액과 비밀번호를 모두 입력해주세요.');
             return;
         }
 
         const exchangeData = {
             password: password,
-            point: point
+            withdraw: withdraw
         };
         console.log(exchangeData)
         axios.post('./exchange', exchangeData)
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.data === 'Y') {
                     alert('출금 신청이 성공적으로 처리되었습니다.');
                     window.location.href = '/gaebokchi';
-                } else if(response.data === 'N'){
+                } else if (response.data === 'N') {
                     showError('비밀번호가 틀렸습니다.');
                 } else {
                     showError('출금 포인트는 보유 포인트 미만이어야 합니다.');

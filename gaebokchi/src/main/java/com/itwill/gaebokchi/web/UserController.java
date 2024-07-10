@@ -2,6 +2,9 @@ package com.itwill.gaebokchi.web;
 
 import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -22,6 +25,7 @@ import com.itwill.gaebokchi.dto.findPasswordDto;
 import com.itwill.gaebokchi.dto.normalUserCreateDto;
 import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.service.UserService;
+import com.itwill.gaebokchi.dto.AcceptListDto;
 import com.itwill.gaebokchi.dto.UpdatePasswordDto;
 import com.itwill.gaebokchi.dto.UpdatePointDto;
 import com.itwill.gaebokchi.dto.UserSignInDto;
@@ -37,8 +41,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserController {
 	private static final String SESSION_USER_GRADE = "signedInUserGrade";
-	public static int SESSION_TIME = 30*60; // 30분
-	
+	public static int SESSION_TIME = 30 * 60; // 30분
+
 	private final UserService userService;
 
 	@GetMapping("/signin")
@@ -57,6 +61,10 @@ public class UserController {
 				session.setMaxInactiveInterval(SESSION_TIME);
 				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
 				session.setAttribute(SESSION_USER_GRADE, user.getGrade());
+
+				if ("admin".equals(user.getUserid())) {
+					return "redirect:/admin/adminHome";
+				}
 				return "redirect:/";
 			} else {
 				model.addAttribute("errorMessage", "일치하는 아이디와 비밀번호가 없습니다.");
