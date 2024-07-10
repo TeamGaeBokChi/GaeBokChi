@@ -15,7 +15,7 @@
     rel="stylesheet">
 
 <link rel="stylesheet" href="../css/user_signup.css" />
-
+    
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">

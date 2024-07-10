@@ -17,13 +17,13 @@
 
 <c:if test="${not empty signupSuccess}">
     <script>
-					var userType = '${signupSuccess}';
-					if (userType === 'normal') {
-						alert("일반회원 가입을 축하드립니다!");
-					} else if (userType === 'expert') {
-						alert("전문가 회원 가입을 축하드립니다! 관리자 승인 후 전문가 등급으로 변경됩니다.");
-					}
-				</script>
+		var userType = '${signupSuccess}';
+		if (userType === 'normal') {
+			alert("일반회원 가입을 축하드립니다!");
+		} else if (userType === 'expert') {
+			alert("전문가 회원 가입을 축하드립니다! 관리자 승인 후 전문가 등급으로 변경됩니다.");
+		}
+	</script>
 
 </c:if>
 </head>
