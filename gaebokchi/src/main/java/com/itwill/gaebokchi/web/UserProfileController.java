@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itwill.gaebokchi.dto.MainCommentItemDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.UserProfileDto;
 import com.itwill.gaebokchi.dto.UserUpdateDto;
@@ -32,6 +34,7 @@ import com.itwill.gaebokchi.repository.Clubs;
 import com.itwill.gaebokchi.repository.Pro;
 // import com.itwill.gaebokchi.repository.Point;
 import com.itwill.gaebokchi.repository.UserMypage;
+import com.itwill.gaebokchi.service.MainCommentService;
 import com.itwill.gaebokchi.service.MainPostService;
 import com.itwill.gaebokchi.service.UserMypageService;
 
@@ -45,6 +48,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserProfileController {
 
 	private final UserMypageService userService;
+	private final MainCommentService mainCommentService;
 //	private String userid = "banggu";
 	
 	@GetMapping({ "/profile", "/privacy" })
@@ -167,9 +171,22 @@ public class UserProfileController {
 	}
 	
 	@GetMapping("/myposts")
-	public String myPostList(@RequestParam(name = "userid") String userid, Model model) {
+	public String myPostList(@RequestParam(name = "userid") String userid) {
 		log.debug("myPostList()");
 
 		return "redirect: /gaebokchi/mainPost/list?userid=" + userid;
+	}
+	
+	@GetMapping("/commentList")
+	public void commentList(@RequestParam(name = "userid") String userid, Model model) {
+		log.debug("commentList(userid={})", userid);
+
+		List<MainCommentItemDto> list = mainCommentService.commentReadByUserid(userid);
+		model.addAttribute("comments", list);
+	}
+	
+	@GetMapping("/announcements")
+	public void announcements() {
+		log.debug("announcements()");
 	}
 }

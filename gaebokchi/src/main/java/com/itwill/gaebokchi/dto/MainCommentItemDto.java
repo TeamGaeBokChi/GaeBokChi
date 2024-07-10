@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class MainCommentItemDto {
 	
 	private Integer id;
+	private Integer postId;
 	private String author;
 	private String nickname;
 	private String image;
@@ -22,7 +23,9 @@ public class MainCommentItemDto {
 	private Timestamp modifiedTime;
 	
 	public static MainCommentItemDto fromEntity(MainComment mainComment) {
-		return MainCommentItemDto.builder().id(mainComment.getId())
+		return MainCommentItemDto.builder()
+				.id(mainComment.getId())
+				.postId(mainComment.getPostId())
 				.nickname(mainComment.getNickname())
 				.image(mainComment.getImage())
 				.author(mainComment.getAuthor())

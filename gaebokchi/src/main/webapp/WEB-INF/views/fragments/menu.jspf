@@ -26,7 +26,7 @@
                 <a class="menu_link" href="${myPosts}">내 게시글 목록</a>
             </li>
             <li class="menu_item">
-                <c:url var="myComments" value="/user/commentList" />
+                <c:url var="myComments" value="/user/commentList?userid=${signedInUser}" />
                 <a class="menu_link" href="${myComments}">내가 쓴 댓글 목록</a>
             </li>
             <li class="menu_item d-none">

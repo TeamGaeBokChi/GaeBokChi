@@ -33,6 +33,12 @@ public class MainCommentService {
 		return list.stream().map(MainCommentItemDto::fromEntity).toList();
 	}
 
+	public List<MainCommentItemDto> commentReadByUserid(String userid) {
+		log.debug("commentReadByUserid()");
+		List<MainComment> list = mainCommentDao.selectCommentsByUserid(userid);
+
+		return list.stream().map(MainCommentItemDto::fromEntity).toList();
+	}
 
 	@Transactional
 	public void selectCommentAndGiftPoint(Integer id) {
