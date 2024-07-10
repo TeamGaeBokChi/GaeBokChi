@@ -1,6 +1,6 @@
 package com.itwill.gaebokchi.dto;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import com.itwill.gaebokchi.repository.MainComment;
 
@@ -20,6 +20,7 @@ public class MainCommentItemDto {
 	private String image;
 	private String content;
 	private Integer selection;
+	private Timestamp createdTime;
 	private Timestamp modifiedTime;
 	
 	public static MainCommentItemDto fromEntity(MainComment mainComment) {
@@ -30,7 +31,10 @@ public class MainCommentItemDto {
 				.image(mainComment.getImage())
 				.author(mainComment.getAuthor())
 				.content(mainComment.getContent())
-				.selection(mainComment.getSelection()).build();
+				.selection(mainComment.getSelection())
+				.createdTime(Timestamp.valueOf(mainComment.getModifiedTime()))
+				.modifiedTime(Timestamp.valueOf(mainComment.getCreatedTime()))
+				.build();
 	}
 
 }

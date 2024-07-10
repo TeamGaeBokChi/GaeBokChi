@@ -13,7 +13,7 @@
         .container {
             width: 1080px;
             margin: 0 auto;
-            margin-top: 30px;
+            margin-top: 100px;
         }
     </style>
 </head>
@@ -42,11 +42,26 @@
                                 <td>${c.postId}</td>
                                 <td><c:url var="mainPostDetailsPage" value="/mainPost/details">
                                         <c:param name="id" value="${c.postId}"></c:param>
+                                        <c:param name="commentId" value="${c.id}"></c:param>
                                     </c:url>
                                     <a href="${mainPostDetailsPage}">${c.content}</a>
                                 </td>
-                                <td>${c.selection}</td>
-                                <td>${c.modifiedTime}</td>
+                                <c:choose>
+                                    <c:when test="${c.selection eq 0}">
+                                        <td>미채택</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>채택됨</td>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${c.modifiedTime ne null}">
+                                        <td>${c.modifiedTime}</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>${c.createdTime}</td>
+                                    </c:otherwise>
+                                </c:choose>
                             </tr>
                         </c:forEach>
                     </tbody>

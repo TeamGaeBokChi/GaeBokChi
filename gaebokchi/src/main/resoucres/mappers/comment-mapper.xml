@@ -15,10 +15,12 @@
 	</select>
 	
     <select id="selectCommentsByUserid" resultType="MainComment">
-        SELECT post_id,
+        SELECT id,
+               post_id,
                content,
                author,
                selection,
+               created_time,
                modified_time
         FROM comments
         WHERE author = #{userid}
