@@ -74,9 +74,10 @@ public class MainPostController {
 	}
 
 	@GetMapping("/details")
-	public void mainPostDetails(@RequestParam(name = "id") Integer id, Model model) {
+	public void mainPostDetails(@RequestParam(name = "id") Integer id, @RequestParam(name = "commentId", required = false) Integer commentId, Model model) {
 		log.debug("mainPostDetails(id={})", id);
 		Post post = mainPostService.selectPostId(id);
+		model.addAttribute("commentId", commentId);
 		model.addAttribute("post", post);
 	}
 
@@ -158,7 +159,7 @@ public class MainPostController {
 			return "/mainPost/list";
 		}
 	}
-	
+
 //	// mainPost/paging?page=number 를 구현 
 //	// 첫 페이지 요청은 1페이지로 본값 설정 
 //	@GetMapping("/paging")
