@@ -155,7 +155,7 @@ footer.text-center {
 									<td><c:url var="reviewPostDetailsPage"
 											value="/review/review_details">
 											<c:param name="id" value="${p.id}"></c:param>
-										</c:url> <a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
+										</c:url> <a href="${reviewPostDetailsPage}" class="custom-link">${p.title}</a>
 									</td>
 									<td>${p.author}</td>
 									<td>${p.modifiedTime}</td>
