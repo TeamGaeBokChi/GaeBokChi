@@ -232,7 +232,7 @@ footer.text-center {
 									<td>${categoryMap[p.category]}</td>
 									<td><c:url var="commPostDetailsPage"
 											value="/community/comm_details">
-											<c:param name="id" value="${p.id}"></c:param>
+											<c:param name="id" value="${p.id}" />
 										</c:url> <a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
 									</td>
 									<td>${p.author}</td>

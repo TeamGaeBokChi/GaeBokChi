@@ -1,13 +1,17 @@
 package com.itwill.gaebokchi.web;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.gaebokchi.dto.ReviewPostListDto;
-import com.itwill.gaebokchi.dto.CommPostCreateDto;
+import com.itwill.gaebokchi.dto.ReviewPostCreateDto;
 import com.itwill.gaebokchi.dto.CommentCreateDto;
 import com.itwill.gaebokchi.dto.CommentItemDto;
 import com.itwill.gaebokchi.dto.CommentUpdateDto;
@@ -34,6 +38,7 @@ import com.itwill.gaebokchi.dto.ReviewPostUpdateDto;
 import com.itwill.gaebokchi.filter.AuthenticationFilter;
 import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.repository.User;
+import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
 import com.itwill.gaebokchi.service.MediaService;
@@ -135,15 +140,30 @@ public class ReviewController {
 		return "review/review_main";
 	}
 
-	@GetMapping("/review_details")
-	public String detailsReviewPost(@ModelAttribute("loggedInUser") User loggedInUser, @RequestParam("id") Integer id,
-			Model model) {
-		// 조회수 증가
-		reviewPostService.increaseViews(id);
+	private Map<String, Set<Integer>> userViewedPosts = new HashMap<>();
 
+	@GetMapping("/review_details")
+	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,
+			@RequestParam("id") Integer id, Model model, HttpSession session) {
 		if (loggedInUser != null) {
 			log.debug("user={}", loggedInUser);
 			model.addAttribute("user", loggedInUser);
+
+			@SuppressWarnings("unchecked")
+			Set<Integer> viewedPosts = (Set<Integer>) session.getAttribute("viewedPosts");
+			if (viewedPosts == null) {
+				viewedPosts = new HashSet<>();
+			}
+
+			if (!viewedPosts.contains(id)) {
+				reviewPostService.increaseViews(id); // 조회수 증가
+				viewedPosts.add(id);
+				session.setAttribute("viewedPosts", viewedPosts);
+			} else {
+				log.debug("이미 조회한 게시물입니다.");
+			}
+		} else {
+			log.debug("로그인하지 않은 사용자는 조회수가 증가하지 않습니다.");
 		}
 
 		// 게시물 조회
@@ -155,14 +175,13 @@ public class ReviewController {
 
 		// 댓글 목록 조회
 		List<CommentItemDto> commentlist = reviewPostService.readAllComment(id);
-
 		int commentcount = reviewPostService.selectCommentCount(id);
 
 		// 모델에 속성 추가
-		model.addAttribute("post", post);
-		model.addAttribute("previousPost", previousPost);
-		model.addAttribute("nextPost", nextPost);
-		model.addAttribute("commentlist", commentlist);
+		model.addAttribute("post", post); // 불러온 게시물 속성 추가
+		model.addAttribute("previousPost", previousPost); // 이전 글
+		model.addAttribute("nextPost", nextPost); // 다음 글
+		model.addAttribute("commentlist", commentlist); // 댓글 목록 추가하기
 		model.addAttribute("commentcount", commentcount);
 
 		return "review/review_details";
@@ -197,12 +216,34 @@ public class ReviewController {
 		return "redirect:/review/review_main";
 	}
 
+	private Map<String, Set<Integer>> userLikedPosts = new HashMap<>();
+
 	@PostMapping("/increaseLikes")
 	@ResponseBody
-	public ResponseEntity<Map<String, Integer>> increaseLikes(@RequestParam("id") Integer id) {
+	public ResponseEntity<Map<String, Object>> increaseLikes(@RequestParam("id") Integer id, HttpSession session) {
+		String userId = (String) session.getAttribute(AuthenticationFilter.SESSION_ATTR_USER);
+
+		if (userId == null) {
+			// 로그인이 되어있지 않은 경우 예외 처리
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+
+		// 해당 사용자가 이미 좋아요를 눌렀는지 확인
+		Set<Integer> likedPosts = userLikedPosts.getOrDefault(userId, new HashSet<>());
+		if (likedPosts.contains(id)) {
+			// 이미 좋아요를 누른 경우 예외 처리
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(Collections.singletonMap("error", "이미 좋아요를 눌렀습니다."));
+		}
+
+		// 좋아요를 증가시키고, 사용자의 좋아요 목록에 추가
 		reviewPostService.increaseLikes(id);
+		likedPosts.add(id);
+		userLikedPosts.put(userId, likedPosts);
+
+		// 업데이트된 좋아요 개수 반환
 		ReviewPost updatedPost = reviewPostService.read(id);
-		Map<String, Integer> response = new HashMap<>();
+		Map<String, Object> response = new HashMap<>();
 		response.put("likes", updatedPost.getLikes());
 		return ResponseEntity.ok(response);
 	}

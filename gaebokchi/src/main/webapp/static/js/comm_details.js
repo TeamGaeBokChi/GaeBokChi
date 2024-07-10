@@ -5,7 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	const likesCountElement = document.querySelector('#likesCount');
 	const btnRegisterComment = document.querySelector('button#btnRegisterComment');
 	const commentList = document.querySelector('.comment-list');
+
+	const btnLikesNotLoggedIn = document.getElementById('btnLikes-notloggedIn');
 	let likedByCurrentUser = false; // 현재 사용자가 좋아요를 눌렀는지 여부를 추적
+
 
 	// 게시물 삭제 버튼 클릭 이벤트 처리
 	if (btnDeletePost) {
@@ -108,6 +111,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
+	// 버튼 클릭 이벤트 처리
+	if (btnLikesNotLoggedIn) {
+		btnLikesNotLoggedIn.addEventListener('click', () => {
+			// 알림 메시지 출력
+			alert('추천은 로그인 후 가능합니다.');
+
+			// 로그인 페이지로 리디렉션
+			window.location.href = '/gaebokchi/user/signin';
+		});
+	}
+
+
 	// 좋아요 버튼 클릭 이벤트 처리
 	if (btnLikes) {
 		btnLikes.addEventListener('click', () => {
@@ -117,26 +132,27 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			const postId = postIdElement.value;
-			fetch('/gaebokchi/community/increaseLikes', {
+			fetch('/gaebokchi/community/increaseLikes?id=' + postId, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				body: new URLSearchParams({ 'id': postId })
+				}
 			})
 				.then(response => {
 					if (response.ok) {
-						likedByCurrentUser = true; // 좋아요를 눌렀음을 표시
 						return response.json();
 					} else {
 						throw new Error('Failed to increase likes');
 					}
 				})
 				.then(data => {
+					likedByCurrentUser = true; // 좋아요를 눌렀음을 표시
 					likesCountElement.textContent = data.likes;
+					alert('게시물에 좋아요를 눌렀습니다.');
 				})
 				.catch(error => {
 					console.error('Error:', error);
+					alert('추천은 한 게시물에 한 번만 가능합니다!');
 				});
 		});
 	}

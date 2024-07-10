@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
@@ -20,9 +19,9 @@ body {
 }
 
 .container {
-	max-width: 1000px;
+	max-width: 700px;
 	margin: 0 auto;
-	margin-top: 100px;
+	margin-top: 120px;
 }
 
 .details-header {
@@ -56,35 +55,6 @@ body {
 	color: #888;
 }
 
-.btn-like {
-	background-color: #ff6b6b;
-	border: none;
-	transition: all 0.3s ease;
-}
-
-.btn-like:hover {
-	background-color: #ff4757;
-	transform: scale(1.05);
-}
-
-.comment-form {
-	margin-bottom: 20px;
-}
-
-.comment-list {
-	max-height: 300px;
-	overflow-y: auto;
-}
-
-.comment {
-	border-bottom: 1px solid #dee2e6;
-	padding: 10px 0;
-}
-
-.comment:last-child {
-	border-bottom: none;
-}
-
 .btn-custom {
 	height: 50px;
 	padding: 10px 20px;
@@ -108,7 +78,8 @@ body {
 </style>
 </head>
 <body>
-	<div class="container mt-3">
+	<%@ include file="../fragments/header.jspf"%>
+	<div class="container">
 		<div
 			class="details-header d-flex justify-content-between align-items-center">
 			<h2>조인</h2>
@@ -121,11 +92,6 @@ body {
 					class="btn btn-link ${previousPost == null ? 'disabled' : ''}">
 					<i class="bi bi-chevron-left"></i> 이전 글
 				</a>
-
-				<c:url var="listUrl" value="join_main" />
-				<a href="${listUrl}" class="btn btn-link"><i class="bi bi-list"></i>
-					목록으로</a>
-
 				<c:url var="nextPostUrl" value="/join/join_details">
 					<c:param name="id" value="${nextPost != null ? nextPost.id : ''}" />
 				</c:url>

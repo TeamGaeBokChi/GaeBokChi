@@ -7,13 +7,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>게시물 상세보기</title>
-<script>
-	// loggedInUser 정보를 JavaScript 변수로 전달
-	const loggedInUser = $
-	{
-		loggedInUser != null ? 'true' : 'false'
-	};
-</script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -170,10 +163,20 @@ body {
 				</div>
 				<c:if test="${post.author ne loggedInUser.nickname}">
 					<div class="position-relative mb-4 text-center">
-						<!-- 좋아요 버튼의 위치를 text-center로 설정 -->
-						<button id="btnLikes" class="btn btn-like btn-lg btn-custom">
-							<i class="bi bi-heart-fill"></i>
-						</button>
+						<c:choose>
+							<c:when test="${not empty loggedInUser}">
+								<!-- 로그인한 사용자가 있을 때의 버튼 -->
+								<button id="btnLikes" class="btn btn-like btn-lg btn-custom">
+									<i class="bi bi-heart-fill"></i>
+								</button>
+							</c:when>
+							<c:otherwise>
+								<!-- 로그인한 사용자가 없을 때의 처리 -->
+								<button id="btnLikes-notloggedIn" class="btn btn-like btn-lg btn-custom">
+									<i class="bi bi-heart-fill"></i>
+								</button>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</c:if>
 				<div class="d-flex justify-content-end mt-2">

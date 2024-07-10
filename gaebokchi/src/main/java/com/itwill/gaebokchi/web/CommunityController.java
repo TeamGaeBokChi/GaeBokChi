@@ -2,6 +2,7 @@ package com.itwill.gaebokchi.web;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,8 +40,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -115,7 +119,7 @@ public class CommunityController {
 		int endPage = Math.min(startPage + pageBlockSize - 1, totalPages);
 
 		List<CommPostListDto> pinnedPosts = commPostService.Fixingthetop();
-				
+
 		List<Integer> pinnedPostIds = pinnedPosts.stream().map(CommPostListDto::getId).collect(Collectors.toList());
 
 		posts = posts.stream().filter(post -> !pinnedPostIds.contains(post.getId())).collect(Collectors.toList());
@@ -143,17 +147,31 @@ public class CommunityController {
 		return "community/comm_main";
 	}
 
+	private Map<String, Set<Integer>> userViewedPosts = new HashMap<>();
+
 	@GetMapping("/comm_details")
 	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,
-			@RequestParam("id") Integer id, Model model) {
-		// 조회수 증가
-
+			@RequestParam("id") Integer id, Model model, HttpSession session) {
 		if (loggedInUser != null) {
 			log.debug("user={}", loggedInUser);
 			model.addAttribute("user", loggedInUser);
-		}
 
-		commPostService.increaseViews(id);
+			@SuppressWarnings("unchecked")
+			Set<Integer> viewedPosts = (Set<Integer>) session.getAttribute("viewedPosts");
+			if (viewedPosts == null) {
+				viewedPosts = new HashSet<>();
+			}
+
+			if (!viewedPosts.contains(id)) {
+				commPostService.increaseViews(id); // 조회수 증가
+				viewedPosts.add(id);
+				session.setAttribute("viewedPosts", viewedPosts);
+			} else {
+				log.debug("이미 조회한 게시물입니다.");
+			}
+		} else {
+			log.debug("로그인하지 않은 사용자는 조회수가 증가하지 않습니다.");
+		}
 
 		// 게시물 조회
 		CommPost post = commPostService.read(id);
@@ -167,7 +185,6 @@ public class CommunityController {
 		int commentcount = commPostService.selectCommentCount(id);
 
 		// 모델에 속성 추가
-
 		model.addAttribute("post", post); // 불러온 게시물 속성 추가
 		model.addAttribute("previousPost", previousPost); // 이전 글
 		model.addAttribute("nextPost", nextPost); // 다음 글
@@ -208,10 +225,30 @@ public class CommunityController {
 
 	@PostMapping("/increaseLikes")
 	@ResponseBody
-	public ResponseEntity<Map<String, Integer>> increaseLikes(@RequestParam("id") Integer id) {
+	public ResponseEntity<Map<String, Object>> increaseLikes(@RequestParam("id") Integer id, HttpSession session) {
+		String userId = (String) session.getAttribute(AuthenticationFilter.SESSION_ATTR_USER);
+
+		if (userId == null) {
+			// 로그인이 되어있지 않은 경우 예외 처리
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+
+		// 해당 사용자가 이미 좋아요를 눌렀는지 확인
+		Set<Integer> likedPosts = userLikedPosts.getOrDefault(userId, new HashSet<>());
+		if (likedPosts.contains(id)) {
+			// 이미 좋아요를 누른 경우 예외 처리
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(Collections.singletonMap("error", "이미 좋아요를 눌렀습니다."));
+		}
+
+		// 좋아요를 증가시키고, 사용자의 좋아요 목록에 추가
 		commPostService.increaseLikes(id);
+		likedPosts.add(id);
+		userLikedPosts.put(userId, likedPosts);
+
+		// 업데이트된 좋아요 개수 반환
 		CommPost updatedPost = commPostService.read(id);
-		Map<String, Integer> response = new HashMap<>();
+		Map<String, Object> response = new HashMap<>();
 		response.put("likes", updatedPost.getLikes());
 		return ResponseEntity.ok(response);
 	}
@@ -258,6 +295,8 @@ public class CommunityController {
 			return null;
 		}
 	}
+
+	private Map<String, Set<Integer>> userLikedPosts = new HashMap<>();
 
 	@PutMapping("/comments")
 	@ResponseBody
