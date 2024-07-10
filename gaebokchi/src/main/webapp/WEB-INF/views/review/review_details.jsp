@@ -164,10 +164,22 @@ body {
 				</div>
 				<c:if test="${post.author ne loggedInUser.nickname}">
 					<div class="position-relative mb-4 text-center">
-						<!-- 좋아요 버튼의 위치를 text-center로 설정 -->
-						<button id="btnLikes" class="btn btn-like btn-lg btn-custom">
-							<i class="bi bi-heart-fill"></i>
-						</button>
+						<c:choose>
+							<c:when test="${not empty loggedInUser}">
+								<!-- 로그인한 사용자가 있을 때의 버튼 -->
+								<button id="btnLikes" class="btn btn-like btn-lg btn-custom">
+									<i class="bi bi-heart-fill"></i>
+								</button>
+							</c:when>
+							<c:otherwise>
+								<!-- 로그인한 사용자가 없을 때의 처리 -->
+								<button id="btnLikes-notloggedIn"
+									class="btn btn-like btn-lg btn-custom"
+									onclick="location.href='/gaebokchi/user/signin';">
+									<i class="bi bi-heart-fill"></i>
+								</button>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</c:if>
 				<div class="d-flex justify-content-end mt-2">
@@ -225,25 +237,25 @@ body {
 						</div>
 					</form>
 				</c:if>
-						<div class="comment-list">
-							<c:forEach var="comment" items="${commentlist}">
-								<div class="comment">
-									<b>${comment.author}</b>
-									<p>${comment.content}</p>
-									<div>
-										<small class="text-muted">${comment.modifiedTime}</small> <input
-											type="hidden" name="commentId" value="${comment.id}">
-										<c:if test="${comment.author eq loggedInUser.nickname}">
-											<button id="btnUpdateComment"
-												class="btn btn-success btn-register-comment" type="submit">수정</button>
-											<input type="hidden" name="commentId" value="${comment.id}">
-											<button id="btnDeleteComment"
-												class="btn btn-success btn-register-comment" type="submit">삭제</button>
-										</c:if>
-									</div>
-								</div>
-							</c:forEach>
+				<div class="comment-list">
+					<c:forEach var="comment" items="${commentlist}">
+						<div class="comment">
+							<b>${comment.author}</b>
+							<p>${comment.content}</p>
+							<div>
+								<small class="text-muted">${comment.modifiedTime}</small> <input
+									type="hidden" name="commentId" value="${comment.id}">
+								<c:if test="${comment.author eq loggedInUser.nickname}">
+									<button id="btnUpdateComment"
+										class="btn btn-success btn-register-comment" type="submit">수정</button>
+									<input type="hidden" name="commentId" value="${comment.id}">
+									<button id="btnDeleteComment"
+										class="btn btn-success btn-register-comment" type="submit">삭제</button>
+								</c:if>
+							</div>
 						</div>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 	</div>
