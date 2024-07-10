@@ -30,18 +30,18 @@ ul.sub_menu {
 a.menu_link h3 {
     font-family: 'Pretendard-Regular', Pretendard-Regular;
     font-weight: bold;
-    color: #333;
+    color: #000000;
 }
 
 h4.menu_header {
     font-family: 'Pretendard-Regular', Pretendard-Regular;
     font-weight: bold;
-    color: #333;
+    color: #000000;
 }
 
 a.menu_link {
     font-family: 'Pretendard-Regular', Pretendard-Regular;
-    color: darkgray;
+    color: #9d9d9d;
     font-size: 110%;
 }
 

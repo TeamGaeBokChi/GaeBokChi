@@ -54,14 +54,7 @@
                                         <td>채택됨</td>
                                     </c:otherwise>
                                 </c:choose>
-                                <c:choose>
-                                    <c:when test="${c.modifiedTime ne null}">
-                                        <td>${c.modifiedTime}</td>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td>${c.createdTime}</td>
-                                    </c:otherwise>
-                                </c:choose>
+                                <td>${c.modifiedTime}</td>
                             </tr>
                         </c:forEach>
                     </tbody>

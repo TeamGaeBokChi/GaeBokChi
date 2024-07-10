@@ -19,7 +19,7 @@
             </li>
             <li class="menu_item">
                 <c:url var="userGrade" value="/user/grade" />
-                <a class="menu_link" href="${userGrade}">판매자 등급</a>
+                <a class="menu_link" href="${userGrade}">회원 등급</a>
             </li>
             <li class="menu_item">
                 <c:url var="myPosts" value="/user/myposts?userid=${signedInUser}" />
