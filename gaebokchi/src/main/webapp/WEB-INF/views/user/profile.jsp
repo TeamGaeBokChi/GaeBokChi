@@ -19,7 +19,7 @@
         <%@ include file="../fragments/header.jspf"%>
     </header>
 
-    <div class="container">
+    <div class="container" id="mypage">
         <div class="row">
             <%@ include file="../fragments/menu.jspf" %>
             
@@ -67,7 +67,7 @@
                     <h6 class="small_title">프로필 이름</h6>
                     <div class="container">
                         <div class="row">
-                            <div class="bottom_line col-5 p-0">
+                            <div class="bottom_line col-6 p-0">
                                 <input id="nickname" type="text" class="input_none basic_font" value="${user.nickname}" readonly />
                             </div>
                             <div class="col-5">
@@ -84,7 +84,7 @@
                     <h6 class="small_title">수상 경력</h6>
                     <div class="container">
                         <div class="row">
-                            <div class="bottom_line col-5 p-0">
+                            <div class="bottom_line col-6 p-0">
                                 <input id="introduce" type="text" class="input_none basic_font" value="${user.career}" placeholder="나를 소개하세요" readonly />
                             </div>
                             <div class="col-5">
