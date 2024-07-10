@@ -39,5 +39,7 @@ public class User {
 	private String emailPrefix;
 	private String emailSeparator;
 	private int point;
+	private int withdraw;
+	private String accept;
 	
 }

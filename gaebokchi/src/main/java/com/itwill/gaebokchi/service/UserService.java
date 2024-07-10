@@ -1,5 +1,7 @@
 package com.itwill.gaebokchi.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,6 +11,8 @@ import com.itwill.gaebokchi.dto.findPasswordDto;
 import com.itwill.gaebokchi.dto.normalUserCreateDto;
 import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.repository.UserDao;
+import com.itwill.gaebokchi.dto.AcceptListDto;
+import com.itwill.gaebokchi.dto.ExchangeListDto;
 import com.itwill.gaebokchi.dto.UpdatePasswordDto;
 import com.itwill.gaebokchi.dto.UpdatePointDto;
 import com.itwill.gaebokchi.dto.UserSignInDto;
@@ -67,7 +71,6 @@ public class UserService {
 		log.debug("create({})", dto);
 		User user = dto.toEntity();
 		try {
-			userDao.insertPros(user.getLicense());
 			userDao.insertExpertUser(user);
 		} catch (Exception e) {
 			throw new Exception("Failed to insert into pros table", e);
@@ -124,13 +127,53 @@ public class UserService {
 	public int UpdatePoint(String userid, UpdatePointDto dto) {
 		log.debug("UpdatePointDto :{}", dto);
 		log.debug("sessionId :{}", userid);
-		int result = userDao.UpdatePoint(userid, dto.getPassword(), dto.getPoint());
+		int result = userDao.UpdatePoint(userid, dto.getPassword(), dto.getWithdraw());
 		if (result == 0) {
 			return 0;
 		} else {
 			return 1;
 		}
 
+	}
+
+	public List<AcceptListDto> AdminSignup() {
+		log.debug("AdminSignup()");
+		List<User> list = userDao.AdminSignup();
+
+		return list.stream().map(AcceptListDto::fromEntity).toList();
+	}
+
+	public List<ExchangeListDto> AdminExchange() {
+		log.debug("AdminSignup()");
+		List<User> list = userDao.AdminExchange();
+
+		return list.stream().map(ExchangeListDto::fromEntity).toList();
+	}
+
+	@Transactional
+	public void acceptUser(String userid) {
+		try {
+			userDao.deleteAccept(userid);
+			userDao.updateGrade(userid);
+			userDao.intoPros(userid);
+			userDao.intoLicense(userid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void rejectUser(String userid) {
+		userDao.deleteAccept(userid);
+	}
+	
+	public void acceptEx(String userid, int withdraw) {
+		try {
+			userDao.setPoint(userid,withdraw);
+			userDao.setWithdraw(userid, withdraw);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

@@ -4,6 +4,7 @@ import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import com.itwill.gaebokchi.dto.findPasswordDto;
 import com.itwill.gaebokchi.dto.normalUserCreateDto;
 import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.service.UserService;
+import com.itwill.gaebokchi.dto.AcceptListDto;
 import com.itwill.gaebokchi.dto.UpdatePasswordDto;
 import com.itwill.gaebokchi.dto.UpdatePointDto;
 import com.itwill.gaebokchi.dto.UserSignInDto;
@@ -222,5 +224,6 @@ public class UserController {
 			return ResponseEntity.ok("N");
 		}
 	}
+	
 
 }

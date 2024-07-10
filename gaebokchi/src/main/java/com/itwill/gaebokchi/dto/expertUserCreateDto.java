@@ -11,7 +11,7 @@ public class expertUserCreateDto {
 	private String nickname;
 	private String email;
 	private String address;
-	private String license;
+	private String accept;
 	private String account;
 	private String name;
 	private int birth;
@@ -47,6 +47,6 @@ public class expertUserCreateDto {
 			gender = female;
 		}
 		return User.builder().userid(userid).password(password).name(name).nickname(nickname).phone(phone).email(email)
-				.birth(birth).gender(gender).address(address).account(account).license(license).build();
+				.birth(birth).gender(gender).address(address).account(account).accept(accept).build();
 	}
 }

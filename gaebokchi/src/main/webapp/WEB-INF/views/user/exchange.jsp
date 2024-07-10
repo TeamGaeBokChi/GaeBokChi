@@ -133,9 +133,9 @@ input.form-control {
                         </h5>
                     </div>
                     <div class="col-md-6">
-                        <label for="amount" class="form-label">출금
-                            신청금액</label> <input type="text" id="amount"
-                            name="point" class="form-control" required
+                        <label for="withdraw" class="form-label">출금
+                            신청금액</label> <input type="text" id="withdraw"
+                            name="withdraw" class="form-control" required
                             placeholder="금액 입력">
                             <small id="amountError" class="form-text text-danger d-none">숫자만 입력 가능합니다.</small>
                     </div>

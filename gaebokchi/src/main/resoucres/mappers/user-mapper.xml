@@ -21,14 +21,11 @@
         )
     </insert>
 
-    <insert id="insertPros">INSERT INTO pros (id) VALUES (#{license})
-    </insert>
-
     <insert id="insertExpertUser">
 
         INSERT INTO users (userid, password, name,
         nickname, phone, email, birth,
-        gender, address, account, license)
+        gender, address, account, accept)
         VALUES (
         #{userid},
         #{password},
@@ -40,7 +37,7 @@
         #{gender},
         #{address},
         #{account},
-        #{license}
+        #{accept}
         )
 
     </insert>
@@ -52,7 +49,7 @@
     <select id="selectByNickname">
         select * from users where nickname = #{nickname}
     </select>
-    
+
     <select id="selectByEmail">
         select * from users where email = #{email}
     </select>
@@ -77,8 +74,40 @@
         userid = #{userid} and email = #{email} and phone = #{phone}
     </update>
     <update id="UpdatePoint">
-        update users set point = point - #{point} where
+        update users set withdraw = #{withdraw} where
         userid = #{userid} and password = #{password}
+    </update>
+
+    <select id="AdminSignup">
+        select * from users where accept is not null
+    </select>
+    
+    <update id="deleteAccept">
+        update users set accept = null where userid = #{userid}
+    </update>
+    
+    <update id="updateGrade">
+        update users set grade = 'G10' where userid = #{userid}
+    </update>
+    
+    <insert id="intoPros">
+        INSERT INTO pros (id) VALUES (#{accept})
+    </insert>
+    
+    <update id="intoLicense">
+        update users set license = #{accept} where userid = #{userid}
+    </update>
+    
+    <select id="AdminExchange">
+        select * from users where withdraw is not null AND withdraw != 0
+    </select>
+    
+    <update id="setPoint">
+        update users set point = point - #{withdraw} where userid = #{userid}
+    </update>
+    
+    <update id="setWithdraw">
+        update users set withdraw = withdraw - #{withdraw} where userid = #{userid}
     </update>
 
 </mapper>
