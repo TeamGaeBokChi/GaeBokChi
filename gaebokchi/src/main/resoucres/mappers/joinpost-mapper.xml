@@ -16,11 +16,10 @@
 	</select>
 
 	<insert id="insertPost">
-		insert into posts (title, club_type, category,
+		insert into posts (title, category,
 		gcadress, teeoff, greenfee,
 		hole, author, content)
-		values (#{title},
-		#{clubtype}, #{category}, #{gcadress}, #{teeoff},
+		values (#{title}, #{category}, #{gcadress}, #{teeoff},
 		#{greenfee}, #{hole},
 		#{author}, #{content})
 	</insert>

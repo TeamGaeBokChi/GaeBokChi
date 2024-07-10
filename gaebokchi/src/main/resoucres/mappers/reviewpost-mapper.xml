@@ -79,7 +79,7 @@
 				</choose>
 			</if>
 		</where>
-		order by id desc
+		order by id desc where category = 'P004'
 	</select>
 
 	<select id="findPreviousPost"

@@ -209,12 +209,12 @@
                             </div>
                         </form>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer" id="card-footer">
                         <c:url var="userModifyPage" value="/user/modify">
                             <c:param name="userid"
                                 value="${user.userid}" />
                         </c:url>
-                        <a class="btn btn-outline-primary"
+                        <a class="btn"
                             href="${userModifyPage}">수정하기</a>
                     </div>
                 </div>
