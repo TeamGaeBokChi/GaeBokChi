@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	getAllMainComments(); // 댓글 리스트업
 	getAllLikes(); // 좋아요 수
 
-	const focusCommentId = document.querySelector('input#commentId').value;
 	
 	
 	
@@ -94,11 +93,37 @@ document.addEventListener('DOMContentLoaded', () => {
 		axios
 			.get(uri)
 			.then((response) => {
-				console.log(response);
-				makeCommentElements(response.data);
+				// selection === 1인 요소들을 최상단으로 정렬하고, 나머지는 modifiedTime을 기준으로 정렬
+				const sortedData = response.data.sort((a, b) => {
+					if (a.selection === 1 && b.selection !== 1) {
+				  		return -1; // a를 더 위로 올림
+				  	} else if (a.selection !== 1 && b.selection === 1) {
+				        return 1; // b를 더 위로 올림
+				  	} else {
+				        return b.modifiedTime - a.modifiedTime; // modifiedTime을 기준으로 내림차순 정렬
+				  	}
+				});
+				
+				console.log(sortedData);
+				makeCommentElements(sortedData);
+				
 				if (response.data.some(comment => comment.selection === 1)) {
 					hideAllSelectButtons();
 				}
+				
+				const focusCommentId = document.querySelector('input#commentId').value;
+
+					if (focusCommentId != null) { // null 및 undefined 모두 체크
+					    let commentElement = document.getElementById(`comment-${focusCommentId}`);
+						console.log(commentElement);
+					    if (commentElement) { // 요소가 실제로 존재하는지 확인
+					        commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					    } else {
+							return;
+					    }
+					} else {
+					    console.error('focusCommentId is null or undefined.');
+					}
 			})
 			.catch((error) => {
 				console.log(error);
@@ -215,16 +240,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
-	if (focusCommentId != null) { // null 및 undefined 모두 체크
-	    let commentElement = document.getElementById(`comment-${focusCommentId}`);
-	    if (commentElement) { // 요소가 실제로 존재하는지 확인
-	        commentElement.focus();
-	    } else {
-			return;
-	    }
-	} else {
-	    console.error('focusCommentId is null or undefined.');
-	}
+	
 });
