@@ -61,7 +61,7 @@ public class UserController {
 				session.setMaxInactiveInterval(SESSION_TIME);
 				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
 				session.setAttribute(SESSION_USER_GRADE, user.getGrade());
-
+				
 				if ("admin".equals(user.getUserid())) {
 					return "redirect:/admin/adminHome";
 				}
