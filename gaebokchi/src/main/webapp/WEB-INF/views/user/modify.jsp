@@ -13,24 +13,8 @@
     rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
     crossorigin="anonymous" />
+<link rel="stylesheet" href="../css/modify.css" />    
     
-    <style type="text/css">
-        .flex {
-            display: flex;
-            gap: 10px;
-        }
-        
-        #btnConfirm {
-            padding: 0px 30px;
-            white-space: nowrap;
-        }
-        
-        .container {
-                    width: 1080px;
-                    margin: 0 auto;
-                    margin-top: 30px;
-        }
-    </style>
 </head>
 <body>
     <header>
