@@ -159,7 +159,7 @@ public class MainPostController {
 			return "/mainPost/list";
 		}
 	}
-	
+
 //	// mainPost/paging?page=number 를 구현 
 //	// 첫 페이지 요청은 1페이지로 본값 설정 
 //	@GetMapping("/paging")

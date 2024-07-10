@@ -21,7 +21,7 @@ public class MainCommentItemDto {
 	private String content;
 	private Integer selection;
 	private Timestamp modifiedTime;
-	
+
 	public static MainCommentItemDto fromEntity(MainComment mainComment) {
 		return MainCommentItemDto.builder()
 				.id(mainComment.getId())

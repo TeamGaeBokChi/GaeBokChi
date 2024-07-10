@@ -217,7 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
 	if (focusCommentId != null) { // null 및 undefined 모두 체크
 	    let commentElement = document.getElementById(`comment-${focusCommentId}`);
 	    if (commentElement) { // 요소가 실제로 존재하는지 확인
