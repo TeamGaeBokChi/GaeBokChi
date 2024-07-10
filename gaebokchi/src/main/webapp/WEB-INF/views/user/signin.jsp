@@ -95,9 +95,9 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="findIdEmail"
-                                        class="form-control-label">이메일</label>
+                                        class="form-control-label mt-2 mb-1">이메일</label>
                                     <input type="email"
-                                        class="form-control mb-5"
+                                        class="form-control mb-4"
                                         id="findIdEmail" name="email"
                                         required>
                                 </div>
@@ -122,17 +122,17 @@
             <!-- 비밀번호 찾기 모달 -->
             <div class="modal fade" id="findPwModal" tabindex="-1"
                 aria-labelledby="findPwModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered" id="modal-pw">
                     <!-- modal-dialog-centered 클래스 추가 -->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title"
-                                id="findPwModalLabel">비밀번호 찾기</h5>
+                    <div class="modal-content" id="modal-content-pw">
+                        <div class="modal-header" id="modal-header-pw">
+                            <h4 class="modal-title"
+                                id="findPwModalLabel">비밀번호 찾기</h4>
                             <button type="button" class="btn-close"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" id="modal-body-pw">
                             <!-- 비밀번호 찾기 폼 내용 -->
                             <form id="findPwForm">
                                 <div class="mb-3">
@@ -184,7 +184,7 @@
                                             style="width: 25%;">
                                     </div>
                                     <button type="submit"
-                                        class="btn btn-primary"
+                                        class="btn w-100 text-center mt-4"
                                         id="findPwBtn" name="findPwBtn">비밀번호
                                         찾기</button>
                                 </div>

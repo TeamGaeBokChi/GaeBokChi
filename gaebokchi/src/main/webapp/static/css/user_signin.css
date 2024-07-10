@@ -27,8 +27,6 @@
     font-style: normal;
 }
 
-
-
 body {
     background-color: #f8f9fa;
 }
@@ -40,7 +38,7 @@ body {
 }
 
 #card {
-    border: none;    
+    border: none;
     max-width: 400px;
     margin: 50px auto;
 }
@@ -48,7 +46,6 @@ body {
 .login-container {
     max-width: 400px;
     margin: 50px auto;
-    
 }
 
 #card-header {
@@ -57,7 +54,7 @@ body {
     border: none;
 }
 
-.card-header h5{
+.card-header h5 {
     font-family: 'Pretendard-Regular', Pretendard-Regular;
     color: #808080;
     margin-bottom: 10px;
@@ -103,54 +100,69 @@ body {
     color: #006030;
 }
 
-
-
-
-
-
-
-
-
-
-
-
 .modal {
     font-family: 'Pretendard-Regular', Pretendard-Regular;
 }
+
 #modal-id {
-    max-height: 30%;
-    max-width: 25%;
-}
-.modal-dialog {
+    max-width: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 #madal-content-id {
-    padding: 30px;
+    padding: 20px;
 }
 
-#modal-body-id{
-    max-width: 300px;
-}
-
-#modal-header-id, #findIdForm{
+#modal-header-id, #modal-body-id, #findIdForm {
     background: white;
     border-bottom: none;
-    max-width: 400px;
+    max-width: 350px;
 }
 
 .modal-header h4 {
     font-family: Freesentation-9Black;
 }
 
-#findIdBtn {
+.modal-body #findIdBtn {
     background: black;
     color: white;
-    height: 120%;
+    height: 45px;
 }
 
+.modal-body #findIdBtn:hover {
+    background-color: #006030;
+    color: white;
+}
+
+#modal-pw {
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#modal-content-pw{
+    padding: 20px;    
+}
+
+#modal-header-pw, #modal-body-pw, #findPwForm {
+    background: white;
+    border-bottom: none;
+    max-width: 350px;
+}
+
+.modal-body #findPwBtn {
+    background: black;
+    color: white;
+    height: 45px;
+}
+
+.modal-body #findPwBtn:hover {
+    background-color: #006030;
+    color: white;
+}
 
 .error-message {
     color: #dc3545;
