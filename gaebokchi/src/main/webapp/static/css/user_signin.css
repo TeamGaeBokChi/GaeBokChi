@@ -1,0 +1,104 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+        format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+        format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+body {
+    background-color: #f8f9fa;
+}
+
+#login {
+    margin-top: 150px;
+    max-width: 1280px;
+    padding: 30px 160px;
+}
+
+#card {
+    border: none;    
+    max-width: 400px;
+    margin: 50px auto;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    
+}
+
+#card-header {
+    background-color: white;
+    padding-bottom: 10px;
+    border: none;
+}
+
+.card-header h5{
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    color: #808080;
+    margin-bottom: 10px;
+}
+
+.card-body .form-control {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    border-radius: 10px;
+    height: 45px;
+}
+
+.d-grid .btn-login {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    font-weight: bold;
+    background-color: black;
+    border: none;
+    border-radius: 10px;
+    height: 120%;
+}
+
+.d-grid .btn-login:hover {
+    background-color: #006030;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    list-style-type: none;
+}
+
+.links a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.links a:hover {
+    color: #28a745;
+}
+
+.error-message {
+    color: #dc3545;
+    margin-top: 10px;
+}
