@@ -15,284 +15,295 @@
     rel="stylesheet">
 
 <link rel="stylesheet" href="../css/user_signup.css" />
-    
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/gaebokchi">골프로</a>
-            <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link"
-                        href="/gaebokchi">메인</a></li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown"><a
-                        class="nav-link dropdown-toggle" href="#"
-                        id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown"> 접속하기 </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item"
-                                href="singin">로그인</a></li>
-                            <li><a class="dropdown-item"
-                                href="signup">회원가입</a></li>
-                        </ul></li>
-                </ul>
+
+    <header>
+        <%@ include file="../fragments/header.jspf"%>
+    </header>
+
+    <div class="container" id="login">
+        <div class="card" id="card">
+            <div class="card-header text-center" id="card-header">
+                <h2>회원가입</h2>
+            </div>
+            <div class="card-body">
+                <c:url var="signUpPage" value="/user/signup" />
+                <form action="${signUpPage}" method="post">
+                    <div class="form-group">
+                        <label for="id" class="form-label">아이디</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                id="userid" name="userid"
+                                placeholder="아이디를 입력하세요" required>
+                            <button class="btn btn-outline-secondary"
+                                type="button" name="idbutton"
+                                id="idbutton">중복체크</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userPassword" class="form-label">비밀번호</label>
+                        <input type="password" class="form-control"
+                            id="userPassword" name="password"
+                            placeholder="8~15자의 숫자, 특수문자, 영문자 조합"
+                            required>
+                        <div id="passwordStrength"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userPasswordConfirm"
+                            class="form-label">비밀번호 확인</label> <input
+                            type="password" class="form-control"
+                            id="userPasswordConfirm"
+                            name="passwordConfirm"
+                            placeholder="비밀번호를 다시 입력하세요" required>
+                        <div id="passwordMatch"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userName" class="form-label">이름</label>
+                        <input type="text" class="form-control"
+                            id="name" name="name"
+                            placeholder="이름을 입력하세요" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id" class="form-label">닉네임</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                id="nickname" name="nickname"
+                                placeholder="별명 입력하세요" required>
+                            <button class="btn btn-outline-secondary"
+                                type="button" name="nicknamebutton"
+                                id="nicknamebutton">중복체크</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">휴대폰 번호</label>
+                        <div class="flex">
+                            <select class="form-select" name="phone0"
+                                style="width: 30%;">
+                                <option value="">통신사 선택</option>
+                                <option value="SKT">SKT</option>
+                                <option value="KT">KT</option>
+                                <option value="LG U+">LG U+</option>
+                                <option value="SKT 알뜰폰">SKT 알뜰폰</option>
+                                <option value="KT 알뜰폰">KT 알뜰폰</option>
+                                <option value="LG U+ 알뜰폰">LG U+
+                                    알뜰폰</option>
+                            </select> <input type="text" class="form-control"
+                                id="phone1" name="phone1"
+                                style="width: 20%;" required> <input
+                                type="text" class="form-control"
+                                id="phone2" name="phone2"
+                                placeholder="앞자리" required
+                                style="width: 25%;"> <input
+                                required type="text"
+                                class="form-control" id="phone3"
+                                name="phone3" placeholder="뒷자리"
+                                style="width: 25%;">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group" id="emailGroup">
+                        <label class="form-label">이메일</label>
+                        <div class="flex">
+                            <input type="text" class="form-control"
+                                id="emailPrefix" name="emailPrefix"
+                                placeholder="이메일 주소" style="width: 40%;"
+                                required> <span
+                                class="email-separator">@</span> <select
+                                class="form-select" id="emailSeparator"
+                                name="emailSeparator"
+                                style="width: 40%;">
+                                <option value="naver.com">naver.com</option>
+                                <option value="google.com">google.com</option>
+                                <option value="hanmail.net">hanmail.net</option>
+                                <option value="nate.com">nate.com</option>
+                                <option value="kakao.com">kakao.com</option>
+                            </select>
+                        </div>
+                        <div id="emailDiv"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">생년월일</label>
+                        <div class="flex">
+                            <select class="form-select" id="birth-Year"
+                                required name="birthYear"
+                                style="width: 40%;">
+                                <option disabled selected>출생 연도</option>
+                                <!-- 1940년부터 현재 년도까지 옵션 추가 -->
+                                <script>
+																																	var currentYear = new Date()
+																																			.getFullYear();
+																																	for (var i = currentYear; i >= 1940; i--) {
+																																		document
+																																				.write('<option value="' + i + '">'
+																																						+ i
+																																						+ '년</option>');
+																																	}
+																																</script>
+                            </select> <select class="form-select"
+                                id="birth-month" required
+                                name="birthMonth" style="width: 30%;">
+                                <option disabled selected>월</option>
+                                <option value="1">1월</option>
+                                <option value="2">2월</option>
+                                <option value="3">3월</option>
+                                <option value="4">4월</option>
+                                <option value="5">5월</option>
+                                <option value="6">6월</option>
+                                <option value="7">7월</option>
+                                <option value="8">8월</option>
+                                <option value="9">9월</option>
+                                <option value="10">10월</option>
+                                <option value="11">11월</option>
+                                <option value="12">12월</option>
+                            </select> <select class="form-select" id="birth-day"
+                                required name="birthDay"
+                                style="width: 30%;">
+                                <option disabled selected>일</option>
+                                <!-- 1일부터 31일까지 옵션 추가 -->
+                                <script>
+																																	for (var i = 1; i <= 31; i++) {
+																																		document
+																																				.write('<option value="' + i + '">'
+																																						+ i
+																																						+ '일</option>');
+																																	}
+																																</script>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">성별</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input"
+                                    type="radio" name="gender"
+                                    id="gender" value="1" checked>
+                                <label class="form-check-label"
+                                    for="male">남자</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input"
+                                    type="radio" name="gender"
+                                    id="gender" value="2"> <label
+                                    class="form-check-label"
+                                    for="female">여자</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="postcode" class="form-label">우편번호</label>
+                        <input type="text" class="form-control"
+                            id="postCode" name="postCode"
+                            placeholder="우편번호" style="width: 150px;"
+                            readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addressMain" class="form-label">주소</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                required id="addressMain"
+                                name="addressMain"
+                                placeholder="주소를 입력하세요" readonly>
+                            <button class="btn btn-outline-secondary"
+                                type="button" onclick="searchAddress()">
+                                <i class="fas fa-search"></i> 주소 검색
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addressDetail" class="form-label">상세주소</label>
+                        <input type="text" class="form-control"
+                            id="addressDetail" name="addressDetail"
+                            required placeholder="상세주소를 입력하세요">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">회원 유형</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input"
+                                    type="radio" name="userType"
+                                    id="normalUser" value="일반회원" checked>
+                                <label class="form-check-label"
+                                    for="normalUser">일반회원</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input"
+                                    type="radio" name="userType"
+                                    id="expertUser" value="전문가">
+                                <label class="form-check-label"
+                                    for="expertUser">전문가</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" id="accountGroup">
+
+                        <label class="form-label">계좌번호 입력</label>
+                        <div class="flex">
+                            <select class="form-select" id="bank"
+                                name="bank">
+                                <option value="" selected>은행 선택</option>
+                                <option value="KWANGJU">광주</option>
+                                <option value="BNK">경남</option>
+                                <option value="KB">국민</option>
+                                <option value="IBK">기업</option>
+                                <option value="NH">농협</option>
+                                <option value="DGB">대구</option>
+                                <option value="BUSAN">부산</option>
+                                <option value="KDB">산업</option>
+                                <option value="MG">새마을금고</option>
+                                <option value="SH">수협</option>
+                                <option value="SOL">신한</option>
+                                <option value="ShinHyup">신협</option>
+                                <option value="WOORI">우리</option>
+                                <option value="PO">우체국</option>
+                                <option value="JB">전북</option>
+                                <option value="kakao">카카오뱅크</option>
+                                <option value="Toss">토스</option>
+                                <option value="KEB">하나</option>
+                                <option value="SC">SC제일</option>
+                            </select> <input type="text" class="form-control"
+                                id="accountNumber" name="accountNumber"
+                                placeholder="계좌번호를 입력하세요" />
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="licenseGroup">
+                        <label for="LicenseUpload" class="form-label">라이센스
+                            등록</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                id="license" name="accept"
+                                placeholder="라이센스 번호를 등록하세요">
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4"
+                        id="submitButtonContainer">
+                        <button type="submit" class="btn btn-lg"
+                            id="submitButton">회원가입</button>
+                    </div>
+
+                </form>
             </div>
         </div>
-    </nav>
-
-    <div class="container">
-        <h4 class="text-center">골프로 회원가입</h4>
-        <c:url var="signUpPage" value="/user/signup" />
-        <form action="${signUpPage}" method="post">
-            <div class="form-group">
-                <label for="id" class="form-label">아이디</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="userid"
-                        name="userid" placeholder="아이디를 입력하세요" required>
-                    <button class="btn btn-outline-secondary"
-                        type="button" name="idbutton" id="idbutton">중복체크</button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="userPassword" class="form-label">비밀번호</label>
-                <input type="password" class="form-control"
-                    id="userPassword" name="password"
-                    placeholder="8~15자의 숫자, 특수문자, 영문자 조합" required>
-                <div id="passwordStrength"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="userPasswordConfirm" class="form-label">비밀번호
-                    확인</label> <input type="password" class="form-control"
-                    id="userPasswordConfirm" name="passwordConfirm"
-                    placeholder="비밀번호를 다시 입력하세요" required>
-                <div id="passwordMatch"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="userName" class="form-label">이름</label> <input
-                    type="text" class="form-control" id="name"
-                    name="name" placeholder="이름을 입력하세요" required>
-            </div>
-
-            <div class="form-group">
-                <label for="id" class="form-label">닉네임</label>
-                <div class="input-group">
-                    <input type="text" class="form-control"
-                        id="nickname" name="nickname"
-                        placeholder="별명 입력하세요" required>
-                    <button class="btn btn-outline-secondary"
-                        type="button" name="nicknamebutton"
-                        id="nicknamebutton">중복체크</button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">휴대폰 번호</label>
-                <div class="flex">
-                    <select class="form-select" name="phone0"
-                        style="width: 30%;">
-                        <option value="">통신사 선택</option>
-                        <option value="SKT">SKT</option>
-                        <option value="KT">KT</option>
-                        <option value="LG U+">LG U+</option>
-                        <option value="SKT 알뜰폰">SKT 알뜰폰</option>
-                        <option value="KT 알뜰폰">KT 알뜰폰</option>
-                        <option value="LG U+ 알뜰폰">LG U+ 알뜰폰</option>
-                    </select> <input type="text" class="form-control" id="phone1"
-                        name="phone1" style="width: 20%;" required>
-                    <input type="text" class="form-control" id="phone2"
-                        name="phone2" placeholder="앞자리" required
-                        style="width: 25%;"> <input required
-                        type="text" class="form-control" id="phone3"
-                        name="phone3" placeholder="뒷자리"
-                        style="width: 25%;">
-                </div>
-
-            </div>
-
-            <div class="form-group" id="emailGroup">
-                <label class="form-label">이메일</label>
-                <div class="flex">
-                    <input type="text" class="form-control"
-                        id="emailPrefix" name="emailPrefix"
-                        placeholder="이메일 주소" style="width: 40%;"
-                        required> <span class="email-separator">@</span>
-                    <select class="form-select" id="emailSeparator"
-                        name="emailSeparator" style="width: 40%;">
-                        <option value="naver.com">naver.com</option>
-                        <option value="google.com">google.com</option>
-                        <option value="hanmail.net">hanmail.net</option>
-                        <option value="nate.com">nate.com</option>
-                        <option value="kakao.com">kakao.com</option>
-                    </select>
-                </div>
-                <div id="emailDiv"></div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">생년월일</label>
-                <div class="flex">
-                    <select class="form-select" id="birth-Year" required
-                        name="birthYear" style="width: 40%;">
-                        <option disabled selected>출생 연도</option>
-                        <!-- 1940년부터 현재 년도까지 옵션 추가 -->
-                        <script>
-																									var currentYear = new Date()
-																											.getFullYear();
-																									for (var i = currentYear; i >= 1940; i--) {
-																										document
-																												.write('<option value="' + i + '">'
-																														+ i
-																														+ '년</option>');
-																									}
-																								</script>
-                    </select> <select class="form-select" id="birth-month"
-                        required name="birthMonth" style="width: 30%;">
-                        <option disabled selected>월</option>
-                        <option value="1">1월</option>
-                        <option value="2">2월</option>
-                        <option value="3">3월</option>
-                        <option value="4">4월</option>
-                        <option value="5">5월</option>
-                        <option value="6">6월</option>
-                        <option value="7">7월</option>
-                        <option value="8">8월</option>
-                        <option value="9">9월</option>
-                        <option value="10">10월</option>
-                        <option value="11">11월</option>
-                        <option value="12">12월</option>
-                    </select> <select class="form-select" id="birth-day" required
-                        name="birthDay" style="width: 30%;">
-                        <option disabled selected>일</option>
-                        <!-- 1일부터 31일까지 옵션 추가 -->
-                        <script>
-																									for (var i = 1; i <= 31; i++) {
-																										document
-																												.write('<option value="' + i + '">'
-																														+ i
-																														+ '일</option>');
-																									}
-																								</script>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">성별</label>
-                <div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                            name="gender" id="gender" value="1" checked>
-                        <label class="form-check-label" for="male">남자</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                            name="gender" id="gender" value="2">
-                        <label class="form-check-label" for="female">여자</label>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="form-group">
-                <label for="postcode" class="form-label">우편번호</label> <input
-                    type="text" class="form-control" id="postCode"
-                    name="postCode" placeholder="우편번호"
-                    style="width: 150px;" readonly>
-            </div>
-
-            <div class="form-group">
-                <label for="addressMain" class="form-label">주소</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" required
-                        id="addressMain" name="addressMain"
-                        placeholder="주소를 입력하세요" readonly>
-                    <button class="btn btn-outline-secondary"
-                        type="button" onclick="searchAddress()">
-                        <i class="fas fa-search"></i> 주소 검색
-                    </button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="addressDetail" class="form-label">상세주소</label>
-                <input type="text" class="form-control"
-                    id="addressDetail" name="addressDetail" required
-                    placeholder="상세주소를 입력하세요">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">회원 유형</label>
-                <div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                            name="userType" id="normalUser" value="일반회원"
-                            checked> <label
-                            class="form-check-label" for="normalUser">일반회원</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                            name="userType" id="expertUser" value="전문가">
-                        <label class="form-check-label" for="expertUser">전문가</label>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group" id="accountGroup">
-
-                <label class="form-label">계좌번호 입력</label>
-                <div class="flex">
-                    <select class="form-select" id="bank" name="bank">
-                        <option value="" selected>은행 선택</option>
-                        <option value="KWANGJU">광주</option>
-                        <option value="BNK">경남</option>
-                        <option value="KB">국민</option>
-                        <option value="IBK">기업</option>
-                        <option value="NH">농협</option>
-                        <option value="DGB">대구</option>
-                        <option value="BUSAN">부산</option>
-                        <option value="KDB">산업</option>
-                        <option value="MG">새마을금고</option>
-                        <option value="SH">수협</option>
-                        <option value="SOL">신한</option>
-                        <option value="ShinHyup">신협</option>
-                        <option value="WOORI">우리</option>
-                        <option value="PO">우체국</option>
-                        <option value="JB">전북</option>
-                        <option value="kakao">카카오뱅크</option>
-                        <option value="Toss">토스</option>
-                        <option value="KEB">하나</option>
-                        <option value="SC">SC제일</option>
-                    </select> <input type="text" class="form-control"
-                        id="accountNumber" name="accountNumber"
-                        placeholder="계좌번호를 입력하세요" />
-                </div>
-            </div>
-
-            <div class="form-group" id="licenseGroup">
-                <label for="LicenseUpload" class="form-label">라이센스
-                    등록</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="license"
-                        name="accept" placeholder="라이센스 번호를 등록하세요">
-                </div>
-            </div>
-
-            <div class="d-grid gap-2 mt-4" id="submitButtonContainer">
-                <button type="submit" class="btn btn-primary btn-lg"
-                    id="submitButton">회원가입</button>
-            </div>
-        </form>
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script

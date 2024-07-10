@@ -107,7 +107,7 @@ body {
     font-family: 'Pretendard-Regular', Pretendard-Regular;
 }
 #modal-id {
-    height: 700px; /* 원하는 너비를 지정 */
+    height: 300px; /* 원하는 너비를 지정 */
 }
 .modal-dialog {
     display: flex;
