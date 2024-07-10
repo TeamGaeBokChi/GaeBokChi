@@ -61,5 +61,11 @@ public class AdminController {
 		userService.acceptEx(userid,withdraw);
 		return "redirect:/admin/adminExchange";
 	}
+	
+	@PostMapping("exreject")
+	public String rejectEx(@RequestParam(name = "userid") String userid,@RequestParam(name = "withdraw") int withdraw) {
+		userService.rejectEx(userid, withdraw);
+		return "redirect:/admin/adminExchange";
+	}
 
 }

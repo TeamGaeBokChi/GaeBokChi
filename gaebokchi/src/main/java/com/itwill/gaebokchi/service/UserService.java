@@ -165,15 +165,19 @@ public class UserService {
 	public void rejectUser(String userid) {
 		userDao.deleteAccept(userid);
 	}
-	
+
 	public void acceptEx(String userid, int withdraw) {
 		try {
-			userDao.setPoint(userid,withdraw);
+			userDao.setPoint(userid, withdraw);
 			userDao.setWithdraw(userid, withdraw);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
+	}
+	
+	public void rejectEx(String userid, int withdraw) {
+		userDao.setWithdraw(userid, withdraw);
 	}
 
 }
