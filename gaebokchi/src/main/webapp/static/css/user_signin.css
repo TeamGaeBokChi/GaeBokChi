@@ -103,6 +103,17 @@ body {
     color: #006030;
 }
 
+
+
+
+
+
+
+
+
+
+
+
 .modal {
     font-family: 'Pretendard-Regular', Pretendard-Regular;
 }
@@ -115,8 +126,12 @@ body {
     justify-content: center;
 }
 
-#findPwModalLabel{
-    width: 1080px;
+.modal-header {
+    background: white;
+}
+
+.modal-header h5 {
+    font-weight: bold;
 }
 
 

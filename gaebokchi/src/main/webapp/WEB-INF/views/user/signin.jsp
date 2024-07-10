@@ -89,7 +89,7 @@
                                 <div class="mb-3">
                                     <label for="findIdName"
                                         class="form-label">이름</label> <input
-                                        type="text" class="form-control"
+                                        type="text" class="form-control mb-2"
                                         id="findIdName" name="name"
                                         required>
                                 </div>
@@ -97,12 +97,12 @@
                                     <label for="findIdEmail"
                                         class="form-control-label">이메일</label>
                                     <input type="email"
-                                        class="form-control"
+                                        class="form-control mb-5"
                                         id="findIdEmail" name="email"
                                         required>
                                 </div>
                                 <button type="submit"
-                                    class="btn btn-primary"
+                                    class="btn"
                                     id="findIdBtn">아이디 찾기</button>
                             </form>
                             <div id="findIdError"

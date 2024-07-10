@@ -31,7 +31,7 @@
             <div class="card-body">
                 <c:url var="signUpPage" value="/user/signup" />
                 <form action="${signUpPage}" method="post">
-                    <div class="form-group">
+                    <div class="form-group" id="signupid">
                         <label for="id" class="form-label">아이디</label>
                         <div class="input-group">
                             <input type="text" class="form-control"
@@ -71,7 +71,7 @@
 
                     <div class="form-group">
                         <label for="id" class="form-label">닉네임</label>
-                        <div class="input-group">
+                        <div class="input-group" id="signupnick">
                             <input type="text" class="form-control"
                                 id="nickname" name="nickname"
                                 placeholder="별명 입력하세요" required>

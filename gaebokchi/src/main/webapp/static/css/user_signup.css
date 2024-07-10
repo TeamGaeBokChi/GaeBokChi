@@ -67,8 +67,12 @@
     box-shadow: none !important; /* 포커스시 테두리 그림자 제거 */
 }
 
-#userid, #password, #changePassword, #name, #nickname, #birth, #gender {
+#userPassword, #userPasswordConfirm, #name, #birth, #gender {
     width: 50%;
+}
+
+#signupid, #signupnick {
+    width: 65%;
 }
 
 #phone {
