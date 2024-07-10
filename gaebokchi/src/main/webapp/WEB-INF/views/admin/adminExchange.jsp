@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,43 +35,38 @@
         </ul>
     </div>
     <div class="container">
-        <h1>환전 요청 관리</h1>
-        <table>
-            <thead>
+    <h1>환전 요청 관리</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>요청 ID</th>
+                <th>회원명</th>
+                <th>요청 금액</th>
+                <th>액션</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="e" items="${exlist}">
                 <tr>
-                    <th>요청 ID</th>
-                    <th>회원명</th>
-                    <th>요청 금액</th>
-                    <th>요청 일시</th>
-                    <th>상태</th>
-                    <th>액션</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1001</td>
-                    <td>홍길동</td>
-                    <td>500,000원</td>
-                    <td>2024-07-05 14:30</td>
-                    <td>대기 중</td>
+                    <td>${e.userid}</td>
+                    <td>${e.name}</td>
+                    <td>${e.withdraw}</td>
                     <td>
-                        <button class="btn btn-approve" onclick="approveExchange(1001)">승인</button>
-                        <button class="btn btn-reject" onclick="rejectExchange(1001)">거절</button>
+                        <form action="exapprove" method="post" style="display:inline;">
+                            <input type="hidden" name="userid" value="${e.userid}">
+                            <input type="hidden" name="withdraw" value="${e.withdraw}">
+                            <button type="submit">승인</button>
+                        </form>
+                        <form action="exreject" method="post" style="display:inline;">
+                            <input type="hidden" name="userid" value="${e.userid}">
+                            <input type="hidden" name="withdraw" value="${e.withdraw}">
+                            <button type="submit">거절</button>
+                        </form>
                     </td>
                 </tr>
-                <!-- 더 많은 행 추가 -->
-            </tbody>
-        </table>
-    </div>
-    <script>
-        function approveExchange(id) {
-            alert(id + "번 환전 요청이 승인되었습니다.");
-            // 여기에 AJAX 요청 등의 실제 처리 로직 추가
-        }
-        function rejectExchange(id) {
-            alert(id + "번 환전 요청이 거절되었습니다.");
-            // 여기에 AJAX 요청 등의 실제 처리 로직 추가
-        }
-    </script>
-</body>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
+
 </html>

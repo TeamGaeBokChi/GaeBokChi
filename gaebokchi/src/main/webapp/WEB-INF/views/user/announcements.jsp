@@ -17,9 +17,36 @@
     <div class="container">
         <div class="row">
             <%@ include file="../fragments/menu.jspf" %>
-            
+
             <div class="col-8">
-                
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>탭</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                            <th>조회</th>
+                            <th>추천</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="p" items="${pinnedPosts}">
+                            <tr class="table table-secondary">
+                                <td>${categoryMap[p.category]}</td>
+                                <td>
+                                    <c:url var="commPostDetailsPage" value="/community/comm_details">
+                                        <c:param name="id" value="${p.id}"></c:param>
+                                    </c:url>
+                                    <a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
+                                </td>
+                                <td>${p.modifiedTime}</td>
+                                <td>${p.views}</td>
+                                <td>${p.likes}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

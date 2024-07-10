@@ -13,80 +13,9 @@
 <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     rel="stylesheet">
-<style>
-:root {
-    --primary-color: #4CAF50;
-    --secondary-color: #45a049;
-    --background-color: #f8f9fa;
-    --text-color: #333;
-}
 
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
+<link rel="stylesheet" href="../css/user_signup.css" />
 
-.navbar {
-    background-color: var(--primary-color);
-}
-
-.navbar-brand, .nav-link {
-    color: white !important;
-}
-
-.container {
-    max-width: 600px;
-    margin-top: 30px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-h4 {
-    color: var(--primary-color);
-    margin-bottom: 20px;
-}
-
-.form-control, .btn {
-    border-radius: 5px;
-    padding: 0.375rem 0.75rem;
-}
-
-.btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.btn-primary:hover {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-label {
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-.flex {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-#bank {
-    flex: 1;
-}
-
-#accountNumber {
-    flex: 2;
-}
-</style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
@@ -355,7 +284,7 @@ h4 {
                     등록</label>
                 <div class="input-group">
                     <input type="text" class="form-control" id="license"
-                        name="license" placeholder="라이센스 번호를 등록하세요">
+                        name="accept" placeholder="라이센스 번호를 등록하세요">
                 </div>
             </div>
 
