@@ -118,7 +118,8 @@ body {
     font-family: 'Pretendard-Regular', Pretendard-Regular;
 }
 #modal-id {
-    height: 300px; /* 원하는 너비를 지정 */
+    max-height: 30%;
+    max-width: 25%;
 }
 .modal-dialog {
     display: flex;
@@ -126,12 +127,28 @@ body {
     justify-content: center;
 }
 
-.modal-header {
-    background: white;
+#madal-content-id {
+    padding: 30px;
 }
 
-.modal-header h5 {
-    font-weight: bold;
+#modal-body-id{
+    max-width: 300px;
+}
+
+#modal-header-id, #findIdForm{
+    background: white;
+    border-bottom: none;
+    max-width: 400px;
+}
+
+.modal-header h4 {
+    font-family: Freesentation-9Black;
+}
+
+#findIdBtn {
+    background: black;
+    color: white;
+    height: 120%;
 }
 
 

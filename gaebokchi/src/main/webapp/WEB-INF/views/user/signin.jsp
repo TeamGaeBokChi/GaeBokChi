@@ -73,23 +73,23 @@
             <!-- 아이디 찾기 모달 -->
             <div class="modal fade" id="findIdModal" tabindex="-1"
                 aria-labelledby="findIdModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" id="modal-id">
+                <div class="modal-dialog modal-dialog-centered " id="modal-id">
                     <!-- modal-dialog-centered 클래스 추가 -->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title"
-                                id="findIdModalLabel">아이디 찾기</h5>
+                    <div class="modal-content" id="madal-content-id">
+                        <div class="modal-header" id="modal-header-id">
+                            <h4 class="modal-title"
+                                id="findIdModalLabel">아이디 찾기</h4>
                             <button type="button" class="btn-close"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" id="modal-body-id">
                             <!-- 아이디 찾기 폼 내용 -->
                             <form id="findIdForm">
-                                <div class="mb-3">
+                                <div class="mb-1">
                                     <label for="findIdName"
                                         class="form-label">이름</label> <input
-                                        type="text" class="form-control mb-2"
+                                        type="text" class="form-control mb-1"
                                         id="findIdName" name="name"
                                         required>
                                 </div>
@@ -102,7 +102,7 @@
                                         required>
                                 </div>
                                 <button type="submit"
-                                    class="btn"
+                                    class="btn w-100 text-center"
                                     id="findIdBtn">아이디 찾기</button>
                             </form>
                             <div id="findIdError"
