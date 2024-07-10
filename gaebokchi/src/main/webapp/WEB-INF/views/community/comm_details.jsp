@@ -7,13 +7,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>게시물 상세보기</title>
-<script>
-	// loggedInUser 정보를 JavaScript 변수로 전달
-	const loggedInUser = $
-	{
-		loggedInUser != null ? 'true' : 'false'
-	};
-</script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
