@@ -14,14 +14,13 @@ public class JoinPostCreateDto {
     private String content;
     private String author;
     private String category;
-    private String clubtype;
     private String gcadress;
     private LocalDateTime teeoff;
     private Integer greenfee;
     private Integer hole;
 
     public JoinPost toEntity() {
-        return JoinPost.builder().title(title).content(content).author(author).clubtype(clubtype).category(category).gcadress(gcadress)
+        return JoinPost.builder().title(title).content(content).author(author).category(category).gcadress(gcadress)
         		.teeoff(teeoff).greenfee(greenfee).hole(hole).build();
     }
     

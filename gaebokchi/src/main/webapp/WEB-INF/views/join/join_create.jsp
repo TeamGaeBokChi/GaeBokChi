@@ -124,8 +124,7 @@ body {
 								onclick="execDaumPostcode()">주소 검색</button>
 						</div>
 						<div>
-							<input type="hidden" name="category" value="P003" /> <input
-								type="hidden" name="clubtype" value="DR" />
+							<input type="hidden" name="category" value="P003" />
 						</div>
 					</div>
 					<div class="mt-2">
@@ -141,8 +140,8 @@ body {
 							placeholder="홀수 입력" required />
 					</div>
 					<div class="mt-2">
-						<input class="form-control" type="text" name="author"
-							placeholder="작성자" required />
+						<input class="form-control" type="hidden" name="author"
+							value="${loggedInUser.nickname}" required />
 					</div>
 					<div class="mt-2">
 						<textarea class="form-control" rows="5" name="content"

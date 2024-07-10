@@ -28,7 +28,7 @@ body {
 	max-width: 1000px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	margin: 0 auto;
-	margin-top: 30px;
+	margin-top: 80px;
 }
 
 table {
@@ -80,9 +80,6 @@ footer.text-center {
 	justify-content: center;
 	margin-top: 20px; /* 필요에 따라 상단 마진을 조정할 수 있습니다. */
 }
-</style>
-
-
 </style>
 </head>
 <body>
