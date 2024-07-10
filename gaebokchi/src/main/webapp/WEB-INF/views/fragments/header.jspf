@@ -95,7 +95,7 @@
             <%-- 로그인 끝 --%>
         </div>
     </div>
-
+    
     <c:url var="script" value="/js/script.js" />
     <script src="${script}"></script>
 
