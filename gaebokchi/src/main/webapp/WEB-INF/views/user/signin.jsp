@@ -48,7 +48,7 @@
                         <input class="form-control" type="text"
                             name="userid" placeholder="아이디" required />
                     </div>
-                    <div class="mb-5">
+                    <div class="mb-4">
                         <input class="form-control" type="password"
                             name="password" placeholder="비밀번호" required />
                     </div>
@@ -61,8 +61,8 @@
                     <div class="error-message text-center mt-3">${errorMessage}</div>
                 </c:if>
             </div>
-            <div class="card-footer bg-white border-top-0 pb-3">
-                <ul class="links mt-3">
+            <div class="card-footer bg-white border-top-0">
+                <ul class="links">
                     <li><a href="#" data-bs-toggle="modal"
                         data-bs-target="#findIdModal">아이디 찾기</a></li>
                     <li><a href="#" data-bs-toggle="modal"
@@ -73,7 +73,8 @@
             <!-- 아이디 찾기 모달 -->
             <div class="modal fade" id="findIdModal" tabindex="-1"
                 aria-labelledby="findIdModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered" id="modal-id">
+                    <!-- modal-dialog-centered 클래스 추가 -->
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title"
@@ -121,7 +122,8 @@
             <!-- 비밀번호 찾기 모달 -->
             <div class="modal fade" id="findPwModal" tabindex="-1"
                 aria-labelledby="findPwModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
+                    <!-- modal-dialog-centered 클래스 추가 -->
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title"
@@ -185,8 +187,8 @@
                                         class="btn btn-primary"
                                         id="findPwBtn" name="findPwBtn">비밀번호
                                         찾기</button>
+                                </div>
                             </form>
-
                             <!-- 새 비밀번호 설정 폼 (초기에는 숨김) -->
                             <form id="setNewPwForm"
                                 style="display: none;" class="mt-3">
@@ -214,7 +216,6 @@
                                     class="btn btn-primary"
                                     id="setNewPwBtn">새 비밀번호 설정</button>
                             </form>
-
                             <!-- 오류 메시지 표시 영역 -->
                             <div id="findPwError"
                                 class="alert alert-danger mt-3"
