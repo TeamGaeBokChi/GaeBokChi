@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -122,22 +122,35 @@ body {
 	height: auto; /* 높이 자동으로 조정 */
 	display: block; /* 인라인 요소를 블록 요소로 변환 */
 }
+
+.container-fluid {
+	background-color: white;
+	border-radius: 10px;
+	padding: 20px;
+	max-width: 1000px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	margin: 0 auto;
+	margin-top: 85px;
+}
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
+		<header>
+			<%@ include file="../fragments/header.jspf"%>
+		</header>
 		<div class="card">
 			<div class="card-header">
 				<input type="hidden" id="postId" value="${post.id}" />
 				<h2 class="card-title">${post.title}</h2>
-				<small class="text-white">${categoryMap[post.category]} -
+				<small class="text-black">${categoryMap[post.category]} -
 					${post.createdTime}</small>
 			</div>
 			<div class="card-body">
 				<div class="post-info d-flex justify-content-between mb-3">
 					<span><i class="bi bi-person"></i> ${post.author}</span> <span><i
 						class="bi bi-eye"></i> ${post.views}</span> <span><i
-						class="bi bi-hand-thumbs-up"></i> <span id="likesCount"> ${post.likes}</span></span>
+						class="bi bi-hand-thumbs-up"></i> <span id="likesCount">${post.likes}</span></span>
 					<span><i class="bi bi-chat-dots"></i> ${commentcount}</span>
 				</div>
 				<div class="post-content">
@@ -149,15 +162,19 @@ body {
 					</c:if>
 					<div>${post.content}</div>
 				</div>
-				<div class="position-relative mb-4">
-					<button id="btnLikes"
-						class="btn btn-like btn-lg btn-custom center-btn">
-						<i class="bi bi-heart-fill"></i>
-					</button>
-					<div class="d-flex justify-content-end mt-2">
-						<c:url var="postModifyPage" value="/review/review_modify">
-							<c:param name="id" value="${post.id}" />
-						</c:url>
+				<c:if test="${post.author ne loggedInUser.nickname}">
+					<div class="position-relative mb-4 text-center">
+						<!-- 좋아요 버튼의 위치를 text-center로 설정 -->
+						<button id="btnLikes" class="btn btn-like btn-lg btn-custom">
+							<i class="bi bi-heart-fill"></i>
+						</button>
+					</div>
+				</c:if>
+				<div class="d-flex justify-content-end mt-2">
+					<c:url var="postModifyPage" value="/review/review_modify">
+						<c:param name="id" value="${post.id}" />
+					</c:url>
+					<c:if test="${post.author eq loggedInUser.nickname}">
 						<form action="${postModifyPage}" method="get"
 							style="display: inline;">
 							<input type="hidden" name="id" value="${post.id}" />
@@ -167,7 +184,7 @@ body {
 						<input type="hidden" name="postId" value="${post.id}" />
 						<button id="btnDelete"
 							class="btn btn-outline-danger btn-custom ms-2">🗑️삭제</button>
-					</div>
+					</c:if>
 				</div>
 				<div class="d-flex justify-content-between mb-4">
 					<c:url var="previousPostUrl" value="/review/review_details">
@@ -189,40 +206,44 @@ body {
 						다음 글 <i class="bi bi-chevron-right"></i>
 					</a>
 				</div>
-				<form class="comment-form">
-					<div class="input-group mb-3">
-						<div class="col-2">
-							<input name="author" type="text" class="form-control"
-								placeholder="작성자를 입력하세요...">
-						</div>
-						<div class="col-8">
-							<textarea name="content" id="content" class="form-control"
-								rows="2" placeholder="댓글을 입력하세요"></textarea>
-						</div>
-						<div class="col-2">
-							<input type="hidden" name="postId" value="${post.id}">
-							<button id="btnRegisterComment"
-								class="btn btn-success btn-register-comment" type="submit">등록</button>
-						</div>
-					</div>
-				</form>
-				<div class="comment-list">
-					<c:forEach var="comment" items="${commentlist}">
-						<div class="comment">
-							<b>${comment.author}</b>
-							<p>${comment.content}</p>
-							<div>
-								<small class="text-muted">${comment.modifiedTime}</small> <input
-									type="hidden" name="commentId" value="${comment.id}">
-								<button id="btnUpdateComment"
-									class="btn btn-success btn-register-comment" type="submit">수정</button>
-								<input type="hidden" name="commentId" value="${comment.id}">
-								<button id="btnDeleteComment"
-									class="btn btn-success btn-register-comment" type="submit">삭제</button>
+				<c:if test="${not empty loggedInUser}">
+					<form class="comment-form">
+						<div class="input-group mb-3">
+							<div class="col-2">
+								<input name="author" type="hidden" class="form-control"
+									value="${loggedInUser.nickname}">
+							</div>
+							<div class="col-8">
+								<textarea name="content" id="content" class="form-control"
+									rows="2" placeholder="댓글을 입력하세요"></textarea>
+							</div>
+							<div class="col-2">
+								<input type="hidden" name="postId" value="${post.id}">
+								<button id="btnRegisterComment"
+									class="btn btn-success btn-register-comment" type="submit">등록</button>
 							</div>
 						</div>
-					</c:forEach>
-				</div>
+					</form>
+				</c:if>
+						<div class="comment-list">
+							<c:forEach var="comment" items="${commentlist}">
+								<div class="comment">
+									<b>${comment.author}</b>
+									<p>${comment.content}</p>
+									<div>
+										<small class="text-muted">${comment.modifiedTime}</small> <input
+											type="hidden" name="commentId" value="${comment.id}">
+										<c:if test="${comment.author eq loggedInUser.nickname}">
+											<button id="btnUpdateComment"
+												class="btn btn-success btn-register-comment" type="submit">수정</button>
+											<input type="hidden" name="commentId" value="${comment.id}">
+											<button id="btnDeleteComment"
+												class="btn btn-success btn-register-comment" type="submit">삭제</button>
+										</c:if>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
 			</div>
 		</div>
 	</div>

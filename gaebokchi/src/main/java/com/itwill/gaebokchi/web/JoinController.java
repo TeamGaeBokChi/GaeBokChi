@@ -2,7 +2,6 @@ package com.itwill.gaebokchi.web;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,9 +18,12 @@ import com.itwill.gaebokchi.dto.JoinPostCreateDto;
 import com.itwill.gaebokchi.dto.JoinPostListDto;
 import com.itwill.gaebokchi.dto.JoinPostSearchDto;
 import com.itwill.gaebokchi.dto.JoinPostUpdateDto;
+import com.itwill.gaebokchi.filter.AuthenticationFilter;
 import com.itwill.gaebokchi.repository.JoinPost;
+import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.service.JoinPostService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,14 +35,27 @@ public class JoinController {
 
 	private final JoinPostService joinPostService;
 
+	@ModelAttribute("loggedInUser")
+	public User addLoggedInUserToModel(HttpSession session) {
+		String userId = (String) session.getAttribute(AuthenticationFilter.SESSION_ATTR_USER);
+		if (userId != null) {
+			return joinPostService.getLoggedInUser(userId);
+		}
+		return null;
+	}
+
 	@GetMapping("/join_create")
-	public void createCommPost() {
-		log.debug("GET: create()");
+	public void createJoinPost(@ModelAttribute("loggedInUser") User loggedInUser, Model model) {
+		if (loggedInUser != null) {
+			model.addAttribute("user", loggedInUser);
+		}
 	}
 
 	@PostMapping("/join_create")
-	public String create(JoinPostCreateDto dto) {
-		log.debug("POST: create(dto={})", dto);
+	public String create(JoinPostCreateDto dto, @ModelAttribute("loggedInUser") User loggedInUser) {
+		if (loggedInUser != null) {
+			log.debug("user={}", loggedInUser);
+		}
 		joinPostService.create(dto);
 		return "redirect:/join/join_main";
 	}
@@ -95,7 +111,14 @@ public class JoinController {
 	}
 
 	@GetMapping({ "/join_details", "/join_modify" })
-	public void detailsjoinPost(@RequestParam("id") Integer id, Model model) {
+	public void detailsjoinPost(@RequestParam("id") Integer id, @ModelAttribute("loggedInUser") User loggedInUser,
+			Model model) {
+
+		if (loggedInUser != null) {
+			log.debug("user={}", loggedInUser);
+			model.addAttribute("user", loggedInUser);
+		}
+
 		JoinPost post = joinPostService.read(id);
 		JoinPost previousPost = joinPostService.getPreviousPost(post.getTeeoff());
 		JoinPost nextPost = joinPostService.getNextPost(post.getTeeoff());

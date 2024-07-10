@@ -38,6 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	const btnFileUpload = document.querySelector('input#input_file');
 	btnFileUpload.addEventListener('change', fileUpload);
 	
+	const btnFileRemove = document.querySelector('a#fileRemove');
+	btnFileRemove.addEventListener('click', fileRemove);
+	
 	function viewEditNickname() {
 		editNickname.classList.remove('d-none');
 		nickname.readOnly = false;
@@ -126,9 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	    var formData = new FormData();
 	    formData.append('file', file);
 
-	    const uri = `./file/image`;
+	    const uri = `./file/image?userid=${userid}`;
 
-	    axios.put(uri, formData, {
+	    axios.post(uri, formData, {
 	        headers: {
 	            'Content-Type': 'multipart/form-data'
 	        },
@@ -148,5 +151,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	        console.error('Error uploading file:', error);
 	        // 실패 메시지를 사용자에게 보여주는 등의 처리
 	    });
+	}
+	
+	function fileRemove() {
+		const uri = `./file/remove?userid=${userid}`;
+
+		axios.get(uri)
+			.then((response) => {
+				location.reload(true);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}
 });

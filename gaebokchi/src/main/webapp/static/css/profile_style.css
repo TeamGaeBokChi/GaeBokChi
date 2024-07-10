@@ -27,6 +27,12 @@
     font-style: normal;
 }
 
+#mypage {
+    margin-top: 150px;
+    max-width: 1280px;
+    padding: 40px 40px 160px;
+}
+
 .user_data, .basic_font {
     font-family: Arial, sans-serif;
 }
@@ -64,4 +70,9 @@ a {
 
 .input_none {
     border: none;
+}
+
+img#image {
+    width: 100px;
+    height: 100px;
 }

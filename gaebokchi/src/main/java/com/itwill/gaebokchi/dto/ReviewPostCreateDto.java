@@ -3,7 +3,6 @@ package com.itwill.gaebokchi.dto;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.itwill.gaebokchi.repository.CommPost;
 import com.itwill.gaebokchi.repository.ReviewPost;
 
 import lombok.AllArgsConstructor;

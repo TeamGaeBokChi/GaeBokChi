@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 import org.springframework.core.io.ByteArrayResource;
 
-import com.itwill.gaebokchi.repository.CommPost;
 import com.itwill.gaebokchi.repository.ReviewPost;
 
 import lombok.AllArgsConstructor;

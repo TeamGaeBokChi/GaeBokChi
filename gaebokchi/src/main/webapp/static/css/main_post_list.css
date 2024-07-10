@@ -1,0 +1,91 @@
+@charset "UTF-8";
+/* 폰트 */
+@font-face {
+    font-family: 'SpoqaHanSansNeo-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+        format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+        format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    margin-top: 100px;
+    max-width: 1280px;
+}
+
+.card h2 {
+    font-family: 'Freesentation-9Black';
+    padding: 30px;
+    text-align: center; /* 가운데 정렬 */
+}
+
+.card-header {
+    font-family: 'SUIT-Regular';
+    font-weight: 500;
+}
+
+#list-header {
+    background-color: white; /* 배경색을 투명으로 설정 */
+    border: none; /* 선택적으로 테두리 제거 */
+}
+
+.row {
+    background-color: transparent; /* 배경색을 투명으로 설정 */
+    border: none; /* 선택적으로 테두리 제거 */
+}
+
+#searchCategory {
+    font-weight:bold;
+    border: 2px solid black;
+}
+
+#searchButton {
+    font-weight:bold;
+    border: 2px solid black;
+    width: 70px;
+    text-align: center;
+}
+
+#btnCreateMainPost {
+    color: white;
+    border: 1px solid #808080;
+    background: #3e826a;
+}
+
+.table thead th {
+    font-family: 'SUIT-Regular', SUIT-Regular; 
+    color: black; 
+    text-align: center;
+}

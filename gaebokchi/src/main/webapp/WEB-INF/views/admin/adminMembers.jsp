@@ -97,29 +97,6 @@
             </tbody>
         </table>
     </div>
-    <script>
-        function editMember(id) {
-            alert(id + "번 회원 정보를 수정합니다.");
-            // 여기에 수정 페이지로 이동하는 로직 추가
-        }
-        function deleteMember(id) {
-            if(confirm(id + "번 회원을 정말 삭제하시겠습니까?")) {
-                alert(id + "번 회원이 삭제되었습니다.");
-                // 여기에 실제 삭제 처리 로직 추가
-            }
-        }
-        function changeGrade(id, grade) {
-            alert(id + "번 회원의 등급이 " + grade + "로 변경되었습니다.");
-            // 여기에 실제 등급 변경 처리 로직 추가
-            // 예: AJAX 요청을 통해 서버에 등급 변경 요청
-        }
-        // 페이지 로드 시 각 회원의 현재 등급 설정
-        window.onload = function() {
-            // 예시: 1번 회원의 등급을 골드로 설정
-            document.getElementById('grade-1').value = '골드';
-            // 예시: 2번 회원의 등급을 플래티넘으로 설정
-            document.getElementById('grade-2').value = '플래티넘';
-        }
-    </script>
+    
 </body>
 </html>

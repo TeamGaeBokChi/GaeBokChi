@@ -113,11 +113,9 @@ div.right .comments-section .comment:first-of-type {
 	margin-top: 0;
 }
 
-div.right .comments-section .comment .comment-thumb {
-	display: inline-block;
+img.pofile-image {
 	width: 80px;
 	height: 80px;
-	background: #000;
 	border-radius: 80px;
 	margin-right: 20px;
 }

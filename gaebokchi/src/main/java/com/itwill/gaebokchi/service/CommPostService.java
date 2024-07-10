@@ -1,19 +1,11 @@
 package com.itwill.gaebokchi.service;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.gaebokchi.dto.CommPostCreateDto;
 import com.itwill.gaebokchi.dto.CommPostListDto;
@@ -26,6 +18,8 @@ import com.itwill.gaebokchi.repository.CommPost;
 import com.itwill.gaebokchi.repository.CommPostDao;
 import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
+import com.itwill.gaebokchi.repository.User;
+import com.itwill.gaebokchi.repository.UserDao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,8 +32,7 @@ public class CommPostService {
 	private final CommPostDao commPostDao;
 	private final CommentDao commentDao;
 	private final MediaService mediaService;
-
-	private static final String upload_DIR = "C:/tool/media";
+	private final UserDao userDao;
 
 	public List<CommPostListDto> read() {
 		log.debug("read()");
@@ -90,6 +83,12 @@ public class CommPostService {
 	public List<CommPostListDto> getTop5ByF001() {
 		log.debug("getTop5ByF001()");
 		List<CommPost> list = commPostDao.selectTop5ByF001();
+		return list.stream().map(CommPostListDto::fromEntity).collect(Collectors.toList());
+	}
+	
+	public List<CommPostListDto> Fixingthetop() {
+		log.debug("Fixingthetop()");
+		List<CommPost> list = commPostDao.Fixingthetop();
 		return list.stream().map(CommPostListDto::fromEntity).collect(Collectors.toList());
 	}
 
@@ -165,5 +164,10 @@ public class CommPostService {
 		int result = commentDao.selectCommentCount(id);
 		return result;
 	}
+
+	public User getLoggedInUser(String userId) {
+		return userDao.selectByUserid(userId);
+	}
+	
 
 }

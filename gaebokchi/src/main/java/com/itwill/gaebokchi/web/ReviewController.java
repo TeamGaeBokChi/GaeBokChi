@@ -1,9 +1,5 @@
 package com.itwill.gaebokchi.web;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -33,17 +29,17 @@ import com.itwill.gaebokchi.dto.CommentCreateDto;
 import com.itwill.gaebokchi.dto.CommentItemDto;
 import com.itwill.gaebokchi.dto.CommentUpdateDto;
 import com.itwill.gaebokchi.dto.ReviewPostCreateDto;
-import com.itwill.gaebokchi.dto.ReviewPostListDto;
 import com.itwill.gaebokchi.dto.ReviewPostSearchDto;
 import com.itwill.gaebokchi.dto.ReviewPostUpdateDto;
+import com.itwill.gaebokchi.filter.AuthenticationFilter;
 import com.itwill.gaebokchi.repository.ReviewPost;
+import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
-import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.service.MediaService;
 import com.itwill.gaebokchi.service.ReviewPostService;
-import com.itwill.gaebokchi.service.ReviewPostService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,15 +53,30 @@ public class ReviewController {
 	private final ReviewPostService reviewPostService;
 	private final MediaService mediaService;
 
+	@ModelAttribute("loggedInUser")
+	public User addLoggedInUserToModel(HttpSession session) {
+		String userId = (String) session.getAttribute(AuthenticationFilter.SESSION_ATTR_USER);
+		if (userId != null) {
+			return reviewPostService.getLoggedInUser(userId);
+		}
+		return null;
+	}
+
 	@GetMapping("/review_create")
-	public void createReviewPost() {
-		log.debug("GET: create()");
+	public String createReviewPost(@ModelAttribute("loggedInUser") User loggedInUser, Model model) {
+		if (loggedInUser != null) {
+			model.addAttribute("user", loggedInUser);
+		}
+		return "review/review_create";
 	}
 
 	@PostMapping("/review_create")
 	public String create(@ModelAttribute ReviewPostCreateDto dto,
-			@RequestParam(value = "media", required = false) MultipartFile mediaFile) {
-		log.debug("POST: create(dto = {}, mediaFile = {})", dto, mediaFile);
+			@RequestParam(value = "media", required = false) MultipartFile mediaFile,
+			@ModelAttribute("loggedInUser") User loggedInUser) {
+		if (loggedInUser != null) {
+			log.debug("user={}", loggedInUser);
+		}
 
 		if (mediaFile != null && !mediaFile.isEmpty()) {
 			String fileName = mediaService.storeFile(mediaFile);
@@ -84,8 +95,7 @@ public class ReviewController {
 		log.debug("GET: ViewCommMain()");
 
 		List<ReviewPostListDto> posts;
-		List<ReviewPostListDto> pinnedPosts = List.of(ReviewPostListDto.fromEntity(reviewPostService.read(62)),
-				ReviewPostListDto.fromEntity(reviewPostService.read(65)));
+		List<ReviewPostListDto> pinnedPosts = reviewPostService.Fixingthetop();
 
 		int pageBlockSize = 10;
 
@@ -126,9 +136,15 @@ public class ReviewController {
 	}
 
 	@GetMapping("/review_details")
-	public String detailsReviewPost(@RequestParam("id") Integer id, Model model) {
+	public String detailsReviewPost(@ModelAttribute("loggedInUser") User loggedInUser, @RequestParam("id") Integer id,
+			Model model) {
 		// 조회수 증가
 		reviewPostService.increaseViews(id);
+
+		if (loggedInUser != null) {
+			log.debug("user={}", loggedInUser);
+			model.addAttribute("user", loggedInUser);
+		}
 
 		// 게시물 조회
 		ReviewPost post = reviewPostService.read(id);
@@ -201,28 +217,29 @@ public class ReviewController {
 
 	@PostMapping("/comments")
 	@ResponseBody
-	public CommentItemDto addComment(@RequestBody CommentCreateDto commentCreateDto) {
+	public Comment addComment(@RequestBody CommentCreateDto commentCreateDto,
+			@ModelAttribute("loggedInUser") User loggedInUser) {
 		Comment comment = new Comment();
 		comment.setPostId(commentCreateDto.getPostId());
-		comment.setAuthor(commentCreateDto.getAuthor());
 		comment.setContent(commentCreateDto.getContent());
-		comment.setModifiedTime(LocalDateTime.now()); // 현재 시간 설정
 
-		// 댓글을 데이터베이스에 저장
-		commentDao.insertComment(comment);
+		if (loggedInUser != null) {
+			comment.setAuthor(loggedInUser.getNickname()); // 댓글 작성자 설정
 
-		// 저장된 댓글의 ID가 설정되었는지 확인
-		System.out.println("Saved Comment ID: " + comment.getId());
+			// 댓글을 데이터베이스에 저장하고 자동 생성된 id를 받아옴
+			int result = commentDao.insertComment(comment);
 
-		// 저장된 댓글을 다시 읽어옴 (매퍼 사용)
-		Comment savedComment = commentDao.selectCommentById(comment.getId());
-
-		// 반환할 DTO 객체 생성
-		CommentItemDto commentItemDto = CommentItemDto.fromEntity(savedComment);
-		System.out.println("Returning CommentItemDto: " + commentItemDto);
-
-		// CommentItemDto로 변환하여 반환
-		return commentItemDto;
+			// 저장된 댓글 객체를 반환하여 클라이언트에게 전달
+			if (result > 0) {
+				return comment;
+			} else {
+				// 저장에 실패한 경우 처리
+				return null;
+			}
+		} else {
+			// 로그인 되지 않은 경우 처리
+			return null;
+		}
 	}
 
 	@PutMapping("/comments")
@@ -241,7 +258,7 @@ public class ReviewController {
 
 	@GetMapping("/media/{fileName}")
 	@ResponseBody
-	public ResponseEntity<ByteArrayResource> getMedia(@PathVariable String fileName) {
+	public ResponseEntity<ByteArrayResource> getMedia(@PathVariable("fileName") String fileName) {
 		ByteArrayResource resource = mediaService.loadFileAsResource(fileName);
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
 				.body(resource);

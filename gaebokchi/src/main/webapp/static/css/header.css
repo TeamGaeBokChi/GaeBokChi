@@ -55,7 +55,6 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: white;
-    border-bottom: 1px solid #e4e4e4;
 }
 
 .left-section, .center, .right-section {
@@ -99,7 +98,7 @@ body {
     margin-right: 0; /* 마지막 nav-item에는 마진을 제거 */
 }
 
-.center .nav-item>li {
+.center .nav-item>span {
     font-family: 'Freesentation-9Black', Freesentation-9Black;
     background: none;
     border: none;
@@ -177,10 +176,6 @@ body {
 }
 
 .right-section svg:hover {
-    color: #000000;
-}
-
-.right-section .login svg:hover {
     color: #000000;
 }
 

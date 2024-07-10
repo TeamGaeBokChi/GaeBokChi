@@ -16,11 +16,13 @@
 	</select>
 
 	<insert id="insertPost">
-		INSERT INTO posts (title, content, author, club_type,
-		category, media)
-		VALUES (#{title}, #{content}, #{author}, #{clubtype},
+		INSERT INTO posts (title, content, author,
+		category,
+		media)
+		VALUES (#{title}, #{content}, #{author},
 		#{category},
-		#{media , jdbcType=VARCHAR})
+		#{media ,
+		jdbcType=VARCHAR})
 	</insert>
 
 
@@ -58,7 +60,7 @@
 		SELECT *
 		FROM (
 		SELECT
-		id,title,content,author,club_type,category,views,likes,created_time,modified_time,
+		id,title,content,author,category,views,likes,created_time,modified_time,
 		ROW_NUMBER() OVER (ORDER BY likes DESC) AS rn
 		FROM posts WHERE category
 		= 'F001'
@@ -72,7 +74,7 @@
 		SELECT *
 		FROM (
 		SELECT
-		id,title,content,author,club_type,category,views,likes,created_time,modified_time,
+		id,title,content,author,category,views,likes,created_time,modified_time,
 		ROW_NUMBER() OVER
 		(ORDER BY likes DESC) AS rn
 		FROM posts WHERE category
@@ -81,6 +83,9 @@
 		WHERE sub.rn &lt;= 5
 	</select>
 
+	<select id="Fixingthetop">
+		select * from posts where author = 'admin'
+	</select>
 
 	<select id="selectByCategoryAndKeyword"
 		parameterType="com.itwill.gaebokchi.dto.CommPostSearchDto"
@@ -110,6 +115,7 @@
 					</when>
 				</choose>
 			</if>
+			and category IN('F001' , 'F002' , 'F003')
 		</where>
 		order by id desc
 	</select>
@@ -147,9 +153,11 @@
 		ROWNUM AS rnum
 		FROM (
 		SELECT *
-		FROM posts
+		FROM
+		posts
 		WHERE category IN('F001' , 'F002' , 'F003')
-		ORDER BY created_time DESC
+		ORDER BY created_time
+		DESC
 		) A
 		WHERE ROWNUM &lt;= #{endRow}
 		)
@@ -157,7 +165,8 @@
 	</select>
 
 	<select id="selectTotalPostCount" resultType="int">
-		SELECT COUNT(*) FROM posts where category IN('F001' , 'F002' , 'F003')
+		SELECT COUNT(*)
+		FROM posts where category IN('F001' , 'F002' , 'F003')
 	</select>
 
 

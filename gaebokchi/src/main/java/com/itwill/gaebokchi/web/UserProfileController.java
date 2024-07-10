@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +26,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itwill.gaebokchi.dto.MainCommentItemDto;
+import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.UserProfileDto;
 import com.itwill.gaebokchi.dto.UserUpdateDto;
+import com.itwill.gaebokchi.repository.Clubs;
 import com.itwill.gaebokchi.repository.Pro;
 // import com.itwill.gaebokchi.repository.Point;
 import com.itwill.gaebokchi.repository.UserMypage;
+import com.itwill.gaebokchi.service.MainCommentService;
+import com.itwill.gaebokchi.service.MainPostService;
 import com.itwill.gaebokchi.service.UserMypageService;
 
 import lombok.RequiredArgsConstructor;
@@ -41,10 +48,11 @@ import lombok.extern.slf4j.Slf4j;
 public class UserProfileController {
 
 	private final UserMypageService userService;
-	private String userid = "banggu";
+	private final MainCommentService mainCommentService;
+//	private String userid = "banggu";
 	
 	@GetMapping({ "/profile", "/privacy" })
-	public void privacy(Model model) {
+	public void privacy(@RequestParam(name = "userid") String userid, Model model) {
 		Pro pro = userService.readPro(userid);
         model.addAttribute("user", pro);
         
@@ -95,8 +103,8 @@ public class UserProfileController {
 		return ResponseEntity.ok(user);
 	}
 	
-	@PutMapping("/file/image")
-	public ResponseEntity<String> saveUserImage(@RequestParam("file") MultipartFile file) {
+	@PostMapping("/file/image")
+	public ResponseEntity<String> saveUserImage(@RequestParam(name = "userid") String userid, @RequestParam("file") MultipartFile file) {
 		// 파일이 비어있는지 체크
 		if (file.isEmpty()) {
 			log.debug("Please select a file to upload.");
@@ -127,12 +135,12 @@ public class UserProfileController {
 			log.debug("Failed to upload file: {}", file.getOriginalFilename());
 		}
 
-		return ResponseEntity.ok("Y");
+		return ResponseEntity.ok().build();
 	}
 	
 	@GetMapping("/file/image")
 	@ResponseBody
-	public Resource test(@RequestParam(name = "file") String file) throws IOException {
+	public Resource viewUserImage(@RequestParam("file") String file) throws IOException {
 		log.info("file={}", file);
 
 		Path path = Paths.get(file);
@@ -141,5 +149,44 @@ public class UserProfileController {
 		ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
 
 		return resource;
+	}
+	
+	@GetMapping("/file/remove")
+	@ResponseBody
+	public ResponseEntity<String> removeUserImage(@RequestParam(name = "userid") String userid) {
+		String uploadDir = "C:\\Users\\itwill\\Desktop\\images\\";
+
+		String filePath = uploadDir + "basic.png";
+
+		UserProfileDto dto = new UserProfileDto();
+		dto.setUserid(userid);
+		dto.setImage(filePath);
+		
+		userService.updateImage(dto);
+		
+		// 업로드 성공 메시지 전달
+		log.debug("Profile image removed successfully");
+
+		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/myposts")
+	public String myPostList(@RequestParam(name = "userid") String userid) {
+		log.debug("myPostList()");
+
+		return "redirect: /gaebokchi/mainPost/list?userid=" + userid;
+	}
+	
+	@GetMapping("/commentList")
+	public void commentList(@RequestParam(name = "userid") String userid, Model model) {
+		log.debug("commentList(userid={})", userid);
+
+		List<MainCommentItemDto> list = mainCommentService.commentReadByUserid(userid);
+		model.addAttribute("comments", list);
+	}
+	
+	@GetMapping("/announcements")
+	public void announcements() {
+		log.debug("announcements()");
 	}
 }

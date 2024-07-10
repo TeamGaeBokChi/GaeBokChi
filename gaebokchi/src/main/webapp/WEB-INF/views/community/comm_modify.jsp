@@ -28,6 +28,8 @@ body {
 	padding: 20px;
 	max-width: 1000px; /* 페이지를 더 넓게 조정 */
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	margin: 0 auto;
+	margin-top: 80px;
 }
 
 .card-header {
@@ -55,19 +57,8 @@ body {
 </head>
 <body>
 	<div class="container-fluid">
-		<header class="toolbar">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<div class="container-fluid">
-					<c:url var="commMainPage" value="/community/comm_main" />
-					<a class="navbar-brand" href="${commMainPage}">메인</a>
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="collapse" data-bs-target="#navbarNav"
-						aria-controls="navbarNav" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-				</div>
-			</nav>
+		<header>
+			<%@ include file="../fragments/header.jspf"%>
 		</header>
 		<main>
 			<div class="mt-2 card">
@@ -79,7 +70,8 @@ body {
 						<input type="hidden" name="id" value="${post.id}" />
 						<div class="row mb-3">
 							<div class="col-auto">
-								<select class="form-control" name="category" id="categorySelect" required >
+								<select class="form-control" name="category" id="categorySelect"
+									required>
 									<option value="${post.category}">카테고리 선택</option>
 									<option value="F001">잡담</option>
 									<option value="F002">팁/노하우</option>

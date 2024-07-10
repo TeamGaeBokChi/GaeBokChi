@@ -1,7 +1,6 @@
 package com.itwill.gaebokchi.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.itwill.gaebokchi.repository.CommPost;
 import org.springframework.core.io.ByteArrayResource;
 import lombok.AllArgsConstructor;

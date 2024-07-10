@@ -28,6 +28,8 @@ body {
 	padding: 20px;
 	max-width: 1000px; /* 페이지를 더 넓게 조정 */
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	margin: 0 auto;
+	margin-top: 80px;
 }
 
 .card-header {
@@ -61,20 +63,8 @@ body {
 </head>
 <body>
 	<div class="container-fluid">
-		<header class="toolbar">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<div class="container-fluid">
-					<c:url var="commMainPage" value="/community/comm_main" />
-					<a class="navbar-brand" href="${commMainPage}"
-						onclick="return confirmMain()">메인으로</a>
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="collapse" data-bs-target="#navbarNav"
-						aria-controls="navbarNav" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-				</div>
-			</nav>
+		<header>
+			<%@ include file="../fragments/header.jspf"%>
 		</header>
 		<main>
 			<div class="mt-2 card">
@@ -98,9 +88,8 @@ body {
 							<div class="col">
 								<input class="form-control mb-2" type="text" name="title"
 									placeholder="제목 입력" required autofocus /> <input
-									class="form-control mb-2" type="text" name="author"
-									placeholder="작성자" required /> <input class="form-control mb-2"
-									type="text" name="clubtype" placeholder="클럽타입" required />
+									class="form-control mb-2" type="hidden" name="author"
+									value="${loggedInUser.nickname}" />
 							</div>
 						</div>
 						<div class="mb-3">
@@ -108,20 +97,20 @@ body {
 							<textarea name="content" id="content" style="display: none;"></textarea>
 						</div>
 						<div>
-						<div class="row mb-3">
-							<div class="col">
-								<input class="form-control" type="file" name="media"
-									id="mediaFile" accept="image/*" onchange="previewImage(event)" />
+							<div class="row mb-3">
+								<div class="col">
+									<input class="form-control" type="file" name="media"
+										id="mediaFile" accept="image/*" onchange="previewImage(event)" />
+								</div>
 							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col">
-								<img id="imagePreview" alt="사진 미리보기" />
+							<div class="row mb-3">
+								<div class="col">
+									<img id="imagePreview" alt="사진 미리보기" />
+								</div>
 							</div>
-						</div>
-						<div class="d-grid gap-2">
-							<input class="btn btn-outline-success" type="submit" value="저장" />
-						</div>
+							<div class="d-grid gap-2">
+								<input class="btn btn-outline-success" type="submit" value="저장" />
+							</div>
 					</form>
 				</div>
 			</div>

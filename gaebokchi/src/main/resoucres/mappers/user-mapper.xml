@@ -68,6 +68,10 @@
         select * from users where userid = #{userid} and
         email = #{email} and phone = #{phone}
     </select>
+    
+    <select id="FindNicknameByUserId">
+    	select nickname from users where userid = #{userid}
+    </select>
 
     <update id="UpdatePassword">
         update users set password = #{password} where

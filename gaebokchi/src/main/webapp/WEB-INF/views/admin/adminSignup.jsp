@@ -137,19 +137,6 @@ tr:hover {
             </tbody>
         </table>
     </div>
-    <script>
-					function approveSignup(id) {
-						if (confirm(id + " 사용자의 가입을 승인하시겠습니까?")) {
-							alert(id + " 사용자의 가입이 승인되었습니다.");
-							// 여기에 실제 승인 처리 로직 추가
-						}
-					}
-					function rejectSignup(id) {
-						if (confirm(id + " 사용자의 가입을 거절하시겠습니까?")) {
-							alert(id + " 사용자의 가입이 거절되었습니다.");
-							// 여기에 실제 거절 처리 로직 추가
-						}
-					}
-				</script>
+   
 </body>
 </html>

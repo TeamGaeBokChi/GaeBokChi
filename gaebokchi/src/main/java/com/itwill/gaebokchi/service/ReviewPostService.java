@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.itwill.gaebokchi.dto.CommPostListDto;
 import com.itwill.gaebokchi.dto.CommentCreateDto;
 import com.itwill.gaebokchi.dto.CommentItemDto;
 import com.itwill.gaebokchi.dto.CommentUpdateDto;
@@ -15,12 +16,13 @@ import com.itwill.gaebokchi.dto.ReviewPostCreateDto;
 import com.itwill.gaebokchi.dto.ReviewPostListDto;
 import com.itwill.gaebokchi.dto.ReviewPostSearchDto;
 import com.itwill.gaebokchi.dto.ReviewPostUpdateDto;
-
+import com.itwill.gaebokchi.repository.CommPost;
 import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
 import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.repository.ReviewPostDao;
-
+import com.itwill.gaebokchi.repository.User;
+import com.itwill.gaebokchi.repository.UserDao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +35,7 @@ public class ReviewPostService {
 	private final ReviewPostDao reviewPostDao;
 	private final CommentDao commentDao;
 	private final MediaService mediaService;
-
-	private static final String upload_DIR = "C:/tool/media";
+	private final UserDao userDao;
 
 	public List<ReviewPostListDto> read() {
 		log.debug("read()");
@@ -57,6 +58,12 @@ public class ReviewPostService {
 		}
 
 		return reviewPostDao.insertPost(dto.toEntity());
+	}
+
+	public List<ReviewPostListDto> Fixingthetop() {
+		log.debug("Fixingthetop()");
+		List<ReviewPost> list = reviewPostDao.Fixingthetop();
+		return list.stream().map(ReviewPostListDto::fromEntity).collect(Collectors.toList());
 	}
 
 	public int delete(int id) {
@@ -135,9 +142,13 @@ public class ReviewPostService {
 	public int getTotalPostCount() {
 		return reviewPostDao.selectTotalPostCount();
 	}
-	
+
 	public int selectCommentCount(Integer id) {
 		return commentDao.selectCommentCount(id);
+	}
+
+	public User getLoggedInUser(String userId) {
+		return userDao.selectByUserid(userId);
 	}
 
 }

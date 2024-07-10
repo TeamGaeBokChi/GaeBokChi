@@ -14,9 +14,7 @@ import com.itwill.gaebokchi.dto.ExchangeListDto;
 import com.itwill.gaebokchi.service.UserService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 @RequestMapping("/admin")
 @RequiredArgsConstructor

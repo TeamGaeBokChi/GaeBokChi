@@ -8,9 +8,24 @@
 	</insert>
 	
 	<select id="selectCommentsByPostId" resultType="MainComment">
-		SELECT * FROM comments WHERE post_id = #{postId} order by selection desc
+		SELECT a.* , b.nickname, b.image
+        FROM comments a, users b
+        WHERE a.author = b.userid and a.post_id = #{postId}
+        ORDER BY a.SELECTION DESC
 	</select>
 	
+    <select id="selectCommentsByUserid" resultType="MainComment">
+        SELECT id,
+               post_id,
+               content,
+               author,
+               selection,
+               modified_time
+        FROM comments
+        WHERE author = #{userid}
+        ORDER BY modified_time DESC
+    </select>
+    
 	<update id="selectComment">
 		UPDATE comments SET selection = 1 WHERE id = #{id}
 	</update>
@@ -18,7 +33,7 @@
 	<update id="updateUserPoint">
 		UPDATE users SET point = point + 300 WHERE userid = (select author from comments where id = #{id})
 	</update>
-
+    
 	<delete id="deleteCommentById">
 		DELETE FROM comments WHERE id = #{id}
 	</delete>

@@ -1,13 +1,11 @@
 package com.itwill.gaebokchi.repository;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.itwill.gaebokchi.dto.CommPostSearchDto;
-import com.itwill.gaebokchi.repository.CommPost;
 
 public interface CommPostDao {
 	List<CommPost> selectOrderByIdDesc();
@@ -39,5 +37,9 @@ public interface CommPostDao {
 	List<CommPost> selectPagedPosts(@Param("startRow") int startRow, @Param("endRow") int endRow);
 
 	int selectTotalPostCount();
-
+	
+	User selectByUserid(@Param("userid") String userid);
+	
+	List<CommPost> Fixingthetop();
+	
 }

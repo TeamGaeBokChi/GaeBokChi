@@ -5,8 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.itwill.gaebokchi.dto.UpdatePointDto;
-
 @Mapper
 public interface UserDao {
 
@@ -42,4 +40,6 @@ public interface UserDao {
 	void setPoint(@Param("userid") String userid, @Param ("withdraw") int withdraw);
 	void setWithdraw(@Param("userid") String userid, @Param ("withdraw") int withdraw);
 
+	String FindNicknameByUserId(String userid);
+	
 }

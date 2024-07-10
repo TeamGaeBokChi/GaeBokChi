@@ -11,7 +11,17 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
-<title></title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>    
+    
+    <style type="text/css">
+        .container {
+            width: 1080px;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+    </style>
+<title>Golfro</title>
 <c:url var="details" value="../css/details.css" />
 <link rel="stylesheet" type="text/css" href="${details}">
 </head>
@@ -21,7 +31,7 @@
 		<%@ include file="../fragments/header.jspf"%>
 	</header>
 	<main>
-		<div class="container mt-4">
+		<div class="container">
 			<div>
 
 				<!-- 상단 제목 부분 -->
@@ -108,6 +118,9 @@
 
 							</div>
 						</div>
+                        
+                        <!-- 포커싱할 댓글 id -->
+                        <input type="hidden" id="commentId" value="${commentId}" />
 						<!-- 댓글 리스트 영역 -->
 						<div class="comments-section form-control"></div>
 						<!-- 댓글작성 영역 -->
@@ -151,10 +164,6 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
-
-	<!-- Axio JS 라이브러리 -->
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
 
 
 	<c:url var="commentsJS" value="/js/comments.js" />

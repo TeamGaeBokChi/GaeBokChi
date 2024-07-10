@@ -16,8 +16,10 @@ public class MainComment {
 	private Integer postId;
 	private String content;
 	private String author;
+	private String nickname;
+	private String image;
 	private LocalDateTime createdTime;
-	private LocalDateTime modifiedTime;	
+	private LocalDateTime modifiedTime;
 	private Integer selection;
 	
 }
