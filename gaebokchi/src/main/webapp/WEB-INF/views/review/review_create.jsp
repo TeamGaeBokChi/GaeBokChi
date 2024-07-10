@@ -28,6 +28,8 @@ body {
 	padding: 20px;
 	max-width: 1000px; /* 페이지를 더 넓게 조정 */
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	margin: 0 auto;
+	margin-top: 85px;
 }
 
 .card-header {
@@ -61,20 +63,8 @@ body {
 </head>
 <body>
 	<div class="container-fluid">
-		<header class="toolbar">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<div class="container-fluid">
-					<c:url var="commMainPage" value="/review/review_main" />
-					<a class="navbar-brand" href="${commMainPage}"
-						onclick="return confirmMain()">메인으로</a>
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="collapse" data-bs-target="#navbarNav"
-						aria-controls="navbarNav" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-				</div>
-			</nav>
+		<header>
+			<%@ include file="../fragments/header.jspf"%>
 		</header>
 		<main>
 			<div class="mt-2 card">

@@ -2,9 +2,11 @@ package com.itwill.gaebokchi.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.itwill.gaebokchi.dto.CommPostListDto;
 import com.itwill.gaebokchi.dto.ReviewPostSearchDto;
 
 public interface ReviewPostDao {
@@ -30,4 +32,6 @@ public interface ReviewPostDao {
 	List<ReviewPost> selectPagedPosts(@Param("startRow") int startRow, @Param("endRow") int endRow);
 
 	int selectTotalPostCount();
+
+	List<ReviewPost> Fixingthetop();
 }

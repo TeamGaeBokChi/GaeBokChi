@@ -20,7 +20,8 @@ body {
 
 .container {
 	max-width: 1000px;
-	margin-top: 30px;
+	margin: 0 auto;
+	margin-top: 100px;
 }
 
 .card {
@@ -100,14 +101,12 @@ body {
 </head>
 <body>
 	<main class="container">
+		<header>
+			<%@ include file="../fragments/header.jspf"%>
+		</header>
 		<div class="mt-2 card">
 			<div class="card-header">
 				<h2>새 조인 작성하기</h2>
-			</div>
-			<div>
-				<c:url var="listUrl" value="join_main" />
-				<a href="${listUrl}" class="btn btn-link"><i class="bi bi-list"></i>
-					메인으로</a>
 			</div>
 			<div class="card-body">
 				<c:url var="joinCreatePage" value="/join/join_create" />

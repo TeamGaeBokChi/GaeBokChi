@@ -83,6 +83,9 @@
 		WHERE sub.rn &lt;= 5
 	</select>
 
+	<select id="Fixingthetop">
+		select * from posts where author = 'admin'
+	</select>
 
 	<select id="selectByCategoryAndKeyword"
 		parameterType="com.itwill.gaebokchi.dto.CommPostSearchDto"
@@ -112,6 +115,7 @@
 					</when>
 				</choose>
 			</if>
+			and category IN('F001' , 'F002' , 'F003')
 		</where>
 		order by id desc
 	</select>

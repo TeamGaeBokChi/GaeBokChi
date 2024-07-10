@@ -7,6 +7,13 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>게시물 상세보기</title>
+<script>
+	// loggedInUser 정보를 JavaScript 변수로 전달
+	const loggedInUser = $
+	{
+		loggedInUser != null ? 'true' : 'false'
+	};
+</script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -205,23 +212,25 @@ body {
 						다음 글 <i class="bi bi-chevron-right"></i>
 					</a>
 				</div>
-				<form class="comment-form">
-					<div class="input-group mb-3">
-						<div class="col-2">
-							<input name="author" type="hidden" class="form-control"
-								value="${loggedInUser.nickname}">
+				<c:if test="${not empty loggedInUser}">
+					<form class="comment-form">
+						<div class="input-group mb-3">
+							<div class="col-2">
+								<input name="author" type="hidden" class="form-control"
+									value="${loggedInUser.nickname}">
+							</div>
+							<div class="col-8">
+								<textarea name="content" id="content" class="form-control"
+									rows="2" placeholder="댓글을 입력하세요"></textarea>
+							</div>
+							<div class="col-2">
+								<input type="hidden" name="postId" value="${post.id}">
+								<button id="btnRegisterComment"
+									class="btn btn-success btn-register-comment" type="submit">등록</button>
+							</div>
 						</div>
-						<div class="col-8">
-							<textarea name="content" id="content" class="form-control"
-								rows="2" placeholder="댓글을 입력하세요"></textarea>
-						</div>
-						<div class="col-2">
-							<input type="hidden" name="postId" value="${post.id}">
-							<button id="btnRegisterComment"
-								class="btn btn-success btn-register-comment" type="submit">등록</button>
-						</div>
-					</div>
-				</form>
+					</form>
+				</c:if>
 				<div class="comment-list">
 					<c:forEach var="comment" items="${commentlist}">
 						<div class="comment">
