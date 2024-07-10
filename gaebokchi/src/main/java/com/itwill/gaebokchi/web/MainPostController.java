@@ -74,9 +74,10 @@ public class MainPostController {
 	}
 
 	@GetMapping("/details")
-	public void mainPostDetails(@RequestParam(name = "id") Integer id, Model model) {
+	public void mainPostDetails(@RequestParam(name = "id") Integer id, @RequestParam(name = "commentId", required = false) Integer commentId, Model model) {
 		log.debug("mainPostDetails(id={})", id);
 		Post post = mainPostService.selectPostId(id);
+		model.addAttribute("commentId", commentId);
 		model.addAttribute("post", post);
 	}
 

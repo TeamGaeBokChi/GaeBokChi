@@ -20,7 +20,6 @@ public class MainCommentItemDto {
 	private String image;
 	private String content;
 	private Integer selection;
-	private Timestamp createdTime;
 	private Timestamp modifiedTime;
 	
 	public static MainCommentItemDto fromEntity(MainComment mainComment) {
@@ -32,8 +31,7 @@ public class MainCommentItemDto {
 				.author(mainComment.getAuthor())
 				.content(mainComment.getContent())
 				.selection(mainComment.getSelection())
-				.createdTime(Timestamp.valueOf(mainComment.getModifiedTime()))
-				.modifiedTime(Timestamp.valueOf(mainComment.getCreatedTime()))
+				.modifiedTime(Timestamp.valueOf(mainComment.getModifiedTime()))
 				.build();
 	}
 

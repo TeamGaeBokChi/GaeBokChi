@@ -8,14 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	getAllMainComments(); // 댓글 리스트업
 	getAllLikes(); // 좋아요 수
 
-
-
-
-
-
-
-
-
+	const focusCommentId = document.querySelector('input#commentId').value;
+	
+	
+	
 	const btnRegisterComment = document.querySelector('button#btnRegisterComment');
 	btnRegisterComment.addEventListener('click', registerComment);
 
@@ -222,6 +218,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
+	if (focusCommentId != null) { // null 및 undefined 모두 체크
+	    let commentElement = document.getElementById(`comment-${focusCommentId}`);
+	    if (commentElement) { // 요소가 실제로 존재하는지 확인
+	        commentElement.focus();
+	    } else {
+			return;
+	    }
+	} else {
+	    console.error('focusCommentId is null or undefined.');
+	}
 });

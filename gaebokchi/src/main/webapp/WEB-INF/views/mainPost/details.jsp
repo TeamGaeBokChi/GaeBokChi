@@ -118,6 +118,8 @@
 
 							</div>
 						</div>
+                        <!-- 포커싱할 댓글 id -->
+                        <input type="hidden" id="commentId" value="${commentId}" />
 						<!-- 댓글 리스트 영역 -->
 						<div class="comments-section form-control"></div>
 						<!-- 댓글작성 영역 -->

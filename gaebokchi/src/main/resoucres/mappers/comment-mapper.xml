@@ -20,7 +20,6 @@
                content,
                author,
                selection,
-               created_time,
                modified_time
         FROM comments
         WHERE author = #{userid}
