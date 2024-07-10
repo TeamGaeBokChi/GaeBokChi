@@ -18,6 +18,15 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'SUIT-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 a {
     text-decoration-line: none;
 }
@@ -33,6 +42,13 @@ p.user_data {
 
 .profile_management {
     margin-left: auto;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.profile_management a {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    font-weight: bold;
 }
 
 .blank {
