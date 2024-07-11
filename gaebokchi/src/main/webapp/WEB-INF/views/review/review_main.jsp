@@ -157,7 +157,7 @@ footer.text-center {
 											<c:param name="id" value="${p.id}"></c:param>
 										</c:url> <a href="${reviewPostDetailsPage}" class="custom-link">${p.title}</a>
 									</td>
-									<td>${p.author}</td>
+									<td>${userNicknames[p.author]}</td>
 									<td>${p.modifiedTime}</td>
 									<td>${p.views}</td>
 									<td>${p.likes}</td>
@@ -171,7 +171,7 @@ footer.text-center {
 											<c:param name="id" value="${p.id}"></c:param>
 										</c:url> <a href="${reviewPostDetailsPage}" class="custom-link">${p.title}</a>
 									</td>
-									<td>${p.author}</td>
+									<td>${userNicknames[p.author]}</td>
 									<td>${p.modifiedTime}</td>
 									<td>${p.views}</td>
 									<td>${p.likes}</td>

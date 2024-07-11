@@ -120,7 +120,7 @@
                         <td>${p.gcadress}</td>
                         <td>${p.hole}홀</td>
                         <td>${p.greenfee}원</td>
-                        <td>${p.author}</td>
+                        <td>${userNicknames[p.author]}</td>
                     </tr>
                 </c:forEach>
             </tbody>

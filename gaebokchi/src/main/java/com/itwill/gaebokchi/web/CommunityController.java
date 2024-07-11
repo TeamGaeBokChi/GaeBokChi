@@ -33,6 +33,7 @@ import com.itwill.gaebokchi.repository.CommentDao;
 import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.service.CommPostService;
 import com.itwill.gaebokchi.service.MediaService;
+import com.itwill.gaebokchi.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -55,6 +56,7 @@ public class CommunityController {
 	private final CommentDao commentDao;
 	private final CommPostService commPostService;
 	private final MediaService mediaService;
+	private final UserService userService;
 
 	@ModelAttribute("loggedInUser")
 	public User addLoggedInUserToModel(HttpSession session) {
@@ -134,6 +136,9 @@ public class CommunityController {
 		categoryMap.put("F002", "팁/노하우");
 		categoryMap.put("F003", "라운드 후기");
 
+		Map<String, String> userNicknames = userService.getUserNicknames();
+
+		model.addAttribute("userNicknames", userNicknames);
 		model.addAttribute("categoryMap", categoryMap);
 		model.addAttribute("selectedCategory", category);
 		model.addAttribute("selectedSearchCategory", searchCategory);
@@ -183,6 +188,10 @@ public class CommunityController {
 		// 댓글 목록 조회
 		List<CommentItemDto> commentlist = commPostService.readAllComment(id);
 		int commentcount = commPostService.selectCommentCount(id);
+
+		Map<String, String> userNicknames = userService.getUserNicknames();
+
+		model.addAttribute("userNicknames", userNicknames);
 
 		// 모델에 속성 추가
 		model.addAttribute("post", post); // 불러온 게시물 속성 추가
@@ -264,8 +273,12 @@ public class CommunityController {
 	// 댓글 목록 조회
 	@GetMapping("/comments/{postId}")
 	public String getCommentsByPostId(@PathVariable Integer postId, Model model) {
-		List<Comment> comments = commentDao.selectByPostId(postId);
+		List<Comment> comments = commentDao.selectByPostId(postId);	
+		Map<String, String> userNicknames = userService.getUserNicknames();
+		
 		model.addAttribute("comments", comments);
+		model.addAttribute("userNicknames", userNicknames);
+
 		return "community/comm_details";
 	}
 
@@ -278,7 +291,7 @@ public class CommunityController {
 		comment.setContent(commentCreateDto.getContent());
 
 		if (loggedInUser != null) {
-			comment.setAuthor(loggedInUser.getNickname()); // 댓글 작성자 설정
+			comment.setAuthor(loggedInUser.getUserid()); // 댓글 작성자 설정
 
 			// 댓글을 데이터베이스에 저장하고 자동 생성된 id를 받아옴
 			int result = commentDao.insertComment(comment);

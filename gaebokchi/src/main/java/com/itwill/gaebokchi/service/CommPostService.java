@@ -39,6 +39,12 @@ public class CommPostService {
 		List<CommPost> list = commPostDao.selectOrderByIdDesc();
 		return list.stream().map(CommPostListDto::fromEntity).collect(Collectors.toList());
 	}
+	
+	public List<CommPostListDto> readAll() {
+		log.debug("readAll()");
+		List<CommPost> list = commPostDao.adminposts();
+		return list.stream().map(CommPostListDto::fromEntity).collect(Collectors.toList());		
+	}
 
 	public CommPost read(Integer id) {
 		log.debug("read(id={})", id);

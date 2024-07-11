@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ import com.itwill.gaebokchi.filter.AuthenticationFilter;
 import com.itwill.gaebokchi.repository.JoinPost;
 import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.service.JoinPostService;
+import com.itwill.gaebokchi.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 public class JoinController {
 
 	private final JoinPostService joinPostService;
+	private final UserService userService;
 
 	@ModelAttribute("loggedInUser")
 	public User addLoggedInUserToModel(HttpSession session) {
@@ -97,6 +100,10 @@ public class JoinController {
 		int startPage = ((page - 1) / pageBlockSize) * pageBlockSize + 1;
 		int endPage = Math.min(startPage + pageBlockSize - 1, totalPages);
 
+		Map<String, String> userNicknames = userService.getUserNicknames();
+
+		model.addAttribute("userNicknames", userNicknames);
+
 		model.addAttribute("dates", dates);
 		model.addAttribute("posts", posts);
 		model.addAttribute("selectedCategory", category); // 선택된 카테고리를 모델에 추가
@@ -119,6 +126,9 @@ public class JoinController {
 			model.addAttribute("user", loggedInUser);
 		}
 
+		Map<String, String> userNicknames = userService.getUserNicknames();
+
+		model.addAttribute("userNicknames", userNicknames);
 		JoinPost post = joinPostService.read(id);
 		JoinPost previousPost = joinPostService.getPreviousPost(post.getTeeoff());
 		JoinPost nextPost = joinPostService.getNextPost(post.getTeeoff());

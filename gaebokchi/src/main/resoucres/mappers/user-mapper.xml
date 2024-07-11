@@ -114,6 +114,10 @@
         update users set withdraw = withdraw - #{withdraw} where userid = #{userid}
     </update>
 
+	<select id="findAllUserNicknames" resultType="map">
+		select userid , nickname from users
+	</select>
+
 </mapper>
 
 

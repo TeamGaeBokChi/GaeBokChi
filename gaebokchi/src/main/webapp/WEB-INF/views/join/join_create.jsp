@@ -140,7 +140,7 @@ body {
 					</div>
 					<div class="mt-2">
 						<input class="form-control" type="hidden" name="author"
-							value="${loggedInUser.nickname}" required />
+							value="${loggedInUser.userid}" required />
 					</div>
 					<div class="mt-2">
 						<textarea class="form-control" rows="5" name="content"

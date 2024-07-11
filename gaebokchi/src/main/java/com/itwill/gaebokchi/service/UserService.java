@@ -1,6 +1,8 @@
 package com.itwill.gaebokchi.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -175,9 +177,18 @@ public class UserService {
 		}
 
 	}
-	
+
 	public void rejectEx(String userid, int withdraw) {
 		userDao.setWithdraw(userid, withdraw);
 	}
+
+	public Map<String, String> getUserNicknames() {
+		List<Map<String, String>> users = userDao.findAllUserNicknames();
+		log.debug("users={}", users);
+		Map<String, String> result = users.stream().collect(Collectors.toMap(user -> user.get("USERID"), user -> user.get("NICKNAME")));
+		log.debug("result={}", result);
+		return result;
+	}
+
 
 }
