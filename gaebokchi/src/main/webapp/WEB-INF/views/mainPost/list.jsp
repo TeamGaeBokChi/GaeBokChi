@@ -32,6 +32,7 @@
             <%@ include file="../fragments/menu.jspf"%>
         </div>
     </c:if>
+    
     <main>
         <div class="container">
             <!-- 인기 게시물 리스트업부 -->
