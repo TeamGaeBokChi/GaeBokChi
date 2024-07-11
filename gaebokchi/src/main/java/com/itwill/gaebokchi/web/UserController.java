@@ -61,7 +61,7 @@ public class UserController {
 				session.setMaxInactiveInterval(SESSION_TIME);
 				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
 				session.setAttribute(SESSION_USER_GRADE, user.getGrade());
-				
+
 				return "redirect:/";
 			} else {
 				model.addAttribute("errorMessage", "일치하는 아이디와 비밀번호가 없습니다.");
@@ -125,6 +125,32 @@ public class UserController {
 		log.debug("checkEmail(email={})", email);
 
 		boolean result = userService.checkEmail(email);
+		if (result) {
+			return ResponseEntity.ok("Y");
+		} else {
+			return ResponseEntity.ok("N");
+		}
+	}
+
+	@GetMapping("checkPhone")
+	@ResponseBody
+	public ResponseEntity<String> checkPhone(@RequestParam(name = "phone") String phone) {
+		log.debug("checkPhone(phone={})", phone);
+
+		boolean result = userService.checkPhone(phone);
+		if (result) {
+			return ResponseEntity.ok("Y");
+		} else {
+			return ResponseEntity.ok("N");
+		}
+	}
+
+	@GetMapping("checkAccept")
+	@ResponseBody
+	public ResponseEntity<String> checkAccept(@RequestParam(name = "accept") String accept) {
+		log.debug("checkAccept(accept={})", accept);
+
+		boolean result = userService.checkAccept(accept);
 		if (result) {
 			return ResponseEntity.ok("Y");
 		} else {

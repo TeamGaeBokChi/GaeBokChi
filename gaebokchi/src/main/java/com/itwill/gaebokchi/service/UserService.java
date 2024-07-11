@@ -60,6 +60,26 @@ public class UserService {
 
 	}
 
+	public boolean checkPhone(String phone) {
+		log.debug("checkPhone(phone={})", phone);
+		User user = userDao.selectByPhone(phone);
+		if (user == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean checkAccept(String accept) {
+		log.debug("checkAccept(accept={})", accept);
+		User user = userDao.selectByAccept(accept);
+		if (user == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public void nomalUserCreate(normalUserCreateDto dto) {
 		log.debug("create({})", dto);
 		User user = dto.toEntity();
@@ -156,8 +176,8 @@ public class UserService {
 		try {
 			userDao.deleteAccept(userid);
 			userDao.updateGrade(userid);
-			userDao.intoPros(userid,accept);
-			userDao.intoLicense(userid,accept);
+			userDao.intoPros(userid, accept);
+			userDao.intoLicense(userid, accept);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -176,22 +196,22 @@ public class UserService {
 		}
 
 	}
-	
+
 	public void rejectEx(String userid, int withdraw) {
 		userDao.setWithdraw(userid, withdraw);
 	}
-	
+
 	public void deleteUser(String userid) {
 		userDao.deleteUser(userid);
 	}
-	
+
 	public List<MemberListDto> AllMembers() {
 		log.debug("AdminMembers()");
 		List<User> list = userDao.AllMembers();
 
 		return list.stream().map(MemberListDto::fromEntity).toList();
 	}
-	
+
 	public void setGrade(String userid, String grade) {
 		userDao.setGrade(userid, grade);
 	}
