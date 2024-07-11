@@ -14,14 +14,14 @@
 
 <title>게시물 작성</title>
 <style>
-	body{
-	padding-top:100px;
-	}
+body {
+	padding-top: 100px;
+}
 </style>
 </head>
 <body>
 	<div class="container-fluid" ]>
-			<c:set var="pageTitle" value="새글 작성하기" />
+		<c:set var="pageTitle" value="새글 작성하기" />
 		<%@ include file="../fragments/header.jspf"%>
 
 		<main>
@@ -31,40 +31,51 @@
 				</div>
 				<div class="card-body form-control">
 					<c:url var="mainPostCreate" value="/mainPost/create" />
-					<form method="post" action="${mainPostCreate}" enctype="multipart/form-data">
+					<form method="post" action="${mainPostCreate}"
+						enctype="multipart/form-data">
 						<!-- 카테고리 선택 + 제목 영역 -->
 						<div class="mt-2 row">
 							<div class="col-2">
 								<select id="clubType" class="form-control" name="clubType">
-								<c:forEach items="${clubs}" var="c">
-									<option value="${c.id}">${c.name}</option>
-								</c:forEach>
+									<c:forEach items="${clubs}" var="c">
+										<option value="${c.id}">${c.name}</option>
+									</c:forEach>
 								</select>
 							</div>
 							<div class="col-8">
-								<input id="title" class="form-control" type="text" name="title" placeholder="제목을 입력하세요." />
+								<input id="title" class="form-control" type="text" name="title"
+									placeholder="제목을 입력하세요." />
 							</div>
 							<div class="col-2">
-								<input id="author" class="form-control d-none" type="text" name="author" placeholder="작성자 코드값" required value="${signedInUser}"/>
+								<input id="author" class="form-control d-none" type="text"
+									name="author" placeholder="작성자 코드값" required
+									value="${signedInUser}" />
 							</div>
 						</div>
 						<!-- 내용 본문 영역 -->
 						<div class="container">
 							<div class="mt-2 row">
 								<div class="col-md-2">
-									<input id="height" class="form control" name="height" type="number" placeholder="키 입력" maxlength="3"/>
+									<input id="height" class="form control" name="height"
+										type="number" placeholder="키 입력" maxlength="3" />
 								</div>
 								<div class="col-md-2">
-									<input id="career" class="form control" name="career" type="number" placeholder="구력 입력" maxlength="3"/>
+									<input id="career" class="form control" name="career"
+										type="number" placeholder="구력 입력" maxlength="3" />
 								</div>
 								<div class="col-md-2">
-									<input id="handy" class="form control" name="handy" type="number"  step="0.1" placeholder="평균 핸디 입력" maxlength="4"/>
+									<input id="handy" class="form control" name="handy"
+										type="number" step="0.1" placeholder="평균 핸디 입력" maxlength="4" />
 								</div>
 								<div class="col-md-2">
-									<input id="ironDistance" class="form control" name="ironDistance" type="number" placeholder="7번 아이언 평균 비거리" maxlength="3"/>
+									<input id="ironDistance" class="form control"
+										name="ironDistance" type="number" placeholder="7번 아이언 평균 비거리"
+										maxlength="3" />
 								</div>
 								<div class="col-md-2">
-									<input id="driverDistance" class="form control" name="driverDistance" type="number" placeholder="드라이버 평균 비거리" maxlength="3"/>
+									<input id="driverDistance" class="form control"
+										name="driverDistance" type="number" placeholder="드라이버 평균 비거리"
+										maxlength="3" />
 								</div>
 							</div>
 						</div>
@@ -75,13 +86,14 @@
 
 						<!-- 영상 업로드 영역 -->
 						<div class="form-group mt-2">
-							<input id="media" type="file" accept="video/*" class="form-control-file" name="media" required />
+							<input id="media" type="file" accept="video/*"
+								class="form-control-file" name="media" required />
 						</div>
 						<!-- 하단 버튼 영역 -->
 						<div class="mt-2 d-flex justify-content-end">
 							<div>
 								<input class="m-2 btn btn-outline-primary" type="submit"
-									value="작성완료"/>
+									value="작성완료" />
 							</div>
 							<div>
 								<button class="m-2 btn btn-outline-primary" id="preview"
@@ -101,9 +113,12 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
 
-	
-	
+
+
 </body>
 </html>
