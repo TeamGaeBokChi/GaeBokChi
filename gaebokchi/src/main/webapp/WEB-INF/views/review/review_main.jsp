@@ -163,7 +163,6 @@ footer.text-center {
 							</c:forEach>
 							<c:forEach var="p" items="${posts}">
 								<tr class="table">
-									<td>${categoryMap[p.category]}</td>
 									<td><c:url var="reviewPostDetailsPage"
 											value="/review/review_details">
 											<c:param name="id" value="${p.id}"></c:param>

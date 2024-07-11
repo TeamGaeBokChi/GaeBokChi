@@ -187,7 +187,8 @@ body {
 					<c:url var="postModifyPage" value="/review/review_modify">
 						<c:param name="id" value="${post.id}" />
 					</c:url>
-					<c:if test="${post.author eq loggedInUser.userid}">
+					<c:if
+						test="${post.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
 						<form action="${postModifyPage}" method="get"
 							style="display: inline;">
 							<input type="hidden" name="id" value="${post.id}" />
@@ -246,7 +247,8 @@ body {
 							<div>
 								<small class="text-muted">${comment.modifiedTime}</small> <input
 									type="hidden" name="commentId" value="${comment.id}">
-								<c:if test="${comment.author eq loggedInUser.userid}">
+								<c:if
+									test="${post.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
 									<button id="btnUpdateComment"
 										class="btn btn-success btn-register-comment" type="submit">수정</button>
 									<input type="hidden" name="commentId" value="${comment.id}">

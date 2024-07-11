@@ -128,7 +128,7 @@ body {
 				<p>${post.content}</p>
 			</div>
 		</div>
-		<c:if test="${loggedInUser.userid eq post.author}">
+		<c:if test="${post.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
 			<div class="d-flex justify-content-end mt-2">
 				<c:url var="joinModifyPage" value="/join/join_modify">
 					<c:param name="id" value="${post.id}" />

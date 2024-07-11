@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.MyPostListDto;
 import com.itwill.gaebokchi.dto.MyPostListSearchDto;
+import com.itwill.gaebokchi.repository.CommPostDao;
 import com.itwill.gaebokchi.repository.MyPost;
 import com.itwill.gaebokchi.repository.MyPostDao;
 import com.itwill.gaebokchi.repository.Post;
@@ -21,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MyPostService {
 
 	private final MyPostDao myPostDao;
+	private final CommPostDao commPostDao;
 
 	public List<MyPostListDto> search(MyPostListSearchDto dto) {
 		log.debug("search({})", dto);
@@ -45,6 +47,11 @@ public class MyPostService {
 
 	public int getTotalPostCount(String author) {
 		return myPostDao.selectTotalPostCount(author);
+	}
+	
+	public int delete(int id) {
+		log.debug("delete(id={})", id);
+		return commPostDao.deletePost(id);
 	}
 
 }
