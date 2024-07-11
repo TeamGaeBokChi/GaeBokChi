@@ -93,12 +93,7 @@ input.form-control {
                             <c:out value="${userPoint}" default="0" />
                         </h5>
                     </div>
-                    <div class="col-md-6 text-end">
-                        <button class="btn btn-primary">
-                            <a href=# class="text-white"> <i
-                                class="fas fa-history me-2"></i></a>획득 내역
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -129,15 +124,17 @@ input.form-control {
                     <div class="col-md-6">
                         <h5 class="card-title">출금 가능금액</h5>
                         <h5 class="display-4">
-                            <c:out value="${userPoint}" default="0" />
+                            <c:out value="${userPoint - userWithdraw}" default="0" />
                         </h5>
                     </div>
                     <div class="col-md-6">
                         <label for="withdraw" class="form-label">출금
                             신청금액</label> <input type="text" id="withdraw"
-                            name="withdraw" class="form-control" required
-                            placeholder="금액 입력">
-                            <small id="amountError" class="form-text text-danger d-none">숫자만 입력 가능합니다.</small>
+                            name="withdraw" class="form-control"
+                            required placeholder="금액 입력"> <small
+                            id="amountError"
+                            class="form-text text-danger d-none">숫자만
+                            입력 가능합니다.</small>
                     </div>
                 </div>
             </div>

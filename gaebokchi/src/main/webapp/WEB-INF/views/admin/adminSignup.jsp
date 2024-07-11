@@ -112,7 +112,7 @@ tr:hover {
                     <th>이름</th>
                     <th>이메일</th>
                     <th>라이센스 번호</th>
-                    <th>액션</th>
+                    <th>승인</th>
                 </tr>
             </thead>
             <tbody>
@@ -123,12 +123,14 @@ tr:hover {
                         <td>${p.email}</td>
                         <td>${p.accept}</td>
                         <td>
-                    <form action="approve" method="post" style="display:inline;">
+                    <form action="approve" method="post" style="display:inline;" onsubmit="return confirm('정말로 승인하시겠습니까?');">
                         <input type="hidden" name="userid" value="${p.userid}">
+                        <input type="hidden" name="accept" value="${p.accept}">
                         <button type="submit">승인</button>
                     </form>
-                    <form action="reject" method="post" style="display:inline;">
+                    <form action="reject" method="post" style="display:inline;" onsubmit="return confirm('정말로 거절하시겠습니까?');">
                         <input type="hidden" name="userid" value="${p.userid}">
+                        <input type="hidden" name="accept" value="${p.accept}">
                         <button type="submit">거절</button>
                     </form>
                 </td>

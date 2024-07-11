@@ -140,7 +140,6 @@ footer.text-center {
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>탭</th>
 								<th>제목</th>
 								<th>작성자</th>
 								<th>작성일</th>
@@ -151,7 +150,6 @@ footer.text-center {
 						<tbody>
 							<c:forEach var="p" items="${pinnedPosts}">
 								<tr class="table table-secondary">
-									<td>${categoryMap[p.category]}</td>
 									<td><c:url var="reviewPostDetailsPage"
 											value="/review/review_details">
 											<c:param name="id" value="${p.id}"></c:param>

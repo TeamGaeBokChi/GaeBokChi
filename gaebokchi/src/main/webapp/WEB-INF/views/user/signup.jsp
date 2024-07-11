@@ -30,12 +30,14 @@
             </div>
             <div class="card-body">
                 <c:url var="signUpPage" value="/user/signup" />
-                <form action="${signUpPage}" method="post">
+                <form action="${signUpPage}" method="post"
+                    onsubmit="return validateForm()"
+                    oninput="toggleFormFields()">
                     <div class="form-group" id="signupid">
                         <label for="id" class="form-label">아이디</label>
                         <div class="input-group">
                             <input type="text" class="form-control"
-                                id="userid" name="userid"
+                                id="userid" name="userid" maxlength="15"
                                 placeholder="아이디를 입력하세요" required>
                             <button class="btn btn-outline-secondary"
                                 type="button" name="idbutton"
@@ -73,7 +75,7 @@
                         <label for="id" class="form-label">닉네임</label>
                         <div class="input-group" id="signupnick">
                             <input type="text" class="form-control"
-                                id="nickname" name="nickname"
+                                id="nickname" name="nickname" maxlength="10"
                                 placeholder="별명 입력하세요" required>
                             <button class="btn btn-outline-secondary"
                                 type="button" name="nicknamebutton"
@@ -85,7 +87,7 @@
                         <label class="form-label">휴대폰 번호</label>
                         <div class="flex">
                             <select class="form-select" name="phone0"
-                                style="width: 30%;">
+                                style="width: 30%;" required>
                                 <option value="">통신사 선택</option>
                                 <option value="SKT">SKT</option>
                                 <option value="KT">KT</option>
@@ -96,17 +98,20 @@
                                     알뜰폰</option>
                             </select> <input type="text" class="form-control"
                                 id="phone1" name="phone1"
-                                style="width: 20%;" required> <input
-                                type="text" class="form-control"
+                                style="width: 20%;" required
+                                maxlength="3"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length == 3) document.getElementById('phone2').focus();">
+                            <input type="text" class="form-control"
                                 id="phone2" name="phone2"
                                 placeholder="앞자리" required
-                                style="width: 25%;"> <input
-                                required type="text"
-                                class="form-control" id="phone3"
-                                name="phone3" placeholder="뒷자리"
-                                style="width: 25%;">
+                                style="width: 25%;" maxlength="4"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length == 4) document.getElementById('phone3').focus();">
+                            <input type="text" class="form-control"
+                                id="phone3" name="phone3"
+                                placeholder="뒷자리" required
+                                style="width: 25%;" maxlength="4"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </div>
-
                     </div>
 
                     <div class="form-group" id="emailGroup">
@@ -291,7 +296,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control"
                                 id="license" name="accept"
-                                placeholder="라이센스 번호를 등록하세요">
+                                placeholder="라이센스 번호를 등록하세요" maxlength="12">
                         </div>
                     </div>
 
@@ -381,6 +386,43 @@
 															this.selectedIndex = selectedIndex;
 														});
 									}
+									
+									function toggleFormFields1() {
+									    var expertUserChecked = document.getElementById('expertUser').checked;
+									    var accountGroup = document.getElementById('accountGroup');
+									    var licenseGroup = document.getElementById('licenseGroup');
+									    var submitButtonContainer = document.getElementById('submitButtonContainer');
+									    var bankSelect = document.getElementById('bank');
+									    var accountNumberInput = document.getElementById('accountNumber');
+
+									    if (expertUserChecked) {
+									        accountGroup.style.display = 'block';
+									        licenseGroup.style.display = 'block';
+									        submitButtonContainer.style.display = 'block';
+									        bankSelect.required = true;
+									        accountNumberInput.required = true;
+									    } else {
+									        accountGroup.style.display = 'none';
+									        licenseGroup.style.display = 'none';
+									        submitButtonContainer.style.display = 'block';
+									        bankSelect.required = false;
+									        accountNumberInput.required = false;
+									    }
+									}
+
+									function validateForm() {
+									    var expertUserChecked = document.getElementById('expertUser').checked;
+									    var bankSelect = document.getElementById('bank');
+									    var accountNumberInput = document.getElementById('accountNumber');
+
+									    if (expertUserChecked) {
+									        if (bankSelect.value === "" || accountNumberInput.value === "") {
+									            alert("전문가 회원은 계좌 정보를 반드시 입력해야 합니다.");
+									            return false;
+									        }
+									    }
+									    return true;
+									}
 
 									// 페이지 로드시 초기 호출
 									document
@@ -402,6 +444,7 @@
 																					toggleFormFields);
 																});
 													});
+									
 								</script>
 
         <script

@@ -201,6 +201,7 @@ public class UserController {
 
 		model.addAttribute("userPoint", dto.getPoint());
 		model.addAttribute("userAccount", dto.getAccount());
+		model.addAttribute("userWithdraw", dto.getWithdraw());
 		return "/user/exchange";
 	}
 

@@ -15,6 +15,7 @@ import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.repository.UserDao;
 import com.itwill.gaebokchi.dto.AcceptListDto;
 import com.itwill.gaebokchi.dto.ExchangeListDto;
+import com.itwill.gaebokchi.dto.MemberListDto;
 import com.itwill.gaebokchi.dto.UpdatePasswordDto;
 import com.itwill.gaebokchi.dto.UpdatePointDto;
 import com.itwill.gaebokchi.dto.UserSignInDto;
@@ -146,19 +147,19 @@ public class UserService {
 	}
 
 	public List<ExchangeListDto> AdminExchange() {
-		log.debug("AdminSignup()");
+		log.debug("AdminExchange()");
 		List<User> list = userDao.AdminExchange();
 
 		return list.stream().map(ExchangeListDto::fromEntity).toList();
 	}
 
 	@Transactional
-	public void acceptUser(String userid) {
+	public void acceptUser(String userid, String accept) {
 		try {
 			userDao.deleteAccept(userid);
 			userDao.updateGrade(userid);
-			userDao.intoPros(userid);
-			userDao.intoLicense(userid);
+			userDao.intoPros(userid,accept);
+			userDao.intoLicense(userid,accept);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -180,6 +181,21 @@ public class UserService {
 
 	public void rejectEx(String userid, int withdraw) {
 		userDao.setWithdraw(userid, withdraw);
+	}
+	
+	public void deleteUser(String userid) {
+		userDao.deleteUser(userid);
+	}
+	
+	public List<MemberListDto> AllMembers() {
+		log.debug("AdminMembers()");
+		List<User> list = userDao.AllMembers();
+
+		return list.stream().map(MemberListDto::fromEntity).toList();
+	}
+	
+	public void setGrade(String userid, String grade) {
+		userDao.setGrade(userid, grade);
 	}
 
 	public Map<String, String> getUserNicknames() {

@@ -14,6 +14,7 @@ import com.itwill.gaebokchi.dto.AcceptListDto;
 import com.itwill.gaebokchi.dto.CommPostListDto;
 import com.itwill.gaebokchi.dto.ExchangeListDto;
 import com.itwill.gaebokchi.service.CommPostService;
+import com.itwill.gaebokchi.dto.MemberListDto;
 import com.itwill.gaebokchi.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class AdminController {
 	private final UserService userService;
 	private final CommPostService commPostService;
 
-	@RequestMapping("adminHome")
+	@GetMapping("adminHome")
 	public String AdminHome() {
 		return "/admin/adminHome";
 	}
@@ -44,8 +45,24 @@ public class AdminController {
 
 		model.addAttribute("pinnedPosts", pinnedPosts);
 		model.addAttribute("posts", posts);
-
 		return "/admin/adminPosts";
+	}
+
+	@GetMapping("/adminPosts")
+	public String AdminPosts() {
+		return "/admin/adminPosts";
+	}
+
+	@GetMapping("/adminMembers")
+	public void AdminMembers(Model model) {
+		List<MemberListDto> members = userService.AllMembers();
+		model.addAttribute("members", members);
+	}
+	
+	@PostMapping("/changeGrade")
+	public String setGrade(@RequestParam(name = "userid") String userid, @RequestParam(name = "grade") String grade) {
+		userService.setGrade(userid, grade);
+		return "redirect:/admin/adminMembers";
 	}
 
 	@GetMapping("/adminExchange")
@@ -61,13 +78,13 @@ public class AdminController {
 	}
 
 	@PostMapping("approve")
-	public String approveUser(@RequestParam(name = "userid") String userid) {
-		userService.acceptUser(userid);
+	public String approveUser(@RequestParam(name = "userid") String userid, @RequestParam(name = "accept") String accept) {
+		userService.acceptUser(userid,accept);
 		return "redirect:/admin/adminSignup";
 	}
 
 	@PostMapping("reject")
-	public String rejectUser(@RequestParam(name = "userid") String userid) {
+	public String rejectUser(@RequestParam(name = "userid") String userid, @RequestParam(name = "accept") String accept) {
 		userService.rejectUser(userid);
 		return "redirect:/admin/adminSignup";
 	}
@@ -85,5 +102,13 @@ public class AdminController {
 		userService.rejectEx(userid, withdraw);
 		return "redirect:/admin/adminExchange";
 	}
+
+	@PostMapping("deleteUser")
+	public String deleteUser(@RequestParam(name = "userid") String userid) {
+		userService.deleteUser(userid);
+		return "redirect:/admin/adminMembers";
+	}
+	
+	
 
 }

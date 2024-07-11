@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     emailPrefix.addEventListener('blur', checkEmail);
-    
+
     emailSeparator.addEventListener('blur', checkEmail);
 
     // Submit 버튼 비활성화 함수

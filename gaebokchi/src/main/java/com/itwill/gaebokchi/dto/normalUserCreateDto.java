@@ -26,8 +26,6 @@ public class normalUserCreateDto {
 	private String postCode;
 	private String addressMain;
 	private String addressDetail;
-	private int male;
-	private int female;
 	private String emailPrefix;
 	private String emailSeparator;
 
@@ -36,11 +34,6 @@ public class normalUserCreateDto {
 		phone = phone0 + "/" + phone1 + "-" + phone2 + "-" + phone3;
 		address = postCode + "/" + addressMain + "/" + addressDetail;
 		email = emailPrefix + "@" + emailSeparator;
-		if (male == 1) {
-			gender = male;
-		} else {
-			gender = female;
-		}
 
 		return User.builder().userid(userid).password(password).name(name).nickname(nickname).phone(phone).email(email)
 				.birth(birth).gender(gender).address(address).build();
