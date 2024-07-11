@@ -6,112 +6,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>나의 포인트 출금</title>
+<title>포인트환전｜GOLFRO</title>
 <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet">
 <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     rel="stylesheet">
-<style>
-body {
-    background-color: #f8f9fa;
-    font-family: 'Noto Sans KR', sans-serif;
-}
 
-.container {
-    max-width: 600px;
-    margin-top: 80px;
-}
+<link rel="stylesheet" href="../css/user_exchange.css" />
 
-.card {
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-.card-body {
-    padding: 25px;
-}
-
-.card-title {
-    color: #495057;
-    font-weight: 600;
-}
-
-.display-4 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #007bff;
-}
-
-.btn-primary {
-    background-color: #007bff;
-    border: none;
-    border-radius: 50px;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-
-input.form-control {
-    border-radius: 50px;
-    padding: 12px 20px;
-}
-
-.text-muted {
-    font-size: 0.8rem;
-}
-
-.fixed-top {
-    background-color: #007bff !important;
-    color: white;
-    padding: 15px 0;
-}
-</style>
 </head>
 <body>
-    <div class="fixed-top text-center">
-        <h2>나의 포인트 출금</h2>
-    </div>
-    <div class="container">
+
+    <header>
+        <%@ include file="../fragments/header.jspf"%>
+    </header>
+
+    <div class="container" id="user">
+        <h3>내 포인트 환전하기</h3>
         <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">내 포인트</h5>
+            </div>
+
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <h5 class="card-title">내 포인트</h5>
                         <h5 class="display-4">
                             <c:out value="${userPoint}" default="0" />
                         </h5>
                     </div>
-
                 </div>
             </div>
         </div>
 
         <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">나의 출금계좌</h5>
+            </div>
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <h5 class="card-title">나의 출금계좌</h5>
+
                         <h5 class="display-4">
                             <c:out value="${userAccount}" default="0" />
                         </h5>
                     </div>
                     <div class="col-md-6 text-end">
-                        <button class="btn btn-primary">
-                            <a href=# class="text-white"><i
-                                class="fas fa-exchange-alt me-2"></i></a>계좌
-                            변경
+                        <button class="exchangebtn" >
+                            <c:url var="loginInfo" value="/user/privacy?userid=${signedInUser}" />
+                            <a href="${loginInfo}" class="text-black">
+                                <i class="fas fa-exchange-alt me-2" id="btn2"></i>계좌 변경
+                            </a>
                         </button>
                     </div>
                 </div>
@@ -119,12 +66,15 @@ input.form-control {
         </div>
 
         <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">출금 가능금액</h5>
+            </div>
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <h5 class="card-title">출금 가능금액</h5>
+
                         <h5 class="display-4">
-                            <c:out value="${userPoint - userWithdraw}" default="0" />
+                            <c:out value="${userPoint}" default="0" />
                         </h5>
                     </div>
                     <div class="col-md-6">
@@ -140,17 +90,17 @@ input.form-control {
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-body">
+        <div class="card" >
+            <div class="card-body" id="last">
                 <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <label for="exchangePw" class="form-label">
+                    <div class="col-md-6 mt-2 mb-1">
+                        <label for="exchangePw" class="form-label" id="exchangePw1">
                             비밀번호</label> <input type="password" id="exchangePw"
                             class="form-control" name="password"
                             required placeholder="비밀번호 입력">
                     </div>
                     <div class="col-md-6 text-end mt-3">
-                        <button class="btn btn-primary" id="btnExchange">
+                        <button class="exchangebtn" id="btnExchange">
                             <i class="fas fa-coins me-2"></i>출금 신청
                         </button>
                     </div>
@@ -163,6 +113,7 @@ input.form-control {
             </div>
         </div>
     </div>
+
 
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
