@@ -127,8 +127,8 @@
     </update>
 
 	<select id="findAllUserNicknames" resultType="map">
-		select userid , nickname from users
-	</select>
+        SELECT userid, nickname FROM users
+    </select>
 
 </mapper>
 

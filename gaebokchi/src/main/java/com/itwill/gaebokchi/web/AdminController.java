@@ -48,11 +48,6 @@ public class AdminController {
 		return "/admin/adminPosts";
 	}
 
-	@GetMapping("/adminPosts")
-	public String AdminPosts() {
-		return "/admin/adminPosts";
-	}
-
 	@GetMapping("/adminMembers")
 	public void AdminMembers(Model model) {
 		List<MemberListDto> members = userService.AllMembers();
