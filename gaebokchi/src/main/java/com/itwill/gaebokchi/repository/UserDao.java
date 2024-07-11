@@ -1,6 +1,7 @@
 package com.itwill.gaebokchi.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -56,5 +57,7 @@ public interface UserDao {
 	void setGrade(@Param("userid") String userid, @Param("grade") String grade);
 
 	String FindNicknameByUserId(String userid);
+
+	List<Map<String, String>> findAllUserNicknames();
 
 }
