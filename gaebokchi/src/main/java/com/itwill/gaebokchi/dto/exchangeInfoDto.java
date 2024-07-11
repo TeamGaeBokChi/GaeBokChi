@@ -10,11 +10,12 @@ import lombok.Data;
 public class exchangeInfoDto {
 	private String userid;
 	private String account;
+	private int withdraw;
 	private int point;
 
 	public static exchangeInfoDto fromEntity(User user) {
-		return exchangeInfoDto.builder().userid(user.getUserid()).point(user.getPoint()).account(user.getAccount()).build();
+		return exchangeInfoDto.builder().userid(user.getUserid()).point(user.getPoint()).account(user.getAccount())
+				.withdraw(user.getWithdraw()).build();
 	}
 
 }
-	

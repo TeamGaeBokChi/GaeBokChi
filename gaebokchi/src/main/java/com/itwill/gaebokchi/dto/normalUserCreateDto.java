@@ -36,7 +36,7 @@ public class normalUserCreateDto {
 		phone = phone0 + "/" + phone1 + "-" + phone2 + "-" + phone3;
 		address = postCode + "/" + addressMain + "/" + addressDetail;
 		email = emailPrefix + "@" + emailSeparator;
-		if (male == 1) {
+		if (gender == 1) {
 			gender = male;
 		} else {
 			gender = female;

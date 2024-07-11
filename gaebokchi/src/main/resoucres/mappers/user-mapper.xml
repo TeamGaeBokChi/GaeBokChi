@@ -113,6 +113,18 @@
     <update id="setWithdraw">
         update users set withdraw = withdraw - #{withdraw} where userid = #{userid}
     </update>
+    
+    <delete id="deleteUser">
+        delete from users where userid = #{userid}
+    </delete>
+    
+    <select id="AllMembers">
+        select * from users order by userid
+    </select>
+    
+    <update id="setGrade">
+        update users set grade = #{grade} where userid = #{userid}
+    </update>
 
 </mapper>
 

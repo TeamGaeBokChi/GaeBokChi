@@ -50,8 +50,8 @@
                                 id="searchCategory"
                                 onchange="toggleSearchField()">
                                 <%-- <c:forEach items="${clubs}" var="c">
-                				<option value="${c.id}">${c.name}</option>
-                							             </c:forEach> --%>
+                                <option value="${c.id}">${c.name}</option>
+                                                         </c:forEach> --%>
                                 <option value="searchClubs">클럽별
                                     검색</option>
                                 <option value="searchSelection">채택별
@@ -189,10 +189,10 @@
         </div>
     </main>
     <c:if test="${not empty userid}">
-		</div>
-		</div>
-		</div>
-	</c:if>
+        </div>
+        </div>
+        </div>
+    </c:if>
 
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -204,31 +204,31 @@
     <script src="${ listJS }"></script>
 
     <script type="text/javascript">
-					searchButton
+                    searchButton
 
-					function toggleSearchField() {
-						var searchCategory = document
-								.getElementById("searchCategory").value;
-						var clubSelectField = document
-								.getElementById("clubSelectField");
-						var textSearchSelectField = document
-								.getElementById("textSearchSelectField");
-						var searchSelectionField = document
-								.getElementById("searchSelectionField");
+                    function toggleSearchField() {
+                        var searchCategory = document
+                                .getElementById("searchCategory").value;
+                        var clubSelectField = document
+                                .getElementById("clubSelectField");
+                        var textSearchSelectField = document
+                                .getElementById("textSearchSelectField");
+                        var searchSelectionField = document
+                                .getElementById("searchSelectionField");
 
-						if (searchCategory === "searchClubs") {
-							clubSelectField.style.display = "block";
-							textSearchSelectField.style.display = "none";
-							searchSelectionField.style.display = "none";
-						} else if (searchCategory === "searchSelection") {
-							clubSelectField.style.display = "none";
-							textSearchSelectField.style.display = "none";
-							searchSelectionField.style.display = "block";
-						} else {
-							clubSelectField.style.display = "none";
-							textSearchSelectField.style.display = "block";
-							searchSelectionField.style.display = "none";
-						}
-					}
-				</script></body>
+                        if (searchCategory === "searchClubs") {
+                            clubSelectField.style.display = "block";
+                            textSearchSelectField.style.display = "none";
+                            searchSelectionField.style.display = "none";
+                        } else if (searchCategory === "searchSelection") {
+                            clubSelectField.style.display = "none";
+                            textSearchSelectField.style.display = "none";
+                            searchSelectionField.style.display = "block";
+                        } else {
+                            clubSelectField.style.display = "none";
+                            textSearchSelectField.style.display = "block";
+                            searchSelectionField.style.display = "none";
+                        }
+                    }
+                </script></body>
 </html>
