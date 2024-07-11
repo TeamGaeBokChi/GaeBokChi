@@ -99,7 +99,7 @@ body {
 .exchangebtn {
     font-family: 'Pretendard-Regular', Pretendard-Regular;
     font-weight: 600;
-    border: 3px solid #000; /* 테두리 두께와 색상 지정 */
+    border: 2px solid #000; /* 테두리 두께와 색상 지정 */
     padding: 10px 20px; /* 버튼 안쪽 여백 */
     background-color: transparent; /* 배경색을 투명으로 설정 */
     border-radius: 5px; /* 테두리 둥글게 설정 */
