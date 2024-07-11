@@ -29,6 +29,7 @@ public class Post {
 	private LocalDateTime createdTime; // 작성 시간
 	private LocalDateTime modifiedTime; // 수정 시간
 	private String selection;
+	private String nickname;
 	
 	private String mediaPath;
 

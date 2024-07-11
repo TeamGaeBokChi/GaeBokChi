@@ -130,7 +130,7 @@
             a.id,
             b.name as clubType,
             a.title,
-            c.nickname as author,
+            c.nickname,
             a.views,
             a.likes,
             a.created_time,
@@ -141,6 +141,7 @@
             a.handy,
 		    a.ironDistance,
             a.driverDistance,
+            a.author,
 		CASE WHEN EXISTS (
             SELECT 1
             FROM comments d

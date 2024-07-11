@@ -45,7 +45,7 @@
 								<input id="title" class="form-control" type="text" name="title" placeholder="제목을 입력하세요." />
 							</div>
 							<div class="col-2">
-								<input id="author" class="form-control" type="text" name="author" placeholder="작성자 코드값" required />
+								<input id="author" class="form-control d-none" type="text" name="author" placeholder="작성자 코드값" required value="${signedInUser}"/>
 							</div>
 						</div>
 						<!-- 내용 본문 영역 -->
