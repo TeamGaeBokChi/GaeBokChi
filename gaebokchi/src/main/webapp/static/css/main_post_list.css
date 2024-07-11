@@ -51,6 +51,14 @@ body {
     text-align: center; /* 가운데 정렬 */
 }
 
+.card span {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+    font-size:13px;
+    color: #808080;
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 30px;
+}
+
 .card-header {
     font-family: 'SUIT-Regular';
     font-weight: 500;
