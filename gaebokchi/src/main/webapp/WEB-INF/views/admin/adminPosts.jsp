@@ -126,31 +126,39 @@ tr:hover {
 			<tbody>
 				<c:forEach var="p" items="${posts}">
 					<tr class="table">
+						<td>${p.id}</td>
 						<td><c:choose>
-								<c:when test="${p.category eq 'P003'}">
-									<c:url var="joinPostDetailsPage" value="/join/join_details">
+								<c:when test="${p.category eq 'P001'}">
+									<c:url var="mainPostDetailsPage" value="/mainPost/details">
 										<c:param name="id" value="${p.id}" />
 									</c:url>
-									<a href="${joinPostDetailsPage}" class="custom-link">${p.title}</a>
+									<a href="${mainPostDetailsPage}" class="custom-link">${p.title}</a>
 								</c:when>
-								<c:when test="${p.category eq 'P004'}">
-									<c:url var="reviewPostDetailsPage"
-										value="/review/review_details">
-										<c:param name="id" value="${p.id}"></c:param>
-									</c:url>
-									<a href="${reviewPostDetailsPage}" class="custom-link">${p.title}</a>
-								</c:when>
-								<c:otherwise>
-									<c:url var="commPostDetailsPage"
-										value="/community/comm_details">
-										<c:param name="id" value="${p.id}"></c:param>
-									</c:url>
-									<a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
-								</c:otherwise>
+									<c:when test="${p.category eq 'P003'}">
+										<c:url var="joinPostDetailsPage" value="/join/join_details">
+											<c:param name="id" value="${p.id}" />
+										</c:url>
+										<a href="${joinPostDetailsPage}" class="custom-link">${p.title}</a>
+									</c:when>
+									<c:when test="${p.category eq 'P004'}">
+										<c:url var="reviewPostDetailsPage"
+											value="/review/review_details">
+											<c:param name="id" value="${p.id}"></c:param>
+										</c:url>
+										<a href="${reviewPostDetailsPage}" class="custom-link">${p.title}</a>
+									</c:when>
+									<c:otherwise>
+										<c:url var="commPostDetailsPage"
+											value="/community/comm_details">
+											<c:param name="id" value="${p.id}"></c:param>
+										</c:url>
+										<a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
+									</c:otherwise>
 							</c:choose></td>
+						<td>${p.author}</td>
+						<td>${userNicknames[p.author]}</td>
 						<td>${p.modifiedTime}</td>
-						<td>${p.views}</td>
-						<td>${p.likes}</td>
+						<td>${p.category}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class MyPostListDto {
 	private Integer id;
 	private String title;
-	private String author;
+	private String author;	
 	private String category;
 	private LocalDateTime modifiedTime;
 	private Integer views;
@@ -47,6 +47,7 @@ public class MyPostListDto {
 				.modifiedTime(mypost.getModifiedTime())
 				.views(mypost.getViews())
 				.likes(mypost.getLikes())
+				.category(mypost.getCategory())
 				.mediaResource(mediaResource).build();
 	}
 

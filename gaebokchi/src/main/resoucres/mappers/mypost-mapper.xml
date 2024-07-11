@@ -59,5 +59,9 @@
 	<select id="selectTotalPostCount" resultType="int">
 		SELECT COUNT(*) FROM posts WHERE category NOT IN('P001') AND author = #{author}
 	</select>
+	
+	<select id="selectAll">
+		select * from posts
+	</select>
 
 </mapper>

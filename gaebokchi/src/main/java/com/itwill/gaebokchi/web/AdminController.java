@@ -20,8 +20,10 @@ import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.service.CommPostService;
 import com.itwill.gaebokchi.service.JoinPostService;
 import com.itwill.gaebokchi.service.MainPostService;
+import com.itwill.gaebokchi.service.MyPostService;
 import com.itwill.gaebokchi.service.ReviewPostService;
 import com.itwill.gaebokchi.dto.MemberListDto;
+import com.itwill.gaebokchi.dto.MyPostListDto;
 import com.itwill.gaebokchi.dto.ReviewPostListDto;
 import com.itwill.gaebokchi.filter.AuthenticationFilter;
 import com.itwill.gaebokchi.repository.User;
@@ -36,10 +38,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminController {
 
 	private final UserService userService;
-	private final CommPostService commPostService;
-	private final ReviewPostService reviewPostService;
-	private final JoinPostService joinPostService;
-	private final MainPostService mainPostService;
+	private final MyPostService myPostService;
 
 	@GetMapping("adminHome")
 	public String AdminHome() {
@@ -48,8 +47,12 @@ public class AdminController {
 
 	@GetMapping("adminPosts")
 	public String AdminPosts(Model model) {
-		
 
+		List<MyPostListDto> posts = myPostService.selectAll();
+		Map<String, String> userNicknames = userService.getUserNicknames();
+
+		model.addAttribute("userNicknames", userNicknames);
+		model.addAttribute("posts", posts);
 		return "/admin/adminPosts";
 	}
 
