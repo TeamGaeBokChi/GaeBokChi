@@ -12,20 +12,24 @@
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>    
-    
-    <style type="text/css">
-        .container {
-            width: 1080px;
-            margin: 0 auto;
-            margin-top: 30px;
-        }
-    </style>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<style type="text/css">
+.container {
+	width: 1080px;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+</style>
 <title>Golfro</title>
 <c:url var="details" value="../css/details.css" />
 <link rel="stylesheet" type="text/css" href="${details}">
 </head>
 <body>
+	<%
+	Object signedInUser = session.getAttribute("signedInUser");
+	System.out.println("SignedInUser: " + signedInUser);
+	%>
 	<header>
 		<c:set var="pageTitle" value="새글 작성하기" />
 		<%@ include file="../fragments/header.jspf"%>
@@ -43,20 +47,20 @@
 						<span id="detailsTitle">${post.title}</span>
 					</div>
 					<div class="sub">
-						<span> ${post.author}   </span> <span>   ${post.createdTime}</span>
-					
-					<div class="views-likes-container">
-						<p id="views" class="views">조회수: ${post.views}</p>
-						<button id="likes" class="likes bi bi-heart-fill"></button>
-						<p id="likesCounts">: ${post.likes}</p>
-					</div>
+						<span> ${post.nickname}</span> <span>   ${post.createdTime}</span>
+
+						<div class="views-likes-container">
+							<p id="views" class="views">조회수: ${post.views}</p>
+							<button id="likes" class="likes bi bi-heart-fill"></button>
+							<p id="likesCounts">: ${post.likes}</p>
+						</div>
 					</div>
 				</div>
 
 
 				<div class="mainTextArea">
 					<div class="left">
-						<video class="video-container" autoplay>
+						<video class="video-container" autoplay controls>
 							<c:url var="videoUrl" value="/mainPost/video">
 								<c:param name="file" value="${post.media}" />
 							</c:url>
@@ -118,9 +122,9 @@
 
 							</div>
 						</div>
-                        
-                        <!-- 포커싱할 댓글 id -->
-                        <input type="hidden" id="commentId" value="${commentId}" />
+
+						<!-- 포커싱할 댓글 id -->
+						<input type="hidden" id="commentId" value="${commentId}" />
 						<!-- 댓글 리스트 영역 -->
 						<div class="comments-section form-control"></div>
 						<!-- 댓글작성 영역 -->
@@ -138,7 +142,9 @@
 
 						</div>
 						<!-- 하단 수정하기, 삭제 버튼 영역 -->
-						<div class="mt-2 d-flex justify-content-end">
+
+						<c:if test="${signedInUser eq post.author}">
+						<div class="mt-2 d-flex justify-content-end" id="sunman">
 							<!-- 수정 -->
 							<div>
 								<c:url var="mainPostModifyPage" value="/mainPost/modify">
@@ -150,6 +156,8 @@
 							<!-- 삭제 -->
 							<button id="btnDeleteMainPost" class="btn btn-outline-danger">삭제</button>
 						</div>
+						</c:if>
+
 					</div>
 				</div>
 			</div>
@@ -168,20 +176,7 @@
 
 	<c:url var="commentsJS" value="/js/comments.js" />
 	<script src="${ commentsJS }"></script>
-	<!-- 이벤트 리스너 -->
-	<script>
-	document.addEventListener('DOMContentLoaded', () => {
-		const btnDeleteMainPost = document.querySelector('button#btnDeleteMainPost');
-		const btnModifyid = document.querySelector('#btnModifyid');
-		
-		btnDeleteMainPost.addEventListener('click', () => {
-			const result = confirm('게시물을 삭제하시겠습니까?');
-			if(result){
-				location.href = `delete?id=${post.id}`;
-			}
-		})
-	});
-</script>
+
 
 </body>
 </html>

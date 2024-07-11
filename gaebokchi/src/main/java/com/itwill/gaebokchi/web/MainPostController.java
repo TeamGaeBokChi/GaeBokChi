@@ -29,8 +29,11 @@ import com.itwill.gaebokchi.repository.Clubs;
 import com.itwill.gaebokchi.repository.Post;
 import com.itwill.gaebokchi.service.MainPostService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER;
 
 @Slf4j
 @Controller
@@ -74,9 +77,14 @@ public class MainPostController {
 	}
 
 	@GetMapping("/details")
-	public void mainPostDetails(@RequestParam(name = "id") Integer id, @RequestParam(name = "commentId", required = false) Integer commentId, Model model) {
+	public void mainPostDetails(@RequestParam(name = "id") Integer id, @RequestParam(name = "commentId", required = false) Integer commentId, Model model, HttpSession session) {
 		log.debug("mainPostDetails(id={})", id);
+		
+//		Object sessionUser = session.getAttribute(SESSION_ATTR_USER);
+//		String sunman = sessionUser.toString();
+		
 		Post post = mainPostService.selectPostId(id);
+		log.debug("{}", post);
 		model.addAttribute("commentId", commentId);
 		model.addAttribute("post", post);
 	}

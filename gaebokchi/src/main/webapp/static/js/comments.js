@@ -8,9 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
 	getAllMainComments(); // 댓글 리스트업
 	getAllLikes(); // 좋아요 수
 
-	
-	
-	
+
+	const btnDeleteMainPost = document.querySelector('button#btnDeleteMainPost');
+
+	btnDeleteMainPost.addEventListener('click', () => {
+		const result = confirm('게시물을 삭제하시겠습니까?');
+		if (result) {
+			location.href = `delete?id=${post.id}`;
+		}
+	});
+
+
+
+
 	const btnRegisterComment = document.querySelector('button#btnRegisterComment');
 	btnRegisterComment.addEventListener('click', registerComment);
 
@@ -96,54 +106,54 @@ document.addEventListener('DOMContentLoaded', () => {
 				// selection === 1인 요소들을 최상단으로 정렬하고, 나머지는 modifiedTime을 기준으로 정렬
 				const sortedData = response.data.sort((a, b) => {
 					if (a.selection === 1 && b.selection !== 1) {
-				  		return -1; // a를 더 위로 올림
-				  	} else if (a.selection !== 1 && b.selection === 1) {
-				        return 1; // b를 더 위로 올림
-				  	} else {
-				        return b.modifiedTime - a.modifiedTime; // modifiedTime을 기준으로 내림차순 정렬
-				  	}
+						return -1; // a를 더 위로 올림
+					} else if (a.selection !== 1 && b.selection === 1) {
+						return 1; // b를 더 위로 올림
+					} else {
+						return b.modifiedTime - a.modifiedTime; // modifiedTime을 기준으로 내림차순 정렬
+					}
 				});
-				
+
 				console.log(sortedData);
 				makeCommentElements(sortedData);
-				
+
 				if (response.data.some(comment => comment.selection === 1)) {
 					hideAllSelectButtons();
 				}
-				
+
 				const focusCommentId = document.querySelector('input#commentId').value;
 
-					if (focusCommentId != null) { // null 및 undefined 모두 체크
-					    let commentElement = document.getElementById(`comment-${focusCommentId}`);
-						console.log(commentElement);
-					    if (commentElement) { // 요소가 실제로 존재하는지 확인
-					        commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-					    } else {
-							return;
-					    }
+				if (focusCommentId != null) { // null 및 undefined 모두 체크
+					let commentElement = document.getElementById(`comment-${focusCommentId}`);
+					console.log(commentElement);
+					if (commentElement) { // 요소가 실제로 존재하는지 확인
+						commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
 					} else {
-					    console.error('focusCommentId is null or undefined.');
+						return;
 					}
+				} else {
+					console.error('focusCommentId is null or undefined.');
+				}
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-	
+
 	}
 
 
 	// 댓글 목을 전달 받아 html 작성
 	function makeCommentElements(data) {
-	    const divComments = document.querySelector('div.comments-section');
-	    let htmlString = '';
+		const divComments = document.querySelector('div.comments-section');
+		let htmlString = '';
 
-	    if (data === '' || data.length === 0) {
-	        htmlString = `<p id="nullComment">아직 피드백이 작성되지 않은 게시물입니다.</p>`;
-	    } else {
-	        for (let mainComment of data) {
-                let highlightClass = mainComment.selection === 1 ? 'highlight' : '';
+		if (data === '' || data.length === 0) {
+			htmlString = `<p id="nullComment">아직 피드백이 작성되지 않은 게시물입니다.</p>`;
+		} else {
+			for (let mainComment of data) {
+				let highlightClass = mainComment.selection === 1 ? 'highlight' : '';
 
-	            htmlString += `
+				htmlString += `
 	                <div class="comment ${highlightClass}" id="comment-${mainComment.id}">
 	                    <div class="comment-thumb">
 	                        <img id="image-${mainComment.id}" class="pofile-image" src="../user/file/image?file=${encodeURIComponent(mainComment.image)}" alt="Uploaded Image">
@@ -161,9 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    </div>
 	                </div>
 	            `;
-	        }
-	    }
-	    divComments.innerHTML = htmlString;
+			}
+		}
+		divComments.innerHTML = htmlString;
 
 		const selectComment = document.querySelectorAll('.selectComment');
 		for (let selectButton of selectComment) {
@@ -236,9 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		content.style.textAlign = 'center';
 		content.style.paddingTop = '51px';
 	}
-
-
-
-
 	
+	
+	
+
+
 });

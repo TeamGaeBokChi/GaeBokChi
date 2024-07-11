@@ -35,11 +35,12 @@
                     <ul class="submenu">
                         <c:url var="postListPage" value="/mainPost/list" />
                         <li><a class="nav-link" href="${postListPage}">전체 클럽</a></li>
-                        <li><a href="/mainPost/list2">웨지</a></li>
-                        <li><a href="/mainPost/list2">유틸</a></li>
-                        <li><a href="/mainPost/list2">우드</a></li>
-                        <li><a href="/mainPost/list2">아이언</a></li>
-                        <li><a href="/mainPost/list2">드라이버</a></li>
+                        <li><a href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=PT&textSearchSelect=&selectSelection=selectFalse">퍼터</a></li>
+                        <li><a href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=WG&textSearchSelect=&selectSelection=selectFalse">웨지</a></li>
+                        <li><a href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=UT&textSearchSelect=&selectSelection=selectFalse">유틸</a></li>
+                        <li><a href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=WD&textSearchSelect=&selectSelection=selectFalse">우드</a></li>
+                        <li><a href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=IR&textSearchSelect=&selectSelection=selectFalse">아이언</a></li>
+                        <li><a href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=DR&textSearchSelect=&selectSelection=selectFalse">드라이버</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
