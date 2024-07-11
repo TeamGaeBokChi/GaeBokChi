@@ -55,8 +55,8 @@
                     </div>
                     <div class="col-md-6 text-end">
                         <button class="exchangebtn" >
-                            <c:url var="loginInfo" value="/user/privacy?userid=${signedInUser}" />
-                            <a href="${loginInfo}" class="text-black">
+                            <c:url var="changeUserAccount" value="/user/privacy?userid=${signedInUser}&account=change" />
+                            <a href="${changeUserAccount}" class="text-black">
                                 <i class="fas fa-exchange-alt me-2" id="btn2"></i>계좌 변경
                             </a>
                         </button>

@@ -58,9 +58,10 @@ public class UserProfileController {
 //	private String userid = "banggu";
 	
 	@GetMapping({ "/profile", "/privacy" })
-	public void privacy(@RequestParam(name = "userid") String userid, Model model) {
+	public void privacy(@RequestParam(name = "userid") String userid, @RequestParam(name = "account", required = false) String account, Model model) {
 		Pro pro = userService.readPro(userid);
         model.addAttribute("user", pro);
+        model.addAttribute("account", account);
         
         log.debug("user={}", pro);
 	}
