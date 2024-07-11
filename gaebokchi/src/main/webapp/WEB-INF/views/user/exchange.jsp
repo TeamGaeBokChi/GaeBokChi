@@ -37,12 +37,6 @@
                             <c:out value="${userPoint}" default="0" />
                         </h5>
                     </div>
-                    <div class="col-md-6 text-end">
-                        <button class="exchangebtn" id="btn1">
-                            <a href=# class="text-black"> <i
-                                class="fas fa-history me-2"></i></a>획득 내역
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -61,9 +55,10 @@
                     </div>
                     <div class="col-md-6 text-end">
                         <button class="exchangebtn" >
-                            <a href=# class="text-black"><i
-                                class="fas fa-exchange-alt me-2" id="btn2"></i></a>계좌
-                            변경
+                            <c:url var="loginInfo" value="/user/privacy?userid=${signedInUser}" />
+                            <a href="${loginInfo}" class="text-black">
+                                <i class="fas fa-exchange-alt me-2" id="btn2"></i>계좌 변경
+                            </a>
                         </button>
                     </div>
                 </div>

@@ -190,7 +190,6 @@
 <script>
     const signedInUser = "${signedInUser}";
     const postAuthor = "${post.author}";
-    const commentId = "${comment.}";
 </script>
 
 
