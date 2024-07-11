@@ -22,8 +22,12 @@
                 <a class="menu_link" href="${userGrade}">회원 등급</a>
             </li>
             <li class="menu_item">
+                <c:url var="myLessons" value="/user/mylessons?userid=${signedInUser}" />
+                <a class="menu_link" href="${myLessons}">레슨 신청 내역</a>
+            </li>
+            <li class="menu_item">
                 <c:url var="myPosts" value="/user/myposts?userid=${signedInUser}" />
-                <a class="menu_link" href="${myPosts}">내 게시글 목록</a>
+                <a class="menu_link" href="${myPosts}">내가 쓴 게시글</a>
             </li>
             <li class="menu_item">
                 <c:url var="myComments" value="/user/commentList?userid=${signedInUser}" />

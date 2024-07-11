@@ -12,18 +12,17 @@ import lombok.ToString;
 
 @Getter @Setter @ToString @EqualsAndHashCode
 @NoArgsConstructor @AllArgsConstructor @Builder
-public class JoinPost {
+public class MyPost {
     private Integer id;
     private String title;
-    private String gcadress;
-    private LocalDateTime teeoff;
-    private Integer greenfee;
-    private Integer hole;
     private String content;
     private String author;
-    private String clubtype;
     private String category;
+	private String media;
+	private String mediaPath;
+	private String mediaResource; 
     private Integer views;
+    private Integer likes;
     private LocalDateTime createdTime;
     private LocalDateTime modifiedTime;
 }

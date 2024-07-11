@@ -1,6 +1,7 @@
 package com.itwill.gaebokchi.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -47,7 +48,7 @@ public interface UserDao {
 
 	void intoLicense(@Param("userid") String userid, @Param("accept") String accept);
 
-	void intoPros(@Param("userid") String userid, @Param("accept") String accept );
+	void intoPros(@Param("userid") String userid, @Param("accept") String accept);
 
 	void setPoint(@Param("userid") String userid, @Param("withdraw") int withdraw);
 
@@ -58,9 +59,9 @@ public interface UserDao {
 	void deleteUser(String userid);
 
 	void setGrade(@Param("userid") String userid, @Param("grade") String grade);
-	
-	
-	
+
 	String FindNicknameByUserId(String userid);
+
+	List<Map<String, String>> findAllUserNicknames();
 
 }

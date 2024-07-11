@@ -121,14 +121,14 @@ body {
 			</div>
 			<div class="details-item">
 				<h5>등록자</h5>
-				<p>${post.author}</p>
+				<p>${userNicknames[post.author]}</p>
 			</div>
 			<div class="details-item">
 				<h5>내용 및 연락처</h5>
 				<p>${post.content}</p>
 			</div>
 		</div>
-		<c:if test="${loggedInUser.nickname eq post.author}">
+		<c:if test="${loggedInUser.userid eq post.author}">
 			<div class="d-flex justify-content-end mt-2">
 				<c:url var="joinModifyPage" value="/join/join_modify">
 					<c:param name="id" value="${post.id}" />

@@ -93,6 +93,7 @@
 		JOIN
 		clubs b ON a.club_type = b.id
 		JOIN users c ON a.author = c.userid
+		where category = 'P001'
 		ORDER
 		BY
 		a.id

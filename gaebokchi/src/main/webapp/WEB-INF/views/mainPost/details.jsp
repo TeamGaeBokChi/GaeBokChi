@@ -26,10 +26,7 @@
 <link rel="stylesheet" type="text/css" href="${details}">
 </head>
 <body>
-	<%
-	Object signedInUser = session.getAttribute("signedInUser");
-	System.out.println("SignedInUser: " + signedInUser);
-	%>
+
 	<header>
 		<c:set var="pageTitle" value="새글 작성하기" />
 		<%@ include file="../fragments/header.jspf"%>
@@ -47,7 +44,7 @@
 						<span id="detailsTitle">${post.title}</span>
 					</div>
 					<div class="sub">
-						<span> ${post.nickname}</span> <span>   ${post.createdTime}</span>
+						<span> ${post.nickname}</span> <span> ${post.createdTime}</span>
 
 						<div class="views-likes-container">
 							<p id="views" class="views">조회수: ${post.views}</p>
@@ -60,7 +57,7 @@
 
 				<div class="mainTextArea">
 					<div class="left">
-						<video class="video-container" autoplay controls>
+						<video class="video-container" autoplay controls loop>
 							<c:url var="videoUrl" value="/mainPost/video">
 								<c:param name="file" value="${post.media}" />
 							</c:url>
@@ -125,6 +122,8 @@
 
 						<!-- 포커싱할 댓글 id -->
 						<input type="hidden" id="commentId" value="${commentId}" />
+
+
 						<!-- 댓글 리스트 영역 -->
 						<div class="comments-section form-control"></div>
 						<!-- 댓글작성 영역 -->
@@ -132,10 +131,18 @@
 							<!-- <form action="submit_comment_url" method="post"> -->
 							<div class="form-group">
 								<input class="d-none" id="postId" value="${post.id}" />
-								<textarea class="form-control" id="content" name="ctext"
-									rows="3" required placeholder="피드백을 작성해주세요."></textarea>
-								<input class="form-control mt-2" type="text" id="author"
-									placeholder="댓글 작성자" required />
+								<c:choose>
+
+									<c:when test="${signedInUserGrade eq 'G10'}">
+										<textarea class="form-control" id="content" name="ctext" rows="3" required placeholder="피드백을 작성해주세요."></textarea>
+									</c:when>
+									<c:otherwise>
+										<textarea class="form-control" readonly="readonly">전문가 승인이 완료 된 회원만 작성 할 수 있습니다.</textarea>
+									</c:otherwise>
+
+								</c:choose>
+								<input class="form-control mt-2 d-none" type="text" id="author"
+									placeholder="댓글 작성자" required value="${signedInUser}" />
 								<button id="btnRegisterComment"
 									class="btn btn-primary mt-3 form-control">피드백 작성하기</button>
 							</div>
@@ -144,19 +151,21 @@
 						<!-- 하단 수정하기, 삭제 버튼 영역 -->
 
 						<c:if test="${signedInUser eq post.author}">
-						<div class="mt-2 d-flex justify-content-end" id="sunman">
-							<!-- 수정 -->
-							<div>
-								<c:url var="mainPostModifyPage" value="/mainPost/modify">
-									<c:param name="id" value="${post.id}" />
-								</c:url>
-								<a id="btnModifyid" class="btn btn-outline-primary"
-									href="${mainPostModifyPage}">수정하기</a>
+							<div class="mt-2 d-flex justify-content-end" id="sunman">
+								<!-- 수정 -->
+								<div>
+									<c:url var="mainPostModifyPage" value="/mainPost/modify">
+										<c:param name="id" value="${post.id}" />
+									</c:url>
+									<a id="btnModifyid" class="btn btn-outline-primary"
+										href="${mainPostModifyPage}">수정하기</a>
+								</div>
+								<!-- 삭제 -->
+								<button id="btnDeleteMainPost" class="btn btn-outline-danger">삭제</button>
 							</div>
-							<!-- 삭제 -->
-							<button id="btnDeleteMainPost" class="btn btn-outline-danger">삭제</button>
-						</div>
 						</c:if>
+
+
 
 					</div>
 				</div>
@@ -176,6 +185,12 @@
 
 	<c:url var="commentsJS" value="/js/comments.js" />
 	<script src="${ commentsJS }"></script>
+
+
+<script>
+    const signedInUser = "${signedInUser}";
+    const postAuthor = "${post.author}";
+</script>
 
 
 </body>

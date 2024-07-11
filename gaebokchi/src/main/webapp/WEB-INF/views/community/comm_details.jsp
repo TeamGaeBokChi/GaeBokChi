@@ -147,7 +147,7 @@ body {
 			</div>
 			<div class="card-body">
 				<div class="post-info d-flex justify-content-between mb-3">
-					<span><i class="bi bi-person"></i> ${post.author}</span> <span><i
+					<span><i class="bi bi-person"></i>${userNicknames[post.author]}</span> <span><i
 						class="bi bi-eye"></i> ${post.views}</span> <span><i
 						class="bi bi-hand-thumbs-up"></i> <span id="likesCount">${post.likes}</span></span>
 					<span><i class="bi bi-chat-dots"></i> ${commentcount}</span>
@@ -161,7 +161,7 @@ body {
 					</c:if>
 					<div>${post.content}</div>
 				</div>
-				<c:if test="${post.author ne loggedInUser.nickname}">
+				<c:if test="${post.author ne loggedInUser.userid}">
 					<div class="position-relative mb-4 text-center">
 						<c:choose>
 							<c:when test="${not empty loggedInUser}">
@@ -183,7 +183,7 @@ body {
 					<c:url var="postModifyPage" value="/community/comm_modify">
 						<c:param name="id" value="${post.id}" />
 					</c:url>
-					<c:if test="${post.author eq loggedInUser.nickname}">
+					<c:if test="${post.author eq loggedInUser.userid}">
 						<form action="${postModifyPage}" method="get"
 							style="display: inline;">
 							<input type="hidden" name="id" value="${post.id}" />
@@ -220,7 +220,7 @@ body {
 						<div class="input-group mb-3">
 							<div class="col-2">
 								<input name="author" type="hidden" class="form-control"
-									value="${loggedInUser.nickname}">
+									value="${loggedInUser.userid}">
 							</div>
 							<div class="col-8">
 								<textarea name="content" id="content" class="form-control"
@@ -237,12 +237,12 @@ body {
 				<div class="comment-list">
 					<c:forEach var="comment" items="${commentlist}">
 						<div class="comment">
-							<b>${comment.author}</b>
+							<b>${userNicknames[comment.author]}</b>
 							<p>${comment.content}</p>
 							<div>
 								<small class="text-muted">${comment.modifiedTime}</small> <input
 									type="hidden" name="commentId" value="${comment.id}">
-								<c:if test="${comment.author eq loggedInUser.nickname}">
+								<c:if test="${comment.author eq loggedInUser.userid}">
 									<button id="btnUpdateComment"
 										class="btn btn-success btn-register-comment" type="submit">수정</button>
 									<input type="hidden" name="commentId" value="${comment.id}">

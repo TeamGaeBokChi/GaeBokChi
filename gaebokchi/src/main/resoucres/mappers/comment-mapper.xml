@@ -37,4 +37,8 @@
 	<delete id="deleteCommentById">
 		DELETE FROM comments WHERE id = #{id}
 	</delete>
+	
+	<select id="selectCommentById" resultType="Comment">
+	 SELECT * 
+	</select>
 </mapper>

@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.core.io.ByteArrayResource;
@@ -28,6 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.gaebokchi.dto.CommPostListDto;
 import com.itwill.gaebokchi.dto.MainCommentItemDto;
+import com.itwill.gaebokchi.dto.MyPostListDto;
+import com.itwill.gaebokchi.dto.MyPostListSearchDto;
 import com.itwill.gaebokchi.dto.UserProfileDto;
 import com.itwill.gaebokchi.dto.UserUpdateDto;
 import com.itwill.gaebokchi.repository.Pro;
@@ -35,6 +39,7 @@ import com.itwill.gaebokchi.repository.Pro;
 import com.itwill.gaebokchi.repository.UserMypage;
 import com.itwill.gaebokchi.service.CommPostService;
 import com.itwill.gaebokchi.service.MainCommentService;
+import com.itwill.gaebokchi.service.MyPostService;
 import com.itwill.gaebokchi.service.UserMypageService;
 
 import lombok.RequiredArgsConstructor;
@@ -49,6 +54,7 @@ public class UserProfileController {
 	private final UserMypageService userService;
 	private final MainCommentService mainCommentService;
 	private final CommPostService commPostService;
+	private final MyPostService myPostService;
 //	private String userid = "banggu";
 	
 	@GetMapping({ "/profile", "/privacy" })
@@ -170,11 +176,46 @@ public class UserProfileController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@GetMapping("/myposts")
-	public String myPostList(@RequestParam(name = "userid") String userid) {
-		log.debug("myPostList()");
+	@GetMapping("/mylessons")
+	public String myLessonList(@RequestParam(name = "userid") String userid) {
+		log.debug("myLessonList()");
 
 		return "redirect: /gaebokchi/mainPost/list?userid=" + userid;
+	}
+	
+	@GetMapping("/myposts")
+	public String myPostList(@RequestParam(name = "userid") String userid,
+						     @RequestParam(name = "keyword", required = false) String keyword,
+							 @RequestParam(name = "page", required = false, defaultValue = "1") int page,
+							 @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize, Model model) {
+		
+		log.debug("myPostList()");
+	
+		List<MyPostListDto> posts;
+	
+		int pageBlockSize = 10;
+	
+		if (keyword != null && !keyword.isEmpty()) {
+			MyPostListSearchDto searchDto = new MyPostListSearchDto();
+			searchDto.setKeyword(keyword);
+			posts = myPostService.search(searchDto);
+		} else {
+			posts = myPostService.getPagedPosts(page, userid, pageSize);
+		}
+	
+		int totalPosts = myPostService.getTotalPostCount(userid);
+		int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
+		int startPage = ((page - 1) / pageBlockSize) * pageBlockSize + 1;
+		int endPage = Math.min(startPage + pageBlockSize - 1, totalPages);
+	
+		model.addAttribute("posts", posts);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("keyword", keyword);
+		
+		return "/user/myPostList";
 	}
 	
 	@GetMapping("/commentList")

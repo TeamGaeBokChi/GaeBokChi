@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>조인 페이지 메인</title>
+<title>조인｜GOLFRO</title>
 <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet"
@@ -21,7 +21,7 @@
         <header>
             <%@ include file="../fragments/header.jspf"%>
         </header>
-        
+
         <div class="card border-0">
             <h2>JOIN</h2>
             <h7>마음 맞는 사람과 함께 골프를 쳐보세요.</h7>
@@ -31,7 +31,8 @@
                 <form method="get" action="${catesearchPage}">
                     <div class="row justify-content-center">
                         <div class="col-2">
-                            <select class="form-control" name="category" id="category">
+                            <select class="form-control" name="category"
+                                id="category">
                                 <option value="t"
                                     ${selectedCategory == 't' ? 'selected' : ''}>골프장명</option>
                                 <option value="g"
@@ -41,13 +42,13 @@
                             </select>
                         </div>
                         <div class="col-5">
-                            <input type="text" class="form-control" id="keyword"
-                                name="keyword" placeholder="검색어 입력"
-                                value="${keyword}" />
+                            <input type="text" class="form-control"
+                                id="keyword" name="keyword"
+                                placeholder="검색어 입력" value="${keyword}" />
                         </div>
                         <div class="col-1">
                             <input type="submit"
-                                class="form-control btn btn-outline-secondary" 
+                                class="form-control btn btn-outline-secondary"
                                 value="검색" />
                         </div>
                         <div class="col-2">
@@ -72,7 +73,7 @@
             </div>
         </div>
 
-        <div class="tab-header d-flex justify-content-between">
+        <div class="tab-header d-flex justify-content-between mt-2">
             <div>
                 <button class="btn btn-link text-black" id="prevBtn">◀</button>
             </div>
@@ -120,7 +121,7 @@
                         <td>${p.gcadress}</td>
                         <td>${p.hole}홀</td>
                         <td>${p.greenfee}원</td>
-                        <td>${p.author}</td>
+                        <td>${userNicknames[p.author]}</td>
                     </tr>
                 </c:forEach>
             </tbody>
@@ -232,7 +233,7 @@
 						getDates(currentOffset);
 					});
 				</script>
-
+   
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

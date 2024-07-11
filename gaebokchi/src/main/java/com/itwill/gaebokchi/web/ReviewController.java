@@ -43,6 +43,7 @@ import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
 import com.itwill.gaebokchi.service.MediaService;
 import com.itwill.gaebokchi.service.ReviewPostService;
+import com.itwill.gaebokchi.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -57,6 +58,7 @@ public class ReviewController {
 	private final CommentDao commentDao;
 	private final ReviewPostService reviewPostService;
 	private final MediaService mediaService;
+	private final UserService userService;
 
 	@ModelAttribute("loggedInUser")
 	public User addLoggedInUserToModel(HttpSession session) {
@@ -129,6 +131,9 @@ public class ReviewController {
 		Map<String, String> categoryMap = new HashMap<>();
 		categoryMap.put("P004", "리뷰");
 
+		Map<String, String> userNicknames = userService.getUserNicknames();
+
+		model.addAttribute("userNicknames", userNicknames);
 		model.addAttribute("posts", posts);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
@@ -176,6 +181,10 @@ public class ReviewController {
 		// 댓글 목록 조회
 		List<CommentItemDto> commentlist = reviewPostService.readAllComment(id);
 		int commentcount = reviewPostService.selectCommentCount(id);
+
+		Map<String, String> userNicknames = userService.getUserNicknames();
+
+		model.addAttribute("userNicknames", userNicknames);
 
 		// 모델에 속성 추가
 		model.addAttribute("post", post); // 불러온 게시물 속성 추가
@@ -252,7 +261,11 @@ public class ReviewController {
 	@GetMapping("/comments/{postId}")
 	public String getCommentsByPostId(@PathVariable Integer postId, Model model) {
 		List<Comment> comments = commentDao.selectByPostId(postId);
+		Map<String, String> userNicknames = userService.getUserNicknames();
+		
 		model.addAttribute("comments", comments);
+		model.addAttribute("userNicknames", userNicknames);	
+
 		return "review/review_details";
 	}
 
@@ -265,7 +278,7 @@ public class ReviewController {
 		comment.setContent(commentCreateDto.getContent());
 
 		if (loggedInUser != null) {
-			comment.setAuthor(loggedInUser.getNickname()); // 댓글 작성자 설정
+			comment.setAuthor(loggedInUser.getUserid()); // 댓글 작성자 설정
 
 			// 댓글을 데이터베이스에 저장하고 자동 생성된 id를 받아옴
 			int result = commentDao.insertComment(comment);

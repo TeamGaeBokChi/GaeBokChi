@@ -134,6 +134,10 @@
         update users set grade = #{grade} where userid = #{userid}
     </update>
 
+	<select id="findAllUserNicknames" resultType="map">
+        SELECT userid, nickname FROM users
+    </select>
+
 </mapper>
 
 

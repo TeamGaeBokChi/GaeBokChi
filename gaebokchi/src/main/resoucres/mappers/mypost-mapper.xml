@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.gaebokchi.repository.MyPostDao">
+
+    <select id="search"
+        resultType="com.itwill.gaebokchi.repository.MyPost">
+        <bind name="searchKeyword" value="'%' + keyword + '%'" />
+        select * from posts
+        <where>
+            <if test="category == null">
+                (upper(title) like upper(#{searchKeyword}) or
+                upper(content) like
+                upper(#{searchKeyword}))
+            </if>
+            <if test="category != null">
+                <choose>
+                    <when test='category.equals("t")'>
+                        upper(title) like upper(#{searchKeyword})
+                    </when>
+                    <when test='category.equals("c")'>
+                        upper(content) like upper(#{searchKeyword})
+                    </when>
+                    <when test='category.equals("tc")'>
+                        (upper(title) like upper(#{searchKeyword}) or
+                        upper(content) like
+                        upper(#{searchKeyword}))
+                    </when>
+                    <when test='category.equals("n")'>
+                        upper(author) like upper(#{searchKeyword})
+                    </when>
+                </choose>
+            </if>
+            and category not in('P001')
+            and author = #{author}
+        </where>
+        order by id desc
+    </select>
+
+	<select id="selectPagedPosts" resultType="com.itwill.gaebokchi.repository.MyPost">
+		SELECT * 
+        FROM (
+                SELECT
+		            A.*,
+		            ROWNUM AS rnum
+		        FROM (
+                    SELECT *
+		            FROM posts
+                    WHERE category NOT IN('P001')
+                    AND author = #{author}
+		            ORDER BY created_time DESC
+		        ) A
+		        WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rnum &gt; #{startRow}
+	</select>
+
+	<select id="selectTotalPostCount" resultType="int">
+		SELECT COUNT(*) FROM posts WHERE category NOT IN('P001') AND author = #{author}
+	</select>
+	
+	<select id="selectAll">
+		select * from posts
+	</select>
+
+</mapper>

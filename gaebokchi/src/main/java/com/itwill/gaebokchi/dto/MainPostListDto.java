@@ -21,11 +21,13 @@ public class MainPostListDto {
 	private Integer likes;
 	private LocalDateTime createdTime;
 	private String selection;
+	private LocalDateTime modifiedTime;
+	private String category;
 	
 	
 	public static MainPostListDto fromEntity(Post post) {
 		return MainPostListDto.builder().id(post.getId()).clubType(post.getClubType()).title(post.getTitle()).author(post.getAuthor()).selection(post.getSelection())
-				.views(post.getViews()).likes(post.getLikes()).createdTime(post.getCreatedTime()).build();
+				.views(post.getViews()).likes(post.getLikes()).createdTime(post.getCreatedTime()).category(post.getCategory()).modifiedTime(post.getModifiedTime()).build();
 				
 	}
 

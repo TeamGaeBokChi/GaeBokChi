@@ -42,4 +42,6 @@ public interface CommPostDao {
 	
 	List<CommPost> Fixingthetop();
 	
+	List<CommPost> adminposts();
+	
 }
