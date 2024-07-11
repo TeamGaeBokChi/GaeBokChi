@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
+
 @Slf4j
 @Controller // 디스패쳐 서블릿에서 메서드를 호출할 컨트롤러 컴포넌트.
 public class HomeController {
