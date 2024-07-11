@@ -30,8 +30,6 @@ public class expertUserCreateDto {
 	private String addressDetail;
 	private String bank;
 	private String accountNumber;
-	private int male;
-	private int female;
 	private String emailPrefix;
 	private String emailSeparator;
 
@@ -41,11 +39,7 @@ public class expertUserCreateDto {
 		address = postCode + "/" + addressMain + "/" + addressDetail;
 		email = emailPrefix + "@" + emailSeparator;
 		account = bank + "/" + accountNumber;
-		if (male == 1) {
-			gender = male;
-		} else {
-			gender = female;
-		}
+		
 		return User.builder().userid(userid).password(password).name(name).nickname(nickname).phone(phone).email(email)
 				.birth(birth).gender(gender).address(address).account(account).accept(accept).build();
 	}
