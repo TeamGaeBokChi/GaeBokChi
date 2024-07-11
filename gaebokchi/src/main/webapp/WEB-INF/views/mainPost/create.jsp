@@ -12,14 +12,10 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
     crossorigin="anonymous">
 
-<c:url var="css" value="/css/mainPost_create.css" />
+<link rel="stylesheet" href="../css/mainPost_create.css" />
 
 <title>글 작성｜GOLFRO</title>
-<style>
-.card {
-    margin-top: 150px;
-}
-</style>
+
 </head>
 
 <body>
@@ -27,11 +23,12 @@
         <c:set var="pageTitle" value="새글 작성하기" />
         <%@ include file="../fragments/header.jspf"%>
     </header>
+    
     <main>
         <div class="container" id="create">
-            <div class="card">
-                <div class="card-header form-control">
-                    <h5>새 글 작성하기</h5>
+            <div class="card border-0">
+                <div class="card-header border-0 form-control">
+                    <h3>새 글 작성하기</h3>
                 </div>
 
                 <div class="card-body form-control">

@@ -35,7 +35,22 @@ body {
 }
 
 .card {
-    margin-top: 150px;
+    margin-top: 100px;
     width: 1280px;
     padding: 20px;
 }
+
+.card-header {
+    background: white !important;
+}
+.card-header h3 {
+    font-family: 'Freesentation-9Black', Freesentation-9Black;
+
+}
+
+
+
+
+
+
+
