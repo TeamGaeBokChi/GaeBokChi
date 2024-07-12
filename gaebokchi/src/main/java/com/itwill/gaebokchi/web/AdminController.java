@@ -55,7 +55,6 @@ public class AdminController {
 		
 		Map<String, String> category_name = commPostService.catrgoryname();
 
-
 		model.addAttribute("userNicknames", userNicknames);
 		model.addAttribute("category_name", category_name);
 		model.addAttribute("posts", posts);
