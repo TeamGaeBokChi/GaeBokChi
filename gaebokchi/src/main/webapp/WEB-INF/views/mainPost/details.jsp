@@ -140,10 +140,8 @@
 										rows="3" required placeholder="피드백을 작성해주세요."></textarea>
 								</c:when>
 								<c:otherwise>
-									<textarea class="form-control" id="askContent"
+									<textarea class="form-control" id="finishContent"
 										readonly="readonly">전문가 승인이 완료 된 회원만 작성 할 수 있습니다.</textarea>
-									<textarea class="form-control d-none" id="finishContent"
-										readonly="readonly">채택이 완료된 의뢰입니다.</textarea>
 								</c:otherwise>
 							</c:choose>
 							<c:if test="${signedInUserGrade eq 'G10'}">
@@ -164,6 +162,8 @@
 									<button class="btn btn-outline-danger btnDeleteMainPost">삭제</button>
 								</div>
 							</div>
+							<c:url var="commentsSubJS" value="/js/commentsSub.js" />
+							<script src="${ commentsSubJS }"></script>
 						</c:if>
 					</div>
 				</div>
