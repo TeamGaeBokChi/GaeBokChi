@@ -32,14 +32,5 @@ public class Post {
 	
 	private String mediaPath;
 	
-    public String getFormattedCreatedTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return createdTime.format(formatter);
-    }
-    
-    public String getFormattedModifiedTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return modifiedTime.format(formatter);
-    }
 
 }

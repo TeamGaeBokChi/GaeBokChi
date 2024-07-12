@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div class="container-fluid" ]>
-			<c:set var="pageTitle" value="게시글 수정하기" />
+		<c:set var="pageTitle" value="게시글 수정하기" />
 		<%@ include file="../fragments/header.jspf"%>
 
 		<main>
@@ -29,18 +29,20 @@
 						<!-- 카테고리 선택 + 제목 영역 -->
 						<div class="mt-2 row">
 							<div class="col-2">
-								<select id="clubType" class="form-control" name="clubType" >
-								<option value="${c.id}" selected disabled hidden>${post.clubType}</option>
-								<c:forEach items="${clubs}" var="c">
-									<option value="${c.id}">${c.name}</option>
-								</c:forEach>
+								<select id="clubType" class="form-control" name="clubType">
+									<option value="${c.id}" selected disabled hidden>${post.clubType}</option>
+									<c:forEach items="${clubs}" var="c">
+										<option value="${c.id}">${c.name}</option>
+									</c:forEach>
 								</select>
 							</div>
 							<div class="col-8">
-								<input id="title" class="form-control" type="text" name="title" value="${post.title}" required />
+								<input id="title" class="form-control" type="text" name="title"
+									value="${post.title}" required />
 							</div>
 							<div class="col-2">
-								<input id="author" class="form-control d-none]" type="text" name="author" value="${post.author}" readonly />
+								<input id="author" class="form-control d-none]" type="text"
+									name="author" value="${post.author}" readonly />
 							</div>
 							<input id="id" name="id" value="${post.id}" class="d-none" />
 						</div>
@@ -48,31 +50,56 @@
 						<div class="container">
 							<div class="mt-2 row">
 								<div class="col-md-2">
-									<input id="height" class="form control" name="height" type="number" placeholder="키 입력" maxlength="3" value="${post.height}"/>
+									<input id="height" class="form control" name="height"
+										type="number" placeholder="키 입력" maxlength="3"
+										value="${post.height}" />
 								</div>
 								<div class="col-md-2">
-									<input id="career" class="form control" name="career" type="number" placeholder="구력 입력" maxlength="3" value="${post.career}"/>
+									<input id="career" class="form control" name="career"
+										type="number" placeholder="구력 입력" maxlength="3"
+										value="${post.career}" />
 								</div>
 								<div class="col-md-2">
-									<input id="handy" class="form control" name="handy" type="number" placeholder="평균 핸디 입력"  step="0.1" maxlength="4" value="${post.handy}"/>
+									<input id="handy" class="form control" name="handy"
+										type="number" placeholder="평균 핸디 입력" step="0.1" maxlength="4"
+										value="${post.handy}" />
 								</div>
 								<div class="col-md-2">
-									<input id="ironDistance" class="form control" name="ironDistance" type="number" placeholder="7번 아이언 평균 비거리" maxlength="3" value="${post.ironDistance}"/>
+									<input id="ironDistance" class="form control"
+										name="ironDistance" type="number" placeholder="7번 아이언 평균 비거리"
+										maxlength="3" value="${post.ironDistance}" />
 								</div>
 								<div class="col-md-2">
-									<input id="driverDistance" class="form control" name="driverDistance" type="number" placeholder="드라이버 평균 비거리" maxlength="3" value="${post.driverDistance}"/>
+									<input id="driverDistance" class="form control"
+										name="driverDistance" type="number" placeholder="드라이버 평균 비거리"
+										maxlength="3" value="${post.driverDistance}" />
 								</div>
 							</div>
 						</div>
 						<div>
 							<textarea class="mt-2 form-control" name=content rows="15"
-								placeholder="동영상에 대한 설명과 코칭 받고 싶은 부분을 상세히 적어주세요." required >${post.content}</textarea>
+								placeholder="동영상에 대한 설명과 코칭 받고 싶은 부분을 상세히 적어주세요." required>${post.content}</textarea>
 						</div>
 
 						<!-- 영상 업로드 영역 -->
+						<!-- 기존 영상 경로를 저장하는 숨겨진 input 필드 -->
+						<c:if test="${not empty post.media}">
+							<input type="hidden" id="existingMedia" name="existingMedia"
+								value="${post.media}" />
+						</c:if>
+
 						<div class="form-group mt-2">
-							<input id="media" type="file" accept="video/*" class="form-control-file" name="media" required value="${post.media}" />
+							<label for="media">영상 업로드 (선택):</label> <input id="media"
+								type="file" accept="video/*" class="form-control-file"
+								name="media" />
+
+							<!-- 기존 영상이 있는 경우 안내 메시지 표시 -->
+							<c:if test="${empty post.media}">
+								<small class="form-text text-muted">기존 영상이 없습니다.</small>
+							</c:if>
 						</div>
+						
+						
 						<!-- 하단 버튼 영역 -->
 						<div class="mt-2 d-flex justify-content-end">
 							<div>
@@ -91,11 +118,14 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
 
-		
-		
-	<c:url var="mainPost_modify" value="/js/mainPost_modify.js" />	
+
+
+	<c:url var="mainPost_modify" value="/js/mainPost_modify.js" />
 	<script src="${mainPost_modify}"></script>
 </body>
 </html>

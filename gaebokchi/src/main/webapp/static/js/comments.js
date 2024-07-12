@@ -21,17 +21,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const btnLikes = document.querySelector('button#likes');
 	btnLikes.addEventListener('click', () => {
-		console.log('Like button clicked');
-		const postId = document.querySelector('input#postId').value;
-		const uri = `../mainPost/likes/${postId}`;
+		if (signedInUser === postAuthor) {
+			alert('본인의 게시물은 추천할 수 없습니다.');
+		} else {
+				const postId = document.querySelector('input#postId').value;
+				const uri = `../mainPost/likes/${postId}`;
 
-		axios.put(uri)
-			.then((response) => {
-				console.log(response);
-				alert('해당 게시물 추천을 하였습니다.');
-				getAllLikes();
-			})
-			.catch((error) => console.log(error));
+				axios.put(uri)
+					.then((response) => {
+						console.log(response);
+						alert('해당 게시물 추천을 하였습니다.');
+						getAllLikes();
+					})
+					.catch((error) => console.log(error));	
+		}
 	});
 
 
