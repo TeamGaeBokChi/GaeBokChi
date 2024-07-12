@@ -66,7 +66,16 @@ public class MainCommentRestController {
 		return ResponseEntity.ok(result);
 		
 	}
+	
+	@PutMapping("/edit/{id}")
+	public ResponseEntity<Integer> editComment(@PathVariable(name="id") int id) {
+		log.debug("editComment()", id);
+		int result = mainCommentService.editCommentById(id);
+		return ResponseEntity.ok(result);
+	}
 
+	
+	
 //	@PutMapping("/giftPoints/{id}")
 //	public ResponseEntity<Void> updatePoint(@PathVariable("id") int id){
 //		System.out.println("업데이트 컨트롤러 테스트");

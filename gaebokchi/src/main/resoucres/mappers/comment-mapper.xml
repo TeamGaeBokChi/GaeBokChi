@@ -30,6 +30,11 @@
 		UPDATE comments SET selection = 1 WHERE id = #{id}
 	</update>
 	
+	<update id="edit">
+		UPDATE comments SET content = #{content} WHERE id = #{id}
+	</update>
+	
+	
 	<update id="updateUserPoint">
 		UPDATE users SET point = point + 300 WHERE userid = (select author from comments where id = #{id})
 	</update>

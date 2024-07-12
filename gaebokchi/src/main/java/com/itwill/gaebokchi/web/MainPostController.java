@@ -126,7 +126,7 @@ public class MainPostController {
 	}
 
 	@GetMapping("/delete")
-	public String deleteMainPost(Integer id) {
+	public String deleteMainPost(@RequestParam (name = "id") int id) {
 		log.debug("deleteMainPost(id={})", id);
 
 		mainPostService.deleteById(id);

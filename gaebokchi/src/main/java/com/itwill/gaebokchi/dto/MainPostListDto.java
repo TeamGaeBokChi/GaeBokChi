@@ -1,6 +1,8 @@
 package com.itwill.gaebokchi.dto;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.itwill.gaebokchi.repository.Post;
 
@@ -19,14 +21,15 @@ public class MainPostListDto {
 	private String author;
 	private Integer views;
 	private Integer likes;
-	private LocalDateTime createdTime;
+	private Timestamp createdTime;
 	private String selection;
 	
 	
 	public static MainPostListDto fromEntity(Post post) {
 		return MainPostListDto.builder().id(post.getId()).clubType(post.getClubType()).title(post.getTitle()).author(post.getAuthor()).selection(post.getSelection())
-				.views(post.getViews()).likes(post.getLikes()).createdTime(post.getCreatedTime()).build();
+				.views(post.getViews()).likes(post.getLikes()).createdTime(Timestamp.valueOf(post.getCreatedTime())).build();
 				
 	}
+	
 
 }
