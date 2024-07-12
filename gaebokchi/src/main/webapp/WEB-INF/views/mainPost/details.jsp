@@ -147,8 +147,10 @@
 								</c:choose>
 								<input class="form-control mt-2 d-none" type="text" id="author"
 									placeholder="댓글 작성자" required value="${signedInUser}" />
+								<c:if test="${signedInUserGrade eq 'G10'}">
 								<button id="btnRegisterComment"
 									class="btn btn-primary mt-3 form-control">피드백 작성하기</button>
+									</c:if>
 							</div>
 
 						</div>
@@ -157,8 +159,9 @@
 
 
 
-						<c:if test="${signedInUser eq post.author or signedInUser eq 'admin'}">
-							<div class="mt-2 d-flex justify-content-end" id="sunman">
+						<c:if
+							test="${signedInUser eq post.author or signedInUser eq 'admin'}">
+							<div class="mt-2 d-flex justify-content-end" id="foot">
 								<!-- 수정 -->
 								<div>
 									<c:url var="mainPostModifyPage" value="/mainPost/modify">
@@ -197,18 +200,9 @@
 
 
 	<script>
-    const signedInUser = "${signedInUser}";
-    const postAuthor = "${post.author}";
-	/* 게시글 삭제 스크립트 */
-	const btnDeleteMainPost = document.querySelector('button#btnDeleteMainPost');
-	btnDeleteMainPost.addEventListener('click', () => {
-		const result = confirm('게시물을 삭제하시겠습니까?');
-		if (result) {
-			location.href = `delete?id=${post.id}`;
-		}
-	})
-
-</script>
+		const signedInUser = "${signedInUser}";
+		const postAuthor = "${post.author}";
+	</script>
 
 
 </body>
