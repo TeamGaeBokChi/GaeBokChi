@@ -12,21 +12,35 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 댓글 작성 스크립트
 	const btnRegisterComment = document.querySelector('#btnRegisterComment');
 	if (btnRegisterComment) {
-		console.log('btnRegisterComment found:', btnRegisterComment); // 요소가 선택되었는지 확인
 		btnRegisterComment.addEventListener('click', registerComment);
-	} else {
-		console.error('btnRegisterComment not found');
 	}
 
 
-	/* 게시글 삭제 스크립트 */
-	const btnDeleteMainPost = document.querySelector('button.btnDeleteMainPost');
-	btnDeleteMainPost.addEventListener('click', () => {
-		const result = confirm('게시물을 삭제하시겠습니까?');
-		if (result) {
-			location.href = `delete?id=${post.id}`;
-		}
-	})
+	const postId = document.querySelector('#postId').value;
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const postId = document.querySelector('#postId').value;
+
+		const btnDeleteMainPost = document.querySelector('button.btnDeleteMainPost');
+		btnDeleteMainPost.addEventListener('click', () => {
+			const result = confirm('게시물을 삭제하시겠습니까?');
+			if (result) {
+				location.href = `delete?id=${postId}`;
+			}
+		})
+
+		/* 게시글 수정 스크립트 */
+		const btnModifyid = document.querySelector('button.btnModifyid');
+		btnModifyid.addEventListener('click', () => {
+			const result = confirm('게시물을 수정 하시겠습니까?');
+			if (result) {
+				location.href = `modify?id=${postId}`;
+			}
+		})
+
+	});
+
+
 
 
 
@@ -76,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	function registerComment() {
 		const postId = document.querySelector('input#postId').value;
 		const content = document.querySelector('textarea#content').value;
-		const author = document.querySelector('input#author').value;
+		const author = document.querySelector('input#signedInUser').value;
 
 		if (content === '' || author === '') {
 			alert('피드백 내용 및 작성자는 필수 입력값입니다.')
@@ -128,6 +142,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 				if (response.data.some(comment => comment.selection === 1)) {
 					hideAllSelectButtons();
+
+					const btnFoot = document.querySelector('#btnFoot');
+					btnFoot.classList.add('d-none');
+
+					const finishContent = document.querySelector('#finishContent');
+					finishContent.classList.remove('d-none');
+
+					console.log('텍스트 감추기');
+					const askContent = document.querySelector('#askContent');
+					askContent.classList.add('d-none');
+
 				}
 
 
@@ -136,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				console.log(error);
 			});
 
-	}; ㅎ
+	};
 
 
 	// 댓글 목을 전달 받아 html 작성
@@ -299,13 +324,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 	function hideAllSelectButtons() {
-		
+		const content = document.querySelector('#content');
+		const btnRegisterComment = document.querySelector('#btnRegisterComment');
+		if (content) {
+			content.style.backgroundColor = '#e9e9e9';
+			content.value = '채택이 완료 된 레슨입니다.';
+			content.style.fontSize = '18px';
+			content.readOnly = true;
+			content.style.textAlign = 'center';
+			content.style.paddingTop = '51px';
+			btnRegisterComment.style.display = 'none';
+		}
+
 		const modifyButton = document.querySelectorAll('.modifyComment');
 		const selectButton = document.querySelectorAll('.selectComment');
 		const deleteButton = document.querySelectorAll('.deleteComment');
-		const content = document.querySelector('#content');
-		const btnRegisterComment = document.querySelector('#btnRegisterComment');
-		
+
+
+
 		selectButton.forEach(button => {
 			button.style.display = 'none';
 		});
@@ -317,16 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 
 
-		
-		content.style.backgroundColor = '#e9e9e9';
-		content.value = '채택이 완료 된 레슨입니다.';
-		content.style.fontSize = '18px';
-		content.readOnly = true;
-		content.style.textAlign = 'center';
-		content.style.paddingTop = '51px';
-		btnRegisterComment.style.display = 'none';
-		
-		
+
 	}
 
 

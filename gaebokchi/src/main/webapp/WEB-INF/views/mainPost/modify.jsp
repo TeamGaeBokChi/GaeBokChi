@@ -40,7 +40,7 @@
 								<input id="title" class="form-control" type="text" name="title" value="${post.title}" required />
 							</div>
 							<div class="col-2">
-								<input id="author" class="form-control" type="text" name="author" value="${post.author}" readonly />
+								<input id="author" class="form-control d-none]" type="text" name="author" value="${post.author}" readonly />
 							</div>
 							<input id="id" name="id" value="${post.id}" class="d-none" />
 						</div>

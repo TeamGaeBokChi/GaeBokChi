@@ -45,9 +45,10 @@ public class MainCommentRestController {
 		List<MainCommentItemDto> list = mainCommentService.commentReadByPostId(postId);
 		return ResponseEntity.ok(list);
 	}
+	
 
 	@PutMapping("/selectComment/{id}")
-	public ResponseEntity<Void> selectionComment(@PathVariable(name = "id") int id) {
+	public ResponseEntity<?> selectionComment(@PathVariable(name = "id") int id) {
 		log.debug("updateLikes(id={})", id);
 		try {
 			mainCommentService.selectCommentAndGiftPoint(id);
@@ -57,6 +58,9 @@ public class MainCommentRestController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
+	
+	
 	
 	
 	@DeleteMapping("/delete/{id}")

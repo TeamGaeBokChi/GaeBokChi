@@ -128,56 +128,43 @@
 
 						<!-- 댓글 리스트 영역 -->
 						<div class="comments-section form-control"></div>
-						<!-- 댓글작성 영역 -->
-						<div class="commen-form card-footer form-control" id="sunman">
-							<!-- <form action="submit_comment_url" method="post"> -->
-							<div class="form-group">
-								<input class="d-none" id="postId" value="${post.id}" />
-								
-								<c:choose>
-									<c:when test="${signedInUserGrade eq 'G10'}">
-										<textarea class="form-control" id="content" name="ctext"
-											rows="3" required placeholder="피드백을 작성해주세요."></textarea>
-									</c:when>
-									<c:otherwise>
-										<textarea class="form-control"
-											readonly="readonly">전문가 승인이 완료 된 회원만 작성 할 수 있습니다.</textarea>
-									</c:otherwise>
 
-								</c:choose>
-								<input class="form-control mt-2 d-none" type="text" id="author"
-									placeholder="댓글 작성자" required value="${signedInUser}" />
-								<c:if test="${signedInUserGrade eq 'G10'}">
+						<!-- <form action="submit_comment_url" method="post"> -->
+						<div class="form-group">
+							<input class="form-control mt-2" type="hidden" id="signedInUser"
+								required value="${signedInUser}" /> <input type="hidden"
+								id="postId" value="${post.id}" />
+							<c:choose>
+								<c:when test="${signedInUserGrade eq 'G10'}">
+									<textarea class="form-control" id="content" name="ctext"
+										rows="3" required placeholder="피드백을 작성해주세요."></textarea>
+								</c:when>
+								<c:otherwise>
+									<textarea class="form-control" id="askContent"
+										readonly="readonly">전문가 승인이 완료 된 회원만 작성 할 수 있습니다.</textarea>
+									<textarea class="form-control d-none" id="finishContent"
+										readonly="readonly">채택이 완료된 의뢰입니다.</textarea>
+								</c:otherwise>
+							</c:choose>
+							<c:if test="${signedInUserGrade eq 'G10'}">
 								<button id="btnRegisterComment"
 									class="btn btn-primary mt-3 form-control">피드백 작성하기</button>
-									</c:if>
-							</div>
-
+							</c:if>
 						</div>
+
+
 						<!-- 하단 수정하기, 삭제 버튼 영역 -->
-
-
-
-
 						<c:if
 							test="${signedInUser eq post.author or signedInUser eq 'admin'}">
-							<div class="mt-2 d-flex justify-content-end" id="foot">
-								<!-- 수정 -->
+							<div class="mt-2 d-flex justify-content-end" id="btnFoot">
 								<div>
-									<c:url var="mainPostModifyPage" value="/mainPost/modify">
-										<c:param name="id" value="${post.id}" />
-									</c:url>
-									<a class="btn btn-outline-primary btnModifyid"
-										href="${mainPostModifyPage}">수정하기</a>
+									<!-- 수정 -->
+									<button class="btn btn-outline-primary btnModifyid">수정하기</button>
+									<!-- 삭제 -->
+									<button class="btn btn-outline-danger btnDeleteMainPost">삭제</button>
 								</div>
-								<!-- 삭제 -->
-								<button class="btn btn-outline-danger btnDeleteMainPost">삭제</button>
 							</div>
 						</c:if>
-
-
-
-
 					</div>
 				</div>
 			</div>
