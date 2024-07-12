@@ -158,7 +158,7 @@ tr:hover {
 						<td>${p.author}</td>
 						<td>${userNicknames[p.author]}</td>
 						<td>${p.modifiedTime}</td>
-						<td>${p.category}</td>
+						<td>${p.category} / ${category_name[p.category]}</td>
 						<td>
 							<button class="btn btn-delete" onclick="deletePost(${p.id})">삭제</button>
 						</td>

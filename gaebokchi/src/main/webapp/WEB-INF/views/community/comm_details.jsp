@@ -142,8 +142,8 @@ body {
 			<div class="card-header">
 				<input type="hidden" id="postId" value="${post.id}" />
 				<h2 class="card-title">${post.title}</h2>
-				<small class="text-black">${categoryMap[post.category]} -
-					${post.createdTime}</small>
+				<small class="text-black">${category_name[post.category]}</small>
+				<small class="text-black">${post.createdTime}</small>
 			</div>
 			<div class="card-body">
 				<div class="post-info d-flex justify-content-between mb-3">

@@ -2,6 +2,7 @@ package com.itwill.gaebokchi.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -43,5 +44,7 @@ public interface CommPostDao {
 	List<CommPost> Fixingthetop();
 	
 	List<CommPost> adminposts();
+	
+	List<Map<String, String>> categoryname();
 	
 }

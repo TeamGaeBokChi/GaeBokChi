@@ -215,7 +215,7 @@ footer.text-center {
 						<tbody>
 							<c:forEach var="p" items="${pinnedPosts}">
 								<tr class="table table-secondary">
-									<td>${categoryMap[p.category]}</td>
+									<td>${category_name[p.category]}</td>
 									<td><c:url var="commPostDetailsPage"
 											value="/community/comm_details">
 											<c:param name="id" value="${p.id}"></c:param>
@@ -229,7 +229,7 @@ footer.text-center {
 							</c:forEach>
 							<c:forEach var="p" items="${posts}">
 								<tr class="table">
-									<td>${categoryMap[p.category]}</td>
+									<td>${category_name[p.category]}</td>
 									<td><c:url var="commPostDetailsPage"
 											value="/community/comm_details">
 											<c:param name="id" value="${p.id}" />

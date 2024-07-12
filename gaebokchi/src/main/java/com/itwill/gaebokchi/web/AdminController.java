@@ -1,5 +1,6 @@
 package com.itwill.gaebokchi.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -39,6 +40,7 @@ public class AdminController {
 
 	private final UserService userService;
 	private final MyPostService myPostService;
+	private final CommPostService commPostService;
 
 	@GetMapping("adminHome")
 	public String AdminHome() {
@@ -50,8 +52,12 @@ public class AdminController {
 
 		List<MyPostListDto> posts = myPostService.selectAll();
 		Map<String, String> userNicknames = userService.getUserNicknames();
+		
+		Map<String, String> category_name = commPostService.catrgoryname();
+
 
 		model.addAttribute("userNicknames", userNicknames);
+		model.addAttribute("category_name", category_name);
 		model.addAttribute("posts", posts);
 		return "/admin/adminPosts";
 	}
