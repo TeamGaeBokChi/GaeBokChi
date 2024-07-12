@@ -25,6 +25,7 @@
         <div class="card border-0">
             <h2><a href="/gaebokchi/join/join_main">JOIN</a></h2>
             <h7>마음 맞는 사람과 함께 골프를 쳐보세요.</h7>
+            
             <div class="card-header" id="card-header">
                 <!-- 카테고리 선택 폼 추가 -->
                 <c:url var="catesearchPage" value="/join/join_main" />
@@ -51,6 +52,7 @@
                                             class="form-control"
                                             value="검색" id="searchButton" />
                                     </div>
+                                    
                         <div class="col-2">
                             <c:url var="createPostUrl"
                                 value="/join/join_create" />
@@ -121,7 +123,7 @@
                         <td>${p.gcadress}</td>
                         <td class="text-center">${p.hole}홀</td>
                         <td class="text-center">${p.greenfee}원</td>
-                        <td>${userNicknames[p.author]}</td>
+                        <td class="text-center">${userNicknames[p.author]}</td>
                     </tr> 
                 </c:forEach>
             </tbody>
