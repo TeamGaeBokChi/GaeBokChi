@@ -9,4 +9,5 @@ public interface MainCommentDao {
 	int selectComment(Integer id);
 	int updateUserPoint(Integer id);
 	int deleteCommentById(Integer id);
+	int edit(Integer id);
 }

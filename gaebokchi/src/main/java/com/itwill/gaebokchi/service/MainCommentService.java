@@ -57,6 +57,11 @@ public class MainCommentService {
 		int result = mainCommentDao.deleteCommentById(id);
 		return result;
 	}
+	
+	public int editCommentById(Integer id) {
+		int result = mainCommentDao.edit(id);
+		return result;
+	}
 
 	
 //	public int userGiftPoint(Integer id) {

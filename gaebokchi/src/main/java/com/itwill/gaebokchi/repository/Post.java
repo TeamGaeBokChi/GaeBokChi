@@ -1,8 +1,7 @@
 package com.itwill.gaebokchi.repository;
 
 import java.time.LocalDateTime;
-
-
+import java.time.format.DateTimeFormatter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,5 +31,15 @@ public class Post {
 	private String nickname;
 	
 	private String mediaPath;
+	
+    public String getFormattedCreatedTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return createdTime.format(formatter);
+    }
+    
+    public String getFormattedModifiedTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return modifiedTime.format(formatter);
+    }
 
 }

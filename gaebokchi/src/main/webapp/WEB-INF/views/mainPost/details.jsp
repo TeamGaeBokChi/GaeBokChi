@@ -6,27 +6,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Golfro</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<style type="text/css">
+<style>
 .container {
 	width: 1080px;
 	margin: 0 auto;
 	margin-top: 30px;
 }
 </style>
-<title>Golfro</title>
+
 <c:url var="details" value="../css/details.css" />
 <link rel="stylesheet" type="text/css" href="${details}">
-</head>
-<body>
 
+</head>
+
+
+
+<body>
 	<header>
 		<c:set var="pageTitle" value="새글 작성하기" />
 		<%@ include file="../fragments/header.jspf"%>
@@ -134,10 +136,12 @@
 								<c:choose>
 
 									<c:when test="${signedInUserGrade eq 'G10'}">
-										<textarea class="form-control" id="content" name="ctext" rows="3" required placeholder="피드백을 작성해주세요."></textarea>
+										<textarea class="form-control" id="content" name="ctext"
+											rows="3" required placeholder="피드백을 작성해주세요."></textarea>
 									</c:when>
 									<c:otherwise>
-										<textarea class="form-control" readonly="readonly">전문가 승인이 완료 된 회원만 작성 할 수 있습니다.</textarea>
+										<textarea class="form-control" id=" readonlyText"
+											readonly="readonly">전문가 승인이 완료 된 회원만 작성 할 수 있습니다.</textarea>
 									</c:otherwise>
 
 								</c:choose>
@@ -149,6 +153,10 @@
 
 						</div>
 						<!-- 하단 수정하기, 삭제 버튼 영역 -->
+
+
+
+
 						<c:if test="${signedInUser eq post.author or signedInUser eq 'admin'}">
 							<div class="mt-2 d-flex justify-content-end" id="sunman">
 								<!-- 수정 -->
@@ -156,13 +164,14 @@
 									<c:url var="mainPostModifyPage" value="/mainPost/modify">
 										<c:param name="id" value="${post.id}" />
 									</c:url>
-									<a id="btnModifyid" class="btn btn-outline-primary"
+									<a class="btn btn-outline-primary btnModifyid"
 										href="${mainPostModifyPage}">수정하기</a>
 								</div>
 								<!-- 삭제 -->
-								<button id="btnDeleteMainPost" class="btn btn-outline-danger">삭제</button>
+								<button class="btn btn-outline-danger btnDeleteMainPost">삭제</button>
 							</div>
 						</c:if>
+
 
 
 
@@ -181,14 +190,24 @@
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
 
-
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<c:url var="commentsJS" value="/js/comments.js" />
 	<script src="${ commentsJS }"></script>
 
 
-<script>
+
+	<script>
     const signedInUser = "${signedInUser}";
     const postAuthor = "${post.author}";
+	/* 게시글 삭제 스크립트 */
+	const btnDeleteMainPost = document.querySelector('button#btnDeleteMainPost');
+	btnDeleteMainPost.addEventListener('click', () => {
+		const result = confirm('게시물을 삭제하시겠습니까?');
+		if (result) {
+			location.href = `delete?id=${post.id}`;
+		}
+	})
+
 </script>
 
 
