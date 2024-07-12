@@ -59,12 +59,12 @@
                                 <c:when test="${not empty signedInUser}">
                                     <!-- signedInUser가 있는 경우: 글쓰기 링크 -->
                                     <a href="${createPostUrl}"
-                                        class="form-control btn" id="btnCreateMainPost">글쓰기</a>
+                                        class="form-control btn" id="btnCreateMainPost">글쓰기 ⮟</a>
                                 </c:when>
                                 <c:otherwise>
                                     <!-- signedInUser가 없는 경우: 로그인 링크 -->
                                     <a href="${signinUrl}"
-                                        class="form-control btn" id="btnCreatePost">글쓰기</a>
+                                        class="form-control btn" id="btnCreatePost">글쓰기 ⮟</a>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -119,8 +119,8 @@
                             </c:url> <a href="${joinPostDetailsPage}"
                             class="custom-link">${p.title}</a></td>
                         <td>${p.gcadress}</td>
-                        <td>${p.hole}홀</td>
-                        <td>${p.greenfee}원</td>
+                        <td class="text-center">${p.hole}홀</td>
+                        <td class="text-center">${p.greenfee}원</td>
                         <td>${userNicknames[p.author]}</td>
                     </tr>
                 </c:forEach>

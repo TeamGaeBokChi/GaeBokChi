@@ -164,12 +164,14 @@ input#searchButton {
     color: #000000 !important;
     pointer-events: none;
     border-right: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
 }
 
 .table tr.white-td td {
     background-color: #ffffff !important;
     color: #000000 !important;
     border-right: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
 }
 
 .custom-link {
