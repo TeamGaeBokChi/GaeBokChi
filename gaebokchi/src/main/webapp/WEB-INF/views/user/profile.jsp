@@ -80,23 +80,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-5">
-                    <h6 class="small_title">수상 경력</h6>
-                    <div class="container">
-                        <div class="row">
-                            <div class="bottom_line col-6 p-0">
-                                <input id="introduce" type="text" class="input_none basic_font" value="${user.career}" placeholder="나를 소개하세요" readonly />
+                <c:if test="${signedInUserGrade eq 'G10'}">
+                    <div class="mt-5">
+                        <h6 class="small_title">수상 경력</h6>
+                        <div class="container">
+                            <div class="row">
+                                <div class="bottom_line col-6 p-0">
+                                    <input id="introduce" type="text" class="input_none basic_font" value="${user.career}" placeholder="나를 소개하세요" readonly />
+                                </div>
+                                <div class="col-5">
+                                    <button type="button" id="btnIntroduceMyself" class="btn active">변경</button>
+                                </div>
                             </div>
-                            <div class="col-5">
-                                <button type="button" id="btnIntroduceMyself" class="btn active">변경</button>
+                            <div class="mt-2 d-none" id="btnIntroduceGroup">
+                                <button type="button" class="btn active" id="btnCancelIntroduce">취소</button>
+                                <button type="button" class="btn active" id="btnSaveIntroduce">저장</button>
                             </div>
-                        </div>
-                        <div class="mt-2 d-none" id="btnIntroduceGroup">
-                            <button type="button" class="btn active" id="btnCancelIntroduce">취소</button>
-                            <button type="button" class="btn active" id="btnSaveIntroduce">저장</button>
                         </div>
                     </div>
-                </div>
+                </c:if>
             </div>
         </div>
     </div>

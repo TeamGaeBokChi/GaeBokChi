@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import com.itwill.gaebokchi.dto.CommPostCreateDto;
 import com.itwill.gaebokchi.dto.CommPostListDto;
@@ -148,8 +147,6 @@ public class CommunityController {
 
 		return "community/comm_main";
 	}
-
-	private Map<String, Set<Integer>> userViewedPosts = new HashMap<>();
 
 	@GetMapping("/comm_details")
 	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,

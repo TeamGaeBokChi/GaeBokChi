@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.itwill.gaebokchi.dto.MainCommentCreateDto;
 import com.itwill.gaebokchi.dto.MainCommentItemDto;
-import com.itwill.gaebokchi.repository.Comment;
-import com.itwill.gaebokchi.repository.CommentDao;
 import com.itwill.gaebokchi.repository.MainComment;
 import com.itwill.gaebokchi.repository.MainCommentDao;
 
@@ -21,9 +19,6 @@ public class MainCommentService {
 	@Autowired
 	private MainCommentDao mainCommentDao;
 	
-	@Autowired
-	private CommentDao commentDao;
-
 	public int mainPostCommentCreate(MainCommentCreateDto dto) {
 		log.debug("mainPostCommentCreate({})", dto);
 		int result = mainCommentDao.insertComment(dto.toEntity());

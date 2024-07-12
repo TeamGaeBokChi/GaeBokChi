@@ -1,6 +1,5 @@
 package com.itwill.gaebokchi.web;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,13 +31,11 @@ import com.itwill.gaebokchi.dto.ReviewPostCreateDto;
 import com.itwill.gaebokchi.dto.CommentCreateDto;
 import com.itwill.gaebokchi.dto.CommentItemDto;
 import com.itwill.gaebokchi.dto.CommentUpdateDto;
-import com.itwill.gaebokchi.dto.ReviewPostCreateDto;
 import com.itwill.gaebokchi.dto.ReviewPostSearchDto;
 import com.itwill.gaebokchi.dto.ReviewPostUpdateDto;
 import com.itwill.gaebokchi.filter.AuthenticationFilter;
 import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.repository.User;
-import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
 import com.itwill.gaebokchi.service.MediaService;
@@ -144,8 +141,6 @@ public class ReviewController {
 
 		return "review/review_main";
 	}
-
-	private Map<String, Set<Integer>> userViewedPosts = new HashMap<>();
 
 	@GetMapping("/review_details")
 	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,

@@ -5,10 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -34,14 +31,15 @@ import com.itwill.gaebokchi.dto.MyPostListDto;
 import com.itwill.gaebokchi.dto.MyPostListSearchDto;
 import com.itwill.gaebokchi.dto.UserProfileDto;
 import com.itwill.gaebokchi.dto.UserUpdateDto;
+import com.itwill.gaebokchi.repository.Normal;
 import com.itwill.gaebokchi.repository.Pro;
 // import com.itwill.gaebokchi.repository.Point;
-import com.itwill.gaebokchi.repository.UserMypage;
 import com.itwill.gaebokchi.service.CommPostService;
 import com.itwill.gaebokchi.service.MainCommentService;
 import com.itwill.gaebokchi.service.MyPostService;
 import com.itwill.gaebokchi.service.UserMypageService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,7 +48,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/user")
 @Controller
 public class UserProfileController {
-
+	
+	public static final String SESSION_USER_GRADE = "signedInUserGrade";
 	private final UserMypageService userService;
 	private final MainCommentService mainCommentService;
 	private final CommPostService commPostService;
@@ -58,21 +57,36 @@ public class UserProfileController {
 //	private String userid = "banggu";
 	
 	@GetMapping({ "/profile", "/privacy" })
-	public void privacy(@RequestParam(name = "userid") String userid, @RequestParam(name = "account", required = false) String account, Model model) {
-		Pro pro = userService.readPro(userid);
-        model.addAttribute("user", pro);
+	public void privacy(@RequestParam(name = "userid") String userid, @RequestParam(name = "account", required = false) String account, HttpSession session, Model model) {
+		String grade = (String) session.getAttribute(SESSION_USER_GRADE);
+		
+		if (grade.equals("G10")) {
+			Pro pro = userService.readPro(userid);
+			model.addAttribute("user", pro);
+			log.debug("user={}", pro);
+		} else {
+			Normal user = userService.read(userid);
+			model.addAttribute("user", user);
+			log.debug("user={}", user);
+		}
+		
         model.addAttribute("account", account);
-        
-        log.debug("user={}", pro);
 	}
 
 	@GetMapping("/modify")
-    public void details(@RequestParam(name = "userid") String userid, Model model) {
+    public void details(@RequestParam(name = "userid") String userid, HttpSession session, Model model) {
         log.debug("modify(userid={})", userid);
         
-        UserMypage user = userService.read(userid);
-        
-        model.addAttribute("user", user);
+        String grade = (String) session.getAttribute(SESSION_USER_GRADE);
+        if (grade.equals("G10")) {
+			Pro pro = userService.readPro(userid);
+			model.addAttribute("user", pro);
+			log.debug("user={}", pro);
+		} else {
+			Normal user = userService.read(userid);
+			model.addAttribute("user", user);
+			log.debug("user={}", user);
+		}
     }
 	
 	// 사용자 닉네임 중복체크 REST 컨트롤러
@@ -101,11 +115,11 @@ public class UserProfileController {
     }
 	
 	@PutMapping({ "/{userid}", "/professional/{userid}" })
-	public ResponseEntity<Pro> saveUserInfo(@PathVariable(name = "userid") String userid, @RequestBody UserProfileDto dto) {
+	public ResponseEntity<Object> saveUserInfo(@PathVariable(name = "userid") String userid, @RequestBody UserProfileDto dto) {
 		log.debug("saveUserInfo(dto={})", dto);
 
 		dto.setUserid(userid);
-		Pro user = userService.updateProfile(dto);
+		Object user = (Object) userService.updateProfile(dto);
 
 		return ResponseEntity.ok(user);
 	}

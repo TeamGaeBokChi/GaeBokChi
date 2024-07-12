@@ -1,36 +1,23 @@
 package com.itwill.gaebokchi.web;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwill.gaebokchi.dto.AcceptListDto;
-import com.itwill.gaebokchi.dto.CommPostListDto;
 import com.itwill.gaebokchi.dto.ExchangeListDto;
-import com.itwill.gaebokchi.dto.JoinPostListDto;
-import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.service.CommPostService;
-import com.itwill.gaebokchi.service.JoinPostService;
-import com.itwill.gaebokchi.service.MainPostService;
 import com.itwill.gaebokchi.service.MyPostService;
-import com.itwill.gaebokchi.service.ReviewPostService;
 import com.itwill.gaebokchi.dto.MemberListDto;
 import com.itwill.gaebokchi.dto.MyPostListDto;
-import com.itwill.gaebokchi.dto.ReviewPostListDto;
-import com.itwill.gaebokchi.filter.AuthenticationFilter;
-import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.service.UserService;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller

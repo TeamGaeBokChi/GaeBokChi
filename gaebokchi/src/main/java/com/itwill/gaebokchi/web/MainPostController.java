@@ -26,16 +26,12 @@ import com.itwill.gaebokchi.dto.MainPostSearchDto;
 import com.itwill.gaebokchi.dto.MainPostUpdateDto;
 import com.itwill.gaebokchi.dto.MyPostSearchDto;
 import com.itwill.gaebokchi.repository.Clubs;
-import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.Post;
-import com.itwill.gaebokchi.service.MainCommentService;
 import com.itwill.gaebokchi.service.MainPostService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER;
 
 @Slf4j
 @Controller
@@ -44,8 +40,6 @@ import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER
 public class MainPostController {
 	private final MainPostService mainPostService;
 	
-	private final MainCommentService mainCommentService;
-
 //	private final MainPostCreateDto mainPostCreatDto;
 
 	@GetMapping("/create")

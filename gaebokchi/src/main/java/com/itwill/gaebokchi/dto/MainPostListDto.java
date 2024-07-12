@@ -2,7 +2,6 @@ package com.itwill.gaebokchi.dto;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import com.itwill.gaebokchi.repository.Post;
 
