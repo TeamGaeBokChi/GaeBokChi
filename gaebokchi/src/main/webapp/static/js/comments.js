@@ -88,6 +88,19 @@ document.addEventListener('DOMContentLoaded', () => {
 					document.querySelector('textarea#content').value = '';
 					//전체 댓글 갱신 함수넣기   
 					getAllMainComments();
+					
+					const focusCommentId = document.querySelector('input#commentId').value;
+
+					if (focusCommentId) {
+						const commentElement = document.getElementById(`comment-${focusCommentId}`);
+						if (commentElement) {
+							commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+						} else {
+							console.warn(`Element with id 'comment-${focusCommentId}' not found.`);
+						}
+					} else {
+						console.error('focusCommentId is null or undefined.');
+					}
 				}
 			})
 			.catch((error) => {

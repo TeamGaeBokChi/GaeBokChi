@@ -5,9 +5,6 @@
 // HTML DOM(Document Obejct Model) 컨텐트 로딩이 끝났을 때, 이벤트 리스너를 실행.
 document.addEventListener('DOMContentLoaded', () => {
 	let passwordChecked = true; // 비밀번호 필드 작성 여부 체크.
-	let nicknameChecked = true;
-	const initNickName = document.querySelector('input#nickname').value;
-	let changedNickName;
 
 	// form 요소를 찾음:
 	const modifyForm = document.querySelector('form#modifyForm');
@@ -20,12 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const changePassword = document.querySelector('input#changePassword');
 	changePassword.addEventListener('input', checkPassword);
 
-	const nickName = document.querySelector('input#nickname');
-	nickName.addEventListener('input', changeNickname);
-	
-	const btnConfirm = document.querySelector('button#btnConfirm');
-	btnConfirm.addEventListener('click', checkNickname);
-	
 	const btnAddressSearch = document.querySelector('input#btnAddressSearch');
 	btnAddressSearch.addEventListener('click', searchAddress);
 
@@ -54,44 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		}).open();
 	}
 	
-	function changeNickname(event) {
-		changedNickName = event.target.value;
-		
-		if (initNickName !== changedNickName) {
-			btnConfirm.classList.remove('disabled');
-		} else {
-			btnConfirm.classList.add('disabled');
-		}
-	}
-
 	function checkPassword(event) {
 		if (event.target.value === '' || changePassword.value === password.value) { // inputPassword.value
 			passwordChecked = false;
 		} else {
 			passwordChecked = true;
 		}
-	}
-
-	function checkNickname(event) {
-		event.preventDefault();
-		
-		if (document.activeElement.id !== 'btnConfirm') {
-			return;
-		}
-		
-		const uri = `./checkname?nickname=${changedNickName}`;
-		axios
-			.get(uri)
-			.then((response) => {
-				if (response.data === 'Y') {
-					nicknameChecked = true;
-					alert('사용 가능한 닉네임입니다.');
-				} else {
-					nicknameChecked = false;
-					alert('사용할 수 없는 닉네임입니다.');
-				}
-			})
-			.catch((error) => console.log(error));
 	}
 
 	// 저장 버튼에 클릭 이벤트 리스너를 설정.
@@ -110,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		const result = confirm('변경된 내용을 저장할까요?');
-		if (nicknameChecked && passwordChecked && result) {
+		if (passwordChecked && result) {
 			modifyForm.method = 'post'; // 폼 제출 방식 설정.
 			modifyForm.action = 'update'; // 폼 제출 요청 주소 설정.
 			modifyForm.submit(); // 폼 제출(서버로 요청을 보냄).

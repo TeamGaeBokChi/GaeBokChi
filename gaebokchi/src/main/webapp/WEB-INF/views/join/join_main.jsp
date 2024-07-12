@@ -25,6 +25,7 @@
         <div class="card border-0">
             <h2><a href="/gaebokchi/join/join_main">JOIN</a></h2>
             <h7>마음 맞는 사람과 함께 골프를 쳐보세요.</h7>
+            
             <div class="card-header" id="card-header">
                 <!-- 카테고리 선택 폼 추가 -->
                 <c:url var="catesearchPage" value="/join/join_main" />
@@ -51,6 +52,7 @@
                                             class="form-control"
                                             value="검색" id="searchButton" />
                                     </div>
+                                    
                         <div class="col-2">
                             <c:url var="createPostUrl"
                                 value="/join/join_create" />
@@ -59,12 +61,12 @@
                                 <c:when test="${not empty signedInUser}">
                                     <!-- signedInUser가 있는 경우: 글쓰기 링크 -->
                                     <a href="${createPostUrl}"
-                                        class="form-control btn" id="btnCreateMainPost">글쓰기</a>
+                                        class="form-control btn" id="btnCreateMainPost">글쓰기 ⮟</a>
                                 </c:when>
                                 <c:otherwise>
                                     <!-- signedInUser가 없는 경우: 로그인 링크 -->
                                     <a href="${signinUrl}"
-                                        class="form-control btn" id="btnCreatePost">글쓰기</a>
+                                        class="form-control btn" id="btnCreatePost">글쓰기 ⮟</a>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -119,10 +121,10 @@
                             </c:url> <a href="${joinPostDetailsPage}"
                             class="custom-link">${p.title}</a></td>
                         <td>${p.gcadress}</td>
-                        <td>${p.hole}홀</td>
-                        <td>${p.greenfee}원</td>
-                        <td>${userNicknames[p.author]}</td>
-                    </tr>
+                        <td class="text-center">${p.hole}홀</td>
+                        <td class="text-center">${p.greenfee}원</td>
+                        <td class="text-center">${userNicknames[p.author]}</td>
+                    </tr> 
                 </c:forEach>
             </tbody>
         </table>

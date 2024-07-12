@@ -11,12 +11,11 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 
-// import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER;
+import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,16 +25,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwill.gaebokchi.dto.CommPostListDto;
-import com.itwill.gaebokchi.dto.MainCommentItemDto;
 import com.itwill.gaebokchi.dto.MyPostListDto;
 import com.itwill.gaebokchi.dto.MyPostListSearchDto;
 import com.itwill.gaebokchi.dto.UserProfileDto;
 import com.itwill.gaebokchi.dto.UserUpdateDto;
+import com.itwill.gaebokchi.repository.MyComment;
 import com.itwill.gaebokchi.repository.Normal;
 import com.itwill.gaebokchi.repository.Pro;
 // import com.itwill.gaebokchi.repository.Point;
 import com.itwill.gaebokchi.service.CommPostService;
-import com.itwill.gaebokchi.service.MainCommentService;
+import com.itwill.gaebokchi.service.MyCommentService;
 import com.itwill.gaebokchi.service.MyPostService;
 import com.itwill.gaebokchi.service.UserMypageService;
 
@@ -51,13 +50,14 @@ public class UserProfileController {
 	
 	public static final String SESSION_USER_GRADE = "signedInUserGrade";
 	private final UserMypageService userService;
-	private final MainCommentService mainCommentService;
 	private final CommPostService commPostService;
 	private final MyPostService myPostService;
+	private final MyCommentService myCommentService;
 //	private String userid = "banggu";
 	
 	@GetMapping({ "/profile", "/privacy" })
-	public void privacy(@RequestParam(name = "userid") String userid, @RequestParam(name = "account", required = false) String account, HttpSession session, Model model) {
+	public void privacy(@RequestParam(name = "account", required = false) String account, HttpSession session, Model model) {
+		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
 		String grade = (String) session.getAttribute(SESSION_USER_GRADE);
 		
 		if (grade.equals("G10")) {
@@ -74,7 +74,8 @@ public class UserProfileController {
 	}
 
 	@GetMapping("/modify")
-    public void details(@RequestParam(name = "userid") String userid, HttpSession session, Model model) {
+    public void details(HttpSession session, Model model) {
+		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
         log.debug("modify(userid={})", userid);
         
         String grade = (String) session.getAttribute(SESSION_USER_GRADE);
@@ -93,7 +94,7 @@ public class UserProfileController {
     @GetMapping("/checkname")
     @ResponseBody // 메서드 리턴 값이 클라이언트로 전달되는 데이터.
     public ResponseEntity<String> checkNickname(@RequestParam(name = "nickname") String nickname) {
-        log.debug("checkname(nickname={})", nickname);
+        log.debug("checkNickname(nickname={})", nickname);
         
         boolean result = userService.checkNickname(nickname);
         if (result) {
@@ -104,20 +105,21 @@ public class UserProfileController {
     }
 	
 	@PostMapping("/update")
-    public String update(UserUpdateDto user) {
+    public String update(UserUpdateDto user, HttpSession session) {
         log.debug("update(dto={})", user);
         
         // 서비스 컴포넌트의 메서드를 호출해서 데이터베이스 테이블 업데이트를 수행.
         userService.update(user);
         
         // 내 정보 페이지로 리다이렉트.
-        return "redirect:/";
+        return "redirect:/user/privacy?userid=" + (String) session.getAttribute(SESSION_ATTR_USER);
     }
 	
-	@PutMapping({ "/{userid}", "/professional/{userid}" })
-	public ResponseEntity<Object> saveUserInfo(@PathVariable(name = "userid") String userid, @RequestBody UserProfileDto dto) {
+	@PutMapping({ "/updateNickname", "/professional" })
+	public ResponseEntity<Object> saveUserInfo(HttpSession session, @RequestBody UserProfileDto dto) {
 		log.debug("saveUserInfo(dto={})", dto);
-
+		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
+		
 		dto.setUserid(userid);
 		Object user = (Object) userService.updateProfile(dto);
 
@@ -125,7 +127,9 @@ public class UserProfileController {
 	}
 	
 	@PostMapping("/file/image")
-	public ResponseEntity<String> saveUserImage(@RequestParam(name = "userid") String userid, @RequestParam("file") MultipartFile file) {
+	public ResponseEntity<String> saveUserImage(HttpSession session, @RequestParam("file") MultipartFile file) {
+		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
+		
 		// 파일이 비어있는지 체크
 		if (file.isEmpty()) {
 			log.debug("Please select a file to upload.");
@@ -174,7 +178,9 @@ public class UserProfileController {
 	
 	@GetMapping("/file/remove")
 	@ResponseBody
-	public ResponseEntity<String> removeUserImage(@RequestParam(name = "userid") String userid) {
+	public ResponseEntity<String> removeUserImage(HttpSession session) {
+		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
+		
 		String uploadDir = "C:\\Users\\itwill\\Desktop\\images\\";
 
 		String filePath = uploadDir + "basic.png";
@@ -192,17 +198,20 @@ public class UserProfileController {
 	}
 	
 	@GetMapping("/mylessons")
-	public String myLessonList(@RequestParam(name = "userid") String userid) {
+	public String myLessonList(HttpSession session) {
+		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
+		
 		log.debug("myLessonList()");
 
 		return "redirect: /gaebokchi/mainPost/list?userid=" + userid;
 	}
 	
 	@GetMapping("/myposts")
-	public String myPostList(@RequestParam(name = "userid") String userid,
-						     @RequestParam(name = "keyword", required = false) String keyword,
+	public String myPostList(HttpSession session,
+							 @RequestParam(name = "keyword", required = false) String keyword,
 							 @RequestParam(name = "page", required = false, defaultValue = "1") int page,
 							 @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize, Model model) {
+		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
 		
 		log.debug("myPostList()");
 	
@@ -234,10 +243,12 @@ public class UserProfileController {
 	}
 	
 	@GetMapping("/commentList")
-	public void commentList(@RequestParam(name = "userid") String userid, Model model) {
+	public void commentList(HttpSession session, Model model) {
+		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
+		
 		log.debug("commentList(userid={})", userid);
 
-		List<MainCommentItemDto> list = mainCommentService.commentReadByUserid(userid);
+		List<MyComment> list = myCommentService.commentReadByUserid(userid);
 		model.addAttribute("comments", list);
 	}
 	

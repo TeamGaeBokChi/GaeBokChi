@@ -40,11 +40,34 @@
                         <c:forEach var="c" items="${comments}">
                             <tr>
                                 <td>${c.postId}</td>
-                                <td><c:url var="mainPostDetailsPage" value="/mainPost/details">
-                                        <c:param name="id" value="${c.postId}"></c:param>
-                                        <c:param name="commentId" value="${c.id}"></c:param>
-                                    </c:url>
-                                    <a href="${mainPostDetailsPage}">${c.content}</a>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${c.category eq 'P001'}">
+                                            <c:url var="mainPostDetailsPage" value="/mainPost/details">
+                                                <c:param name="id" value="${c.postId}"></c:param>
+                                                <c:param name="commentId" value="${c.id}"></c:param>
+                                            </c:url>
+                                            <a href="${mainPostDetailsPage}">${c.content}</a>
+                                        </c:when>
+                                        <c:when test="${c.category eq 'P003'}">
+                                            <c:url var="joinPostDetailsPage" value="/join/join_details">
+                                                <c:param name="id" value="${c.postId}"></c:param>
+                                                <c:param name="commentId" value="${c.id}"></c:param>
+                                            </c:url> <a href="${joinPostDetailsPage}">${c.content}</a>
+                                        </c:when>
+                                        <c:when test="${c.category eq 'P004'}">
+                                            <c:url var="reviewPostDetailsPage" value="/review/review_details">
+                                                <c:param name="id" value="${c.postId}"></c:param>
+                                                <c:param name="commentId" value="${c.id}"></c:param>
+                                          	</c:url> <a href="${reviewPostDetailsPage}">${c.content}</a>
+                                    	</c:when>
+                                   	    <c:otherwise>
+                                          	<c:url var="commPostDetailsPage" value="/community/comm_details">
+                                           	    <c:param name="id" value="${c.postId}"></c:param>
+                                                <c:param name="commentId" value="${c.id}"></c:param>
+                                         	</c:url> <a href="${commPostDetailsPage}">${c.content}</a>
+                                     	</c:otherwise>
+                                    </c:choose>
                                 </td>
                                 <c:choose>
                                     <c:when test="${c.selection eq 0}">

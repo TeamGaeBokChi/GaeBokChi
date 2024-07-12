@@ -3,7 +3,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-	const userid = document.querySelector('input#userid').value;
+	const grade = document.querySelector('input#grade').value;
 	
 	const titleNickname = document.querySelector('h5#titleNickname');
 	
@@ -15,25 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	const btnCancelNickname = document.querySelector('button#btnCancelNickname');
 	btnCancelNickname.addEventListener('click', cancelNicknameEvent);
 	
-	const btnEditIntroduce = document.querySelector('button#btnIntroduceMyself');
-	btnEditIntroduce.addEventListener('click', viewEditIntroduce);
-	
-	const editIntroduce = document.querySelector('div#btnIntroduceGroup');
-	
-	const btnCancelIntroduce = document.querySelector('button#btnCancelIntroduce');
-	btnCancelIntroduce.addEventListener('click', cancelIntroduceEvent);
-	
 	let userNickname = document.querySelector('input#nickname').value;
 	const nickname = document.querySelector('input#nickname');
 	
-	let userIntroduce = document.querySelector('input#introduce').value;
-	const introduce = document.querySelector('input#introduce');
-	
 	const btnSaveNickname = document.querySelector('button#btnSaveNickname');
 	btnSaveNickname.addEventListener('click', updateNickname);
-	
-	const btnSaveIntroduce = document.querySelector('button#btnSaveIntroduce');
-	btnSaveIntroduce.addEventListener('click', updateIntroduce);
 	
 	const btnFileUpload = document.querySelector('input#input_file');
 	btnFileUpload.addEventListener('change', fileUpload);
@@ -46,21 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		nickname.readOnly = false;
 	}
 	
-	function viewEditIntroduce() {
-		editIntroduce.classList.remove('d-none');
-		introduce.readOnly = false;
-	}
-	
 	function cancelNicknameEvent() {
 		editNickname.classList.add('d-none');
 		nickname.value = userNickname;
 		nickname.readOnly = true;
-	}
-	
-	function cancelIntroduceEvent() {
-		editIntroduce.classList.add('d-none');
-		introduce.value = userIntroduce;
-		introduce.readOnly = true;
 	}
 	
 	function updateNickname() {
@@ -82,25 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 	}
 	
-	function updateIntroduce() {
-		const uri = `./professional/${userid}`;
-		axios.put(uri, { career: introduce.value })
-			.then((response) => {
-				console.log(response.data);
-				introduce.value = response.data.career;
-				userIntroduce = response.data.career;
-				
-				editIntroduce.classList.add('d-none');
-				introduce.readOnly = true;
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
-	
 	function saveNickname() {
-		const uri = `./${userid}`;
-		axios.put(uri, { nickname: nickname.value })
+		const uri = './updateNickname';
+		axios.put(uri, { 
+				nickname: nickname.value,
+				grade: grade
+			})
 			.then((response) => {
                 console.log(response.data);
                 titleNickname.textContent = response.data.nickname;
@@ -129,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    var formData = new FormData();
 	    formData.append('file', file);
 
-	    const uri = `./file/image?userid=${userid}`;
+	    const uri = './file/image';
 
 	    axios.post(uri, formData, {
 	        headers: {
@@ -154,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	
 	function fileRemove() {
-		const uri = `./file/remove?userid=${userid}`;
+		const uri = './file/remove';
 
 		axios.get(uri)
 			.then((response) => {
