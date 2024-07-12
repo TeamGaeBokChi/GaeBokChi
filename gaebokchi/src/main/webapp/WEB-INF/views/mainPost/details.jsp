@@ -129,18 +129,18 @@
 						<!-- 댓글 리스트 영역 -->
 						<div class="comments-section form-control"></div>
 						<!-- 댓글작성 영역 -->
-						<div class="commen-form card-footer form-control mt-">
+						<div class="commen-form card-footer form-control" id="sunman">
 							<!-- <form action="submit_comment_url" method="post"> -->
 							<div class="form-group">
 								<input class="d-none" id="postId" value="${post.id}" />
+								
 								<c:choose>
-
 									<c:when test="${signedInUserGrade eq 'G10'}">
 										<textarea class="form-control" id="content" name="ctext"
 											rows="3" required placeholder="피드백을 작성해주세요."></textarea>
 									</c:when>
 									<c:otherwise>
-										<textarea class="form-control" id=" readonlyText"
+										<textarea class="form-control"
 											readonly="readonly">전문가 승인이 완료 된 회원만 작성 할 수 있습니다.</textarea>
 									</c:otherwise>
 

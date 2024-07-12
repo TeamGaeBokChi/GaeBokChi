@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			const editedContent = document.getElementById(`edit-textarea-${commentId}`).value;
 
 			axios.put(`../api/mainComment/edit/${commentId}`, { content: editedContent })
-				.then(response => {
+				.then((response) => {
 					alert('댓글이 수정되었습니다.');
 					document.querySelector(`#comment-${commentId} .comment-text span`).textContent = editedContent;
 					commentTextElement.style.display = 'block';
@@ -299,13 +299,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 	function hideAllSelectButtons() {
-
+		
 		const modifyButton = document.querySelectorAll('.modifyComment');
 		const selectButton = document.querySelectorAll('.selectComment');
 		const deleteButton = document.querySelectorAll('.deleteComment');
 		const content = document.querySelector('#content');
 		const btnRegisterComment = document.querySelector('#btnRegisterComment');
-
+		
 		selectButton.forEach(button => {
 			button.style.display = 'none';
 		});
@@ -315,16 +315,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		modifyButton.forEach(button => {
 			button.style.display = 'none';
 		});
+
+
 		
-
-
 		content.style.backgroundColor = '#e9e9e9';
 		content.value = '채택이 완료 된 레슨입니다.';
 		content.style.fontSize = '18px';
 		content.readOnly = true;
-		btnRegisterComment.style.display = 'none';
 		content.style.textAlign = 'center';
 		content.style.paddingTop = '51px';
+		btnRegisterComment.style.display = 'none';
+		
+		
 	}
 
 
