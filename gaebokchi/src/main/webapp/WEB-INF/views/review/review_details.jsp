@@ -248,7 +248,7 @@ body {
 								<small class="text-muted">${comment.modifiedTime}</small> <input
 									type="hidden" name="commentId" value="${comment.id}">
 								<c:if
-									test="${post.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
+									test="${comment.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
 									<button id="btnUpdateComment"
 										class="btn btn-success btn-register-comment" type="submit">수정</button>
 									<input type="hidden" name="commentId" value="${comment.id}">
