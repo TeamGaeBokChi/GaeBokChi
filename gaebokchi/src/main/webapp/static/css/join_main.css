@@ -160,7 +160,7 @@ input#searchButton {
 
 /* 테이블 셀 각각에 대한 스타일 */
 .table tr.gray-td td {
-    background-color: #e3e3e3 !important;
+    background-color: #efefef !important;
     color: #000000 !important;
     pointer-events: none;
     border-right: 1px solid #ffffff;
@@ -170,8 +170,8 @@ input#searchButton {
 .table tr.white-td td {
     background-color: #ffffff !important;
     color: #000000 !important;
-    border-right: 1px solid #e3e3e3;
-    border-bottom: 1px solid #e3e3e3;
+    border-right: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
 }
 
 .custom-link {
