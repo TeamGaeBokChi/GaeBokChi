@@ -74,7 +74,7 @@ public class MainPostService {
 				String orgMediaType = mediaName.substring(idx); // file 이름에 . 다음 인덱스부터 다음 인덱스 까지(확장자)를 해당 변수애 저장
 				String sMediaName = orgMediaName + uuid + orgMediaType; // 파일 순수 이름 + 랜덤으로 생성된 uuid + 확장자를 합쳐서 한 변수에 저장
 
-				String realPath = "/Users/sunman/Desktop/semi_project_repository/videos"; // 실제 파일이 저장될 경로를 변수에 저장
+				String realPath = "/C:/Users/sunman/Desktop/semi_project_repository/videos"; // 실제 파일이 저장될 경로를 변수에 저장
 
 				File folder = new File(realPath);
 

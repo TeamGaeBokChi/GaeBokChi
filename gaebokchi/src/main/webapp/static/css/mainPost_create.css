@@ -99,7 +99,7 @@ select.form-control option {
     font-weight: 700;
     padding: 10px 20px; /* 내부 여백 */
     font-size: 16px; /* 글자 크기 */
-    border: 1px solid #c0c0c0; /* 테두리 */
+    border: 2px solid #c0c0c0; /* 테두리 */
     border-radius: 7px; /* 모서리 둥글게 */
     background-color: #ffffff; /* 배경색 */
     color: #000000; /* 글자색 */

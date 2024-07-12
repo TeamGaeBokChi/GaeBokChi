@@ -168,14 +168,14 @@
 		SELECT COUNT(*)
 		FROM posts where category IN('F001' , 'F002' , 'F003')
 	</select>
-	
+
 	<select id="adminposts">
 		select * from posts
 	</select>
-	
+
 	<select id="categoryname" resultType="map">
-        SELECT id, name FROM categories
-    </select>
+		SELECT id, name FROM categories
+	</select>
 
 
 </mapper>
