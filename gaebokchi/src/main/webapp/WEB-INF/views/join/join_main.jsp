@@ -122,7 +122,7 @@
                         <td class="text-center">${p.hole}홀</td>
                         <td class="text-center">${p.greenfee}원</td>
                         <td>${userNicknames[p.author]}</td>
-                    </tr>
+                    </tr> 
                 </c:forEach>
             </tbody>
         </table>
