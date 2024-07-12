@@ -13,26 +13,17 @@
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
 
-<style>
-.container {
-	width: 1080px;
-	margin: 0 auto;
-	margin-top: 30px;
-}
-</style>
 
-<c:url var="details" value="../css/details.css" />
-<link rel="stylesheet" type="text/css" href="${details}">
+<link rel="stylesheet" href="../css/main_details.css" />
 
 </head>
-
-
 
 <body>
 	<header>
 		<c:set var="pageTitle" value="새글 작성하기" />
 		<%@ include file="../fragments/header.jspf"%>
 	</header>
+    
 	<main>
 		<div class="container">
 			<div>

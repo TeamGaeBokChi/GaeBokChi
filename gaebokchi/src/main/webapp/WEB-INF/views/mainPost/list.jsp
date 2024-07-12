@@ -19,8 +19,6 @@
 <title>레슨｜GOLFRO</title>
 </head>
 <body>
-
-
     <header>
         <c:set var="pageTitle" value="새글 작성하기" />
         <%@ include file="../fragments/header.jspf"%>
