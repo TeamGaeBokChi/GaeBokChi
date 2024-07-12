@@ -115,13 +115,15 @@
                                 required />
                         </div>
                         <!-- 하단 버튼 영역 -->
-                        <div class="mt-2 d-flex justify-content-end">
+                        <div
+                            class="lastbtn mt-2 d-flex justify-content-end">
                             <div>
-                                <a href="/gaebokchi/mainPost/list" class="m-2 btn">취소하기</a>
+                                <a href="/gaebokchi/mainPost/list"
+                                    class="m-2 btn">취소하기</a>
                             </div>
                             <div>
                                 <input class="m-2 btn" type="submit"
-                                    value="작성완료" />
+                                    id="submit" value="작성완료" />
                             </div>
                         </div>
                     </form>
