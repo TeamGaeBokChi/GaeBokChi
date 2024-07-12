@@ -75,8 +75,9 @@
                         <label for="id" class="form-label">닉네임</label>
                         <div class="input-group" id="signupnick">
                             <input type="text" class="form-control"
-                                id="nickname" name="nickname" maxlength="10"
-                                placeholder="별명 입력하세요" required>
+                                id="nickname" name="nickname"
+                                maxlength="10" placeholder="별명 입력하세요"
+                                required>
                             <button class="btn btn-outline-secondary"
                                 type="button" name="nicknamebutton"
                                 id="nicknamebutton">중복체크</button>
@@ -87,7 +88,7 @@
                         <label class="form-label">휴대폰 번호</label>
                         <div class="flex">
                             <select class="form-select" name="phone0"
-                                style="width: 30%;" required>
+                                style="width: 30%;" id="phone0" required>
                                 <option value="">통신사 선택</option>
                                 <option value="SKT">SKT</option>
                                 <option value="KT">KT</option>
@@ -112,6 +113,7 @@
                                 style="width: 25%;" maxlength="4"
                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </div>
+                        <div id="phoneDiv"></div>
                     </div>
 
                     <div class="form-group" id="emailGroup">
@@ -141,7 +143,7 @@
                             <select class="form-select" id="birth-Year"
                                 required name="birthYear"
                                 style="width: 40%;">
-                                <option disabled selected>출생 연도</option>
+                                <option value="">출생 연도</option>
                                 <!-- 1940년부터 현재 년도까지 옵션 추가 -->
                                 <script>
 																																	var currentYear = new Date()
@@ -156,7 +158,7 @@
                             </select> <select class="form-select"
                                 id="birth-month" required
                                 name="birthMonth" style="width: 30%;">
-                                <option disabled selected>월</option>
+                                <option value="">월</option>
                                 <option value="1">1월</option>
                                 <option value="2">2월</option>
                                 <option value="3">3월</option>
@@ -172,7 +174,7 @@
                             </select> <select class="form-select" id="birth-day"
                                 required name="birthDay"
                                 style="width: 30%;">
-                                <option disabled selected>일</option>
+                                <option value="">일</option>
                                 <!-- 1일부터 31일까지 옵션 추가 -->
                                 <script>
 																																	for (var i = 1; i <= 31; i++) {
@@ -220,14 +222,14 @@
                         <label for="addressMain" class="form-label">주소</label>
                         <div class="input-group">
                             <input type="text" class="form-control"
-                                required id="addressMain"
-                                name="addressMain"
+                                id="addressMain" name="addressMain"
                                 placeholder="주소를 입력하세요" readonly>
                             <button class="btn btn-outline-secondary"
                                 type="button" onclick="searchAddress()">
                                 <i class="fas fa-search"></i> 주소 검색
                             </button>
                         </div>
+                        <div id="addressDiv"></div>
                     </div>
 
                     <div class="form-group">
@@ -295,9 +297,11 @@
                             등록</label>
                         <div class="input-group">
                             <input type="text" class="form-control"
-                                id="license" name="accept"
-                                placeholder="라이센스 번호를 등록하세요" maxlength="12">
+                                id="accept" name="accept"
+                                placeholder="라이센스 번호를 등록하세요"
+                                maxlength="12">
                         </div>
+                        <div id="acceptDiv"></div>
                     </div>
 
                     <div class="d-grid gap-2 mt-4"
@@ -315,6 +319,7 @@
             src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script
             src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
         <script>
 									function searchAddress() {
 										new daum.Postcode(
@@ -386,42 +391,53 @@
 															this.selectedIndex = selectedIndex;
 														});
 									}
-									
+
 									function toggleFormFields1() {
-									    var expertUserChecked = document.getElementById('expertUser').checked;
-									    var accountGroup = document.getElementById('accountGroup');
-									    var licenseGroup = document.getElementById('licenseGroup');
-									    var submitButtonContainer = document.getElementById('submitButtonContainer');
-									    var bankSelect = document.getElementById('bank');
-									    var accountNumberInput = document.getElementById('accountNumber');
+										var expertUserChecked = document
+												.getElementById('expertUser').checked;
+										var accountGroup = document
+												.getElementById('accountGroup');
+										var licenseGroup = document
+												.getElementById('licenseGroup');
+										var submitButtonContainer = document
+												.getElementById('submitButtonContainer');
+										var bankSelect = document
+												.getElementById('bank');
+										var accountNumberInput = document
+												.getElementById('accountNumber');
 
-									    if (expertUserChecked) {
-									        accountGroup.style.display = 'block';
-									        licenseGroup.style.display = 'block';
-									        submitButtonContainer.style.display = 'block';
-									        bankSelect.required = true;
-									        accountNumberInput.required = true;
-									    } else {
-									        accountGroup.style.display = 'none';
-									        licenseGroup.style.display = 'none';
-									        submitButtonContainer.style.display = 'block';
-									        bankSelect.required = false;
-									        accountNumberInput.required = false;
-									    }
+										if (expertUserChecked) {
+											accountGroup.style.display = 'block';
+											licenseGroup.style.display = 'block';
+											submitButtonContainer.style.display = 'block';
+											bankSelect.required = true;
+											accountNumberInput.required = true;
+										} else {
+											accountGroup.style.display = 'none';
+											licenseGroup.style.display = 'none';
+											submitButtonContainer.style.display = 'block';
+											bankSelect.required = false;
+											accountNumberInput.required = false;
+										}
 									}
-
+								    
+									
 									function validateForm() {
-									    var expertUserChecked = document.getElementById('expertUser').checked;
-									    var bankSelect = document.getElementById('bank');
-									    var accountNumberInput = document.getElementById('accountNumber');
+										var expertUserChecked = document
+												.getElementById('expertUser').checked;
+										var bankSelect = document
+												.getElementById('bank');
+										var accountNumberInput = document
+												.getElementById('accountNumber');
 
-									    if (expertUserChecked) {
-									        if (bankSelect.value === "" || accountNumberInput.value === "") {
-									            alert("전문가 회원은 계좌 정보를 반드시 입력해야 합니다.");
-									            return false;
-									        }
-									    }
-									    return true;
+										if (expertUserChecked) {
+											if (bankSelect.value === ""
+													|| accountNumberInput.value === "") {
+												alert("전문가 회원은 계좌 정보를 반드시 입력해야 합니다.");
+												return false;
+											}
+										}
+										return true;
 									}
 
 									// 페이지 로드시 초기 호출
@@ -444,7 +460,6 @@
 																					toggleFormFields);
 																});
 													});
-									
 								</script>
 
         <script

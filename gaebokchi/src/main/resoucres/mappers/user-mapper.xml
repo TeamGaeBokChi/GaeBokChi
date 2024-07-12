@@ -53,6 +53,14 @@
     <select id="selectByEmail">
         select * from users where email = #{email}
     </select>
+    
+    <select id="selectByPhone">
+        select * from users where phone = #{phone}
+    </select>
+    
+    <select id="selectByAccept">
+        select * from users where license = #{accept} or accept = #{accept}
+    </select>
 
     <select id="selectByUseridAndPassword" resultType="User">
         select *
@@ -78,7 +86,7 @@
         userid = #{userid} and email = #{email} and phone = #{phone}
     </update>
     <update id="UpdatePoint">
-        update users set withdraw = #{withdraw} where
+        update users set withdraw = withdraw + #{withdraw} where
         userid = #{userid} and password = #{password}
     </update>
 

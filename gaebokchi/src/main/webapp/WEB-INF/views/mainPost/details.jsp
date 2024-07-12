@@ -153,10 +153,15 @@
 
 						</div>
 						<!-- 하단 수정하기, 삭제 버튼 영역 -->
+<<<<<<< HEAD
 
 
 						<c:if test="${signedInUser eq post.author}">
 							<div class="mt-2 d-flex justify-content-end">
+=======
+						<c:if test="${signedInUser eq post.author or signedInUser eq 'admin'}">
+							<div class="mt-2 d-flex justify-content-end" id="sunman">
+>>>>>>> branch 'final' of https://github.com/TeamGaeBokChi/GaeBokChi.git
 								<!-- 수정 -->
 								<div>
 									<c:url var="mainPostModifyPage" value="/mainPost/modify">
@@ -197,6 +202,7 @@
 	<script>
     const signedInUser = "${signedInUser}";
     const postAuthor = "${post.author}";
+<<<<<<< HEAD
 	/* 게시글 삭제 스크립트 */
 	const btnDeleteMainPost = document.querySelector('button#btnDeleteMainPost');
 	btnDeleteMainPost.addEventListener('click', () => {
@@ -205,6 +211,8 @@
 			location.href = `delete?id=${post.id}`;
 		}
 	})
+=======
+>>>>>>> branch 'final' of https://github.com/TeamGaeBokChi/GaeBokChi.git
 </script>
 
 

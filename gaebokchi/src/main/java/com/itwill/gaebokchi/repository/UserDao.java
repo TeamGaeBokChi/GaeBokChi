@@ -14,6 +14,10 @@ public interface UserDao {
 	User selectByNickname(String nickname);
 
 	User selectByEmail(String email);
+	
+	User selectByPhone(String phone);
+	
+	User selectByAccept(String accept);
 
 	void insertNormalUser(User user);
 

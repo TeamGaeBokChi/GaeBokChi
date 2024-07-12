@@ -13,5 +13,9 @@ public interface MyPostDao {
 	List<MyPost> selectPagedPosts(@Param("startRow") int startRow, String author, @Param("endRow") int endRow);
 
 	int selectTotalPostCount(String author);
+	
+	List<MyPost> selectAll();
+	
+	int deletePost(Integer id);
 
 }

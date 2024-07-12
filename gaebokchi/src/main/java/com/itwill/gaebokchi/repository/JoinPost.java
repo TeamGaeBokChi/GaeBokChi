@@ -24,4 +24,6 @@ public class JoinPost {
     private String clubtype;
     private String category;
     private Integer views;
+    private LocalDateTime createdTime;
+    private LocalDateTime modifiedTime;
 }

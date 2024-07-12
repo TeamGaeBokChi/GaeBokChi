@@ -23,13 +23,15 @@ public class JoinPostListDto {
     private String author;
     private String content;
     private Integer views;
+    private LocalDateTime modifiedTime;
+    private String category;
 
 
     public static JoinPostListDto fromEntity(JoinPost joinpost) {
         return JoinPostListDto.builder()
                 .id(joinpost.getId()).title(joinpost.getTitle()).gcadress(joinpost.getGcadress()).teeoff(joinpost.getTeeoff())
                 .hole(joinpost.getHole()).greenfee(joinpost.getGreenfee()).author(joinpost.getAuthor()).content(joinpost.getContent())
-                .views(joinpost.getViews()).build();
+                .views(joinpost.getViews()).modifiedTime(joinpost.getModifiedTime()).category(joinpost.getCategory()).build();
 
     }
 

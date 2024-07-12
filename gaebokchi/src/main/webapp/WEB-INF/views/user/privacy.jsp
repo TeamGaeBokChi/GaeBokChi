@@ -14,7 +14,6 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
     crossorigin="anonymous" />
 <link rel="stylesheet" href="../css/user_privacy.css" />
-
 </head>
 
 <body>
@@ -32,7 +31,8 @@
                         <h3>로그인 정보</h3>
                         <h5>내 계정</h5>
                     </div>
-                    <div class="card-body">                        
+                    <div class="card-body">
+                        <input type="hidden" id="account" value="${account}"/>
                         <form>
                             <div class="mt-2">
                                 <label class="form-label" for="userid">아이디</label> <input class="form-control"
@@ -145,7 +145,7 @@
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="account">어카운트</label>
-                                <div class="flex">
+                                <div class="flex" id="userAccount">
                                     <select class="form-select"
                                         name="bank" size="1"
                                         style="width: 20%" disabled>
@@ -221,11 +221,23 @@
         </div>
     </div>
     
+    <script>
+    	document.addEventListener('DOMContentLoaded', () => {
+    		const focusAccount = document.querySelector('input#account').value;
+    		const focusElement = document.querySelector('div#userAccount');
+    		
+    		if (focusAccount === 'change') {
+    			focusElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    		} else {
+    			console.error('focusAccount is null or undefined.');
+    		}
+    	});
+    </script>
+    
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous">
-					
-				</script>
+	</script>
 </body>
 </html>

@@ -9,6 +9,99 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailSeparator = document.getElementById('emailSeparator');
     const emailDiv = document.getElementById('emailDiv');
 
+    const phone0 = document.getElementById('phone0');
+    const phone1 = document.getElementById('phone1');
+    const phone2 = document.getElementById('phone2');
+    const phone3 = document.getElementById('phone3');
+    const phoneDiv = document.getElementById('phoneDiv');
+
+    const postCode = document.getElementById('postCode');
+    const addressMain = document.getElementById('addressMain');
+    const addressDetail = document.getElementById('addressDetail');
+    const addressDiv = document.getElementById('addressDiv');
+
+    const acceptLicense = document.getElementById('accept');
+    const acceptDiv = document.getElementById('acceptDiv');
+
+    addressDetail.addEventListener('blur', checkAddress)
+    
+    function checkAddress() {
+        if (postCode.value === '' || addressMain.value === '') {
+            submitButton.disabled = true;
+            addressDiv.textContent = '주소를 검색 후 입력해 주세요.';
+        } else {
+            submitButton.disabled = false;
+            addressDiv.textContent = '';
+        }
+    }
+
+    function checkAccept() {
+        if (acceptLicense.value === '') {
+            acceptDiv.textContent = '';
+            return;
+        }
+
+        const accept = acceptLicense.value;
+        const acceptUri = `./checkAccept?accept=${accept}`;
+
+        axios.get(acceptUri)
+            .then(function(response) {
+                if (response.data === 'N') {
+                    acceptDiv.textContent = '이미 가입된 라이센스 번호입니다.';
+                    acceptDiv.style.color = 'red';
+                    submitButton.disabled = true;
+                } else {
+                    acceptDiv.textContent = '사용 가능한 라이센스 번호입니다.';
+                    acceptDiv.style.color = 'green';
+                    submitButton.disabled = false;
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+                acceptDiv.textContent = '라이센스 번호 확인 중 오류가 발생했습니다.';
+                acceptDiv.style.color = 'red';
+            });
+    }
+
+    acceptLicense.addEventListener('blur', checkAccept);
+
+    function checkPhone() {
+
+        if (phone0.value === '' || phone1.value === '' || phone2.value === '' || phone3.value === '') {
+            phoneDiv.textContent = '';
+            return;
+        }
+
+        const phone = phone0.value + '/' + phone1.value + '-' + phone2.value + '-' + phone3.value;
+        const phoneUri = `./checkPhone?phone=${phone}`;
+
+        axios.get(phoneUri)
+            .then(function(response) {
+                if (response.data === 'N') {
+                    phoneDiv.textContent = '이미 가입된 휴대폰 번호입니다.';
+                    phoneDiv.style.color = 'red';
+                    submitButton.disabled = true;
+                } else {
+                    phoneDiv.textContent = '사용 가능한 휴대폰 번호입니다.';
+                    phoneDiv.style.color = 'green';
+                    submitButton.disabled = false;
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+                phoneDiv.textContent = '휴대폰 번호 확인 중 오류가 발생했습니다.';
+                phoneDiv.style.color = 'red';
+            });
+    }
+
+
+    phone3.addEventListener('blur', checkPhone);
+
+    phone0.addEventListener('change', () => { phoneDiv.textContent = ''; });
+    phone1.addEventListener('input', () => { phoneDiv.textContent = ''; });
+    phone2.addEventListener('input', () => { phoneDiv.textContent = ''; });
+
+
     function checkEmail() {
         const email = emailPrefix.value + '@' + emailSeparator.value;
         const emailUri = `./checkEmail?email=${email}`;
@@ -23,10 +116,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.data === 'N') {
                     emailDiv.textContent = '이미 가입된 사용자입니다.';
                     emailDiv.style.color = 'red';
-                    updateSubmitButton();
+                    submitButton.disabled = true;
                 } else {
                     emailDiv.textContent = '사용 가능한 이메일입니다.';
                     emailDiv.style.color = 'green';
+                    submitButton.disabled = false;
                 }
             })
             .catch(function(error) {

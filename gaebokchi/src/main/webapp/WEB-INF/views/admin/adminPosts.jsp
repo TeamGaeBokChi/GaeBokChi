@@ -116,25 +116,51 @@ tr:hover {
 				<tr>
 					<th>게시글 ID</th>
 					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-					<th>상태</th>
+					<th>작성자 ID</th>
+					<th>작성자 닉네임</th>
+					<th>최종 수정 날짜</th>
+					<th>저장된 카테고리</th>
 					<th>액션</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="p" items="${posts}">
-					<tr>
+					<tr class="table">
 						<td>${p.id}</td>
-						<td>${p.title}</td>
+						<td><c:choose>
+								<c:when test="${p.category eq 'P001'}">
+									<c:url var="mainPostDetailsPage" value="/mainPost/details">
+										<c:param name="id" value="${p.id}" />
+									</c:url>
+									<a href="${mainPostDetailsPage}" class="custom-link">${p.title}</a>
+								</c:when>
+								<c:when test="${p.category eq 'P003'}">
+									<c:url var="joinPostDetailsPage" value="/join/join_details">
+										<c:param name="id" value="${p.id}" />
+									</c:url>
+									<a href="${joinPostDetailsPage}" class="custom-link">${p.title}</a>
+								</c:when>
+								<c:when test="${p.category eq 'P004'}">
+									<c:url var="reviewPostDetailsPage"
+										value="/review/review_details">
+										<c:param name="id" value="${p.id}"></c:param>
+									</c:url>
+									<a href="${reviewPostDetailsPage}" class="custom-link">${p.title}</a>
+								</c:when>
+								<c:otherwise>
+									<c:url var="commPostDetailsPage"
+										value="/community/comm_details">
+										<c:param name="id" value="${p.id}"></c:param>
+									</c:url>
+									<a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
+								</c:otherwise>
+							</c:choose></td>
 						<td>${p.author}</td>
-						<td>${p.createdTime}</td>
-						<!-- 여기서 modifiedTime을 사용함 -->
-						<td>게시중</td>
+						<td>${userNicknames[p.author]}</td>
+						<td>${p.modifiedTime}</td>
+						<td>${p.category} / ${category_name[p.category]}</td>
 						<td>
-							<button class="btn btn-edit" onclick="editPost(${p.id})">수정</button>
 							<button class="btn btn-delete" onclick="deletePost(${p.id})">삭제</button>
-							<button class="btn btn-blind" onclick="blindPost(${p.id})">블라인드</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -142,23 +168,22 @@ tr:hover {
 		</table>
 	</div>
 	<script>
-		function editPost(id) {
-			alert(id + "번 게시글을 수정합니다.");
-			// 여기에 수정 페이지로 이동하는 로직 추가
-		}
 		function deletePost(id) {
 			if (confirm(id + "번 게시글을 정말 삭제하시겠습니까?")) {
-				alert(id + "번 게시글이 삭제되었습니다.");
-				// 여기에 실제 삭제 처리 로직 추가
+				// AJAX 요청으로 게시글 삭제 요청 보내기
+				const xhr = new XMLHttpRequest();
+				xhr.open("POST", "deletePost", true);  // 'deletePost'는 서버의 삭제 엔드포인트 URL
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.onload = function() {
+					if (xhr.status === 200) {
+						alert(id + "번 게시글이 삭제되었습니다.");
+						location.reload();  // 페이지 새로고침
+					} else {
+						alert("게시글 삭제에 실패했습니다. 다시 시도해 주세요.");
+					}
+				};
+				xhr.send("id=" + id);  // POST 요청으로 게시글 ID 전달
 			}
-		}
-		function blindPost(id) {
-			alert(id + "번 게시글을 블라인드 처리했습니다.");
-			// 여기에 실제 블라인드 처리 로직 추가
-		}
-		function unblindPost(id) {
-			alert(id + "번 게시글의 블라인드를 해제했습니다.");
-			// 여기에 실제 블라인드 해제 처리 로직 추가
 		}
 	</script>
 </body>

@@ -30,8 +30,9 @@
 
         <div class="row">
             <%@ include file="../fragments/menu.jspf"%>
-</div>
+        </div>
     </c:if>
+    
     <main>
         <div class="container">
             <!-- 인기 게시물 리스트업부 -->
@@ -39,102 +40,116 @@
                 <h2>LESSON</h2>
                 <h7>골프에 대해 궁금한 점들을 물어보세요.</h7>
 
-                <div class="card-header" id="list-header">
+                <div class="card-header">
                     <c:url var="mainPostSearch" value="/mainPost/search" />
                     <form method="get" action="${mainPostSearch}">
                         <input type="hidden" name="userid"
                             value="${userid}" />
+
                         <!-- 검색 전채 영역 -->
-                        <div
-                            class="row searchArea d-flex justify-content-center">
-                            <!-- select 태그 영역(카테고리 선택) -->
-                            <div class="col-2">
-                                <select class="form-control"
-                                    name="searchCategory"
-                                    id="searchCategory"
-                                    onchange="toggleSearchField()">
-                                    <%-- <c:forEach items="${clubs}" var="c">
-                				<option value="${c.id}">${c.name}</option>
-                							             </c:forEach> --%>
-                                    <option value="searchClubs">클럽별
-                                        검색</option>
-                                    <option value="searchSelection">채택별
-                                        검색</option>
-                                    <option value="searchTitle">제목
-                                        검색</option>
-                                    <option value="searchContent">내용
-                                        검색</option>
-                                    <option value="searchTitleContent">제목+내용
-                                        검색</option>
-                                    <option value="searchAuthor">작성자
-                                        검색</option>
-                                </select>
-                            </div>
-                            <!-- 동적 요소를 포함할 컨테이너 -->
-                            <div class="dynamicField col-3">
-                                <!-- 초기값으로 클럽 선택 콤보박스 표시 -->
-                                <div id="clubSelectField">
-                                    <select class="form-control"
-                                        name="clubSelect"
-                                        id="clubSelect">
-                                        <c:forEach items="${clubs}"
-                                            var="c">
-                                            <option value="${c.id}">${c.name}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-
-                                <!-- 초기값으로 입력 필드는 숨김 -->
-                                <div id="textSearchSelectField"
-                                    style="display: none;">
-                                    <input type="text"
-                                        class="form-control"
-                                        name="textSearchSelect"
-                                        placeholder="검색어를 입력하세요">
-                                </div>
-
-                                <div id="searchSelectionField"
-                                    style="display: none;">
-                                    <select class="form-control"
-                                        name="selectSelection"
-                                        id="selectSelection">
-                                        <option value="selectFalse">미완료</option>
-                                        <option value="selectTrue">해결완료</option>
-                                    </select>
-                                </div>
-
-                            </div>
-
-                            <!-- 검색 버튼 영역 -->
-                            <div class="col-2">
-                                <input type="submit"
-                                    class="form-control" value="검색"
-                                    id="searchButton" />
-                            </div>
+                        <div class="row searchArea d-flex">
 
                             <!-- 전체 목록 보기 버튼 -->
-                            <div class="col-2">
+                            <div class="col-auto">
                                 <button type="button"
                                     class="form-control" id="btnAllRead"
-                                    onclick="location.href='list'">전체글</button>
+                                    onclick="location.href='list'">전체글
+                                    목록</button>
+                            </div>
+
+                            <!-- select 태그 영역(카테고리 선택) -->
+                            <div class="col d-flex justify-content-center align-items-center flex-grow-1">
+                                <div class="row w-100 justify-content-center align-items-center">
+                                    <div class="col-2 ">
+                                        <select class="form-control"
+                                            name="searchCategory"
+                                            id="searchCategory"
+                                            onchange="toggleSearchField()">
+                                            <%-- <c:forEach items="${clubs}" var="c">
+                				<option value="${c.id}">${c.name}</option>
+                							             </c:forEach> --%>
+                                            <option value="searchClubs">클럽별
+                                                검색</option>
+                                            <option
+                                                value="searchSelection">채택별
+                                                검색</option>
+                                            <option value="searchTitle">제목
+                                                검색</option>
+                                            <option
+                                                value="searchContent">내용
+                                                검색</option>
+                                            <option
+                                                value="searchTitleContent">제목+내용
+                                                검색</option>
+                                            <option value="searchAuthor">작성자
+                                                검색</option>
+                                        </select>
+                                    </div>
+                                    <!-- 동적 요소를 포함할 컨테이너 -->
+                                    <div class="col-4">
+                                        <!-- 초기값으로 클럽 선택 콤보박스 표시 -->
+                                        <div id="clubSelectField">
+                                            <select class="form-control"
+                                                name="clubSelect"
+                                                id="clubSelect">
+                                                <c:forEach
+                                                    items="${clubs}"
+                                                    var="c">
+                                                    <option
+                                                        value="${c.id}">${c.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+
+                                        <!-- 초기값으로 입력 필드는 숨김 -->
+                                        <div id="textSearchSelectField"
+                                            style="display: none;">
+                                            <input type="text"
+                                                class="form-control"
+                                                name="textSearchSelect"
+                                                placeholder="검색어를 입력하세요">
+                                        </div>
+
+                                        <div id="searchSelectionField"
+                                            style="display: none;">
+                                            <select class="form-control"
+                                                name="selectSelection"
+                                                id="selectSelection">
+                                                <option
+                                                    value="selectFalse">미완료</option>
+                                                <option
+                                                    value="selectTrue">해결완료</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- 검색 버튼 영역 -->
+                                    <div class="col-auto">
+                                        <input type="submit"
+                                            class="form-control"
+                                            value="검색" id="searchButton" />
+                                    </div>
+                                </div>
+
                             </div>
 
                             <!-- 글 작성하기 버튼 -->
                             <c:if
                                 test="${signedInUserGrade eq 'G21' || signedInUserGrade eq 'G22' || signedInUserGrade eq 'G23' || signedInUserGrade eq 'G24' || signedInUserGrade eq 'G01' }">
-                                <div class="col-2">
+                                <div class="col-auto">
                                     <button type="button"
                                         class="form-control"
                                         id="btnCreateMainPost"
-                                        onclick="location.href='create'">작성하기</button>
+                                        onclick="location.href='create'">글쓰기 ⮟</button>
                                 </div>
                             </c:if>
                         </div>
                     </form>
                 </div>
-                <div class="card-body">
+                
+                <div class="card-body mb-1">
                     <!-- 메인 게시판 목록 영역 -->
-                    <table class="table table-striped table-hover">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th></th>
@@ -152,15 +167,15 @@
                             <c:forEach var="p" items="${post}">
                                 <tr>
                                     <td>${p.id}</td>
-                                    <td class="text-center">${p.clubType}</td>
-                                    <td><c:url
+                                    <td class="text-center" id="club">${p.clubType}</td>
+                                    <td id="post"><c:url
                                             var="mainPostDetailsPage"
                                             value="/mainPost/details">
                                             <c:param name="id"
                                                 value="${p.id}" />
                                         </c:url> <a
                                         href="${mainPostDetailsPage}">${p.title}</a></td>
-                                    <td id="author"> ${p.author}</td> 
+                                    <td id="author">${p.author}</td>
                                     <td class="text-center">${p.views}</td>
                                     <td class="text-center">${p.likes}</td>
                                     <td class="text-center">${p.createdTime}</td>
@@ -171,71 +186,77 @@
 
                     </table>
                     <!-- 페이징 UI 추가 -->
-				<nav aria-label="Page navigation">
-					<ul class="pagination justify-content-center">
-						<li class="page-item ${postPage.hasPrevious() ? '' : 'disabled'}">
-							<a class="page-link"
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li
+                                class="page-item ${postPage.hasPrevious() ? '' : 'disabled'}">
+                                <a class="page-link"
                                 href="?page=${postPage.currentPage - 1}&size=${postPage.size}"
                                 tabindex="-1">이전</a>
-						</li>
+                            </li>
 
-						<c:forEach begin="1" end="${postPage.totalPages}" var="i">
-							<li
+                            <c:forEach begin="1"
+                                end="${postPage.totalPages}" var="i">
+                                <li
                                     class="page-item ${i == postPage.currentPage ? 'active' : ''}">
-								<a class="page-link" href="?page=${i}&size=${postPage.size}">${i}</a>
-							</li>
-						</c:forEach>
+                                    <a class="page-link"
+                                    href="?page=${i}&size=${postPage.size}">${i}</a>
+                                </li>
+                            </c:forEach>
 
-						<li class="page-item ${postPage.hasNext() ? '' : 'disabled'}">
-							<a class="page-link"
+                            <li
+                                class="page-item ${postPage.hasNext() ? '' : 'disabled'}">
+                                <a class="page-link"
                                 href="?page=${postPage.currentPage + 1}&size=${postPage.size}">다음</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-	</div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
     </main>
-	<c:if test="${not empty userid}">
-		</div>
-		</div>
-		</div> 
-	</c:if>
+    <c:if test="${not empty userid}">
+        </div>
+        </div>
+        </div>
+    </c:if>
 
-	<script
+    <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
 
-	<c:url var="listJS" value="/js/list.js" />
-	<script src="${ listJS }"></script>
+    <c:url var="listJS" value="/js/list.js" />
+    <script src="${ listJS }"></script>
 
-	<script type="text/javascript">
-		searchButton
+    <script type="text/javascript">
+					searchButton
 
-		function toggleSearchField() {
-			var searchCategory = document.getElementById("searchCategory").value;
-			var clubSelectField = document.getElementById("clubSelectField");
-			var textSearchSelectField = document
-					.getElementById("textSearchSelectField");
-			var searchSelectionField = document
-					.getElementById("searchSelectionField");
+					function toggleSearchField() {
+						var searchCategory = document
+								.getElementById("searchCategory").value;
+						var clubSelectField = document
+								.getElementById("clubSelectField");
+						var textSearchSelectField = document
+								.getElementById("textSearchSelectField");
+						var searchSelectionField = document
+								.getElementById("searchSelectionField");
 
-			if (searchCategory === "searchClubs") {
-				clubSelectField.style.display = "block";
-				textSearchSelectField.style.display = "none";
-				searchSelectionField.style.display = "none";
-			} else if (searchCategory === "searchSelection") {
-				clubSelectField.style.display = "none";
-				textSearchSelectField.style.display = "none";
-				searchSelectionField.style.display = "block";
-			} else {
-				clubSelectField.style.display = "none";
-				textSearchSelectField.style.display = "block";
-				searchSelectionField.style.display = "none";
-			}
-		}
-	</script></
-                        body>
+						if (searchCategory === "searchClubs") {
+							clubSelectField.style.display = "block";
+							textSearchSelectField.style.display = "none";
+							searchSelectionField.style.display = "none";
+						} else if (searchCategory === "searchSelection") {
+							clubSelectField.style.display = "none";
+							textSearchSelectField.style.display = "none";
+							searchSelectionField.style.display = "block";
+						} else {
+							clubSelectField.style.display = "none";
+							textSearchSelectField.style.display = "block";
+							searchSelectionField.style.display = "none";
+						}
+					}
+				</script>
+    </ body>
 </html>

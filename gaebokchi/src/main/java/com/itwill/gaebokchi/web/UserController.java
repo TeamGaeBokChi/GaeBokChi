@@ -31,6 +31,7 @@ import com.itwill.gaebokchi.dto.UpdatePointDto;
 import com.itwill.gaebokchi.dto.UserSignInDto;
 import com.itwill.gaebokchi.dto.exchangeInfoDto;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,31 +47,40 @@ public class UserController {
 	private final UserService userService;
 
 	@GetMapping("/signin")
-	public String signIn() {
-		log.debug("GET signIn()");
-		return "/user/signin";
+	public String signInForm(HttpServletRequest request, @RequestParam(value = "redirectUrl", required = false) String redirectUrl) {
+	    if (redirectUrl == null) {
+	        redirectUrl = request.getHeader("Referer");
+	    }
+	    if (redirectUrl != null && !redirectUrl.contains("/signin")) {
+	        request.getSession().setAttribute("redirectUrl", redirectUrl);
+	    }
+	    return "user/signin";
 	}
-
 	@PostMapping("/signin")
-	public String signIn(UserSignInDto dto, Model model, HttpSession session) {
-		log.debug("POST signIn({})", dto);
+	public String signIn(UserSignInDto dto, Model model, HttpSession session, HttpServletRequest request) {
+	    log.debug("POST signIn({})", dto);
 
-		try {
-			User user = userService.read(dto);
-			if (user != null) {
-				session.setMaxInactiveInterval(SESSION_TIME);
-				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
-				session.setAttribute(SESSION_USER_GRADE, user.getGrade());
-				
-				return "redirect:/";
-			} else {
-				model.addAttribute("errorMessage", "일치하는 아이디와 비밀번호가 없습니다.");
-				return "user/signin";
-			}
-		} catch (Exception e) {
-			log.error("로그인 처리 중 오류 발생", e);
-			return "redirect:/signin";
-		}
+	    try {
+	        User user = userService.read(dto);
+	        if (user != null) {
+	            session.setMaxInactiveInterval(SESSION_TIME);
+	            session.setAttribute(SESSION_ATTR_USER, user.getUserid());
+	            session.setAttribute(SESSION_USER_GRADE, user.getGrade());
+
+	            String redirectUrl = (String) session.getAttribute("redirectUrl");
+	            if (redirectUrl != null) {
+	                session.removeAttribute("redirectUrl");
+	                return "redirect:" + redirectUrl;
+	            }
+	            return "redirect:/";
+	        } else {
+	            model.addAttribute("errorMessage", "일치하는 아이디와 비밀번호가 없습니다.");
+	            return "user/signin";
+	        }
+	    } catch (Exception e) {
+	        log.error("로그인 처리 중 오류 발생", e);
+	        return "redirect:/signin";
+	    }
 	}
 
 	@GetMapping("/signup") // GET 방식의 /user/signup 요청을 처리하는 컨트롤러 메서드
@@ -125,6 +135,32 @@ public class UserController {
 		log.debug("checkEmail(email={})", email);
 
 		boolean result = userService.checkEmail(email);
+		if (result) {
+			return ResponseEntity.ok("Y");
+		} else {
+			return ResponseEntity.ok("N");
+		}
+	}
+
+	@GetMapping("checkPhone")
+	@ResponseBody
+	public ResponseEntity<String> checkPhone(@RequestParam(name = "phone") String phone) {
+		log.debug("checkPhone(phone={})", phone);
+
+		boolean result = userService.checkPhone(phone);
+		if (result) {
+			return ResponseEntity.ok("Y");
+		} else {
+			return ResponseEntity.ok("N");
+		}
+	}
+
+	@GetMapping("checkAccept")
+	@ResponseBody
+	public ResponseEntity<String> checkAccept(@RequestParam(name = "accept") String accept) {
+		log.debug("checkAccept(accept={})", accept);
+
+		boolean result = userService.checkAccept(accept);
 		if (result) {
 			return ResponseEntity.ok("Y");
 		} else {

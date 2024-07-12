@@ -121,19 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					hideAllSelectButtons();
 				}
 
-				const focusCommentId = document.querySelector('input#commentId').value;
-
-				if (focusCommentId != null) { // null 및 undefined 모두 체크
-					let commentElement = document.getElementById(`comment-${focusCommentId}`);
-					console.log(commentElement);
-					if (commentElement) { // 요소가 실제로 존재하는지 확인
-						commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-					} else {
-						return;
-					}
-				} else {
-					console.error('focusCommentId is null or undefined.');
-				}
+				
 			})
 			.catch((error) => {
 				console.log(error);
@@ -158,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    <div class="comment-thumb">
 	                        <img id="image-${mainComment.id}" class="pofile-image" src="../user/file/image?file=${encodeURIComponent(mainComment.image)}" alt="Uploaded Image">
 	                    </div>
+<<<<<<< HEAD
 						<div class="comment-content">
 						    <strong>${mainComment.nickname}</strong>
 						    <div class="comment-text" id="comment-text-${mainComment.id}">
@@ -182,14 +171,58 @@ document.addEventListener('DOMContentLoaded', () => {
 						`<button class="btn btn-outline-danger deleteComment" data-id="${mainComment.id}">삭제</button>` :
 						''}
 					
+=======
+						
+	                    <div class="comment-content">
+	                        <strong>${mainComment.nickname}</strong>
+	                        <div class="comment-text">
+	                        	<p class="commentId d-none"></p>
+	                            <p><span>${mainComment.content}</span></p>
+	                        </div>
+							
+							<div class="edit-area" id="editMainConmment${mainComment.id}" style="display: none;">
+								<textarea class="form-control" id="edit-textarea-${mainComment.id}">${mainComment.content}</textarea>
+								<button class="btn btn-primary mt-2 save-edit" data-id="${mainComment.id}">저장</button>
+								<button class="btn btn-secondary mt-2 cancel-edit" data-id="${mainComment.id}">취소</button>
 							</div>
+							
+							<!-- 채택 및 댓글 수정,삭제 스크립트 --!>
+							<div class="button-container">
+								${signedInUser === postAuthor ? 
+								  `<button class="btn btn-outline-success selectComment" data-id="${mainComment.id}">채택</button>` : ''}
+								
+								${signedInUser === mainComment.author ?
+									`<button class="btn btn-outline-primary modifyComment" data-id="${mainComment.id}">수정</button>` : ''}
+								${signedInUser === mainComment.author ?
+									`<button class="btn btn-outline-danger deleteComment" data-id="${mainComment.id}">삭제</button>` : ''}
+>>>>>>> branch 'final' of https://github.com/TeamGaeBokChi/GaeBokChi.git
+							</div>
+<<<<<<< HEAD
+=======
+							
+>>>>>>> branch 'final' of https://github.com/TeamGaeBokChi/GaeBokChi.git
 	                    </div>
+						
 	                </div>
 	            `;
 			}
 		}
 		divComments.innerHTML = htmlString;
 
+		const focusCommentId = document.querySelector('input#commentId').value;
+
+		if (focusCommentId != null) { // null 및 undefined 모두 체크
+			let commentElement = document.getElementById(`comment-${focusCommentId}`);
+			console.log(commentElement);
+			if (commentElement) { // 요소가 실제로 존재하는지 확인
+				commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			} else {
+				return;
+			}
+		} else {
+			console.error('focusCommentId is null or undefined.');
+		}
+		
 		const selectComment = document.querySelectorAll('.selectComment');
 		for (let selectButton of selectComment) {
 			selectButton.addEventListener('click', selectComments);

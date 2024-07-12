@@ -2,6 +2,7 @@ package com.itwill.gaebokchi.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -173,6 +174,14 @@ public class CommPostService {
 
 	public User getLoggedInUser(String userId) {
 		return userDao.selectByUserid(userId);
+	}
+	
+	public Map<String, String> catrgoryname() {
+		List<Map<String, String>> category_name = commPostDao.categoryname();
+		log.debug("category_name={}", category_name);
+		Map<String, String> result = category_name.stream().collect(Collectors.toMap(category -> category.get("ID"), category -> category.get("NAME")));
+		log.debug("result={}", result);
+		return result;
 	}
 	
 

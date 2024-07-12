@@ -131,15 +131,12 @@ public class CommunityController {
 		model.addAttribute("top5ByF002", commPostService.getTop5ByF002());
 
 		// 카테고리 매핑 정보 추가하기
-		Map<String, String> categoryMap = new HashMap<>();
-		categoryMap.put("F001", "잡담");
-		categoryMap.put("F002", "팁/노하우");
-		categoryMap.put("F003", "라운드 후기");
-
+		Map<String, String> category_name = commPostService.catrgoryname();
 		Map<String, String> userNicknames = userService.getUserNicknames();
-
+		
+		model.addAttribute("category_name", category_name);
 		model.addAttribute("userNicknames", userNicknames);
-		model.addAttribute("categoryMap", categoryMap);
+		model.addAttribute("category_name", category_name);
 		model.addAttribute("selectedCategory", category);
 		model.addAttribute("selectedSearchCategory", searchCategory);
 		model.addAttribute("keyword", keyword);
@@ -190,10 +187,10 @@ public class CommunityController {
 		int commentcount = commPostService.selectCommentCount(id);
 
 		Map<String, String> userNicknames = userService.getUserNicknames();
+		Map<String, String> category_name = commPostService.catrgoryname();
 
 		model.addAttribute("userNicknames", userNicknames);
-
-		// 모델에 속성 추가
+		model.addAttribute("category_name", category_name);
 		model.addAttribute("post", post); // 불러온 게시물 속성 추가
 		model.addAttribute("previousPost", previousPost); // 이전 글
 		model.addAttribute("nextPost", nextPost); // 다음 글
