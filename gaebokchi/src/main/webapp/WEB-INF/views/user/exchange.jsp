@@ -74,7 +74,7 @@
                     <div class="col-md-6">
 
                         <h5 class="display-4">
-                            <c:out value="${userPoint}" default="0" />
+                            <c:out value="${userPoint - userWithdraw}" default="0" />
                         </h5>
                     </div>
                     <div class="col-md-6">

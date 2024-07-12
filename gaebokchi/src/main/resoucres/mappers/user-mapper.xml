@@ -86,7 +86,7 @@
         userid = #{userid} and email = #{email} and phone = #{phone}
     </update>
     <update id="UpdatePoint">
-        update users set withdraw = #{withdraw} where
+        update users set withdraw = withdraw + #{withdraw} where
         userid = #{userid} and password = #{password}
     </update>
 
