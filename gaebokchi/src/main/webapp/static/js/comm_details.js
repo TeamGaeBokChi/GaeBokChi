@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				})
 				.catch(error => {
 					console.error('Error:', error);
-					alert('추천은 한 게시물에 한 번만 가능합니다!');
+					alert('이미 추천한 게시물입니다!');
 				});
 		});
 	}

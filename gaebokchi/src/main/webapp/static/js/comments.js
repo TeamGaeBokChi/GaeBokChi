@@ -143,16 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (response.data.some(comment => comment.selection === 1)) {
 					hideAllSelectButtons();
 
-					const btnFoot = document.querySelector('#btnFoot');
-					btnFoot.classList.add('d-none');
-
-					const finishContent = document.querySelector('#finishContent');
-					finishContent.classList.remove('d-none');
-
-					console.log('텍스트 감추기');
-					const askContent = document.querySelector('#askContent');
-					askContent.classList.add('d-none');
-
 				}
 
 
