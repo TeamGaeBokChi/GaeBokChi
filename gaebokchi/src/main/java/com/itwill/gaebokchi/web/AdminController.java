@@ -114,4 +114,10 @@ public class AdminController {
 		return "redirect:/admin/adminMembers";
 	}
 
+	@PostMapping("/deletePost")
+	public String deletePost(@RequestParam(name = "id") int id) {
+		myPostService.delete(id);
+		return "redirect:/admin/adminPosts";
+	}
+
 }

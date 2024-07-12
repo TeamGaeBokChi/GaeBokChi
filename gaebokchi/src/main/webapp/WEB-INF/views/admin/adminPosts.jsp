@@ -134,45 +134,55 @@ tr:hover {
 									</c:url>
 									<a href="${mainPostDetailsPage}" class="custom-link">${p.title}</a>
 								</c:when>
-									<c:when test="${p.category eq 'P003'}">
-										<c:url var="joinPostDetailsPage" value="/join/join_details">
-											<c:param name="id" value="${p.id}" />
-										</c:url>
-										<a href="${joinPostDetailsPage}" class="custom-link">${p.title}</a>
-									</c:when>
-									<c:when test="${p.category eq 'P004'}">
-										<c:url var="reviewPostDetailsPage"
-											value="/review/review_details">
-											<c:param name="id" value="${p.id}"></c:param>
-										</c:url>
-										<a href="${reviewPostDetailsPage}" class="custom-link">${p.title}</a>
-									</c:when>
-									<c:otherwise>
-										<c:url var="commPostDetailsPage"
-											value="/community/comm_details">
-											<c:param name="id" value="${p.id}"></c:param>
-										</c:url>
-										<a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
-									</c:otherwise>
+								<c:when test="${p.category eq 'P003'}">
+									<c:url var="joinPostDetailsPage" value="/join/join_details">
+										<c:param name="id" value="${p.id}" />
+									</c:url>
+									<a href="${joinPostDetailsPage}" class="custom-link">${p.title}</a>
+								</c:when>
+								<c:when test="${p.category eq 'P004'}">
+									<c:url var="reviewPostDetailsPage"
+										value="/review/review_details">
+										<c:param name="id" value="${p.id}"></c:param>
+									</c:url>
+									<a href="${reviewPostDetailsPage}" class="custom-link">${p.title}</a>
+								</c:when>
+								<c:otherwise>
+									<c:url var="commPostDetailsPage"
+										value="/community/comm_details">
+										<c:param name="id" value="${p.id}"></c:param>
+									</c:url>
+									<a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
+								</c:otherwise>
 							</c:choose></td>
 						<td>${p.author}</td>
 						<td>${userNicknames[p.author]}</td>
 						<td>${p.modifiedTime}</td>
 						<td>${p.category}</td>
+						<td>
+							<button class="btn btn-delete" onclick="deletePost(${p.id})">삭제</button>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
 	<script>
-		function editPost(id) {
-			alert(id + "번 게시글을 수정합니다.");
-			// 여기에 수정 페이지로 이동하는 로직 추가
-		}
 		function deletePost(id) {
 			if (confirm(id + "번 게시글을 정말 삭제하시겠습니까?")) {
-				alert(id + "번 게시글이 삭제되었습니다.");
-				// 여기에 실제 삭제 처리 로직 추가
+				// AJAX 요청으로 게시글 삭제 요청 보내기
+				const xhr = new XMLHttpRequest();
+				xhr.open("POST", "deletePost", true);  // 'deletePost'는 서버의 삭제 엔드포인트 URL
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.onload = function() {
+					if (xhr.status === 200) {
+						alert(id + "번 게시글이 삭제되었습니다.");
+						location.reload();  // 페이지 새로고침
+					} else {
+						alert("게시글 삭제에 실패했습니다. 다시 시도해 주세요.");
+					}
+				};
+				xhr.send("id=" + id);  // POST 요청으로 게시글 ID 전달
 			}
 		}
 	</script>

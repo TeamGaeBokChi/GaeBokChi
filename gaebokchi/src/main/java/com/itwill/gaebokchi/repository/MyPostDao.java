@@ -15,5 +15,7 @@ public interface MyPostDao {
 	int selectTotalPostCount(String author);
 	
 	List<MyPost> selectAll();
+	
+	int deletePost(Integer id);
 
 }

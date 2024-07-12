@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -50,16 +51,77 @@
                     <div class="col-md-6">
 
                         <h5 class="display-4">
-                            <c:out value="${userAccount}" default="0" />
+                            <c:choose>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'KWANGJU'}">
+                                    <c:out value="광주: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'BNK'}">
+                                    <c:out value="경남: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'KB'}">
+                                    <c:out value="국민: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'IBK'}">
+                                    <c:out value="기업: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'NH'}">
+                                    <c:out value="농협: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'DGB'}">
+                                    <c:out value="대구: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'BUSAN'}">
+                                    <c:out value="부산: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'KDB'}">
+                                    <c:out value="산업: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'MG'}">
+                                    <c:out value="새마을금고: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'SH'}">
+                                    <c:out value="수협: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'SOL'}">
+                                    <c:out value="신한: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'ShinHyup'}">
+                                    <c:out value="신협: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'WOORI'}">
+                                    <c:out value="우리: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'PO'}">
+                                    <c:out value="우체국: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'JB'}">
+                                    <c:out value="전북: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'kakao'}">
+                                    <c:out value="카카오뱅크: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'Toss'}">
+                                    <c:out value="토스: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'KEB'}">
+                                    <c:out value="하나: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:when test="${fn:split(userAccount, '/')[0] == 'SC'}">
+                                    <c:out value="SC제일: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:out value="unknown bank: ${fn:split(userAccount, '/')[1]}"/>
+                                </c:otherwise>
+                            </c:choose>
                         </h5>
                     </div>
                     <div class="col-md-6 text-end">
-                        <button class="exchangebtn" >
-                            <c:url var="loginInfo" value="/user/privacy?userid=${signedInUser}" />
-                            <a href="${loginInfo}" class="text-black">
+                    <c:url var="changeUserAccount" value="/user/privacy?userid=${signedInUser}&account=change" />
+                        <a href="${changeUserAccount}" class="text-black">
+                            <button class="exchangebtn" >
                                 <i class="fas fa-exchange-alt me-2" id="btn2"></i>계좌 변경
-                            </a>
-                        </button>
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>

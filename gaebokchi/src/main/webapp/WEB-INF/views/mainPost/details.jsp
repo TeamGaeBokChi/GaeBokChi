@@ -149,8 +149,7 @@
 
 						</div>
 						<!-- 하단 수정하기, 삭제 버튼 영역 -->
-
-						<c:if test="${signedInUser eq post.author}">
+						<c:if test="${signedInUser eq post.author or signedInUser eq 'admin'}">
 							<div class="mt-2 d-flex justify-content-end" id="sunman">
 								<!-- 수정 -->
 								<div>

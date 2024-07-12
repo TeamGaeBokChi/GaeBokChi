@@ -147,8 +147,8 @@ body {
 			</div>
 			<div class="card-body">
 				<div class="post-info d-flex justify-content-between mb-3">
-					<span><i class="bi bi-person"></i>${userNicknames[post.author]}</span> <span><i
-						class="bi bi-eye"></i> ${post.views}</span> <span><i
+					<span><i class="bi bi-person"></i>${userNicknames[post.author]}</span>
+					<span><i class="bi bi-eye"></i> ${post.views}</span> <span><i
 						class="bi bi-hand-thumbs-up"></i> <span id="likesCount">${post.likes}</span></span>
 					<span><i class="bi bi-chat-dots"></i> ${commentcount}</span>
 				</div>
@@ -172,7 +172,8 @@ body {
 							</c:when>
 							<c:otherwise>
 								<!-- 로그인한 사용자가 없을 때의 처리 -->
-								<button id="btnLikes-notloggedIn" class="btn btn-like btn-lg btn-custom">
+								<button id="btnLikes-notloggedIn"
+									class="btn btn-like btn-lg btn-custom">
 									<i class="bi bi-heart-fill"></i>
 								</button>
 							</c:otherwise>
@@ -183,7 +184,7 @@ body {
 					<c:url var="postModifyPage" value="/community/comm_modify">
 						<c:param name="id" value="${post.id}" />
 					</c:url>
-					<c:if test="${post.author eq loggedInUser.userid}">
+					<c:if test="${post.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
 						<form action="${postModifyPage}" method="get"
 							style="display: inline;">
 							<input type="hidden" name="id" value="${post.id}" />
@@ -242,7 +243,8 @@ body {
 							<div>
 								<small class="text-muted">${comment.modifiedTime}</small> <input
 									type="hidden" name="commentId" value="${comment.id}">
-								<c:if test="${comment.author eq loggedInUser.userid}">
+								<c:if
+									test="${post.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
 									<button id="btnUpdateComment"
 										class="btn btn-success btn-register-comment" type="submit">수정</button>
 									<input type="hidden" name="commentId" value="${comment.id}">
