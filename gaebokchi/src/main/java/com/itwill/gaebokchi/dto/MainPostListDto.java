@@ -29,11 +29,7 @@ public class MainPostListDto {
 	
 	public static MainPostListDto fromEntity(Post post) {
 		return MainPostListDto.builder().id(post.getId()).clubType(post.getClubType()).title(post.getTitle()).author(post.getAuthor()).selection(post.getSelection())
-<<<<<<< HEAD
 				.views(post.getViews()).likes(post.getLikes()).createdTime(Timestamp.valueOf(post.getCreatedTime())).build();
-=======
-				.views(post.getViews()).likes(post.getLikes()).createdTime(post.getCreatedTime()).category(post.getCategory()).modifiedTime(post.getModifiedTime()).build();
->>>>>>> branch 'final' of https://github.com/TeamGaeBokChi/GaeBokChi.git
 				
 	}
 	
