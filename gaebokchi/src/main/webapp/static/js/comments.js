@@ -16,39 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 
-	const postId = document.querySelector('#postId').value;
-
-	document.addEventListener('DOMContentLoaded', () => {
-		const postId = document.querySelector('#postId').value;
-
-		const btnDeleteMainPost = document.querySelector('button.btnDeleteMainPost');
-		btnDeleteMainPost.addEventListener('click', () => {
-			const result = confirm('게시물을 삭제하시겠습니까?');
-			if (result) {
-				location.href = `delete?id=${postId}`;
-			}
-		})
-
-		/* 게시글 수정 스크립트 */
-		const btnModifyid = document.querySelector('button.btnModifyid');
-		btnModifyid.addEventListener('click', () => {
-			const result = confirm('게시물을 수정 하시겠습니까?');
-			if (result) {
-				location.href = `modify?id=${postId}`;
-			}
-		})
-
-	});
-
-
-
-
-
 
 
 
 	const btnLikes = document.querySelector('button#likes');
 	btnLikes.addEventListener('click', () => {
+		console.log('Like button clicked');
 		const postId = document.querySelector('input#postId').value;
 		const uri = `../mainPost/likes/${postId}`;
 
@@ -60,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			})
 			.catch((error) => console.log(error));
 	});
+
+
 
 
 	function getAllLikes() {
@@ -108,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (response.data === 1) {
 					alert('피드백 작성완료, 채택을 기다려주세요.');
 					document.querySelector('textarea#content').value = '';
-					document.querySelector('input#author').value = '';
 					//전체 댓글 갱신 함수넣기   
 					getAllMainComments();
 				}
@@ -142,10 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 				if (response.data.some(comment => comment.selection === 1)) {
 					hideAllSelectButtons();
-
 				}
-
-
 			})
 			.catch((error) => {
 				console.log(error);
@@ -326,11 +297,19 @@ document.addEventListener('DOMContentLoaded', () => {
 			btnRegisterComment.style.display = 'none';
 		}
 
+		const finishContent = document.querySelector('#finishContent');
+		if (finishContent) {
+			finishContent.style.backgroundColor = '#e9e9e9';
+			finishContent.value = '채택이 완료 된 레슨입니다.';
+			finishContent.style.fontSize = '18px';
+			finishContent.readOnly = true;
+			finishContent.style.textAlign = 'center';
+			finishContent.style.paddingTop = '51px';
+		}
+
 		const modifyButton = document.querySelectorAll('.modifyComment');
 		const selectButton = document.querySelectorAll('.selectComment');
 		const deleteButton = document.querySelectorAll('.deleteComment');
-
-
 
 		selectButton.forEach(button => {
 			button.style.display = 'none';
@@ -341,8 +320,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		modifyButton.forEach(button => {
 			button.style.display = 'none';
 		});
-
-
+		
+		const btnFoot = document.querySelector('#btnFoot');
+		btnFoot.classList.add('d-none');
 
 	}
 
