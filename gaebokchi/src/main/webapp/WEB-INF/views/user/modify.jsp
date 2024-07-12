@@ -53,17 +53,6 @@
                                     readonly />
                             </div>
                             <div class="mt-2">
-                                <label class="form-label" for="nickname">닉네임</label>
-                                <div class="flex">
-                                    <input class="form-control"
-                                        id="nickname" type="text"
-                                        name="nickname"
-                                        value="${user.nickname}" />
-                                    <button id="btnConfirm"
-                                        class="btn disabled">중복확인</button>
-                                </div>
-                            </div>
-                            <div class="mt-2">
                                 <label class="form-label" for="birth">생년월일</label>
                                 <c:set var="number" value="${user.birth}" />
                                 <input class="form-control" type="text"
@@ -138,67 +127,69 @@
                                     id="detailAddress" name="detailAddress"
                                     value="${fn:split(user.address, '/')[2]}" />
                             </div>
-                            <div class="mt-2">
-                                <label class="form-label" for="license">라이센스</label>
-                                <input class="form-control" id="license" type="text"
-                                    name="license" value="${user.license}" />
-                            </div>
-                            <div class="mt-2">
-                                <label class="form-label" for="account">어카운트</label>
-                                <div class="flex">
-                                    <select class="form-select" name="bank"
-                                        size="1" style="width: 20%">
-                                        <option value="">선택</option>
-                                        <option value="KWANGJU"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'KWANGJU'}">selected</c:if>>광주</option>
-                                        <option value="BNK"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'BNK'}">selected</c:if>>경남</option>
-                                        <option value="KB"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'KB'}">selected</c:if>>국민</option>
-                                        <option value="IBK"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'IBK'}">selected</c:if>>기업</option>
-                                        <option value="NH"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'NH'}">selected</c:if>>농협</option>
-                                        <option value="DGB"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'DGB'}">selected</c:if>>대구</option>
-                                        <option value="BUSAN"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'BUSAN'}">selected</c:if>>부산</option>
-                                        <option value="KDB"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'KDB'}">selected</c:if>>산업</option>
-                                        <option value="MG"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'MG'}">selected</c:if>>새마을금고</option>
-                                        <option value="SH"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'SH'}">selected</c:if>>수협</option>
-                                        <option value="SOL"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'SOL'}">selected</c:if>>신한</option>
-                                        <option value="ShinHyup"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'ShinHyup'}">selected</c:if>>신협</option>
-                                        <option value="WOORI"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'WOORI'}">selected</c:if>>우리</option>
-                                        <option value="PO"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'PO'}">selected</c:if>>우체국</option>
-                                        <option value="JB"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'JB'}">selected</c:if>>전북</option>
-                                        <option value="kakao"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'kakao'}">selected</c:if>>카카오뱅크</option>
-                                        <option value="Toss"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'Toss'}">selected</c:if>>토스</option>
-                                        <option value="KEB"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'KEB'}">selected</c:if>>하나</option>
-                                        <option value="SC"
-                                            <c:if test="${fn:split(user.account, '/')[0] == 'SC'}">selected</c:if>>SC제일</option>
-                                    </select>
-                                    <input class="form-control" type="text"
-                                        id="account" name="bank_account"
-                                        value="${fn:split(user.account, '/')[1]}" />
+                            <c:if test="${signedInUserGrade eq 'G10'}">
+                                <div class="mt-2">
+                                    <label class="form-label" for="license">라이센스</label>
+                                    <input class="form-control" id="license" type="text"
+                                        name="license" value="${user.license}" />
                                 </div>
-                            </div>
-                            <div class="mt-2">
-                                <label class="form-label" for="point">포인트</label>
-                                <input class="form-control" id="point" name="point"
-                                    type="text" value="${user.point}"
-                                    readonly />
-                            </div>
+                                <div class="mt-2">
+                                    <label class="form-label" for="account">어카운트</label>
+                                    <div class="flex">
+                                        <select class="form-select" name="bank"
+                                            size="1" style="width: 20%">
+                                            <option value="">선택</option>
+                                            <option value="KWANGJU"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'KWANGJU'}">selected</c:if>>광주</option>
+                                            <option value="BNK"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'BNK'}">selected</c:if>>경남</option>
+                                            <option value="KB"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'KB'}">selected</c:if>>국민</option>
+                                            <option value="IBK"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'IBK'}">selected</c:if>>기업</option>
+                                            <option value="NH"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'NH'}">selected</c:if>>농협</option>
+                                            <option value="DGB"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'DGB'}">selected</c:if>>대구</option>
+                                            <option value="BUSAN"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'BUSAN'}">selected</c:if>>부산</option>
+                                            <option value="KDB"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'KDB'}">selected</c:if>>산업</option>
+                                            <option value="MG"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'MG'}">selected</c:if>>새마을금고</option>
+                                            <option value="SH"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'SH'}">selected</c:if>>수협</option>
+                                            <option value="SOL"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'SOL'}">selected</c:if>>신한</option>
+                                            <option value="ShinHyup"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'ShinHyup'}">selected</c:if>>신협</option>
+                                            <option value="WOORI"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'WOORI'}">selected</c:if>>우리</option>
+                                            <option value="PO"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'PO'}">selected</c:if>>우체국</option>
+                                            <option value="JB"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'JB'}">selected</c:if>>전북</option>
+                                            <option value="kakao"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'kakao'}">selected</c:if>>카카오뱅크</option>
+                                            <option value="Toss"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'Toss'}">selected</c:if>>토스</option>
+                                            <option value="KEB"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'KEB'}">selected</c:if>>하나</option>
+                                            <option value="SC"
+                                                <c:if test="${fn:split(user.account, '/')[0] == 'SC'}">selected</c:if>>SC제일</option>
+                                        </select>
+                                        <input class="form-control" type="text"
+                                            id="account" name="bank_account"
+                                            value="${fn:split(user.account, '/')[1]}" />
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form-label" for="point">포인트</label>
+                                    <input class="form-control" id="point" name="point"
+                                        type="text" value="${user.point}"
+                                        readonly />
+                                </div>
+                            </c:if>
                             <div class="mt-2">
                                 <label class="form-label" for="grade">등급</label>
                                 <input class="form-control" id="grade" name="grade"

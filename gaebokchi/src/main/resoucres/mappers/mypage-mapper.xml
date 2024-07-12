@@ -36,7 +36,6 @@
     <update id="update">
         update users
         set password = #{password}
-        , nickname = #{nickname}
         , phone = #{phone}
         , address = #{address}
         , account = #{account}

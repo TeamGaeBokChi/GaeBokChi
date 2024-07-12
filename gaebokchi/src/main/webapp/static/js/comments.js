@@ -177,6 +177,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		divComments.innerHTML = htmlString;
 
+		const focusCommentId = document.querySelector('input#commentId').value;
+
+		if (focusCommentId) {
+			const commentElement = document.getElementById(`comment-${focusCommentId}`);
+			if (commentElement) {
+				commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			} else {
+				console.warn(`Element with id 'comment-${focusCommentId}' not found.`);
+			}
+		} else {
+			console.error('focusCommentId is null or undefined.');
+		}
+		
 		/* 생선되는 모든 버튼에 이벤트 리스너를 추가하는 영역 */
 
 		const selectComment = document.querySelectorAll('.selectComment');

@@ -43,7 +43,7 @@
 						</div>
 						<div class="profile_management">
 							<c:url var="profile_management"
-								value="/user/profile?userid=${signedInUser}" />
+								value="/user/profile" />
 							<a href="${profile_management}" class="btn_management btn active"
 								role="button" aria-pressed="true">프로필 관리</a>
 						</div>
@@ -69,7 +69,7 @@
                         <c:if test="${signedInUserGrade eq 'G10'}">
     						<div class="shortcuts_icon">
     							<c:url var="exchangePoints"
-    								value="/user/exchange?userid=${signedInUser}" />
+    								value="/user/exchange" />
     							<a class="icon" href="${exchangePoints}"> <svg
     									xmlns="http://www.w3.org/2000/svg" width="35" height="35"
     									fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">

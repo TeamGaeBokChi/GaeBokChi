@@ -9,7 +9,6 @@ public class UserUpdateDto {
 	private String userid;
 	private String password;
 	private String changePassword;
-	private String nickname;
 	private String carrier;
 	private String number;
 	private String phone;
@@ -33,7 +32,6 @@ public class UserUpdateDto {
 					.builder()
 					.userid(userid)
 					.password(changePassword)
-					.nickname(nickname)
 					.phone(phone)
 					.address(address)
 					.license(license)
@@ -45,10 +43,10 @@ public class UserUpdateDto {
 				.builder()
 				.userid(userid)
 				.password(password)
-				.nickname(nickname)
 				.phone(phone)
 				.address(address)
+				.license(license)
+				.account(account)
 				.build();
-
 	}
 }

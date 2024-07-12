@@ -150,7 +150,8 @@ public class CommunityController {
 
 	@GetMapping("/comm_details")
 	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,
-			@RequestParam("id") Integer id, Model model, HttpSession session) {
+			@RequestParam("id") Integer id, @RequestParam(name = "commentId", required = false) Integer commentId,
+			Model model, HttpSession session) {
 		if (loggedInUser != null) {
 			log.debug("user={}", loggedInUser);
 			model.addAttribute("user", loggedInUser);
