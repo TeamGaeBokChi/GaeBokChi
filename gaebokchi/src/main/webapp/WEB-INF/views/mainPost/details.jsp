@@ -44,7 +44,8 @@
                     </div>
                     <div class="sub">
                         <div class="date-container">
-                            <p>${post.createdTime}</p>
+                            <p>작성시간 ${post.formattedCreatedTime}</p>
+                        	<p>수정시간 ${post.formattedModifiedTime}</p>
                         </div>
 
                         <div class="views-likes-container">

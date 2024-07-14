@@ -24,6 +24,7 @@
         <typeAlias type="com.itwill.gaebokchi.repository.Normal" alias="Normal" />
         <typeAlias type="com.itwill.gaebokchi.repository.Pro" alias="Pro" />
         <typeAlias type="com.itwill.gaebokchi.repository.Point" alias="Point" />
+        <typeAlias type="com.itwill.gaebokchi.repository.Home" alias="Home" />
     </typeAliases>
 
 </configuration>

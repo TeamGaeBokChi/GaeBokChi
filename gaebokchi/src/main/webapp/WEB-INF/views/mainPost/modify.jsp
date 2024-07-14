@@ -88,10 +88,10 @@
 								value="${post.media}" />
 						</c:if>
 
-						<div class="form-group mt-2">
+						<div class="form-group mt-2 d-none">
 							<label for="media">영상 업로드 (선택):</label> <input id="media"
 								type="file" accept="video/*" class="form-control-file"
-								name="media" />
+								name="media"  />
 
 							<!-- 기존 영상이 있는 경우 안내 메시지 표시 -->
 							<c:if test="${empty post.media}">

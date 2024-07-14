@@ -44,18 +44,18 @@
 		parameterType="com.itwill.gaebokchi.dto.MainPostUpdateDto">
 		UPDATE posts
 		<set>
-			<if test="title != null"> title = #{title}, </if>
-			<if test="title != null"> club_type = #{clubType}, </if>
-			<if test="content != null"> content = #{content}, </if>
-			<if test="modifiedTime != null"> modified_Time = #{modifiedTime}, </if>
-			<if test="mediaPath != null"> media = #{mediaPath}, </if>
+			<if test="title != null and title != ''"> title = #{title}, </if>
+			<if test="clubType != null and clubType != ''"> club_type = #{clubType}, </if>
+			<if test="content != null and content != ''"> content = #{content}, </if>
+			modified_Time = systimestamp,
 			<if test="height != null"> height = #{height}, </if>
 			<if test="career != null"> career = #{career}, </if>
 			<if test="handy != null"> handy = #{handy}, </if>
-			<if test="ironDistance != null"> ironDistance = #{ironDistance}, </if>
-			<if test="driverDistance != null"> driverDistance = #{driverDistance} </if>
+			<if test="ironDistance != null"> irondistance = #{ironDistance}, </if>
+			<if test="driverDistance != null"> driverdistance = #{driverDistance}, </if>
+			<if test="mediaPath != null and mediaPath != ''"> media = #{mediaPath} </if>
 		</set>
-		WHERE ID = #{id}
+		WHERE id = #{id}
 	</update>
 
 
@@ -146,6 +146,7 @@
 		a.views,
 		a.likes,
 		a.created_time,
+		a.modified_time,
 		a.content,
 		a.media,
 		a.height,
@@ -166,7 +167,8 @@
 		END AS selection
 		FROM posts
 		a JOIN clubs b
-		ON a.club_type = b.id
+		ON a.club_type =
+		b.id
 		JOIN users c
 		ON a.author = c.userid
 		WHERE a.id =
@@ -385,17 +387,19 @@
 		ORDER BY id DESC
 		) A
 		WHERE ROWNUM
-		&lt;= #{endRow}
+		&lt;=
+		#{endRow}
 		)
 		WHERE rnum &gt; #{startRow}
 	</select>
 
 	<select id="getTotalCount" resultType="int">
 		SELECT COUNT(*)
-		FROM posts where category = 'P001'
+		FROM posts
+		where category = 'P001'
 	</select>
-	
-	
+
+
 
 
 
