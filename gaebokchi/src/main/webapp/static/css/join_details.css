@@ -7,6 +7,7 @@ body {
 	font-family: Arial, sans-serif;
 }
 
+
 .card {
 	margin-top: 100px;
 	width: 750px;
@@ -25,21 +26,62 @@ body {
 	color: black;
 }
 
+.tag{
+	border: 1px solid green;
+border-radius: 15px;
+	margin-bottom: 0px;
+}
+
+.tag a{
+	text-decoration: none;
+	font-size: 15px;
+}
+
+#author {
+	padding: 10px;
+}
+
+#author h7 {
+	color: darkgray;
+}
+
+#author p {
+	font-family: 'Pretendard-Regular', Pretendard-Regular;
+	font-size: 25px;
+	font-weight: 700;
+}
+
 .details-header .btn-link {
 	color: white; /* 버튼의 글씨 색깔을 흰색으로 변경 */
 }
 
-.details-content {
+div.card-body {
+	background: #cbcbcb;
+	margin-bottom: 20px;
+}
+div.card-body .details {
 	background-color: #ffffff;
 	padding: 20px;
-	border-bottom: 1px solid #dee2e6;
-	border-bottom-left-radius: 12px;
-	border-bottom-right-radius: 12px;
+	
+	border-radius: 10px;
+	
 }
 
-.details-footer {
+.details-item {
 	padding: 10px;
-	border-top: 1px solid #dee2e6;
+}
+
+.details-item h5 {
+	font-weight: bold;
+	margin-bottom: 7px;
+}
+
+.details-item p {
+	padding: 5px;
+	background: #e4e8e4;
+	border-radius: 10px;
+	padding-left: 15px;
+	background: #e4e8e4;
 }
 
 .icon {
@@ -60,10 +102,4 @@ body {
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
-}
-
-.details-item {
-	margin-bottom: 0.5rem; /* 줄 간격을 좁히기 위해 조정 */
-	padding-bottom: 0.5rem; /* 줄 간격을 좁히기 위해 조정 */
-	border-bottom: 1px solid #dee2e6;
 }
