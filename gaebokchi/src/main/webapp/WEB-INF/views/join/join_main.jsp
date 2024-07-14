@@ -102,12 +102,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>티오프</th>
-                    <th>골프장</th>
-                    <th>주소</th>
-                    <th>홀수</th>
-                    <th>그린피</th>
-                    <th>등록자</th>
+                    <th class="col-1">티오프</th>
+                    <th class="col-1">골프장</th>
+                    <th class="col-3">주소</th>
+                    <th class="col-1">홀수</th>
+                    <th class="col-1">그린피</th>
+                    <th class="col-1">등록자</th>
                 </tr>
             </thead>
             <tbody>

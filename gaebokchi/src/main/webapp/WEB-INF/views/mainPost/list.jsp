@@ -124,14 +124,14 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th></th>
-								<th>클럽종류</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>조회</th>
-								<th>좋아요</th>
-								<th>작성일</th>
-								<th>채택</th>
+								<th class="col-1"></th>
+								<th class="col-1">클럽종류</th>
+								<th class="col-4">제목</th>
+								<th class="col-1">작성자</th>
+								<th class="col-1">조회</th>
+								<th class="col-1">좋아요</th>
+								<th class="col-1">작성일</th>
+								<th class="col-1">채택</th>
 							</tr>
 						</thead>
 						<!-- 메인 게시판 목록 생성 영역 -->
