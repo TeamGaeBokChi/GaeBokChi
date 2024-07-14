@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwill.gaebokchi.dto.JoinPostListDto;
 import com.itwill.gaebokchi.dto.MainPostCreateDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.MainPostSearchDto;
@@ -57,21 +58,28 @@ public class MainPostController {
 	}
 
 	@GetMapping("/list")
-	public void mainPostList(@RequestParam(name = "userid", required = false) String userid, Model model) {
-		log.debug("list()");
+	public void mainPostList(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+	                         @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize, 
+	                         Model model) {
+	    log.debug("list()");
+	    int pageBlockSize = 10;
 
-		if (userid == null) {
-			List<MainPostListDto> list = mainPostService.readAll();
-			List<Clubs> clubs = mainPostService.clubTypes();
-			model.addAttribute("post", list);
-			model.addAttribute("clubs", clubs);
-		} else {
-			List<MainPostListDto> list = mainPostService.readAllByUserid(userid);
-			List<Clubs> clubs = mainPostService.clubTypes();
-			model.addAttribute("post", list);
-			model.addAttribute("clubs", clubs);
-			model.addAttribute("userid", userid);
-		}
+	    List<MainPostListDto> posts = mainPostService.getPagedPosts(page, pageSize);
+	    int totalPosts = mainPostService.getTotalPostCount();
+
+	    int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
+	    int startPage = ((page - 1) / pageBlockSize) * pageBlockSize + 1;
+	    int endPage = Math.min(startPage + pageBlockSize - 1, totalPages);
+
+	    List<Clubs> clubs = mainPostService.clubTypes();
+
+	    model.addAttribute("post", posts);
+	    model.addAttribute("clubs", clubs);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("startPage", startPage);
+	    model.addAttribute("endPage", endPage);
+	    model.addAttribute("pageSize", pageSize);
 	}
 
 	@GetMapping("/details")

@@ -50,7 +50,7 @@
                             <div class="col-12 mt-2 mb-4">
                                 <input id="title" class="form-control"
                                     type="text" name="title"
-                                    placeholder="제목을 입력하세요." />
+                                    placeholder="제목을 입력하세요." required/>
                             </div>
                             <div class="col-2">
                                 <input id="author"

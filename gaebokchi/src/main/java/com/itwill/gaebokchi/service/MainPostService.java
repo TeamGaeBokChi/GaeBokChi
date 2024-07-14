@@ -3,10 +3,12 @@ package com.itwill.gaebokchi.service;
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itwill.gaebokchi.dto.JoinPostListDto;
 import com.itwill.gaebokchi.dto.MainPostCreateDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.MainPostPageDto;
@@ -154,7 +156,7 @@ public class MainPostService {
 		List<Post> list = postDao.selectReadAllByUserid(userid);
 		return list.stream().map(MainPostListDto::fromEntity).toList();
 	}
-	
+
 	public Post selectPostId(Integer id) {
 		log.debug("selectId()id={}", id);
 		Post post = postDao.selectByPostId(id);
@@ -182,33 +184,28 @@ public class MainPostService {
 	public int getPostLikes(Integer postId) {
 		return postDao.selectLikes(postId);
 	}
-	
+
 	public List<MainPostListDto> searchRead(MainPostSearchDto dto) {
 		log.debug("search({})", dto);
 		List<Post> list = postDao.search(dto);
 		return list.stream().map(MainPostListDto::fromEntity).toList();
 	}
-	
+
 	public List<MainPostListDto> searchReadByUserid(MyPostSearchDto dto) {
 		log.debug("search({})", dto);
 		List<Post> list = postDao.searchMyPost(dto);
 		return list.stream().map(MainPostListDto::fromEntity).toList();
 	}
 
-	// 페이징에 사용 될 메서드
-	public MainPostPageDto getPostPage(int page, int size) {
-		int offset = (page - 1) * size;
-		List<Post> posts = postDao.getPostList(size, offset);
-		int totalPosts = postDao.getTotalCount();
-
-		MainPostPageDto pageDto = new MainPostPageDto();
-		pageDto.setContent(posts.stream().map(MainPostListDto::fromEntity).toList());
-		pageDto.setCurrentPage(page);
-		pageDto.setSize(size);
-		pageDto.setTotalElements(totalPosts);
-		pageDto.setTotalPages((int) Math.ceil((double) totalPosts / size));
-
-		return pageDto;
+	public List<MainPostListDto> getPagedPosts(int page, int pageSize) {
+		int startRow = (page - 1) * pageSize;
+		int endRow = page * pageSize;
+		return postDao.getPostList(startRow, endRow).stream().map(MainPostListDto::fromEntity)
+				.collect(Collectors.toList());
 	}
-	
+
+	public int getTotalPostCount() {
+		return postDao.getTotalCount();
+	}
+
 }

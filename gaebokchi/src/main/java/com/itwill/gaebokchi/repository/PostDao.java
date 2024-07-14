@@ -2,6 +2,9 @@ package com.itwill.gaebokchi.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.MainPostSearchDto;
 import com.itwill.gaebokchi.dto.MyPostSearchDto;
 
@@ -18,6 +21,8 @@ public interface PostDao {
 	int selectLikes(Integer id);
 	List<Post> search(MainPostSearchDto dto);
 	List<Post> searchMyPost(MyPostSearchDto dto);
-	List<Post> getPostList(int limit, int offset);
-    int getTotalCount();
+    
+	List<Post> getPostList(@Param("startRow") int startRow, @Param("endRow") int endRow);
+
+	int getTotalCount();
 }

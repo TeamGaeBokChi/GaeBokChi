@@ -39,23 +39,24 @@
 		)
 	</insert>
 
-    <!-- 수정 쿼리 -->
-    <update id="updateMainPost" parameterType="com.itwill.gaebokchi.dto.MainPostUpdateDto">
-        UPDATE posts
-        <set>
-            <if test="title != null"> title = #{title}, </if>
-            <if test="title != null"> club_type = #{clubType}, </if>
-            <if test="content != null"> content = #{content}, </if>
-            <if test="modifiedTime != null"> modified_Time = #{modifiedTime}, </if>
-            <if test="mediaPath != null"> media = #{mediaPath}, </if>
-            <if test="height != null"> height = #{height}, </if>
-            <if test="career != null"> career = #{career}, </if>
-            <if test="handy != null"> handy = #{handy}, </if>
-            <if test="ironDistance != null"> ironDistance = #{ironDistance}, </if>
-            <if test="driverDistance != null"> driverDistance = #{driverDistance} </if>
-        </set>
-        WHERE ID = #{id}
-    </update>
+	<!-- 수정 쿼리 -->
+	<update id="updateMainPost"
+		parameterType="com.itwill.gaebokchi.dto.MainPostUpdateDto">
+		UPDATE posts
+		<set>
+			<if test="title != null"> title = #{title}, </if>
+			<if test="title != null"> club_type = #{clubType}, </if>
+			<if test="content != null"> content = #{content}, </if>
+			<if test="modifiedTime != null"> modified_Time = #{modifiedTime}, </if>
+			<if test="mediaPath != null"> media = #{mediaPath}, </if>
+			<if test="height != null"> height = #{height}, </if>
+			<if test="career != null"> career = #{career}, </if>
+			<if test="handy != null"> handy = #{handy}, </if>
+			<if test="ironDistance != null"> ironDistance = #{ironDistance}, </if>
+			<if test="driverDistance != null"> driverDistance = #{driverDistance} </if>
+		</set>
+		WHERE ID = #{id}
+	</update>
 
 
 
@@ -366,21 +367,38 @@
 		ORDER BY a.id DESC
 	</select>
 
-	<!-- Paging을 위한 매퍼 쿼리문 -->
-	<select id="getPostList" resultType="Post">
+
+
+
+
+	<select id="getPostList"
+		resultType="com.itwill.gaebokchi.repository.Post">
 		SELECT * FROM (
-		SELECT a.*,
-		ROWNUM rnum FROM (
-		SELECT * FROM posts WHERE category IN('P001')
-		ORDER
-		BY id DESC
-		) a WHERE ROWNUM &lt;= #{limit} + #{offset}
-		) WHERE rnum &gt;
-		#{offset}
+		SELECT
+		A.*,
+		ROWNUM AS rnum
+		FROM (
+		SELECT *
+		FROM
+		posts
+		WHERE category IN('P001')
+		ORDER BY id DESC
+		) A
+		WHERE ROWNUM
+		&lt;= #{endRow}
+		)
+		WHERE rnum &gt; #{startRow}
 	</select>
 
 	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM posts
+		SELECT COUNT(*)
+		FROM posts where category = 'P001'
 	</select>
+	
+	
+
+
+
+
 
 </mapper>
