@@ -22,10 +22,16 @@
 		<div class="row justify-content-center">
 			<div class="col-md-8">
 				<div class="card border-0">
+
+					<h2>
+						<a href="/gaebokchi/join/join_main">JOIN</a>
+					</h2>
+					<h7>마음 맞는 사람과 함께 골프를 쳐보세요.</h7>
+
 					<div
 						class="card-header d-flex justify-content-between align-items-center mb-1"
 						id="card-header">
-						<h2>조인 예약하기</h2>
+						<h3>조인 모집 정보</h3>
 						<div class="tag">
 							<c:url var="previousPostUrl" value="/join/join_details">
 								<c:param name="id"
@@ -78,7 +84,7 @@
 					</div>
 					<c:if
 						test="${post.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
-						<div class="d-flex justify-content-end mt-2">
+						<div class="d-flex justify-content-end mt-2 mb-3">
 							<c:url var="joinModifyPage" value="/join/join_modify">
 								<c:param name="id" value="${post.id}" />
 							</c:url>

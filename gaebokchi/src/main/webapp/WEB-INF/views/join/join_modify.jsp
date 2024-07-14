@@ -6,117 +6,47 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>조인 변경</title>
+<title>수정하기｜GOLFRO</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous" />
-<style>
-body {
-	background-color: #ffffff;
-	font-family: 'Noto Sans KR', sans-serif;
-}
 
-.container {
-	max-width: 1000px;
-	margin: 0 auto;
-	margin-top: 100px;
-}
+<link rel="stylesheet" href="../css/join_modify.css" />
 
-.card {
-	border-radius: 15px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	background-color: #ffffff;
-}
-
-.card-header {
-	background-color: #2A7E50;
-	color: white;
-	border-top-left-radius: 15px;
-	border-top-right-radius: 15px;
-}
-
-.card-title {
-	margin-bottom: 0;
-}
-
-.post-info {
-	font-size: 0.9rem;
-	color: #6c757d;
-}
-
-.post-content {
-	background-color: #f8f9fa;
-	border-radius: 15px;
-	padding: 20px;
-	margin-bottom: 20px;
-}
-
-.btn-like {
-	background-color: #ff6b6b;
-	border: none;
-	transition: all 0.3s ease;
-}
-
-.btn-like:hover {
-	background-color: #ff4757;
-	transform: scale(1.05);
-}
-
-.comment-form {
-	margin-bottom: 20px;
-}
-
-.comment-list {
-	max-height: 300px;
-	overflow-y: auto;
-}
-
-.comment {
-	border-bottom: 1px solid #dee2e6;
-	padding: 10px 0;
-}
-
-.comment:last-child {
-	border-bottom: none;
-}
-
-.btn-custom {
-	height: 50px;
-	padding: 10px 20px;
-}
-
-.position-relative {
-	position: relative;
-}
-
-.center-btn {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-}
-</style>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 </head>
+
+
+
 <body>
+
+	<header>
+		<%@ include file="../fragments/header.jspf"%>
+	</header>
+	
 	<main class="container">
-		<header>
-			<%@ include file="../fragments/header.jspf"%>
-		</header>
-		<div class="mt-2 card">
-			<div class="card-header">
-				<h2>조인 수정하기</h2>
+
+		<div class="card border-0">
+			<div class="card-header border-0 form-control">
+				<h2>모임 글 수정</h2>
 			</div>
-			<div class="card-body">
+			
+			
+			<div class="card-body form-control border-0">
 				<form id="modifyForm">
 					<!-- action과 method 추가 -->
 					<input type="hidden" name="id" value="${post.id}" />
+					
+					
 					<div class="mt-2">
+					<span>골프장</span>
 						<input class="form-control" type="text" name="title"
 							placeholder="골프장 입력" value="${post.title}" required autofocus />
 					</div>
 					<div class="mt-2">
+					 <span>주소</span>
 						<div class="input-group">
 							<input id="address" class="form-control" type="text"
 								name="gcadress" placeholder="주소 입력" value="${post.gcadress}"
@@ -130,28 +60,36 @@ body {
 						</div>
 					</div>
 					<div class="mt-2">
+					<span>날짜</span>
 						<input class="form-control" type="datetime-local" name="teeoff"
 							placeholder="티오프" value="${post.teeoff}" required />
 					</div>
 					<div class="mt-2">
+					<span>그린 피</span>
 						<input class="form-control" type="number" name="greenfee"
 							placeholder="그린 피 입력" value="${post.greenfee}" required />
 					</div>
 					<div class="mt-2">
+					<span>홀수</span>
 						<input class="form-control" type="number" name="hole"
 							placeholder="홀수 입력" value="${post.hole}" required />
 					</div>
 					<div class="mt-2">
+					<span>작성자 아이디</span>
 						<input class="form-control" type="text" name="author"
 							placeholder="작성자" value="${post.author}" readonly />
 					</div>
 					<div class="mt-2">
+					 <span>상세 설명</span>
 						<textarea class="form-control" rows="5" name="content"
 							placeholder="내용 및 연락처 , 인원수 등 입력" required>${post.content}</textarea>
 					</div>
+					
+					
+					<!-- 하단 버튼 영 -->
 					<div class="d-grid gap-2">
 						<button id="btnUpdate" class="btn btn-outline-success"
-							type="button">업데이트</button>
+							type="button">수정완료</button>
 					</div>
 				</form>
 			</div>
