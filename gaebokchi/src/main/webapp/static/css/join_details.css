@@ -7,7 +7,6 @@ body {
 	font-family: Arial, sans-serif;
 }
 
-
 .card {
 	margin-top: 100px;
 	width: 750px;
@@ -26,13 +25,13 @@ body {
 	color: black;
 }
 
-.tag{
+.tag {
 	border: 1px solid green;
-border-radius: 15px;
+	border-radius: 15px;
 	margin-bottom: 0px;
 }
 
-.tag a{
+.tag a {
 	text-decoration: none;
 	font-size: 15px;
 }
@@ -59,12 +58,11 @@ div.card-body {
 	background: #cbcbcb;
 	margin-bottom: 20px;
 }
+
 div.card-body .details {
 	background-color: #ffffff;
 	padding: 20px;
-	
 	border-radius: 10px;
-	
 }
 
 .details-item {
