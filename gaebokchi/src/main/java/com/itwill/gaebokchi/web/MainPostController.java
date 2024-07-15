@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwill.gaebokchi.dto.MainPostCreateDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
@@ -101,18 +102,39 @@ public class MainPostController {
 	    return "/mainPost/list";
 	}
 
-	@GetMapping("/details")
-	public void mainPostDetails(@RequestParam(name = "id") Integer id, @RequestParam(name = "commentId", required = false) Integer commentId, Model model, HttpSession session) {
-		log.debug("mainPostDetails(id={})", id);
-		
-//		Object sessionUser = session.getAttribute(SESSION_ATTR_USER);
-//		String sunman = sessionUser.toString();
-		
-		Post post = mainPostService.selectPostId(id);
-		log.debug("{}", post);
-		model.addAttribute("commentId", commentId);
-		model.addAttribute("post", post);
-	}
+	   @GetMapping("/details")
+	   public String mainPostDetails(@RequestParam(name = "id") Integer id, 
+	                                 @RequestParam(name = "commentId", required = false) Integer commentId, 
+	                                 Model model, 
+	                                 HttpSession session,
+	                                 RedirectAttributes redirectAttributes) {
+	       log.debug("mainPostDetails(id={})", id);
+
+	       // 세션에서 사용자 정보 확인
+	       Object sessionUser = session.getAttribute(SESSION_ATTR_USER);
+
+	       // 로그인하지 않은 사용자인 경우
+	       if (sessionUser == null) {
+	           // 경고 메시지 설정
+	           redirectAttributes.addFlashAttribute("warningMessage", "로그인한 사용자만 볼 수 있습니다.");
+	           // 홈페이지로 리다이렉트
+	           return "redirect:/user/signin";
+	       }
+
+	       // 로그인한 사용자인 경우, 기존 로직 수행
+	       Post post = mainPostService.selectPostId(id);
+	       log.debug("{}", post);
+	       model.addAttribute("commentId", commentId);
+	       model.addAttribute("post", post);
+	       
+	       // 뷰 이름 반환
+	       return "details"; // 또는 적절한 뷰 이름
+	   }
+	
+	
+	
+	
+	
 
 	@GetMapping("/modify")
 	public void mainPostModify(@RequestParam(name = "id") Integer id, Model model) {
