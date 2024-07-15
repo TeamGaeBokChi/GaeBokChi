@@ -77,7 +77,7 @@
                                     onclick="location.href='/gaebokchi/user/signin';">
                                     공감</button>
                             </c:otherwise>
-                        </c:choose>
+                        </c:choose> 
                     </div>
                 </c:if>
             </div>
