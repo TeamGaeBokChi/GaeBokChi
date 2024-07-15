@@ -203,7 +203,7 @@
                                         <c:when test='${user.grade == "G21"}'>일반회원</c:when>
                                         <c:when test='${user.grade == "G22"}'>우수회원</c:when>
                                         <c:when test='${user.grade == "G23"}'>최우수 회원</c:when>
-                                        <c:otherwise>알 수 없음</c:otherwise>
+                                        <c:otherwise>특별 회원</c:otherwise>
                                     </c:choose>"
                                 readonly /> 
                             </div>

@@ -194,9 +194,16 @@
                             </c:if>
                             <div class="mt-2">
                                 <label class="form-label" for="grade">등급</label>
-                                <input class="form-control" id="grade" name="grade"
-                                    type="text" value="${user.grade}"
-                                    readonly />
+                                <input class="form-control" id="grade" name="grade" type="text" 
+                                    value="<c:choose>
+                                        <c:when test='${user.grade == "G00"}'>관리자</c:when>
+                                        <c:when test='${user.grade == "G10"}'>프로</c:when>
+                                        <c:when test='${user.grade == "G21"}'>일반회원</c:when>
+                                        <c:when test='${user.grade == "G22"}'>우수회원</c:when>
+                                        <c:when test='${user.grade == "G23"}'>최우수 회원</c:when>
+                                        <c:otherwise>특별 회원</c:otherwise>
+                                    </c:choose>"
+                                readonly />
                             </div>
                         </form>
                     </div>
