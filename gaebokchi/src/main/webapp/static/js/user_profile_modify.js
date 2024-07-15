@@ -45,11 +45,58 @@ document.addEventListener('DOMContentLoaded', () => {
 		}).open();
 	}
 	
+	const passwordStrength = document.getElementById('passwordStrength');
+	let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+	
+	function checkPasswordStrength(password) {
+		let strength = 0;
+	 	if (password.match(/[a-z]+/)) strength += 1;
+	  	if (password.match(/[A-Z]+/)) strength += 1;
+	   	if (password.match(/[0-9]+/)) strength += 1;
+	 	if (password.match(/[@$!%*#?&]+/)) strength += 1;
+
+		return strength;
+	}
+
+	function getStrengthText(strength) {
+		switch (strength) {
+	  		case 0: return "매우 약함";
+	    	case 1: return "약함";
+	    	case 2: return "보통";
+	       	case 3: return "강함";
+	    	case 4: return "매우 강함";
+	 	}
+	}
+
+	function getStrengthColor(strength) {
+		switch (strength) {
+	    	case 0: return "red";
+	   		case 1: return "orange";
+	      	case 2: return "blue";
+	      	case 3: return "lightgreen";
+	      	case 4: return "green";
+	  	}
+	}
+	
 	function checkPassword(event) {
 		if (event.target.value === '' || changePassword.value === password.value) { // inputPassword.value
 			passwordChecked = false;
 		} else {
-			passwordChecked = true;
+			if (this.value.length > 0) {
+				const strength = checkPasswordStrength(this.value);
+			  	const strengthText = getStrengthText(strength);
+				const strengthColor = getStrengthColor(strength);
+
+				passwordStrength.textContent = `비밀번호 안정성: ${strengthText}`;
+			 	passwordStrength.style.color = strengthColor;
+			  	if (reg.test(this.value)) {
+			 		passwordStrength.textContent += ' (유효한 비밀번호)';
+					passwordChecked = true;
+			 	} else {
+			    	passwordStrength.textContent += ' (유효하지 않은 비밀번호)';
+					passwordChecked = false;
+				}
+			}
 		}
 	}
 

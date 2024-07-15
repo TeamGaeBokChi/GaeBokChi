@@ -59,7 +59,7 @@ public class MainPostController {
 
 	@GetMapping("/list")
 	public void mainPostList(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
-	                         @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize, 
+	                         @RequestParam(name = "size", required = false, defaultValue = "2") int pageSize, 
 	                         Model model) {
 	    log.debug("list()");
 	    int pageBlockSize = 10;

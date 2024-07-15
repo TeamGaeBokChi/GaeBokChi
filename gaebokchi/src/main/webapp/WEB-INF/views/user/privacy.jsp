@@ -64,20 +64,18 @@
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="gender">성별</label>
-                                <c:choose>
-                                    <c:when test="${user.gender eq 0}">
-                                        <input class="form-control"
-                                            type="text" id="gender"
-                                            name="gender" value="male"
-                                            readonly />
-                                    </c:when>
-                                    <c:otherwise>
-                                        <input class="form-control"
-                                            type="text" id="gender"
-                                            name="gender" value="female"
-                                            readonly />
-                                    </c:otherwise>
-                                </c:choose>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="1" 
+                                            <c:if test="${user.gender eq 1}">checked</c:if>>
+                                        <label class="form-check-label" for="maleRadio">남자</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="femaleRadio" value="2" 
+                                            <c:if test="${user.gender eq 2}">checked</c:if>>
+                                        <label class="form-check-label" for="femaleRadio">여자</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="phone">휴대폰 번호</label>
@@ -198,9 +196,16 @@
                             </c:if>
                             <div class="mt-2">
                                 <label class="form-label" for="grade">등급</label>
-                                <input class="form-control" id="grade"
-                                    name="grade" type="text"
-                                    value="${user.grade}" readonly />
+                                <input class="form-control" id="grade" name="grade" type="text" 
+                                    value="<c:choose>
+                                        <c:when test='${user.grade == "G00"}'>관리자</c:when>
+                                        <c:when test='${user.grade == "G10"}'>프로</c:when>
+                                        <c:when test='${user.grade == "G21"}'>일반회원</c:when>
+                                        <c:when test='${user.grade == "G22"}'>우수회원</c:when>
+                                        <c:when test='${user.grade == "G23"}'>최우수 회원</c:when>
+                                        <c:otherwise>알 수 없음</c:otherwise>
+                                    </c:choose>"
+                                readonly /> 
                             </div>
                         </form>
                     </div>
