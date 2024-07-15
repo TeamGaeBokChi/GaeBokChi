@@ -51,5 +51,8 @@ public class MyPostService {
 		log.debug("delete(id={})", id);
 		return commPostDao.deletePost(id);
 	}
+	
+	
+	
 
 }

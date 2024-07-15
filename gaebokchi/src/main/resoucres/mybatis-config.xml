@@ -19,10 +19,12 @@
         <typeAlias type="com.itwill.gaebokchi.repository.Post" alias="Post" />
         <typeAlias type="com.itwill.gaebokchi.repository.Clubs" alias="Clubs" />
         <typeAlias type="com.itwill.gaebokchi.repository.MainComment" alias="MainComment" />
+        <typeAlias type="com.itwill.gaebokchi.repository.MyComment" alias="MyComment" />
         <typeAlias type="com.itwill.gaebokchi.repository.UserMypage" alias="UserMypage" />
         <typeAlias type="com.itwill.gaebokchi.repository.Normal" alias="Normal" />
         <typeAlias type="com.itwill.gaebokchi.repository.Pro" alias="Pro" />
         <typeAlias type="com.itwill.gaebokchi.repository.Point" alias="Point" />
+        <typeAlias type="com.itwill.gaebokchi.repository.Home" alias="Home" />
     </typeAliases>
 
 </configuration>

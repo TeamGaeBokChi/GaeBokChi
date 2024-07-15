@@ -1,0 +1,122 @@
+@charset "UTF-8";
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: Arial, sans-serif;
+}
+
+.card {
+	margin-top: 100px;
+	width: 750px;
+	padding: 20px;
+}
+
+.card h2 {
+	font-family: 'Freesentation-9Black';
+	color: black;
+	text-align: center;
+}
+
+.card h2 a {
+	color: black;
+	text-decoration: none;
+}
+
+.card h3 {
+	font-family: 'Freesentation-9Black';
+	color: black;
+}
+
+.card h7 {
+	font-family: 'SUIT-Regular', SUIT-Regular;
+	color: #808080;
+	text-align: center; /* 가운데 정렬 */
+	margin-bottom: 50px;
+}
+
+#card-header {
+	background-color: white !important; /* 배경색을 투명으로 설정 */
+	padding: 10px;
+	border-bottom: 2px solid #000000;
+	color: black;
+}
+
+.tag {
+	border: 1px solid green;
+	border-radius: 15px;
+	margin-bottom: 0px;
+}
+
+.tag a {
+	text-decoration: none;
+	font-size: 15px;
+	color: gray;
+}
+
+#author {
+	padding: 10px;
+}
+
+#author h7 {
+	color: darkgray;
+}
+
+#author p {
+	font-family: 'Pretendard-Regular', Pretendard-Regular;
+	font-size: 23px;
+	font-weight: 700;
+}
+
+.details-header .btn-link {
+	color: white; /* 버튼의 글씨 색깔을 흰색으로 변경 */
+}
+
+div.card-body {
+	background: #cbcbcb;
+	margin-bottom: 20px;
+}
+
+div.card-body .details {
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.details-item {
+	padding: 10px;
+}
+
+.details-item h5 {
+	font-weight: bold;
+	margin-bottom: 7px;
+}
+
+.details-item p {
+	padding: 5px;
+	background: #eff3f0;
+	border-radius: 10px;
+	padding-left: 15px;
+	background: #e4e8e4;
+}
+
+.icon {
+	font-size: 1.2rem;
+	color: #888;
+}
+
+.btn-custom {
+	height: 50px;
+	padding: 10px 20px;
+}
+
+.position-relative {
+	position: relative;
+}
+
+.center-btn {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}

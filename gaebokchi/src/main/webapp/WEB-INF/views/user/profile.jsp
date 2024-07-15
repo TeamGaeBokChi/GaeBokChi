@@ -27,6 +27,7 @@
                 <h3 class="bold_title">프로필 관리</h3>
                 <div class="bottom_line">
                     <div class="info_card">
+                        <input type="hidden" id="grade" value="${user.grade}" />
                         <div class="user_image m-4">
                             <input type="hidden" id="imagePath" value="${user.image}" />
                             <img id="image" src="" alt="Uploaded Image">
@@ -52,7 +53,6 @@
                         </div>
                         <div>
                             <h5 id="titleNickname" class="user_data m-0">${user.nickname}</h5>
-                            <input type="hidden" id="userid" value="${user.userid}" />
                             <div>
                                 <label id="fileUpload" class="mt-2 btn active" for="input_file">이미지 변경</label>
                                 <a class="mt-2 btn active" id="fileRemove">삭제</a>
@@ -98,6 +98,9 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <c:url var="profile_management_introduce_js" value="/js/profile_management_introduce.js" />
+                    <script src="${profile_management_introduce_js}"></script>
                 </c:if>
             </div>
         </div>

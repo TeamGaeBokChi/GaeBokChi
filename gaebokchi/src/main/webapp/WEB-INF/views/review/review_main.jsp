@@ -89,11 +89,11 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                                <th>조회</th>
-                                <th>추천</th>
+                                <th class="col-4">제목</th>
+                                <th class="col-1">작성자</th>
+                                <th class="col-1">작성일</th>
+                                <th class="col-1">조회</th>
+                                <th class="col-1">추천</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -126,7 +126,7 @@
                                         class="custom-link">${p.title}</a>
                                     </td>
                                     <td>${userNicknames[p.author]}</td>
-                                    <td>${p.modifiedTime}</td>
+                                    <td>${p.modifiedTime} </td>
                                     <td class="text-center">${p.views}</td>
                                     <td class="text-center">${p.likes}</td>
                                 </tr>

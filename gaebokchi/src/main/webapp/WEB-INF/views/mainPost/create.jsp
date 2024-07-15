@@ -50,7 +50,7 @@
                             <div class="col-12 mt-2 mb-4">
                                 <input id="title" class="form-control"
                                     type="text" name="title"
-                                    placeholder="제목을 입력하세요." />
+                                    placeholder="제목을 입력하세요." required/>
                             </div>
                             <div class="col-2">
                                 <input id="author"
@@ -103,7 +103,7 @@
                         <div>
                             <textarea class="mt-2 mb-4 form-control"
                                 name=content rows="15"
-                                placeholder="동영상에 대한 설명과 코칭 받고 싶은 부분을 상세히 적어주세요."
+                                placeholder="멘토 피드백 이후 영상 교체로 인한 혼선이 생기는 부분을 방지하기 위하여 게시글 작성 후 동영상 수정은 불가능하오니 해당 부분 참고하여 동영상을 업로드 해주시길 바라며 멘토 피드백 채택 이후에는 게시글의 전체적인 수정 및 삭제는 불가능합니다."
                                 required></textarea>
                         </div>
 
