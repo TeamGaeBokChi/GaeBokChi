@@ -109,7 +109,7 @@
                                         class="custom-link">${p.title}</a>
                                     </td>
                                     <td>${userNicknames[p.author]}</td>
-                                    <td>${p.modifiedTime}</td>
+                                    <td>${p.formattedCreatedTime}</td>
                                     <td class="text-center">${p.views}</td>
                                     <td class="text-center">${p.likes}</td>
                                 </tr>
@@ -126,7 +126,7 @@
                                         class="custom-link">${p.title}</a>
                                     </td>
                                     <td>${userNicknames[p.author]}</td>
-                                    <td>${p.modifiedTime} </td>
+                                    <td>${p.formattedCreatedTime} </td>
                                     <td class="text-center">${p.views}</td>
                                     <td class="text-center">${p.likes}</td>
                                 </tr>
