@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let useridChecked = false;
     let nicknameChecked = false;
 
+
     const emailPrefix = document.getElementById('emailPrefix');
     const emailSeparator = document.getElementById('emailSeparator');
     const emailDiv = document.getElementById('emailDiv');
@@ -24,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const acceptDiv = document.getElementById('acceptDiv');
 
     addressDetail.addEventListener('blur', checkAddress)
-    
+
     function checkAddress() {
         if (postCode.value === '' || addressMain.value === '') {
             submitButton.disabled = true;
@@ -144,15 +145,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     idbutton.addEventListener('click', () => {
         const userid = document.querySelector('input#userid').value;
+
+        // 유효성 검사를 수행합니다.
+        const regex = /^[a-zA-Z0-9]{1,15}$/;
+        if (!regex.test(userid)) {
+            alert('아이디는 15자 이하의 영문 대소문자와 숫자로만 입력 가능합니다.');
+            return;
+        }
+
         const iduri = `./checkUserid?userid=${userid}`;
         axios
             .get(iduri)
             .then((response) => {
                 if (response.data === 'Y') {
-                    alert('사용 가능한 아이디 입니다.')
+                    alert('사용 가능한 아이디 입니다.');
                     useridChecked = true;
                 } else {
-                    alert('사용 불가능한 아이디 입니다.')
+                    alert('사용 불가능한 아이디 입니다.');
                     useridChecked = false;
                 }
                 updateSubmitButton();
@@ -163,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateSubmitButton();
             });
     });
+
 
     nicknamebutton.addEventListener('click', () => {
         const nickname = document.querySelector('input#nickname').value;
