@@ -118,8 +118,7 @@ public class JoinController {
 	}
 
 	@GetMapping({ "/join_details", "/join_modify" })
-	public void detailsjoinPost(@RequestParam("id") Integer id, @ModelAttribute("loggedInUser") User loggedInUser,
-			@RequestParam(name = "commentId", required = false) Integer commentId, Model model) {
+	public void detailsjoinPost(@RequestParam("id") Integer id, @ModelAttribute("loggedInUser") User loggedInUser, Model model) {
 
 		if (loggedInUser != null) {
 			log.debug("user={}", loggedInUser);

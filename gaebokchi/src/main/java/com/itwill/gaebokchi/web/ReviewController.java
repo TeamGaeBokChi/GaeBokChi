@@ -188,7 +188,8 @@ public class ReviewController {
 		model.addAttribute("nextPost", nextPost); // 다음 글
 		model.addAttribute("commentlist", commentlist); // 댓글 목록 추가하기
 		model.addAttribute("commentcount", commentcount);
-
+		model.addAttribute("commentId", commentId);
+		
 		return "review/review_details";
 	}
 

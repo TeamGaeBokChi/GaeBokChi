@@ -44,7 +44,9 @@
                                     type="text" name="password"
                                     value="${user.password}" readonly />
                                 <input class="form-control mt-1" id="changePassword"
-                                    type="password" name="changePassword" />
+                                    type="password" name="changePassword"
+                                    placeholder="8~15자의 숫자, 특수문자, 영문자 조합" />
+                                <div id="passwordStrength"></div>
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="name">이름</label>
@@ -62,18 +64,18 @@
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="gender">성별</label>
-                                <c:choose>
-                                    <c:when test="${user.gender eq 0}">
-                                        <input class="form-control"
-                                            type="text" id="gender" name="gender"
-                                            value="male" readonly />
-                                    </c:when>
-                                    <c:otherwise>
-                                        <input class="form-control"
-                                            type="text" id="gender" name="gender"
-                                            value="female" readonly />
-                                    </c:otherwise>
-                                </c:choose>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="1" 
+                                            <c:if test="${user.gender eq 1}">checked</c:if>>
+                                        <label class="form-check-label" for="maleRadio">남자</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="femaleRadio" value="2" 
+                                            <c:if test="${user.gender eq 2}">checked</c:if>>
+                                        <label class="form-check-label" for="femaleRadio">여자</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="mt-2">
                                 <label class="form-label" for="phone">휴대폰 번호</label>

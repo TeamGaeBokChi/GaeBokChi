@@ -43,7 +43,7 @@ public class MainPostListDto {
             // 한국 시간대로 변환
             ZonedDateTime seoulDateTime = utcDateTime.withZoneSameInstant(ZoneId.of("Asia/Seoul"));
             // 포맷 정의
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 HH시mm분");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             // 포맷 적용
             return seoulDateTime.format(formatter);
         } else {

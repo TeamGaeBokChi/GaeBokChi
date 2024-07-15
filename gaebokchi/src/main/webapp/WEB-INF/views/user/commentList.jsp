@@ -52,8 +52,7 @@
                                         <c:when test="${c.category eq 'P003'}">
                                             <c:url var="joinPostDetailsPage" value="/join/join_details">
                                                 <c:param name="id" value="${c.postId}"></c:param>
-                                                <c:param name="commentId" value="${c.id}"></c:param>
-                                            </c:url> <a href="${joinPostDetailsPage}">${c.content}</a>
+                                                </c:url> <a href="${joinPostDetailsPage}">${c.content}</a>
                                         </c:when>
                                         <c:when test="${c.category eq 'P004'}">
                                             <c:url var="reviewPostDetailsPage" value="/review/review_details">
