@@ -39,32 +39,24 @@
             <div class="card">
                 <a href="adminMembers">
                     <h2>회원 통계</h2>
-                    <p>전체 회원 수: 1,234</p>
-                    <p>신규 회원 (이번 달): 56</p>
                     <span class="card-link">회원 관리로 이동</span>
                 </a>
             </div>
             <div class="card">
                 <a href="adminExchange">
                     <h2>환전 요청</h2>
-                    <p>대기 중인 요청: 23</p>
-                    <p>오늘 처리된 요청: 15</p>
                     <span class="card-link">환전 관리로 이동</span>
                 </a>
             </div>
             <div class="card">
                 <a href="adminPosts">
                     <h2>게시글 현황</h2>
-                    <p>전체 게시글: 789</p>
-                    <p>오늘의 새 게시글: 12</p>
                     <span class="card-link">게시글 관리로 이동</span>
                 </a>
             </div>
             <div class="card">
                 <a href="adminSignup">
                     <h2>가입 승인 대기</h2>
-                    <p>승인 대기 중: 7</p>
-                    <p>오늘 승인된 회원: 3</p>
                     <span class="card-link">가입 승인으로 이동</span>
                 </a>
             </div>

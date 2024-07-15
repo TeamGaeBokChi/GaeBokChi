@@ -8,28 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	getAllMainComments(); // 댓글 리스트업
 	getAllLikes(); // 좋아요 수
 
-	const focusCommentId = document.querySelector('input#commentId').value;
-
-	if (focusCommentId) {
-		const commentElement = document.getElementById(`comment-${focusCommentId}`);
-		if (commentElement) {
-			commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-		} else {
-			console.warn(`Element with id 'comment-${focusCommentId}' not found.`);
-		}
-	} else {
-		console.error('focusCommentId is null or undefined.');
-	}
-	
 	// 댓글 작성 스크립트
 	const btnRegisterComment = document.querySelector('#btnRegisterComment');
 	if (btnRegisterComment) {
 		btnRegisterComment.addEventListener('click', registerComment);
 	}
-
-
-
-
 
 	const btnLikes = document.querySelector('button#likes');
 	btnLikes.addEventListener('click', () => {
@@ -205,6 +188,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		divComments.innerHTML = htmlString;
 
+		const focusCommentId = document.querySelector('input#commentId').value;
+
+		if (focusCommentId) {
+			const commentElement = document.getElementById(`comment-${focusCommentId}`);
+			if (commentElement) {
+				commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			} else {
+				console.warn(`Element with id 'comment-${focusCommentId}' not found.`);
+			}
+		} else {
+			console.error('focusCommentId is null or undefined.');
+		}
+		
 		/* 생선되는 모든 버튼에 이벤트 리스너를 추가하는 영역 */
 
 		const selectComment = document.querySelectorAll('.selectComment');

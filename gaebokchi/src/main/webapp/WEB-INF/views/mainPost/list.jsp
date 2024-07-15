@@ -115,19 +115,18 @@
 											id="searchButton" />
 									</div>
 								</div>
+                                
+                				<!-- 글 작성하기 버튼 -->
+                				<c:if
+                					test="${signedInUserGrade eq 'G21' || signedInUserGrade eq 'G22' || signedInUserGrade eq 'G23' || signedInUserGrade eq 'G24' || signedInUserGrade eq 'G01' }">
+                					<div class="col-auto">
+                						<button type="button" class="form-control" id="btnCreateMainPost" onclick="location.href='create'">글쓰기 ⮟</button>
+                					</div>
+                				</c:if>
 							</div>
 						</div>
 					</form>
 				</div>
-
-				<!-- 글 작성하기 버튼 -->
-				<c:if
-					test="${signedInUserGrade eq 'G21' || signedInUserGrade eq 'G22' || signedInUserGrade eq 'G23' || signedInUserGrade eq 'G24' || signedInUserGrade eq 'G01' }">
-					<div class="col-auto">
-						<button type="button" class="form-control" id="btnCreateMainPost"
-							onclick="location.href='create'">글쓰기 ⮟</button>
-					</div>
-				</c:if>
 
 				<div class="card-body mb-1">
 					<!-- 메인 게시판 목록 영역 -->
