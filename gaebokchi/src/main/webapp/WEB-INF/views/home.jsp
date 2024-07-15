@@ -39,67 +39,83 @@
     <section class="image-category container">
         <h2>클럽별 레슨받기</h2>
         <ul class="row list-unstyled" id="clubCategory">
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="#"> <img src="images/전체클럽.png"
-                        class="card-img-top" alt="Category 1">
-                        <div class="card-body">
-                            <h5 class="card-title">전체 클럽</h5>
-                        </div>
-                    </a>
-                </div>
-            </li>
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="#"> <img src="images/웨지.png"
-                        class="card-img-top" alt="Category 2">
-                        <div class="card-body">
-                            <h5 class="card-title">웨지</h5>
-                        </div>
-                    </a>
-                </div>
-            </li>
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="#"> <img src="images/유틸.png"
-                        class="card-img-top" alt="Category 3">
-                        <div class="card-body">
-                            <h5 class="card-title">유틸</h5>
-                        </div>
-                    </a>
-                </div>
-            </li>
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="#"> <img src="images/우드.png"
-                        class="card-img-top" alt="Category 4">
-                        <div class="card-body">
-                            <h5 class="card-title">우드</h5>
-                        </div>
-                    </a>
-                </div>
-            </li>
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="#"> <img src="images/아이언.png"
-                        class="card-img-top" alt="Category 5">
-                        <div class="card-body">
-                            <h5 class="card-title">아이언</h5>
-                        </div>
-                    </a>
-                </div>
-            </li>
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="#"> <img src="images/드라이버.png"
-                        class="card-img-top" alt="Category 6">
-                        <div class="card-body">
-                            <h5 class="card-title">드라이버</h5>
-                        </div>
-                    </a>
-                </div>
-            </li>
-        </ul>
+			<li class="col-md-2 col-6">
+				<div class="card text-center">
+					<a href="/gaebokchi/mainPost/list"> <img src="images/전체클럽.png"
+						class="card-img-top" alt="Category 1">
+						<div class="card-body">
+							<h5 class="card-title">전체 클럽</h5>
+						</div>
+					</a>
+				</div>
+			</li>
+			<li class="col-md-2 col-6">
+				<div class="card text-center">
+					<a
+						href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=WG&textSearchSelect=&selectSelection=selectFalse">
+						<img src="images/웨지.png" class="card-img-top" alt="Category 2">
+						<div class="card-body">
+							<h5 class="card-title">웨지</h5>
+						</div>
+					</a>
+				</div>
+			</li>
+			<li class="col-md-2 col-6">
+				<div class="card text-center">
+					<a
+						href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=UT&textSearchSelect=&selectSelection=selectFalse">
+						<img src="images/유틸.png" class="card-img-top" alt="Category 3">
+						<div class="card-body">
+							<h5 class="card-title">유틸</h5>
+						</div>
+					</a>
+				</div>
+			</li>
+			<li class="col-md-2 col-6">
+				<div class="card text-center">
+					<a
+						href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=WD&textSearchSelect=&selectSelection=selectFalse">
+						<img src="images/우드.png" class="card-img-top" alt="Category 4">
+						<div class="card-body">
+							<h5 class="card-title">우드</h5>
+						</div>
+					</a>
+				</div>
+			</li>
+			<li class="col-md-2 col-6">
+				<div class="card text-center">
+					<a
+						href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=IR&textSearchSelect=&selectSelection=selectFalse">
+						<img src="images/아이언.png" class="card-img-top" alt="Category 5">
+						<div class="card-body">
+							<h5 class="card-title">아이언</h5>
+						</div>
+					</a>
+				</div>
+			</li>
+			<li class="col-md-2 col-6">
+				<div class="card text-center">
+					<a
+						href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=DR&textSearchSelect=&selectSelection=selectFalse">
+						<img src="images/드라이버.png" class="card-img-top" alt="Category 6">
+						<div class="card-body">
+							<h5 class="card-title">드라이버</h5>
+						</div>
+					</a>
+				</div>
+			</li>
+			<li class="col-md-2 col-6">
+				<div class="card text-center">
+					<a
+						href="/gaebokchi/mainPost/search?userid=&searchCategory=searchClubs&clubSelect=PT&textSearchSelect=&selectSelection=selectFalse">
+						<img src="images/퍼터.png" class="card-img-top" alt="Category 6">
+						<div class="card-body">
+							<h5 class="card-title">퍼터</h5>
+						</div>
+					</a>
+				</div>
+			</li>
+		</ul>
     </section>
 
 
@@ -261,15 +277,19 @@
 
                 <h4>실시간 랭킹</h4>
                 <div class="rank">
-                    <ul>
-                        <li>1등</li>
-                        <li>2등</li>
-                        <li>3등</li>
-                        <li>4등</li>
-                        <li>5등</li>
-                    </ul>
+				<ul>
+					<c:forEach items="rank" var="r">
+						<li>
+							<div class="comment-thumb">
+								<img id="image-${rank.id}" class="pofile-image"
+									src="../user/file/image?file=${encodeURIComponent(rank.image)}"
+									alt="Uploaded Image">
+							</div> <strong>이름: ${rank.name}</strong> <span>보유 포인트: ${rank.points}</span>
+						</li>
+					</c:forEach>
+				</ul>
 
-                </div>
+			</div>
             </div>
 
             <div class="recommend-pro">

@@ -129,7 +129,7 @@
                                         <span>드라이버 평균 거리: 데이터 없음</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <span>드라이버 평균 거리:  
+                                        <span>드라이버 평균 거리:
                                             ${post.driverDistance}m</span>
                                     </c:otherwise>
                                 </c:choose>
@@ -151,7 +151,8 @@
 
 
                             <!-- 댓글 리스트 영역 -->
-                            <div class="comments-section form-control mb-3"></div>
+                            <div
+                                class="comments-section form-control mt-2 mb-3"></div>
 
                             <!-- <form action="submit_comment_url" method="post"> -->
                             <div class="form-group">
@@ -191,11 +192,10 @@
                                     id="btnFoot">
                                     <div>
                                         <!-- 수정 -->
-                                        <button
-                                            class="btn btn-outline-primary btnModifyid">수정하기</button>
+                                        <button class="btn btnModifyid">수정하기</button>
                                         <!-- 삭제 -->
                                         <button
-                                            class="btn btn-outline-danger btnDeleteMainPost">삭제</button>
+                                            class="btn btnDeleteMainPost">삭제하기</button>
                                     </div>
                                 </div>
                                 <c:url var="commentsSubJS"
@@ -206,6 +206,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </main>
 
 
