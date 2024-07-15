@@ -16,6 +16,22 @@ body {
 	margin-top: 80px;
 }
 
+.container-fluid header {
+     text-align: center;
+}
+.container-fluid header h2 a{
+    font-family: 'Freesentation-9Black';
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.container-fluid header h7 {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+    color: #808080;
+    margin-bottom: 30px;
+}
+
 table {
 	background-color: white; /* 테이블 전체 배경색 흰색 */
 }
@@ -27,6 +43,9 @@ table thead {
     padding: 10px;
 }
 
+.title {
+    margin-bottom: 30px;
+}
 table thead tr th.text-center{
 	background: #547380!important;
 }
