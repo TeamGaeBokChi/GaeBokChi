@@ -25,8 +25,9 @@ public class HomeController {
 	public String home(Model model) {
 		log.debug("home()");
 		List<Home> home = homeService.pointsRank();
-		model.addAttribute("home", home);
-		return "/fragments/main"; // 뷰(JSP 파일)의 이름.
+		System.out.println(home);
+		model.addAttribute("rank", home);
+		return "home"; // 뷰(JSP 파일)의 이름.
 	}
 
 	

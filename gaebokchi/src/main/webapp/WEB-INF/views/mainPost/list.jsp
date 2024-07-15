@@ -124,7 +124,6 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th class="col-1"></th>
 								<th class="col-1">클럽종류</th>
 								<th class="col-4">제목</th>
 								<th class="col-1">작성자</th>
@@ -138,7 +137,6 @@
 						<tbody>
 							<c:forEach var="p" items="${post}">
 								<tr>
-									<td>${p.id}</td>
 									<td class="text-center" id="club">${p.clubType}</td>
 									<td id="post"><c:url var="mainPostDetailsPage"
 											value="/mainPost/details">

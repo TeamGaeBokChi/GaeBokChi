@@ -13,9 +13,10 @@ public class Home {
 	
 	//포인트 랭킹 유저 객체
 	
+	private int id;
 	private String name;
 	private String nickname;
-	private int points;
+	private int point;
 	private String image;
 
 }
