@@ -139,50 +139,7 @@
                 </div>
             </div>
 
-            <div class="container login-container" id="login">
-                <div class="card" id="card">
-                    <div class="card-header text-center py-3"
-                        id="card-header">
-                        <div class="logo">
-                            <c:url var="logoImage"
-                                value="/images/002.png" />
-                            <img src="${logoImage}" alt="Logo Title">
-                        </div>
-                        <h5>프로를 향한 골프의 꿈, 골프로</h5>
-                    </div>
-                    <div class="card-body p-4">
-                        <form action="/gaebokchi/user/signin"
-                            method="post">
-                            <div class="mb-1">
-                                <input class="form-control" type="text"
-                                    name="userid" placeholder="아이디"
-                                    required />
-                            </div>
-                            <div class="mb-4">
-                                <input class="form-control"
-                                    type="password" name="password"
-                                    placeholder="비밀번호" required />
-                            </div>
-                            <div class="d-grid">
-                                <button
-                                    class="btn btn-login text-white py-2"
-                                    name="btnSignin" type="submit">로그인</button>
-                            </div>
-                        </form>
-                        <c:if test="${not empty errorMessage}">
-                            <div class="error-message text-center mt-3">${errorMessage}</div>
-                        </c:if>
-                    </div>
-                    <div class="card-footer bg-white border-top-0">
-                        <ul class="links">
-                            <li><a href="#" data-bs-toggle="modal"
-                                data-bs-target="#findIdModal">아이디 찾기</a></li>
-                            <li><a href="#" data-bs-toggle="modal"
-                                data-bs-target="#findPwModal">비밀번호
-                                    찾기</a></li>
-                            <li><a href="signup">회원가입</a></li>
-                        </ul>
-                    </div>
+            
                     <!-- 아이디 찾기 모달 -->
                     <div class="modal fade" id="findIdModal"
                         tabindex="-1" aria-labelledby="findIdModalLabel"
