@@ -163,9 +163,9 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th class="col-1">탭</th>
-                                <th class="col-3">제목</th>
-                                <th class="col-1">작성자</th>
+                                <th class="col-2">카테고리</th>
+                                <th class="col-5">제목</th>
+                                <th class="col-2">작성자</th>
                                 <th class="col-1">작성일</th>
                                 <th class="col-1">조회</th>
                                 <th class="col-1">추천</th>
@@ -173,7 +173,7 @@
                         </thead>
                         <tbody>
                             <c:forEach var="p" items="${pinnedPosts}">
-                                <tr class="table table-secondary">
+                                <tr class="table table-secondary ">
                                     <td>${category_name[p.category]}</td>
                                     <td><c:url
                                             var="commPostDetailsPage"
