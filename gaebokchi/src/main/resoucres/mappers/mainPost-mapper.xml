@@ -373,44 +373,81 @@
 
 
 
-<select id="getPostList" resultType="com.itwill.gaebokchi.repository.Post">
-    SELECT *
-    FROM (
-        SELECT
-            A.*,
-            ROWNUM AS rnum
+    <select id="getPostList" resultType="com.itwill.gaebokchi.repository.Post">
+        SELECT *
         FROM (
             SELECT
-                p.id AS id,
-                c.name AS clubType,
-                p.title AS title,
-                u.nickname AS author,
-                p.views AS views,
-                p.likes AS likes,
-                p.created_time AS createdTime,
-                CASE
-                    WHEN EXISTS (
-                        SELECT 1 FROM comments cmt WHERE cmt.post_id = p.id AND cmt.selection = '1'
-                    )
-                    THEN '해결 완료'
-                    ELSE '해결 중'
-                END AS selection
-            FROM
-                posts p
-                JOIN clubs c ON p.club_type = c.id
-                JOIN users u ON p.author = u.userid
+                A.*,
+                ROWNUM AS rnum
+            FROM (
+                SELECT
+                    p.id AS id,
+                    c.name AS clubType,
+                    p.title AS title,
+                    u.nickname AS author,
+                    p.views AS views,
+                    p.likes AS likes,
+                    p.created_time AS createdTime,
+                    CASE
+                        WHEN EXISTS (
+                            SELECT 1 FROM comments cmt WHERE cmt.post_id = p.id AND cmt.selection = '1'
+                        )
+                        THEN '해결 완료'
+                        ELSE '해결 중'
+                    END AS selection
+                FROM
+                    posts p
+                    JOIN clubs c ON p.club_type = c.id
+                    JOIN users u ON p.author = u.userid
+                WHERE
+                    p.category IN ('P001')
+                ORDER BY
+                    p.id DESC
+            ) A
             WHERE
-                p.category IN ('P001')
-            ORDER BY
-                p.id DESC
-        ) A
+                ROWNUM &lt;= #{endRow}
+        )
         WHERE
-            ROWNUM &lt;= #{endRow}
-    )
-    WHERE
-        rnum &gt; #{startRow}
-</select>
+            rnum &gt; #{startRow}
+    </select>
 
+    <select id="getPostListByUserid" resultType="com.itwill.gaebokchi.repository.Post">
+        SELECT *
+        FROM (
+            SELECT
+                A.*,
+                ROWNUM AS rnum
+            FROM (
+                SELECT
+                    p.id AS id,
+                    c.name AS clubType,
+                    p.title AS title,
+                    u.nickname AS author,
+                    p.views AS views,
+                    p.likes AS likes,
+                    p.created_time AS createdTime,
+                    CASE
+                        WHEN EXISTS (
+                            SELECT 1 FROM comments cmt WHERE cmt.post_id = p.id AND cmt.selection = '1'
+                        )
+                        THEN '해결 완료'
+                        ELSE '해결 중'
+                    END AS selection
+                FROM
+                    posts p
+                    JOIN clubs c ON p.club_type = c.id
+                    JOIN users u ON p.author = u.userid
+                WHERE
+                    p.author = #{author} AND p.category IN ('P001')
+                ORDER BY
+                    p.id DESC
+            ) A
+            WHERE
+                ROWNUM &lt;= #{endRow}
+        )
+        WHERE
+            rnum &gt; #{startRow}
+    </select>
 
 	<select id="getTotalCount" resultType="int">
 		SELECT COUNT(*)
@@ -418,10 +455,10 @@
 		where category = 'P001'
 	</select>
 
-
-
-
-
-
+    <select id="getTotalCountByUserid" resultType="int">
+        SELECT COUNT(*)
+        FROM posts
+        where author = #{author} and category = 'P001'
+    </select>
 
 </mapper>

@@ -113,8 +113,8 @@
             <tbody>
                 <c:forEach var="p" items="${posts}">
                     <tr
-                        class="${p.teeoff lt today ? 'gray-td' : 'white-td'}">
-                        <td>${p.teeoff}</td>
+                        class="${p.formattedTeeoff lt today ? 'gray-td' : 'white-td'}">
+                        <td>${p.formattedTeeoff}</td>
                         <td><c:url var="joinPostDetailsPage"
                                 value="/join/join_details">
                                 <c:param name="id" value="${p.id}" />
