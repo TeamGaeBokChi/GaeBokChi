@@ -203,7 +203,7 @@ public class UserProfileController {
 		
 		log.debug("myLessonList()");
 
-		return "redirect: /gaebokchi/mainPost/list?userid=" + sessionUserid;
+		return "redirect: ../mainPost/list?userid=" + sessionUserid;
 	}
 	
 	@GetMapping("/myposts")
