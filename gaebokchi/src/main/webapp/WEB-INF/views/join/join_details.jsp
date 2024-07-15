@@ -69,7 +69,7 @@
 							</div>
 							<div class="details-item">
 								<h5>티오프</h5>
-								<p>${post.teeoff}</p>
+								<p>${post.formattedTeeoff}</p>
 							</div>
 							<div class="details-item">
 								<h5>그린피</h5>

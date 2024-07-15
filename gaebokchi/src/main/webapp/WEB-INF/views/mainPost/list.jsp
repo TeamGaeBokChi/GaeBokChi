@@ -21,11 +21,6 @@
 		<%@ include file="../fragments/header.jspf"%>
 	</header>
 
-	<c:if test="${not empty userid}">
-		<div class="row">
-			<%@ include file="../fragments/menu.jspf"%>
-		</div>
-	</c:if>
 
 	<main>
 		<div class="container">
@@ -208,10 +203,6 @@
 		</div>
 		</div>
 	</main>
-
-	<c:if test="${not empty userid}">
-		<%-- 이 부분은 필요한 경우 추가 내용을 넣으세요 --%>
-	</c:if>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
