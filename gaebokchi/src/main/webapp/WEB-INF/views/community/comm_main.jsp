@@ -29,7 +29,7 @@
             </div>
 
             <div class="ad">
-                <c:url var="ad" value="images/ad.png" />
+                <c:url var="ad" value="/images/광고.png" />
                 <img src="${ad}" alt="ad picture">
             </div>
             

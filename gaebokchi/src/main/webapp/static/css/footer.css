@@ -70,8 +70,8 @@ footer .container .right .list ul li {
 }
 
 footer .container .right .list ul p {
-    font-size: 14px;
-    padding: 5px 10px;
+    font-size: 13px;
+    padding-left: 5px;
 }
 
 footer .container .right .list ul li:hover {
