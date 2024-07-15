@@ -8,7 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
 	getAllMainComments(); // 댓글 리스트업
 	getAllLikes(); // 좋아요 수
 
+	const focusCommentId = document.querySelector('input#commentId').value;
 
+	if (focusCommentId) {
+		const commentElement = document.getElementById(`comment-${focusCommentId}`);
+		if (commentElement) {
+			commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		} else {
+			console.warn(`Element with id 'comment-${focusCommentId}' not found.`);
+		}
+	} else {
+		console.error('focusCommentId is null or undefined.');
+	}
+	
 	// 댓글 작성 스크립트
 	const btnRegisterComment = document.querySelector('#btnRegisterComment');
 	if (btnRegisterComment) {
