@@ -89,7 +89,7 @@
 								<c:param name="id" value="${post.id}" />
 							</c:url>
 							<button class="m-2 btn"
-								onclick="location.href='${joinModifyPage}'">️수정하기</button>
+								onclick="location.href='${joinModifyPage}'">수정하기</button>
 							<button id="btnDelete"
 								class="m-2 btn">삭제하기</button>
 						</div>

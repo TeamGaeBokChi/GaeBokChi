@@ -35,6 +35,7 @@
                     <c:url var="mainPostCreate" value="/mainPost/create" />
                     <form method="post" action="${mainPostCreate}"
                         enctype="multipart/form-data">
+                        
                         <!-- 카테고리 선택 + 제목 영역 -->
                         <div class="mt-2 row">
                             <span>클럽 종류</span>

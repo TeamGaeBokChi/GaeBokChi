@@ -68,7 +68,7 @@ div.mb-2 {
 
 /* 사용자 정보 섹션 */
 .nick-date {
-    background: #e6e6e6;
+    background: #ebebeb;
     border-radius: 10px;
     padding: 15px 20px;
 }
@@ -105,7 +105,7 @@ div.mb-2 {
     color: #000000;
     font-family: 'SUIT-Regular';
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .date-container p {
@@ -207,26 +207,29 @@ div.right .post-content span {
 }
 
 /* 댓글 섹션 */
-.comments-section {
-    padding: 15px;
+div.comments-section {
+    margin-top:20px !important;    
     max-height: 500px;
     overflow-y: auto;
 }
 
 .comment {
+    font-family: 'SUIT-Regular', SUIT-Regular;
     display: flex;
     align-items: flex-start;
-    margin-bottom: 70px;
+    margin: 20px 10px;
     clear: both;
+    border-bottom: 1px solid #e3e3e3;
 }
 
 .comment:first-of-type {
-    margin-top: 0;
+    margin-top: 15px;
 }
 
 .profile-image {
     width: 80px;
     height: 80px;
+    border: 1px solid #c6c6c6;
     border-radius: 80px;
     margin-right: 20px;
 }
@@ -242,7 +245,7 @@ div.right .post-content span {
 .comment-content strong {
     font-weight: bold;
     font-size: 16px;
-    margin-bottom: 5px;
+    padding-left: 15px;
 }
 
 .comment-content a {
@@ -259,6 +262,10 @@ div.right .post-content span {
     border-radius: 4px;
 }
 
+div.comment-text span {
+    font-size: 1rem !important;
+    color: black !important;
+}
 /* 댓글 작성 폼 */
 .comment-form {
     position: absolute;
@@ -291,10 +298,10 @@ div.right .post-content span {
 
 /* 채택된 댓글 강조 스타일 */
 .highlight {
-    border: 3px solid gold;
+    border: 3px solid #008040;
     background-color: #fff9e6;
     padding: 15px;
-    margin-bottom: 15px;
+    margin-top: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -302,8 +309,8 @@ div.right .post-content span {
 }
 
 .highlight::before {
-    content: '★ 채택';
-    color: gold;
+    content: '채택된 댓글';
+    color: #008040;
     font-weight: bold;
     position: absolute;
     top: -10px;
@@ -322,3 +329,40 @@ div.right .post-content span {
     display: flex;
     gap: 10px;
 }
+
+#btnRegisterComment{
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    font-weight: bold;
+    margin-top: 15px;
+    background-color: #ffffff;
+    color: black;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#btnRegisterComment:hover {
+    color: #006030;
+    border: 2px solid #006030;
+}
+
+#btnFoot button {
+    font-family: 'Pretendard-Regular';
+    font-weight: 700;
+    padding: 10px 20px; /* 내부 여백 */
+    font-size: 16px; /* 글자 크기 */
+    border: 2px solid #c0c0c0; /* 테두리 */
+    border-radius: 7px; /* 모서리 둥글게 */
+    background-color: #ffffff; /* 배경색 */
+    color: #000000; /* 글자색 */
+    cursor: pointer; /* 마우스 커서 모양 */
+    text-decoration: none; /* 링크 스타일 제거 */
+}
+
+/* Hover 효과 제거 */
+#btnFoot button:hover {
+    background-color: #ffffff; /* 배경색 초기화 */
+    color: #2a7e50; /* 글자색 초기화 */
+    border-color: #c0c0c0; /* 테두리 색 초기화 */
+}
+

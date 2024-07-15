@@ -151,7 +151,8 @@
 
 
                             <!-- 댓글 리스트 영역 -->
-                            <div class="comments-section form-control"></div>
+                            <div
+                                class="comments-section form-control mt-2 mb-3"></div>
 
                             <!-- <form action="submit_comment_url" method="post"> -->
                             <div class="form-group">
@@ -177,7 +178,7 @@
                                 <c:if
                                     test="${signedInUserGrade eq 'G10'}">
                                     <button id="btnRegisterComment"
-                                        class="btn btn-primary mt-3 form-control">피드백
+                                        class="btn form-control">피드백
                                         작성하기</button>
                                 </c:if>
                             </div>
@@ -191,11 +192,10 @@
                                     id="btnFoot">
                                     <div>
                                         <!-- 수정 -->
-                                        <button
-                                            class="btn btn-outline-primary btnModifyid">수정하기</button>
+                                        <button class="btn btnModifyid">수정하기</button>
                                         <!-- 삭제 -->
                                         <button
-                                            class="btn btn-outline-danger btnDeleteMainPost">삭제</button>
+                                            class="btn btnDeleteMainPost">삭제하기</button>
                                     </div>
                                 </div>
                                 <c:url var="commentsSubJS"
@@ -206,6 +206,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </main>
 
 
