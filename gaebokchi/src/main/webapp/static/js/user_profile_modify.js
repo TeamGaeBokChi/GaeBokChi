@@ -5,9 +5,6 @@
 // HTML DOM(Document Obejct Model) 컨텐트 로딩이 끝났을 때, 이벤트 리스너를 실행.
 document.addEventListener('DOMContentLoaded', () => {
 	let passwordChecked = true; // 비밀번호 필드 작성 여부 체크.
-	let nicknameChecked = true;
-	const initNickName = document.querySelector('input#nickname').value;
-	let changedNickName;
 
 	// form 요소를 찾음:
 	const modifyForm = document.querySelector('form#modifyForm');
@@ -20,12 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const changePassword = document.querySelector('input#changePassword');
 	changePassword.addEventListener('input', checkPassword);
 
-	const nickName = document.querySelector('input#nickname');
-	nickName.addEventListener('input', changeNickname);
-	
-	const btnConfirm = document.querySelector('button#btnConfirm');
-	btnConfirm.addEventListener('click', checkNickname);
-	
 	const btnAddressSearch = document.querySelector('input#btnAddressSearch');
 	btnAddressSearch.addEventListener('click', searchAddress);
 
@@ -54,44 +45,59 @@ document.addEventListener('DOMContentLoaded', () => {
 		}).open();
 	}
 	
-	function changeNickname(event) {
-		changedNickName = event.target.value;
-		
-		if (initNickName !== changedNickName) {
-			btnConfirm.classList.remove('disabled');
-		} else {
-			btnConfirm.classList.add('disabled');
-		}
+	const passwordStrength = document.getElementById('passwordStrength');
+	let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+	
+	function checkPasswordStrength(password) {
+		let strength = 0;
+	 	if (password.match(/[a-z]+/)) strength += 1;
+	  	if (password.match(/[A-Z]+/)) strength += 1;
+	   	if (password.match(/[0-9]+/)) strength += 1;
+	 	if (password.match(/[@$!%*#?&]+/)) strength += 1;
+
+		return strength;
 	}
 
+	function getStrengthText(strength) {
+		switch (strength) {
+	  		case 0: return "매우 약함";
+	    	case 1: return "약함";
+	    	case 2: return "보통";
+	       	case 3: return "강함";
+	    	case 4: return "매우 강함";
+	 	}
+	}
+
+	function getStrengthColor(strength) {
+		switch (strength) {
+	    	case 0: return "red";
+	   		case 1: return "orange";
+	      	case 2: return "blue";
+	      	case 3: return "lightgreen";
+	      	case 4: return "green";
+	  	}
+	}
+	
 	function checkPassword(event) {
 		if (event.target.value === '' || changePassword.value === password.value) { // inputPassword.value
 			passwordChecked = false;
 		} else {
-			passwordChecked = true;
-		}
-	}
+			if (this.value.length > 0) {
+				const strength = checkPasswordStrength(this.value);
+			  	const strengthText = getStrengthText(strength);
+				const strengthColor = getStrengthColor(strength);
 
-	function checkNickname(event) {
-		event.preventDefault();
-		
-		if (document.activeElement.id !== 'btnConfirm') {
-			return;
-		}
-		
-		const uri = `./checkname?nickname=${changedNickName}`;
-		axios
-			.get(uri)
-			.then((response) => {
-				if (response.data === 'Y') {
-					nicknameChecked = true;
-					alert('사용 가능한 닉네임입니다.');
-				} else {
-					nicknameChecked = false;
-					alert('사용할 수 없는 닉네임입니다.');
+				passwordStrength.textContent = `비밀번호 안정성: ${strengthText}`;
+			 	passwordStrength.style.color = strengthColor;
+			  	if (reg.test(this.value)) {
+			 		passwordStrength.textContent += ' (유효한 비밀번호)';
+					passwordChecked = true;
+			 	} else {
+			    	passwordStrength.textContent += ' (유효하지 않은 비밀번호)';
+					passwordChecked = false;
 				}
-			})
-			.catch((error) => console.log(error));
+			}
+		}
 	}
 
 	// 저장 버튼에 클릭 이벤트 리스너를 설정.
@@ -110,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		const result = confirm('변경된 내용을 저장할까요?');
-		if (nicknameChecked && passwordChecked && result) {
+		if (passwordChecked && result) {
 			modifyForm.method = 'post'; // 폼 제출 방식 설정.
 			modifyForm.action = 'update'; // 폼 제출 요청 주소 설정.
 			modifyForm.submit(); // 폼 제출(서버로 요청을 보냄).

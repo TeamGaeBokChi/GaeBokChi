@@ -9,6 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	const btnLikesNotLoggedIn = document.getElementById('btnLikes-notloggedIn');
 	let likedByCurrentUser = false; // 현재 사용자가 좋아요를 눌렀는지 여부를 추적
 
+	const focusCommentId = document.querySelector('input#commentId').value;
+	if (focusCommentId) {
+		const commentElement = document.getElementById(`comment-${focusCommentId}`);
+		if (commentElement) {
+			commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		} else {
+			console.warn(`Element with id 'comment-${focusCommentId}' not found.`);
+		}
+	} else {
+		console.error('focusCommentId is null or undefined.');
+	}
 
 	// 게시물 삭제 버튼 클릭 이벤트 처리
 	if (btnDeletePost) {
@@ -152,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				})
 				.catch(error => {
 					console.error('Error:', error);
-					alert('추천은 한 게시물에 한 번만 가능합니다!');
+					alert('이미 추천한 게시물입니다!');
 				});
 		});
 	}

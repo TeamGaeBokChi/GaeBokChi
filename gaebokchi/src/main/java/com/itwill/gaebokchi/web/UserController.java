@@ -2,9 +2,6 @@ package com.itwill.gaebokchi.web;
 
 import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -25,7 +22,6 @@ import com.itwill.gaebokchi.dto.findPasswordDto;
 import com.itwill.gaebokchi.dto.normalUserCreateDto;
 import com.itwill.gaebokchi.repository.User;
 import com.itwill.gaebokchi.service.UserService;
-import com.itwill.gaebokchi.dto.AcceptListDto;
 import com.itwill.gaebokchi.dto.UpdatePasswordDto;
 import com.itwill.gaebokchi.dto.UpdatePointDto;
 import com.itwill.gaebokchi.dto.UserSignInDto;
@@ -49,61 +45,46 @@ public class UserController {
 
 	@GetMapping("/signin")
 	public String signInForm(HttpServletRequest request,
-			@RequestParam(value = "redirectUrl", required = false) String redirectUrl) {
-		if (redirectUrl == null) {
-			redirectUrl = request.getHeader("Referer");
-		}
-		if (redirectUrl != null && !redirectUrl.contains("/signin")) {
-			request.getSession().setAttribute("redirectUrl", redirectUrl);
+			@RequestParam(value = "redirectUrl", required = false) String redirectUrl,
+			@RequestParam(value = "fromSignup", required = false) Boolean fromSignup) {
+		if (fromSignup == null || !fromSignup) {
+			if (redirectUrl == null) {
+				redirectUrl = request.getHeader("Referer");
+			}
+			if (redirectUrl != null && !redirectUrl.contains("/signin") && !redirectUrl.contains("/signup")) {
+				request.getSession().setAttribute("redirectUrl", redirectUrl);
+			}
 		}
 		return "user/signin";
 	}
 
 	@PostMapping("/signin")
 	public String signIn(UserSignInDto dto, Model model, HttpSession session, HttpServletRequest request,
-			HttpServletResponse response) {
-		log.debug("POST signIn({})", dto);
+	                     HttpServletResponse response) {
+	    log.debug("POST signIn({})", dto);
 
-		// 리다이렉트 URL 저장
-		String redirectUrl = (String) session.getAttribute("redirectUrl");
+	    try {
+	        User user = userService.read(dto);
+	        if (user != null) {
+	            session.setMaxInactiveInterval(SESSION_TIME);
+	            session.setAttribute(SESSION_ATTR_USER, user.getUserid());
+	            session.setAttribute(SESSION_USER_GRADE, user.getGrade());
 
-		// 기존 세션 무효화
-		session.invalidate();
-
-		// 새 세션 생성
-		session = request.getSession(true);
-
-		// 저장해둔 리다이렉트 URL을 새 세션에 다시 설정
-		if (redirectUrl != null) {
-			session.setAttribute("redirectUrl", redirectUrl);
-		}
-
-		// 캐시 제어 헤더 추가
-		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-		response.setHeader("Pragma", "no-cache");
-		response.setHeader("Expires", "0");
-
-		try {
-			User user = userService.read(dto);
-			if (user != null) {
-				session.setMaxInactiveInterval(SESSION_TIME);
-				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
-				session.setAttribute(SESSION_USER_GRADE, user.getGrade());
-
-				// 리다이렉트 URL 사용
-				if (redirectUrl != null) {
-					session.removeAttribute("redirectUrl");
-					return "redirect:" + redirectUrl + "?login=success";
-				}
-				return "redirect:/?login=success";
-			} else {
-				model.addAttribute("errorMessage", "일치하는 아이디와 비밀번호가 없습니다.");
-				return "user/signin";
-			}
-		} catch (Exception e) {
-			log.error("로그인 처리 중 오류 발생", e);
-			return "redirect:/signin";
-		}
+	            // 리다이렉트 URL 사용
+	            String redirectUrl = (String) session.getAttribute("redirectUrl");
+	            if (redirectUrl != null && !redirectUrl.contains("/signup")) {
+	                session.removeAttribute("redirectUrl");
+	                return "redirect:" + redirectUrl;
+	            }
+	            return "redirect:/";  // 기본적으로 홈페이지로 리다이렉트
+	        } else {
+	            model.addAttribute("errorMessage", "일치하는 아이디와 비밀번호가 없습니다.");
+	            return "user/signin";
+	        }
+	    } catch (Exception e) {
+	        log.error("로그인 처리 중 오류 발생", e);
+	        return "redirect:/user/signin";
+	    }
 	}
 
 	@GetMapping("/signup") // GET 방식의 /user/signup 요청을 처리하는 컨트롤러 메서드

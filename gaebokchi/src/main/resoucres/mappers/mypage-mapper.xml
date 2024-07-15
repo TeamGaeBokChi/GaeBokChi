@@ -5,26 +5,26 @@
 <mapper namespace="com.itwill.gaebokchi.repository.UserMypageDao">
 
     <select id="selectProByUserid" resultType="Pro">
-        select u.userid as userid,
-               u.password as password,
-               u.name as name,
-               u.nickname as nickname,
-               u.birth as birth,
-               u.gender as gender,
-               u.phone as phone,
-               u.email as email,
-               u.address as address,
-               u.license as license,
-               u.account as account,
-               u.point as point,
-               u.grade as grade,
-               u.image as image,
-               p.career as career
+        select u.userid,
+               u.password,
+               u.name,
+               u.nickname,
+               u.birth,
+               u.gender,
+               u.phone,
+               u.email,
+               u.address,
+               u.license,
+               u.account,
+               u.point,
+               u.grade,
+               u.image,
+               p.career
                from users u, pros p 
-               where userid = #{userid} and license = p.id
+               where u.userid = #{userid} and u.license = p.id
     </select>
     
-    <select id="selectByUserid" resultType="UserMypage">
+    <select id="selectByUserid" resultType="Normal">
         select * from users where userid = #{userid}
     </select>
 
@@ -36,7 +36,6 @@
     <update id="update">
         update users
         set password = #{password}
-        , nickname = #{nickname}
         , phone = #{phone}
         , address = #{address}
         , account = #{account}

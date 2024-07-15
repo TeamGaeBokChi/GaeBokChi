@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    margin-top: 100px;
+    width: 1280px;
+    padding: 20px;
+}
+
+.card h2 {
+    font-family: 'Freesentation-9Black';
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.card h7 {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+    color: #808080;
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 50px;
+}
+
+#card-header {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    font-weight: bold;
+    background-color: white; /* 배경색을 투명으로 설정 */
+    border: none; /* 선택적으로 테두리 제거 */
+    margin-left: 15%;
+    margin-right: 30px;
+}
+
+select#category {
+    font-weight: bold;
+    border: 1px solid black;
+}
+
+input#searchButton {
+    background: #0073e6;
+    color: white;
+    text-align: center;
+    width: 70px;
+}
+
+#btnCreateMainPost, #btnCreatePost {
+    margin-left: 130%;
+    max-width: 100px;
+    color: black;
+    font-weight: 700;
+    border: 2px solid #0073e6;
+    background: white;
+    max-width: 100px;
+}
+
+.table thead {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.table thead th {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    color: #1c1c1c;
+    text-align: center;
+    padding: 10px;
+}
+
+.card-header {
+    background-color: #d4edda;
+}
+
+.btn-outline-secondary {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.custom-link {
+    color: black;
+    text-decoration: none;
+}
+
+.custom-link:hover {
+    text-decoration: underline; /* 원하는 경우 호버 시 밑줄 추가 */
+}
+
+footer.text-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* 필요에 따라 상단 마진을 조정할 수 있습니다. */
+}

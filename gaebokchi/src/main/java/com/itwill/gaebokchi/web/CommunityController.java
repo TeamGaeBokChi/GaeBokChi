@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import com.itwill.gaebokchi.dto.CommPostCreateDto;
 import com.itwill.gaebokchi.dto.CommPostListDto;
@@ -129,17 +128,13 @@ public class CommunityController {
 		model.addAttribute("pinnedPosts", pinnedPosts);
 		model.addAttribute("top5ByF001", commPostService.getTop5ByF001());
 		model.addAttribute("top5ByF002", commPostService.getTop5ByF002());
-
-		// 카테고리 매핑 정보 추가하기
-		Map<String, String> categoryMap = new HashMap<>();
-		categoryMap.put("F001", "잡담");
-		categoryMap.put("F002", "팁/노하우");
-		categoryMap.put("F003", "라운드 후기");
-
-		Map<String, String> userNicknames = userService.getUserNicknames();
-
+		
+		Map<String, String> category_name = commPostService.catrgoryname(); // 카테고리 ID / Name 매핑
+		Map<String, String> userNicknames = userService.getUserNicknames(); // 유저 UserId / Nickname 매핑
+		
+		model.addAttribute("category_name", category_name);
 		model.addAttribute("userNicknames", userNicknames);
-		model.addAttribute("categoryMap", categoryMap);
+		model.addAttribute("category_name", category_name);
 		model.addAttribute("selectedCategory", category);
 		model.addAttribute("selectedSearchCategory", searchCategory);
 		model.addAttribute("keyword", keyword);
@@ -152,11 +147,10 @@ public class CommunityController {
 		return "community/comm_main";
 	}
 
-	private Map<String, Set<Integer>> userViewedPosts = new HashMap<>();
-
 	@GetMapping("/comm_details")
 	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,
-			@RequestParam("id") Integer id, Model model, HttpSession session) {
+			@RequestParam("id") Integer id, @RequestParam(name = "commentId", required = false) Integer commentId,
+			Model model, HttpSession session) {
 		if (loggedInUser != null) {
 			log.debug("user={}", loggedInUser);
 			model.addAttribute("user", loggedInUser);
@@ -190,16 +184,17 @@ public class CommunityController {
 		int commentcount = commPostService.selectCommentCount(id);
 
 		Map<String, String> userNicknames = userService.getUserNicknames();
+		Map<String, String> category_name = commPostService.catrgoryname();
 
 		model.addAttribute("userNicknames", userNicknames);
-
-		// 모델에 속성 추가
+		model.addAttribute("category_name", category_name);
 		model.addAttribute("post", post); // 불러온 게시물 속성 추가
 		model.addAttribute("previousPost", previousPost); // 이전 글
 		model.addAttribute("nextPost", nextPost); // 다음 글
 		model.addAttribute("commentlist", commentlist); // 댓글 목록 추가하기
 		model.addAttribute("commentcount", commentcount);
-
+		model.addAttribute("commentId", commentId);
+		
 		return "community/comm_details";
 	}
 
@@ -244,6 +239,7 @@ public class CommunityController {
 
 		// 해당 사용자가 이미 좋아요를 눌렀는지 확인
 		Set<Integer> likedPosts = userLikedPosts.getOrDefault(userId, new HashSet<>());
+		log.debug("likedPosts={}" , likedPosts);
 		if (likedPosts.contains(id)) {
 			// 이미 좋아요를 누른 경우 예외 처리
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -254,6 +250,7 @@ public class CommunityController {
 		commPostService.increaseLikes(id);
 		likedPosts.add(id);
 		userLikedPosts.put(userId, likedPosts);
+		log.debug("userLikedPosts={}" , userLikedPosts);
 
 		// 업데이트된 좋아요 개수 반환
 		CommPost updatedPost = commPostService.read(id);

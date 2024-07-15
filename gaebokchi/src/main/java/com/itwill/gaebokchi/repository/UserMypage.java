@@ -23,5 +23,6 @@ public class UserMypage {
     private String account; // 계좌번호
     private Integer point; // 포인트
     private String grade; // 등급
+    private String career; // 수상경력
     private String image; // 프로필 이미지
 }

@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -19,23 +20,21 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itwill.gaebokchi.dto.JoinPostListDto;
 import com.itwill.gaebokchi.dto.MainPostCreateDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.MainPostSearchDto;
 import com.itwill.gaebokchi.dto.MainPostUpdateDto;
 import com.itwill.gaebokchi.dto.MyPostSearchDto;
 import com.itwill.gaebokchi.repository.Clubs;
-import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.Post;
-import com.itwill.gaebokchi.service.MainCommentService;
 import com.itwill.gaebokchi.service.MainPostService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER;
 
 @Slf4j
 @Controller
@@ -44,8 +43,6 @@ import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER
 public class MainPostController {
 	private final MainPostService mainPostService;
 	
-	private final MainCommentService mainCommentService;
-
 //	private final MainPostCreateDto mainPostCreatDto;
 
 	@GetMapping("/create")
@@ -63,34 +60,57 @@ public class MainPostController {
 	}
 
 	@GetMapping("/list")
-	public void mainPostList(@RequestParam(name = "userid", required = false) String userid, Model model) {
-		log.debug("list()");
+	public void mainPostList(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+	                         @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize, 
+	                         Model model) {
+	    log.debug("list()");
+	    int pageBlockSize = 10;
 
-		if (userid == null) {
-			List<MainPostListDto> list = mainPostService.readAll();
-			List<Clubs> clubs = mainPostService.clubTypes();
-			model.addAttribute("post", list);
-			model.addAttribute("clubs", clubs);
-		} else {
-			List<MainPostListDto> list = mainPostService.readAllByUserid(userid);
-			List<Clubs> clubs = mainPostService.clubTypes();
-			model.addAttribute("post", list);
-			model.addAttribute("clubs", clubs);
-			model.addAttribute("userid", userid);
-		}
+	    List<MainPostListDto> posts = mainPostService.getPagedPosts(page, pageSize);
+	    int totalPosts = mainPostService.getTotalPostCount();
+
+	    int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
+	    int startPage = ((page - 1) / pageBlockSize) * pageBlockSize + 1;
+	    int endPage = Math.min(startPage + pageBlockSize - 1, totalPages);
+
+	    List<Clubs> clubs = mainPostService.clubTypes();
+
+	    model.addAttribute("post", posts);
+	    model.addAttribute("clubs", clubs);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("startPage", startPage);
+	    model.addAttribute("endPage", endPage);
+	    model.addAttribute("pageSize", pageSize);
 	}
 
 	@GetMapping("/details")
-	public void mainPostDetails(@RequestParam(name = "id") Integer id, @RequestParam(name = "commentId", required = false) Integer commentId, Model model, HttpSession session) {
-		log.debug("mainPostDetails(id={})", id);
-		
-//		Object sessionUser = session.getAttribute(SESSION_ATTR_USER);
-//		String sunman = sessionUser.toString();
-		
-		Post post = mainPostService.selectPostId(id);
-		log.debug("{}", post);
-		model.addAttribute("commentId", commentId);
-		model.addAttribute("post", post);
+	public String mainPostDetails(@RequestParam(name = "id") Integer id, 
+	                              @RequestParam(name = "commentId", required = false) Integer commentId, 
+	                              Model model, 
+	                              HttpSession session,
+	                              RedirectAttributes redirectAttributes) {
+	    log.debug("mainPostDetails(id={})", id);
+
+	    // 세션에서 사용자 정보 확인
+	    Object sessionUser = session.getAttribute(SESSION_ATTR_USER);
+
+	    // 로그인하지 않은 사용자인 경우
+	    if (sessionUser == null) {
+	        // 경고 메시지 설정
+	        redirectAttributes.addFlashAttribute("warningMessage", "로그인한 사용자만 볼 수 있습니다.");
+	        // 홈페이지로 리다이렉트
+	        return "redirect:/user/signin";
+	    }
+
+	    // 로그인한 사용자인 경우, 기존 로직 수행
+	    Post post = mainPostService.selectPostId(id);
+	    log.debug("{}", post);
+	    model.addAttribute("commentId", commentId);
+	    model.addAttribute("post", post);
+	    
+	    // 뷰 이름 반환
+	    return "details"; // 또는 적절한 뷰 이름
 	}
 
 	@GetMapping("/modify")
@@ -126,7 +146,7 @@ public class MainPostController {
 	}
 
 	@GetMapping("/delete")
-	public String deleteMainPost(Integer id) {
+	public String deleteMainPost(@RequestParam (name = "id") int id) {
 		log.debug("deleteMainPost(id={})", id);
 
 		mainPostService.deleteById(id);

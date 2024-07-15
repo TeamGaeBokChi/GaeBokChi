@@ -2,8 +2,6 @@ package com.itwill.gaebokchi.dto;
 
 import java.util.List;
 
-import com.itwill.gaebokchi.repository.Post;
-
 import lombok.Data;
 
 

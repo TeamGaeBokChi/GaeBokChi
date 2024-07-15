@@ -17,14 +17,20 @@
 
 <c:if test="${not empty signupSuccess}">
     <script>
-		var userType = '${signupSuccess}';
-		if (userType === 'normal') {
-			alert("일반회원 가입을 축하드립니다!");
-		} else if (userType === 'expert') {
-			alert("전문가 회원 가입을 축하드립니다! 관리자 승인 후 전문가 등급으로 변경됩니다.");
-		}
-	</script>
+					var userType = '${signupSuccess}';
+					if (userType === 'normal') {
+						alert("일반회원 가입을 축하드립니다!");
+					} else if (userType === 'expert') {
+						alert("전문가 회원 가입을 축하드립니다! 관리자 승인 후 전문가 등급으로 변경됩니다.");
+					}
+				</script>
 
+</c:if>
+
+<c:if test="${not empty warningMessage}">
+    <div class="alert alert-warning" role="alert">
+        ${warningMessage}
+    </div>
 </c:if>
 </head>
 <body>
@@ -73,7 +79,8 @@
             <!-- 아이디 찾기 모달 -->
             <div class="modal fade" id="findIdModal" tabindex="-1"
                 aria-labelledby="findIdModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered " id="modal-id">
+                <div class="modal-dialog modal-dialog-centered "
+                    id="modal-id">
                     <!-- modal-dialog-centered 클래스 추가 -->
                     <div class="modal-content" id="madal-content-id">
                         <div class="modal-header" id="modal-header-id">
@@ -89,7 +96,8 @@
                                 <div class="mb-1">
                                     <label for="findIdName"
                                         class="form-label">이름</label> <input
-                                        type="text" class="form-control mb-1"
+                                        type="text"
+                                        class="form-control mb-1"
                                         id="findIdName" name="name"
                                         required>
                                 </div>
@@ -122,7 +130,8 @@
             <!-- 비밀번호 찾기 모달 -->
             <div class="modal fade" id="findPwModal" tabindex="-1"
                 aria-labelledby="findPwModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" id="modal-pw">
+                <div class="modal-dialog modal-dialog-centered"
+                    id="modal-pw">
                     <!-- modal-dialog-centered 클래스 추가 -->
                     <div class="modal-content" id="modal-content-pw">
                         <div class="modal-header" id="modal-header-pw">

@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.itwill.gaebokchi.dto.UserProfileDto;
 import com.itwill.gaebokchi.dto.UserUpdateDto;
+import com.itwill.gaebokchi.repository.Normal;
 import com.itwill.gaebokchi.repository.Pro;
 // import com.itwill.gaebokchi.repository.Point;
 import com.itwill.gaebokchi.repository.UserMypage;
@@ -20,10 +21,10 @@ public class UserMypageService {
 
 	private final UserMypageDao userDao;
 
-	public UserMypage read(String userid) {
+	public Normal read(String userid) {
 		log.debug("read(userid={})", userid);
 
-		UserMypage user = userDao.selectByUserid(userid);
+		Normal user = userDao.selectByUserid(userid);
 		log.debug("select 결과 = {}", user);
 
 		return user;
@@ -63,18 +64,22 @@ public class UserMypageService {
 	}
 	
 	@Transactional
-    public Pro updateProfile(UserProfileDto user) {
+    public Object updateProfile(UserProfileDto user) {
 		log.debug("updateProfile(user={})", user);
 		
 		if (user.getNickname() != null) {
 			userDao.updateNickname(user.toEntity());
 		}
         
-        if (user.getCareer() != null) {
+        if (user.getGrade().equals("G10") && user.getCareer() != null) {
         	userDao.updateProCareer(user.toEntity());
         }
         
-        return userDao.selectProByUserid(user.getUserid());
+        if (user.getGrade().equals("G10")) {
+        	return userDao.selectProByUserid(user.getUserid());
+        }
+        
+        return userDao.selectByUserid(user.getUserid());
 	}
 //	public Point change(String userid) {
 //		log.debug("read(userid={})", userid);

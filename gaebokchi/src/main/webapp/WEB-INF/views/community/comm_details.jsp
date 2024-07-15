@@ -142,8 +142,8 @@ body {
 			<div class="card-header">
 				<input type="hidden" id="postId" value="${post.id}" />
 				<h2 class="card-title">${post.title}</h2>
-				<small class="text-black">${categoryMap[post.category]} -
-					${post.createdTime}</small>
+				<small class="text-black">${category_name[post.category]}</small>
+				<small class="text-black">${post.createdTime}</small>
 			</div>
 			<div class="card-body">
 				<div class="post-info d-flex justify-content-between mb-3">
@@ -235,16 +235,18 @@ body {
 						</div>
 					</form>
 				</c:if>
+                <!-- 포커싱할 댓글 id -->
+                <input type="hidden" id="commentId" value="${commentId}" />
 				<div class="comment-list">
 					<c:forEach var="comment" items="${commentlist}">
-						<div class="comment">
+						<div class="comment" id="comment-${comment.id}">
 							<b>${userNicknames[comment.author]}</b>
 							<p>${comment.content}</p>
 							<div>
 								<small class="text-muted">${comment.modifiedTime}</small> <input
 									type="hidden" name="commentId" value="${comment.id}">
 								<c:if
-									test="${post.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
+									test="${comment.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
 									<button id="btnUpdateComment"
 										class="btn btn-success btn-register-comment" type="submit">수정</button>
 									<input type="hidden" name="commentId" value="${comment.id}">

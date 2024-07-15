@@ -9,7 +9,6 @@ public class UserUpdateDto {
 	private String userid;
 	private String password;
 	private String changePassword;
-	private String nickname;
 	private String carrier;
 	private String number;
 	private String phone;
@@ -17,6 +16,7 @@ public class UserUpdateDto {
 	private String mainAddress;
 	private String detailAddress;
 	private String address;
+	private String grade;
 	private String license;
 	private String bank;
 	private String bank_account;
@@ -32,19 +32,17 @@ public class UserUpdateDto {
 					.builder()
 					.userid(userid)
 					.password(changePassword)
-					.nickname(nickname)
 					.phone(phone)
 					.address(address)
 					.license(license)
 					.account(account)
 					.build();
 		}
-		
+
 		return UserMypage
 				.builder()
 				.userid(userid)
 				.password(password)
-				.nickname(nickname)
 				.phone(phone)
 				.address(address)
 				.license(license)

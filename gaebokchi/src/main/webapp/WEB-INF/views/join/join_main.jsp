@@ -17,19 +17,20 @@
 
 </head>
 <body>
-    <div class="container-fluid" id=community>
+    <div class="container">
         <header>
             <%@ include file="../fragments/header.jspf"%>
         </header>
 
         <div class="card border-0">
-            <h2>JOIN</h2>
+            <h2><a href="/gaebokchi/join/join_main">JOIN</a></h2>
             <h7>마음 맞는 사람과 함께 골프를 쳐보세요.</h7>
+            
             <div class="card-header" id="card-header">
                 <!-- 카테고리 선택 폼 추가 -->
                 <c:url var="catesearchPage" value="/join/join_main" />
                 <form method="get" action="${catesearchPage}">
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center d-flex">
                         <div class="col-2">
                             <select class="form-control" name="category"
                                 id="category">
@@ -41,16 +42,17 @@
                                     ${selectedCategory == 'h' ? 'selected' : ''}>홀수</option>
                             </select>
                         </div>
-                        <div class="col-5">
+                        <div class="col-4">
                             <input type="text" class="form-control"
                                 id="keyword" name="keyword"
-                                placeholder="검색어 입력" value="${keyword}" />
+                                placeholder="검색어를 입력하세요." value="${keyword}" />
                         </div>
                         <div class="col-1">
-                            <input type="submit"
-                                class="form-control btn btn-outline-secondary"
-                                value="검색" />
-                        </div>
+                                        <input type="submit"
+                                            class="form-control"
+                                            value="검색" id="searchButton" />
+                                    </div>
+                                    
                         <div class="col-2">
                             <c:url var="createPostUrl"
                                 value="/join/join_create" />
@@ -59,12 +61,12 @@
                                 <c:when test="${not empty signedInUser}">
                                     <!-- signedInUser가 있는 경우: 글쓰기 링크 -->
                                     <a href="${createPostUrl}"
-                                        class="form-control btn btn-outline-secondary">글쓰기</a>
+                                        class="form-control btn" id="btnCreateMainPost">글쓰기 ⮟</a>
                                 </c:when>
                                 <c:otherwise>
                                     <!-- signedInUser가 없는 경우: 로그인 링크 -->
                                     <a href="${signinUrl}"
-                                        class="form-control btn btn-outline-secondary">글쓰기</a>
+                                        class="form-control btn" id="btnCreatePost">글쓰기 ⮟</a>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -73,7 +75,7 @@
             </div>
         </div>
 
-        <div class="tab-header d-flex justify-content-between mt-2">
+        <div class="tab-header flex-grow-1">
             <div>
                 <button class="btn btn-link text-black" id="prevBtn">◀</button>
             </div>
@@ -100,12 +102,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>티오프</th>
-                    <th>골프장</th>
-                    <th>주소</th>
-                    <th>홀수</th>
-                    <th>그린피</th>
-                    <th>등록자</th>
+                    <th class="col-1">티오프</th>
+                    <th class="col-1">골프장</th>
+                    <th class="col-3">주소</th>
+                    <th class="col-1">홀수</th>
+                    <th class="col-1">그린피</th>
+                    <th class="col-1">등록자</th>
                 </tr>
             </thead>
             <tbody>
@@ -119,10 +121,10 @@
                             </c:url> <a href="${joinPostDetailsPage}"
                             class="custom-link">${p.title}</a></td>
                         <td>${p.gcadress}</td>
-                        <td>${p.hole}홀</td>
-                        <td>${p.greenfee}원</td>
-                        <td>${userNicknames[p.author]}</td>
-                    </tr>
+                        <td class="text-center">${p.hole}홀</td>
+                        <td class="text-center">${p.greenfee}원</td>
+                        <td class="text-center">${userNicknames[p.author]}</td>
+                    </tr> 
                 </c:forEach>
             </tbody>
         </table>

@@ -19,18 +19,25 @@
 	</select>
 
 	<insert id="insertPost">
-		insert into posts (title, content, author, category)
-		values (#{title}, #{content}, #{author}, #{category})
+		INSERT INTO posts (title, content, author,
+		category,
+		media)
+		VALUES (#{title}, #{content}, #{author},
+		#{category},
+		#{media ,
+		jdbcType=VARCHAR})
 	</insert>
 
 
 	<update id="updatePost">
-		update posts
-		set title = #{title}, content =
-		#{content} ,
-		modified_time = systimestamp
-		where
-		id = #{id}
+		UPDATE posts
+		SET title = #{title}, content =
+		#{content}, category = #{category}, media
+		= #{media ,
+		jdbcType=VARCHAR},
+		modified_time =
+		systimestamp
+		WHERE id = #{id}
 	</update>
 
 	<update id="increaseViews">
@@ -78,9 +85,9 @@
 					</when>
 				</choose>
 			</if>
-			and category = 'P004' 
+			and category = 'P004'
 		</where>
-		order by id desc 
+		order by id desc
 	</select>
 
 	<select id="findPreviousPost"

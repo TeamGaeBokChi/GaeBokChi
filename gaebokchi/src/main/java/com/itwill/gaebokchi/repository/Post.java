@@ -1,8 +1,9 @@
 package com.itwill.gaebokchi.repository;
 
 import java.time.LocalDateTime;
-
-
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,5 +33,34 @@ public class Post {
 	private String nickname;
 	
 	private String mediaPath;
+	
+    public String getFormattedCreatedTime() {
+        if (createdTime != null) {
+            // UTC 시간대로 변환
+            ZonedDateTime utcDateTime = createdTime.atZone(ZoneId.of("UTC"));
+            // 한국 시간대로 변환
+            ZonedDateTime seoulDateTime = utcDateTime.withZoneSameInstant(ZoneId.of("Asia/Seoul"));
+            // 포맷 정의
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 HH시mm분");
+            // 포맷 적용
+            return seoulDateTime.format(formatter);
+        } else {
+            return null;
+        }
+    }
+    
+    public String getFormattedModifiedTime() {
+        if (modifiedTime != null) {
+            ZonedDateTime utcDateTime = modifiedTime.atZone(ZoneId.of("UTC"));
+            ZonedDateTime seoulDateTime = utcDateTime.withZoneSameInstant(ZoneId.of("Asia/Seoul"));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 HH시mm분");
+            return seoulDateTime.format(formatter);
+        } else {
+            return null;
+        }
+    }
+    
+    
+	
 
 }

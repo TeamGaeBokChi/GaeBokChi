@@ -5,13 +5,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.MyPostListDto;
 import com.itwill.gaebokchi.dto.MyPostListSearchDto;
 import com.itwill.gaebokchi.repository.CommPostDao;
 import com.itwill.gaebokchi.repository.MyPost;
 import com.itwill.gaebokchi.repository.MyPostDao;
-import com.itwill.gaebokchi.repository.Post;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,5 +51,8 @@ public class MyPostService {
 		log.debug("delete(id={})", id);
 		return commPostDao.deletePost(id);
 	}
+	
+	
+	
 
 }

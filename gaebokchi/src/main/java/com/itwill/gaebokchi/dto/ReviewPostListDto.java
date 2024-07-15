@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.core.io.ByteArrayResource;
@@ -26,7 +27,7 @@ public class ReviewPostListDto {
 	private String title;
 	private String author;
 	private String category;
-	private LocalDateTime modifiedTime;
+	private LocalDate modifiedTime;
 	private Integer views;
 	private Integer likes;
 	private ByteArrayResource mediaResource; // 이미지 데이터 필드 추가
@@ -40,7 +41,7 @@ public class ReviewPostListDto {
 		}
 
 		return ReviewPostListDto.builder().id(reviewpost.getId()).category(reviewpost.getCategory())
-				.title(reviewpost.getTitle()).author(reviewpost.getAuthor()).modifiedTime(reviewpost.getModifiedTime())
+				.title(reviewpost.getTitle()).author(reviewpost.getAuthor()).modifiedTime(reviewpost.getModifiedTime().toLocalDate())
 				.views(reviewpost.getViews()).likes(reviewpost.getLikes()).mediaResource(mediaResource).build();
 	}
 

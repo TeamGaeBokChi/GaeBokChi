@@ -7,44 +7,37 @@ console.log('comments JS 실행중');
 document.addEventListener('DOMContentLoaded', () => {
 	getAllMainComments(); // 댓글 리스트업
 	getAllLikes(); // 좋아요 수
-	
-	
+
+
 	// 댓글 작성 스크립트
 	const btnRegisterComment = document.querySelector('#btnRegisterComment');
 	if (btnRegisterComment) {
-	    console.log('btnRegisterComment found:', btnRegisterComment); // 요소가 선택되었는지 확인
-	    btnRegisterComment.addEventListener('click', registerComment);
-	} else {
-	    console.error('btnRegisterComment not found');
+		btnRegisterComment.addEventListener('click', registerComment);
 	}
-	
-	/* 게시글 삭제 스크립트 */
-	const btnDeleteMainPost = document.querySelector('button#btnDeleteMainPost');
-	btnDeleteMainPost.addEventListener('click', () => {
-		const result = confirm('게시물을 삭제하시겠습니까?');
-		if (result) {
-			location.href = `delete?id=${post.id}`;
-		}
-	})
-	
-	
+
 
 
 
 
 	const btnLikes = document.querySelector('button#likes');
 	btnLikes.addEventListener('click', () => {
-		const postId = document.querySelector('input#postId').value;
-		const uri = `../mainPost/likes/${postId}`;
+		if (signedInUser === postAuthor) {
+			alert('본인의 게시물은 추천할 수 없습니다.');
+		} else {
+				const postId = document.querySelector('input#postId').value;
+				const uri = `../mainPost/likes/${postId}`;
 
-		axios.put(uri)
-			.then((response) => {
-				console.log(response);
-				alert('해당 게시물 추천을 하였습니다.');
-				getAllLikes();
-			})
-			.catch((error) => console.log(error));
+				axios.put(uri)
+					.then((response) => {
+						console.log(response);
+						alert('해당 게시물 추천을 하였습니다.');
+						getAllLikes();
+					})
+					.catch((error) => console.log(error));	
+		}
 	});
+
+
 
 
 	function getAllLikes() {
@@ -75,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	function registerComment() {
 		const postId = document.querySelector('input#postId').value;
 		const content = document.querySelector('textarea#content').value;
-		const author = document.querySelector('input#author').value;
+		const author = document.querySelector('input#signedInUser').value;
 
 		if (content === '' || author === '') {
 			alert('피드백 내용 및 작성자는 필수 입력값입니다.')
@@ -93,9 +86,21 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (response.data === 1) {
 					alert('피드백 작성완료, 채택을 기다려주세요.');
 					document.querySelector('textarea#content').value = '';
-					document.querySelector('input#author').value = '';
-					//전체 댓글 갱신 함수넣기	
+					//전체 댓글 갱신 함수넣기   
 					getAllMainComments();
+					
+					const focusCommentId = document.querySelector('input#commentId').value;
+
+					if (focusCommentId) {
+						const commentElement = document.getElementById(`comment-${focusCommentId}`);
+						if (commentElement) {
+							commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+						} else {
+							console.warn(`Element with id 'comment-${focusCommentId}' not found.`);
+						}
+					} else {
+						console.error('focusCommentId is null or undefined.');
+					}
 				}
 			})
 			.catch((error) => {
@@ -128,14 +133,12 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (response.data.some(comment => comment.selection === 1)) {
 					hideAllSelectButtons();
 				}
-
-				
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 
-	}; ㅎ
+	};
 
 
 	// 댓글 목을 전달 받아 html 작성
@@ -150,120 +153,109 @@ document.addEventListener('DOMContentLoaded', () => {
 				let highlightClass = mainComment.selection === 1 ? 'highlight' : '';
 
 				htmlString += `
-	                <div class="comment ${highlightClass}" id="comment-${mainComment.id}">
-	                    <div class="comment-thumb">
-	                        <img id="image-${mainComment.id}" class="pofile-image" src="../user/file/image?file=${encodeURIComponent(mainComment.image)}" alt="Uploaded Image">
-	                    </div>
+				<div class="comment ${highlightClass}" id="comment-${mainComment.id}">
+					<div class="comment-thumb">
+						<img id="image-${mainComment.id}" class="pofile-image"
+							src="../user/file/image?file=${encodeURIComponent(mainComment.image)}"
+							alt="Uploaded Image">
+					</div>
+
+
+					<div class="comment-content">
+						<strong>${mainComment.nickname}</strong>
+						<div class="comment-text">
+							<p class="commentId d-none"></p>
+							<p>
+								<span>${mainComment.content}</span>
+							</p>
+						</div>
 						
-	                    <div class="comment-content">
-	                        <strong>${mainComment.nickname}</strong>
-	                        <div class="comment-text">
-	                        	<p class="commentId d-none"></p>
-	                            <p><span>${mainComment.content}</span></p>
-	                        </div>
-							
-							<div class="edit-area" id="editMainConmment${mainComment.id}" style="display: none;">
-								<textarea class="form-control" id="edit-textarea-${mainComment.id}">${mainComment.content}</textarea>
-								<button class="btn btn-primary mt-2 save-edit" data-id="${mainComment.id}">저장</button>
-								<button class="btn btn-secondary mt-2 cancel-edit" data-id="${mainComment.id}">취소</button>
-							</div>
-							
-							<!-- 채택 및 댓글 수정,삭제 스크립트 --!>
-							<div class="button-container">
-								${signedInUser === postAuthor ? 
-								  `<button class="btn btn-outline-success selectComment" data-id="${mainComment.id}">채택</button>` : ''}
-								
-								${signedInUser === mainComment.author ?
-									`<button class="btn btn-outline-primary modifyComment" data-id="${mainComment.id}">수정</button>` : ''}
-								${signedInUser === mainComment.author ?
-									`<button class="btn btn-outline-danger deleteComment" data-id="${mainComment.id}">삭제</button>` : ''}
-							</div>
-							
-	                    </div>
+						<div class="button-container">${signedInUser === postAuthor ?
+						`<button class="btn btn-outline-success selectComment" data-id="${mainComment.id}">채택</button>` : ''}
+							${signedInUser === mainComment.author ?
+						`<button class="btn btn-outline-primary modifyComment" data-id="${mainComment.id}">수정</button>` : ''}
+							${signedInUser === mainComment.author ?
+						`<button class="btn btn-outline-danger deleteComment" data-id="${mainComment.id}">삭제</button>` : ''}
+						</div>
 						
-	                </div>
-	            `;
+						<div class="edit-area" id="editMainConmment${mainComment.id}"
+							style="display: none;">
+							<textarea class="form-control" id="edit-textarea-${mainComment.id}">${mainComment.content}</textarea>
+							<button class="btn btn-primary mt-2 save-edit"
+								data-id="${mainComment.id}">저장</button>
+							<button class="btn btn-secondary mt-2 cancel-edit"
+								data-id="${mainComment.id}">취소</button>
+						</div>
+					</div>
+				</div>
+               `;
 			}
 		}
 		divComments.innerHTML = htmlString;
 
-		const focusCommentId = document.querySelector('input#commentId').value;
+		/* 생선되는 모든 버튼에 이벤트 리스너를 추가하는 영역 */
 
-		if (focusCommentId != null) { // null 및 undefined 모두 체크
-			let commentElement = document.getElementById(`comment-${focusCommentId}`);
-			console.log(commentElement);
-			if (commentElement) { // 요소가 실제로 존재하는지 확인
-				commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-			} else {
-				return;
-			}
-		} else {
-			console.error('focusCommentId is null or undefined.');
-		}
-		
 		const selectComment = document.querySelectorAll('.selectComment');
 		for (let selectButton of selectComment) {
 			selectButton.addEventListener('click', selectComments);
 		}
+
+
 		const deleteButtons = document.querySelectorAll('.deleteComment');
 		for (let btn of deleteButtons) {
 			btn.addEventListener('click', deleteComments)
 		}
-		
+
 		const modifyButtons = document.querySelectorAll('.modifyComment');
 		for (let btn of modifyButtons) {
-		  btn.addEventListener('click', modifyMainComment);
+			btn.addEventListener('click', modifyMainComment);
 		}
 
+
 	}
-	
-	
-	
+
+
+
 	function modifyMainComment(event) {
-	  const commentId = event.target.getAttribute('data-id');
-	  // 변경: 올바른 id 사용
-	  const commentTextElement = document.getElementById(`comment-text-${commentId}`);
-	  const editAreaElement = document.getElementById(`edit-area-${commentId}`);
-	  
-	  alert('댓글을 수정합니다.');
-	  
-	  // 원래의 댓글 텍스트를 숨기고 수정 영역을 보여줍니다.
-	  commentTextElement.style.display = 'none';
-	  editAreaElement.style.display = 'block';
+		const commentId = event.target.getAttribute('data-id');
+		const commentTextElement = document.querySelector(`#comment-${commentId} .comment-text`);
+		const editAreaElement = document.querySelector(`#comment-${commentId} .edit-area`);
+
+		alert('댓글을 수정합니다.');
+
+		// 원래의 댓글 텍스트를 숨기고 수정 영역을 보여줍니다.
+		commentTextElement.style.display = 'none';
+		editAreaElement.style.display = 'block';
+
+		// 저장 버튼 이벤트 리스너
+		const saveButton = editAreaElement.querySelector('.save-edit');
+		saveButton.addEventListener('click', () => {
+			const editedContent = document.getElementById(`edit-textarea-${commentId}`).value;
+
+			axios.put(`../api/mainComment/edit/${commentId}`, { content: editedContent })
+				.then((response) => {
+					alert('댓글이 수정되었습니다.');
+					document.querySelector(`#comment-${commentId} .comment-text span`).textContent = editedContent;
+					commentTextElement.style.display = 'block';
+					editAreaElement.style.display = 'none';
+				})
+				.catch(error => console.log(error));
+		});
+
+		// 취소 버튼 이벤트 리스너
+		const cancelButton = editAreaElement.querySelector('.cancel-edit');
+		cancelButton.addEventListener('click', () => {
+			commentTextElement.style.display = 'block';
+			editAreaElement.style.display = 'none';
+		});
 	}
 
-	// 저장 버튼 이벤트 리스너
-	document.addEventListener('click', function(event) {
-	  if (event.target.classList.contains('save-edit')) {
-	    const commentId = event.target.getAttribute('data-id');
-	    const editedContent = document.getElementById(`edit-textarea-${commentId}`).value;
-	    
-	    // 여기에 서버로 수정된 내용을 보내는 AJAX 요청을 구현합니다.
-	    // 예: saveEditedComment(commentId, editedContent);
-	    
-	    // 변경: 올바른 선택자 사용
-	    document.querySelector(`#comment-text-${commentId} span`).textContent = editedContent;
-	    
-	    // 변경: 올바른 id 사용
-	    document.getElementById(`comment-text-${commentId}`).style.display = 'block';
-	    document.getElementById(`edit-area-${commentId}`).style.display = 'none';
-	  }
-	});
-	
-	
-	// 취소 버튼 이벤트 리스너
-	document.addEventListener('click', function(event) {
-	  if (event.target.classList.contains('cancel-edit')) {
-	    const commentId = event.target.getAttribute('data-id');
-	    
-	    // 수정 영역을 숨기고 원래의 댓글 텍스트를 보여줍니다.
-	    document.getElementById(`comment-text-${commentId}`).style.display = 'block';
-	    document.getElementById(`edit-area-${commentId}`).style.display = 'none';
-	  }
-	});
 
-	
-	
+
+
+
+
+
 	function deleteComments(event) {
 		console.log(event.target);
 		const commentsId = event.target.getAttribute('data-id');
@@ -283,6 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 
+
 	function selectComments(event) {
 		console.log(event.target);
 		const commentsId = event.target.getAttribute('data-id');
@@ -290,9 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (!result) {
 			return;
 		}
-
 		const uri = `../api/mainComment/selectComment/${commentsId}`;
-
 		axios.put(uri)
 			.then((response) => {
 				console.log(response.data);
@@ -303,11 +294,38 @@ document.addEventListener('DOMContentLoaded', () => {
 			.catch((error) => console.log(error));
 	}
 
+
+
+
+
+
+
 	function hideAllSelectButtons() {
-		const selectButton = document.querySelectorAll('.selectComment');
-		const deleteButton = document.querySelectorAll('.deleteComment');
 		const content = document.querySelector('#content');
 		const btnRegisterComment = document.querySelector('#btnRegisterComment');
+		if (content) {
+			content.style.backgroundColor = '#e9e9e9';
+			content.value = '채택이 완료 된 레슨입니다.';
+			content.style.fontSize = '18px';
+			content.readOnly = true;
+			content.style.textAlign = 'center';
+			content.style.paddingTop = '51px';
+			btnRegisterComment.style.display = 'none';
+		}
+
+		const finishContent = document.querySelector('#finishContent');
+		if (finishContent) {
+			finishContent.style.backgroundColor = '#e9e9e9';
+			finishContent.value = '채택이 완료 된 레슨입니다.';
+			finishContent.style.fontSize = '18px';
+			finishContent.readOnly = true;
+			finishContent.style.textAlign = 'center';
+			finishContent.style.paddingTop = '51px';
+		}
+
+		const modifyButton = document.querySelectorAll('.modifyComment');
+		const selectButton = document.querySelectorAll('.selectComment');
+		const deleteButton = document.querySelectorAll('.deleteComment');
 
 		selectButton.forEach(button => {
 			button.style.display = 'none';
@@ -315,13 +333,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		deleteButton.forEach(button => {
 			button.style.display = 'none';
 		});
-		content.style.backgroundColor = '#e9e9e9';
-		content.value = '채택이 완료 된 레슨입니다.';
-		content.style.fontSize = '18px';
-		content.readOnly = true;
-		btnRegisterComment.style.display = 'none';
-		content.style.textAlign = 'center';
-		content.style.paddingTop = '51px';
+		modifyButton.forEach(button => {
+			button.style.display = 'none';
+		});
+		
+		const btnFoot = document.querySelector('#btnFoot');
+		btnFoot.classList.add('d-none');
+
 	}
 
 

@@ -1,6 +1,5 @@
 package com.itwill.gaebokchi.web;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,13 +31,11 @@ import com.itwill.gaebokchi.dto.ReviewPostCreateDto;
 import com.itwill.gaebokchi.dto.CommentCreateDto;
 import com.itwill.gaebokchi.dto.CommentItemDto;
 import com.itwill.gaebokchi.dto.CommentUpdateDto;
-import com.itwill.gaebokchi.dto.ReviewPostCreateDto;
 import com.itwill.gaebokchi.dto.ReviewPostSearchDto;
 import com.itwill.gaebokchi.dto.ReviewPostUpdateDto;
 import com.itwill.gaebokchi.filter.AuthenticationFilter;
 import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.repository.User;
-import com.itwill.gaebokchi.repository.ReviewPost;
 import com.itwill.gaebokchi.repository.Comment;
 import com.itwill.gaebokchi.repository.CommentDao;
 import com.itwill.gaebokchi.service.MediaService;
@@ -145,11 +142,10 @@ public class ReviewController {
 		return "review/review_main";
 	}
 
-	private Map<String, Set<Integer>> userViewedPosts = new HashMap<>();
-
 	@GetMapping("/review_details")
 	public String detailsCommunityPost(@ModelAttribute("loggedInUser") User loggedInUser,
-			@RequestParam("id") Integer id, Model model, HttpSession session) {
+			@RequestParam("id") Integer id, @RequestParam(name = "commentId", required = false) Integer commentId,
+			Model model, HttpSession session) {
 		if (loggedInUser != null) {
 			log.debug("user={}", loggedInUser);
 			model.addAttribute("user", loggedInUser);
@@ -192,7 +188,8 @@ public class ReviewController {
 		model.addAttribute("nextPost", nextPost); // 다음 글
 		model.addAttribute("commentlist", commentlist); // 댓글 목록 추가하기
 		model.addAttribute("commentcount", commentcount);
-
+		model.addAttribute("commentId", commentId);
+		
 		return "review/review_details";
 	}
 

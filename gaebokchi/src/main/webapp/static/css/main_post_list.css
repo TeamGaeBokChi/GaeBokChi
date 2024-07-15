@@ -80,16 +80,18 @@ body {
 }
 
 #searchButton {
-    font-weight: bold;
-    border: 1px solid black;
-    width: 70px;
+  background:#2A7E50;
+    color: white;
     text-align: center;
+    width: 70px;
 }
 
 #btnCreateMainPost {
-    color: white;
-    border: 1px solid #808080;
-    background: #2A7E50;
+    color:black;
+    font-weight:700;
+    border: 2px solid #2A7E50;
+    background:white;
+    width: 100px;
 }
 .table thead {
     border-top: 2px solid black;
@@ -118,3 +120,4 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+

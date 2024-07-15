@@ -43,6 +43,7 @@
                                 type="button" name="idbutton"
                                 id="idbutton">중복체크</button>
                         </div>
+                        <div id="useridMessage"></div>
                     </div>
 
                     <div class="form-group">
