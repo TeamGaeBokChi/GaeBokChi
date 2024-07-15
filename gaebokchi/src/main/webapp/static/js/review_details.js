@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					.then(response => {
 						if (response.ok) {
 							alert('게시물이 삭제되었습니다.');
-							window.location.href = '/gaebokchi/review/join_main';
+							window.location.href = '/gaebokchi/review/review_main';
 						} else {
 							throw new Error('게시물 삭제에 실패했습니다.');
 						}
