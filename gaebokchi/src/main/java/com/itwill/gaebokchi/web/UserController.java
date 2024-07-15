@@ -32,6 +32,7 @@ import com.itwill.gaebokchi.dto.UserSignInDto;
 import com.itwill.gaebokchi.dto.exchangeInfoDto;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,40 +48,62 @@ public class UserController {
 	private final UserService userService;
 
 	@GetMapping("/signin")
-	public String signInForm(HttpServletRequest request, @RequestParam(value = "redirectUrl", required = false) String redirectUrl) {
-	    if (redirectUrl == null) {
-	        redirectUrl = request.getHeader("Referer");
-	    }
-	    if (redirectUrl != null && !redirectUrl.contains("/signin")) {
-	        request.getSession().setAttribute("redirectUrl", redirectUrl);
-	    }
-	    return "user/signin";
+	public String signInForm(HttpServletRequest request,
+			@RequestParam(value = "redirectUrl", required = false) String redirectUrl) {
+		if (redirectUrl == null) {
+			redirectUrl = request.getHeader("Referer");
+		}
+		if (redirectUrl != null && !redirectUrl.contains("/signin")) {
+			request.getSession().setAttribute("redirectUrl", redirectUrl);
+		}
+		return "user/signin";
 	}
+
 	@PostMapping("/signin")
-	public String signIn(UserSignInDto dto, Model model, HttpSession session, HttpServletRequest request) {
-	    log.debug("POST signIn({})", dto);
+	public String signIn(UserSignInDto dto, Model model, HttpSession session, HttpServletRequest request,
+			HttpServletResponse response) {
+		log.debug("POST signIn({})", dto);
 
-	    try {
-	        User user = userService.read(dto);
-	        if (user != null) {
-	            session.setMaxInactiveInterval(SESSION_TIME);
-	            session.setAttribute(SESSION_ATTR_USER, user.getUserid());
-	            session.setAttribute(SESSION_USER_GRADE, user.getGrade());
+		// 리다이렉트 URL 저장
+		String redirectUrl = (String) session.getAttribute("redirectUrl");
 
-	            String redirectUrl = (String) session.getAttribute("redirectUrl");
-	            if (redirectUrl != null) {
-	                session.removeAttribute("redirectUrl");
-	                return "redirect:" + redirectUrl;
-	            }
-	            return "redirect:/";
-	        } else {
-	            model.addAttribute("errorMessage", "일치하는 아이디와 비밀번호가 없습니다.");
-	            return "user/signin";
-	        }
-	    } catch (Exception e) {
-	        log.error("로그인 처리 중 오류 발생", e);
-	        return "redirect:/signin";
-	    }
+		// 기존 세션 무효화
+		session.invalidate();
+
+		// 새 세션 생성
+		session = request.getSession(true);
+
+		// 저장해둔 리다이렉트 URL을 새 세션에 다시 설정
+		if (redirectUrl != null) {
+			session.setAttribute("redirectUrl", redirectUrl);
+		}
+
+		// 캐시 제어 헤더 추가
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setHeader("Expires", "0");
+
+		try {
+			User user = userService.read(dto);
+			if (user != null) {
+				session.setMaxInactiveInterval(SESSION_TIME);
+				session.setAttribute(SESSION_ATTR_USER, user.getUserid());
+				session.setAttribute(SESSION_USER_GRADE, user.getGrade());
+
+				// 리다이렉트 URL 사용
+				if (redirectUrl != null) {
+					session.removeAttribute("redirectUrl");
+					return "redirect:" + redirectUrl + "?login=success";
+				}
+				return "redirect:/?login=success";
+			} else {
+				model.addAttribute("errorMessage", "일치하는 아이디와 비밀번호가 없습니다.");
+				return "user/signin";
+			}
+		} catch (Exception e) {
+			log.error("로그인 처리 중 오류 발생", e);
+			return "redirect:/signin";
+		}
 	}
 
 	@GetMapping("/signup") // GET 방식의 /user/signup 요청을 처리하는 컨트롤러 메서드
@@ -218,7 +241,6 @@ public class UserController {
 	@GetMapping("/signout")
 	public String signOut(HttpSession session) {
 		log.debug("singOut()");
-
 		session.removeAttribute(SESSION_ATTR_USER);
 		session.removeAttribute(SESSION_USER_GRADE);
 		session.invalidate();
