@@ -373,95 +373,125 @@
 
 
 
-    <select id="getPostList" resultType="com.itwill.gaebokchi.repository.Post">
-        SELECT *
-        FROM (
-            SELECT
-                A.*,
-                ROWNUM AS rnum
-            FROM (
-                SELECT
-                    p.id AS id,
-                    c.name AS clubType,
-                    p.title AS title,
-                    u.nickname AS author,
-                    p.views AS views,
-                    p.likes AS likes,
-                    p.created_time AS createdTime,
-                    CASE
-                        WHEN EXISTS (
-                            SELECT 1 FROM comments cmt WHERE cmt.post_id = p.id AND cmt.selection = '1'
-                        )
-                        THEN '해결 완료'
-                        ELSE '해결 중'
-                    END AS selection
-                FROM
-                    posts p
-                    JOIN clubs c ON p.club_type = c.id
-                    JOIN users u ON p.author = u.userid
-                WHERE
-                    p.category IN ('P001')
-                ORDER BY
-                    p.id DESC
-            ) A
-            WHERE
-                ROWNUM &lt;= #{endRow}
-        )
-        WHERE
-            rnum &gt; #{startRow}
-    </select>
-    
-    
+	<select id="getPostList"
+		resultType="com.itwill.gaebokchi.repository.Post">
+		SELECT *
+		FROM (
+		SELECT
+		A.*,
+		ROWNUM AS rnum
+		FROM (
+		SELECT
+		p.id AS
+		id,
+		c.name AS clubType,
+		p.title AS title,
+		u.nickname AS author,
+		p.views AS
+		views,
+		p.likes AS likes,
+		p.created_time AS createdTime,
+		CASE
+		WHEN EXISTS (
+		SELECT 1 FROM comments cmt WHERE cmt.post_id = p.id AND cmt.selection
+		= '1'
+		)
+		THEN '해결 완료'
+		ELSE '해결 중'
+		END AS selection
+		FROM
+		posts p
+		JOIN clubs c
+		ON p.club_type = c.id
+		JOIN users u ON p.author = u.userid
+		WHERE
+		p.category IN ('P001')
+		ORDER BY
+		p.id DESC
+		) A
+		WHERE
+		ROWNUM &lt;= #{endRow}
+		)
+		WHERE
+		rnum &gt; #{startRow}
+	</select>
+
+
 	<select id="getTotalCount" resultType="int">
 		SELECT COUNT(*)
 		FROM posts
 		where category = 'P001'
 	</select>
-    
-
-    <select id="getPostListByUserid" resultType="com.itwill.gaebokchi.repository.Post">
-        SELECT *
-        FROM (
-            SELECT
-                A.*,
-                ROWNUM AS rnum
-            FROM (
-                SELECT
-                    p.id AS id,
-                    c.name AS clubType,
-                    p.title AS title,
-                    u.nickname AS author,
-                    p.views AS views,
-                    p.likes AS likes,
-                    p.created_time AS createdTime,
-                    CASE
-                        WHEN EXISTS (
-                            SELECT 1 FROM comments cmt WHERE cmt.post_id = p.id AND cmt.selection = '1'
-                        )
-                        THEN '해결 완료'
-                        ELSE '해결 중'
-                    END AS selection
-                FROM
-                    posts p
-                    JOIN clubs c ON p.club_type = c.id
-                    JOIN users u ON p.author = u.userid
-                WHERE
-                    p.author = #{author} AND p.category IN ('P001')
-                ORDER BY
-                    p.id DESC
-            ) A
-            WHERE
-                ROWNUM &lt;= #{endRow}
-        )
-        WHERE
-            rnum &gt; #{startRow}
-    </select>
 
 
-    <select id="getTotalCountByUserid" resultType="int">
-        SELECT COUNT(*)
-        FROM posts
-        where author = #{author} and category = 'P001'
-    </select>
+	<select id="getPostListByUserid"
+		resultType="com.itwill.gaebokchi.repository.Post">
+		SELECT *
+		FROM (
+		SELECT
+		A.*,
+		ROWNUM AS rnum
+		FROM (
+		SELECT
+		p.id AS
+		id,
+		c.name AS clubType,
+		p.title AS title,
+		u.nickname AS author,
+		p.views AS
+		views,
+		p.likes AS likes,
+		p.created_time AS createdTime,
+		CASE
+		WHEN EXISTS (
+		SELECT 1 FROM comments cmt WHERE cmt.post_id = p.id AND cmt.selection
+		= '1'
+		)
+		THEN '해결 완료'
+		ELSE '해결 중'
+		END AS selection
+		FROM
+		posts p
+		JOIN clubs c
+		ON p.club_type = c.id
+		JOIN users u ON p.author = u.userid
+		WHERE
+		p.author
+		= #{author} AND p.category IN ('P001')
+		ORDER BY
+		p.id DESC
+		) A
+		WHERE
+		ROWNUM
+		&lt;= #{endRow}
+		)
+		WHERE
+		rnum &gt; #{startRow}
+	</select>
+
+
+	<select id="getTotalCountByUserid" resultType="int">
+		SELECT COUNT(*)
+		FROM posts
+		where author = #{author} and category = 'P001'
+	</select>
+
+
+	<select id="getUsersViewsRank" resultType="Post">
+		SELECT
+		club_type, title, views
+		FROM posts
+		ORDER BY views DESC
+		FETCH FIRST 5 ROWS ONLY
+	</select>
+
+	<select id="getUsersLikesRank" resultType="Post">
+		SELECT
+		club_type, title, likes
+		FROM posts
+		ORDER BY likes DESC
+		FETCH FIRST 5 ROWS ONLY
+	</select>
+
 
 </mapper>

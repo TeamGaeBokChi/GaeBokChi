@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.itwill.gaebokchi.repository.Home;
+import com.itwill.gaebokchi.repository.Post;
 import com.itwill.gaebokchi.service.HomeService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +26,15 @@ public class HomeController {
 	public String home(Model model) {
 		log.debug("home()");
 		List<Home> home = homeService.pointsRank();
+		List<Post> viewsRank = homeService.viewsRank();
+		List<Post> likesRank = homeService.likesRank();
 		System.out.println(home);
 		model.addAttribute("rank", home);
+		model.addAttribute("viewsRank", viewsRank);
+		model.addAttribute("likesRank", likesRank);
 		return "home"; // 뷰(JSP 파일)의 이름.
 	}
+	
 
 	
 }

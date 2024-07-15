@@ -27,4 +27,8 @@ public interface PostDao {
 
 	int getTotalCount();
 	int getTotalCountByUserid(String author);
+	
+
+    List<Post> getUsersViewsRank();
+    List<Post> getUsersLikesRank();  
 }
