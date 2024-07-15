@@ -117,7 +117,7 @@
                             <b>${userNicknames[comment.author]}</b>
                             <p>${comment.content}</p>
                             <div>
-                                <small class="text-muted">${comment.modifiedTime}</small>
+                                <small class="text-muted">${comment.formattedModifiedTime}</small>
                                 <input type="hidden" name="commentId"
                                     value="${comment.id}">
                                 <c:if

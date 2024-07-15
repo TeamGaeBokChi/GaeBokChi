@@ -4,27 +4,44 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-    <settings>
-        <!-- 테이블 컬럼 이름의 밑줄(underscore)을 자바 클래스의 카멜 표기법 필드로 변환. -->
-        <setting name="mapUnderscoreToCamelCase" value="true" />
-    </settings>
+	<settings>
+		<!-- 테이블 컬럼 이름의 밑줄(underscore)을 자바 클래스의 카멜 표기법 필드로 변환. -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
 
-    <!-- 매퍼 XML 파일에서 resultType 속성을 설정할 때 간단히 하기 위해서. -->
-    <typeAliases>
-        <typeAlias type="com.itwill.gaebokchi.repository.User" alias="User" />
-        <typeAlias type="com.itwill.gaebokchi.repository.CommPost" alias="CommPost" />
-        <typeAlias type="com.itwill.gaebokchi.repository.ReviewPost" alias="ReviewPost" />
-        <typeAlias type="com.itwill.gaebokchi.repository.JoinPost" alias="JoinPost" />
-        <typeAlias type="com.itwill.gaebokchi.repository.Comment" alias="Comment" />
-        <typeAlias type="com.itwill.gaebokchi.repository.Post" alias="Post" />
-        <typeAlias type="com.itwill.gaebokchi.repository.Clubs" alias="Clubs" />
-        <typeAlias type="com.itwill.gaebokchi.repository.MainComment" alias="MainComment" />
-        <typeAlias type="com.itwill.gaebokchi.repository.MyComment" alias="MyComment" />
-        <typeAlias type="com.itwill.gaebokchi.repository.UserMypage" alias="UserMypage" />
-        <typeAlias type="com.itwill.gaebokchi.repository.Normal" alias="Normal" />
-        <typeAlias type="com.itwill.gaebokchi.repository.Pro" alias="Pro" />
-        <typeAlias type="com.itwill.gaebokchi.repository.Point" alias="Point" />
-        <typeAlias type="com.itwill.gaebokchi.repository.Home" alias="Home" />
-    </typeAliases>
+	<!-- 매퍼 XML 파일에서 resultType 속성을 설정할 때 간단히 하기 위해서. -->
+	<typeAliases>
+		<!-- 기존에 정의된 typeAlias들 -->
+		<typeAlias type="com.itwill.gaebokchi.repository.User"
+			alias="User" />
+		<typeAlias type="com.itwill.gaebokchi.repository.CommPost"
+			alias="CommPost" />
+		<typeAlias type="com.itwill.gaebokchi.repository.ReviewPost"
+			alias="ReviewPost" />
+		<!-- 다른 typeAlias들 -->
+		<typeAlias type="com.itwill.gaebokchi.repository.JoinPost"
+			alias="JoinPost" />
+		<typeAlias type="com.itwill.gaebokchi.repository.Comment"
+			alias="Comment" />
+		<typeAlias type="com.itwill.gaebokchi.repository.Post"
+			alias="Post" />
+		<typeAlias type="com.itwill.gaebokchi.repository.Clubs"
+			alias="Clubs" />
+		<typeAlias
+			type="com.itwill.gaebokchi.repository.MainComment"
+			alias="MainComment" />
+		<typeAlias type="com.itwill.gaebokchi.repository.MyComment"
+			alias="MyComment" />
+		<typeAlias type="com.itwill.gaebokchi.repository.UserMypage"
+			alias="UserMypage" />
+		<typeAlias type="com.itwill.gaebokchi.repository.Normal"
+			alias="Normal" />
+		<typeAlias type="com.itwill.gaebokchi.repository.Pro"
+			alias="Pro" />
+		<typeAlias type="com.itwill.gaebokchi.repository.Point"
+			alias="Point" />
+		<typeAlias type="com.itwill.gaebokchi.repository.Home"
+			alias="Home" />
+	</typeAliases>
 
 </configuration>
