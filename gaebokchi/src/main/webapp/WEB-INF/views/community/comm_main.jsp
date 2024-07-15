@@ -16,9 +16,17 @@
 <link rel="stylesheet" href="../css/comm_main.css" />
 </head>
 <body>
+
+	<%@ include file="../fragments/header.jspf"%>
+
 	<div class="container-fluid">
 		<header>
-			<%@ include file="../fragments/header.jspf"%>
+
+			<h2>
+				<a href="/gaebokchi/community/comm_main">COMMUNITY</a>
+			</h2>
+			<h7>마음 맞는 사람과 함께 골프를 쳐보세요.</h7>
+
 			<table class="table">
 				<colgroup>
 					<col style="width: 50%;">
@@ -137,12 +145,12 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>탭</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>작성일</th>
-								<th>조회</th>
-								<th>추천</th>
+								<th class="col-1">탭</th>
+								<th class="col-3">제목</th>
+								<th class="col-1">작성자</th>
+								<th class="col-1">작성일</th>
+								<th class="col-1">조회</th>
+								<th class="col-1">추천</th>
 							</tr>
 						</thead>
 						<tbody>
