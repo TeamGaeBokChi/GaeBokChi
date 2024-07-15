@@ -24,13 +24,6 @@
 		<%@ include file="../fragments/header.jspf"%>
 	</header>
 
-	<c:if test="${not empty userid}">
-
-		<div class="row">
-			<%@ include file="../fragments/menu.jspf"%>
-		</div>
-	</c:if>
-
 	<main>
 		<div class="container">
 			<!-- 인기 게시물 리스트업부 -->
@@ -207,11 +200,6 @@
 			</div>
 		</div>
 	</main>
-	<c:if test="${not empty userid}">
-		</div>
-		</div>
-		</div>
-	</c:if>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

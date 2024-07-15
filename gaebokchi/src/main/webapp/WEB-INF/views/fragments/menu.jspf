@@ -21,10 +21,12 @@
                 <c:url var="userGrade" value="/user/grade" />
                 <a class="menu_link" href="${userGrade}">회원 등급</a>
             </li>
-            <li class="menu_item">
-                <c:url var="myLessons" value="/user/mylessons" />
-                <a class="menu_link" href="${myLessons}">레슨 신청 내역</a>
-            </li>
+            <c:if test="${signedInUserGrade ne 'G10'}">
+                <li class="menu_item">
+                    <c:url var="myLessons" value="/user/mylessons?userid=${signedInUser}" />
+                    <a class="menu_link" href="${myLessons}">레슨 신청 내역</a>
+                </li>
+            </c:if>
             <li class="menu_item">
                 <c:url var="myPosts" value="/user/myposts" />
                 <a class="menu_link" href="${myPosts}">내가 쓴 게시글</a>
