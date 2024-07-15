@@ -19,7 +19,7 @@
 <body>
 	<%@ include file="../fragments/header.jspf"%>
 	<div class="container">
-		<div class="row justify-content-center">
+		<div class="row justify-content-center mb-2">
 			<div class="col-md-8">
 				<div class="card border-0">
 
@@ -84,14 +84,14 @@
 					</div>
 					<c:if
 						test="${post.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
-						<div class="d-flex justify-content-end mt-2 mb-3">
+						<div class="lastbtn d-flex justify-content-end mt-2 mb-3">
 							<c:url var="joinModifyPage" value="/join/join_modify">
 								<c:param name="id" value="${post.id}" />
 							</c:url>
-							<button class="btn btn-outline-primary"
+							<button class="m-2 btn"
 								onclick="location.href='${joinModifyPage}'">️수정하기</button>
 							<button id="btnDelete"
-								class="btn btn-outline-secondary btn-custom ms-2">삭제하기</button>
+								class="m-2 btn">삭제하기</button>
 						</div>
 					</c:if>
 				</div>

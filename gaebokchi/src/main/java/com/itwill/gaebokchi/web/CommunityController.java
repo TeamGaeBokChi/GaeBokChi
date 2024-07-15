@@ -128,10 +128,9 @@ public class CommunityController {
 		model.addAttribute("pinnedPosts", pinnedPosts);
 		model.addAttribute("top5ByF001", commPostService.getTop5ByF001());
 		model.addAttribute("top5ByF002", commPostService.getTop5ByF002());
-
-		// 카테고리 매핑 정보 추가하기
-		Map<String, String> category_name = commPostService.catrgoryname();
-		Map<String, String> userNicknames = userService.getUserNicknames();
+		
+		Map<String, String> category_name = commPostService.catrgoryname(); // 카테고리 ID / Name 매핑
+		Map<String, String> userNicknames = userService.getUserNicknames(); // 유저 UserId / Nickname 매핑
 		
 		model.addAttribute("category_name", category_name);
 		model.addAttribute("userNicknames", userNicknames);
@@ -239,6 +238,7 @@ public class CommunityController {
 
 		// 해당 사용자가 이미 좋아요를 눌렀는지 확인
 		Set<Integer> likedPosts = userLikedPosts.getOrDefault(userId, new HashSet<>());
+		log.debug("likedPosts={}" , likedPosts);
 		if (likedPosts.contains(id)) {
 			// 이미 좋아요를 누른 경우 예외 처리
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -249,6 +249,7 @@ public class CommunityController {
 		commPostService.increaseLikes(id);
 		likedPosts.add(id);
 		userLikedPosts.put(userId, likedPosts);
+		log.debug("userLikedPosts={}" , userLikedPosts);
 
 		// 업데이트된 좋아요 개수 반환
 		CommPost updatedPost = commPostService.read(id);

@@ -142,7 +142,7 @@ select {
             <c:forEach items="${members}" var="members">
             <tr>
                 <td>${members.userid}</td>
-                <td>${membesr.name}</td>
+                <td>${members.name}</td>
                 <td>
                     <form action="changeGrade" method="post" class="grade-form" onsubmit="return confirm('정말로 변경하시겠습니까?');">
                         <select name="grade">

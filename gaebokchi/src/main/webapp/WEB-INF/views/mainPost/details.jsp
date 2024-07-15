@@ -39,25 +39,27 @@
                         <span id="detailsTitle">${post.title}</span>
                     </div>
 
-                    <div class="nickname">
-                        <span> ${post.nickname}</span>
-                    </div>
-                    <div class="sub">
-                        <div class="date-container">
-                            <p>작성시간 ${post.formattedCreatedTime}</p>
-                        	<p>수정시간 ${post.formattedModifiedTime}</p>
+                    <div class="nick-date">
+                        <div class="nickname mb-1">
+                            <span> ${post.nickname}</span>
                         </div>
+                        <div class="sub">
+                            <div class="date-container">
+                                <p>작성시간 ${post.formattedCreatedTime}</p>
+                                <p>수정시간
+                                    ${post.formattedModifiedTime}</p>
+                            </div>
 
-                        <div class="views-likes-container">
-                            <span><i class="bi bi-eye"></i>
-                                ${post.views}</span>
-                            <button id="likes"
-                                class="likes bi bi-hand-thumbs-up"></button>
-                            <p id="likesCounts">${post.likes}</p>
+                            <div class="views-likes-container">
+                                <span><i class="bi bi-eye"></i>
+                                    ${post.views}</span>
+                                <button id="likes"
+                                    class="likes bi bi-hand-thumbs-up"></button>
+                                <p id="likesCounts">${post.likes}</p>
 
+                            </div>
                         </div>
                     </div>
-
                 </div>
 
 
@@ -134,73 +136,76 @@
 
                             </div>
                             <div class="post-content">
-                                <p>${post.content}</p></div>
-            
+                                <p>${post.content}</p>
+                            </div>
 
 
 
 
 
 
-                        <!-- 포커싱할 댓글 id -->
-                        <input type="hidden" id="commentId"
-                            value="${commentId}" />
+
+                            <!-- 포커싱할 댓글 id -->
+                            <input type="hidden" id="commentId"
+                                value="${commentId}" />
 
 
-                        <!-- 댓글 리스트 영역 -->
-                        <div class="comments-section form-control"></div>
+                            <!-- 댓글 리스트 영역 -->
+                            <div class="comments-section form-control"></div>
 
-                        <!-- <form action="submit_comment_url" method="post"> -->
-                        <div class="form-group">
-                            <input class="form-control mt-2"
-                                type="hidden" id="signedInUser" required
-                                value="${signedInUser}" /> <input
-                                type="hidden" id="postId"
-                                value="${post.id}" />
-                            <c:choose>
-                                <c:when
+                            <!-- <form action="submit_comment_url" method="post"> -->
+                            <div class="form-group">
+                                <input class="form-control mt-2"
+                                    type="hidden" id="signedInUser"
+                                    required value="${signedInUser}" />
+                                <input type="hidden" id="postId"
+                                    value="${post.id}" />
+                                <c:choose>
+                                    <c:when
+                                        test="${signedInUserGrade eq 'G10'}">
+                                        <textarea class="form-control"
+                                            id="content" name="ctext"
+                                            rows="3" required
+                                            placeholder="피드백을 작성해주세요."></textarea>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <textarea class="form-control"
+                                            id="finishContent"
+                                            readonly="readonly">전문가 승인이 완료 된 회원만 작성 할 수 있습니다.</textarea>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:if
                                     test="${signedInUserGrade eq 'G10'}">
-                                    <textarea class="form-control"
-                                        id="content" name="ctext"
-                                        rows="3" required
-                                        placeholder="피드백을 작성해주세요."></textarea>
-                                </c:when>
-                                <c:otherwise>
-                                    <textarea class="form-control"
-                                        id="finishContent"
-                                        readonly="readonly">전문가 승인이 완료 된 회원만 작성 할 수 있습니다.</textarea>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:if test="${signedInUserGrade eq 'G10'}">
-                                <button id="btnRegisterComment"
-                                    class="btn btn-primary mt-3 form-control">피드백
-                                    작성하기</button>
+                                    <button id="btnRegisterComment"
+                                        class="btn btn-primary mt-3 form-control">피드백
+                                        작성하기</button>
+                                </c:if>
+                            </div>
+
+
+                            <!-- 하단 수정하기, 삭제 버튼 영역 -->
+                            <c:if
+                                test="${signedInUser eq post.author or signedInUser eq 'admin'}">
+                                <div
+                                    class="mt-2 d-flex justify-content-end"
+                                    id="btnFoot">
+                                    <div>
+                                        <!-- 수정 -->
+                                        <button
+                                            class="btn btn-outline-primary btnModifyid">수정하기</button>
+                                        <!-- 삭제 -->
+                                        <button
+                                            class="btn btn-outline-danger btnDeleteMainPost">삭제</button>
+                                    </div>
+                                </div>
+                                <c:url var="commentsSubJS"
+                                    value="/js/commentsSub.js" />
+                                <script src="${ commentsSubJS }"></script>
                             </c:if>
                         </div>
-
-
-                        <!-- 하단 수정하기, 삭제 버튼 영역 -->
-                        <c:if
-                            test="${signedInUser eq post.author or signedInUser eq 'admin'}">
-                            <div class="mt-2 d-flex justify-content-end"
-                                id="btnFoot">
-                                <div>
-                                    <!-- 수정 -->
-                                    <button
-                                        class="btn btn-outline-primary btnModifyid">수정하기</button>
-                                    <!-- 삭제 -->
-                                    <button
-                                        class="btn btn-outline-danger btnDeleteMainPost">삭제</button>
-                                </div>
-                            </div>
-                            <c:url var="commentsSubJS"
-                                value="/js/commentsSub.js" />
-                            <script src="${ commentsSubJS }"></script>
-                        </c:if>
                     </div>
                 </div>
             </div>
-        </div>
     </main>
 
 
