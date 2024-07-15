@@ -81,11 +81,16 @@ main {
 	transform: scale(1.05);
 }
 
-.card-title {
+.image-category h5 {
 	font-family: 'ChosunGu ', ChosunGu;
 	font-weight: bold;
+	text-decoration: none !important;
 }
 
+#clubCategory a {
+        text-decoration: none; /* 하이퍼링크 밑줄 제거 */
+        color: black;
+    }
 .hot-posts {
 	text-align: left; /* 내부 요소들을 가운데 정렬 */
 	padding: 20px; /* 선택적으로 padding을 추가하여 간격을 조정 */
