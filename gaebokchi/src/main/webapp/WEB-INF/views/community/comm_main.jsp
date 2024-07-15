@@ -18,90 +18,7 @@
 <body>
 
     <%@ include file="../fragments/header.jspf"%>
-				<div class="card-body">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>탭</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>작성일</th>
-								<th>조회</th>
-								<th>추천</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="p" items="${pinnedPosts}">
-								<tr class="table table-secondary">
-									<td>${category_name[p.category]}</td>
-									<td><c:url var="commPostDetailsPage"
-											value="/community/comm_details">
-											<c:param name="id" value="${p.id}"></c:param>
-										</c:url> <a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
-									</td>
-									<td>${userNicknames[p.author]}</td>
-									<td>${p.formattedCreatedTime}</td>
-									<td>${p.views}</td>
-									<td>${p.likes}</td>
-								</tr>
-							</c:forEach>
-							<c:forEach var="p" items="${posts}">
-								<tr class="table">
-									<td>${category_name[p.category]}</td>
-									<td><c:url var="commPostDetailsPage"
-											value="/community/comm_details">
-											<c:param name="id" value="${p.id}" />
-										</c:url> <a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
-									</td>
-									<td>${userNicknames[p.author]}</td>
-									<td>${p.formattedCreatedTime}</td>
-									<td>${p.views}</td>
-									<td>${p.likes}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</main>
-		<footer class="text-center">
-			<nav aria-label="Page navigation">
-				<ul class="pagination justify-content-center">
-					<c:choose>
-						<c:when test="${currentPage > 1}">
-							<li class="page-item"><a class="page-link"
-								href="?page=${currentPage - 1}&size=${pageSize}"
-								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-							</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item disabled"><a class="page-link" href="#"
-								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-							</a></li>
-						</c:otherwise>
-					</c:choose>
-					<c:forEach begin="${startPage}" end="${endPage}" var="i">
-						<li class="page-item ${i == currentPage ? 'active' : ''}"><a
-							class="page-link" href="?page=${i}&size=${pageSize}">${i}</a></li>
-					</c:forEach>
-					<c:choose>
-						<c:when test="${currentPage < totalPages}">
-							<li class="page-item"><a class="page-link"
-								href="?page=${currentPage + 1}&size=${pageSize}"
-								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-							</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item disabled"><a class="page-link" href="#"
-								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-							</a></li>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-			</nav>
-		</footer>
-	</div>
-=======
+
     <div class="container-fluid">
         <header>
             <div class="title">
@@ -173,6 +90,7 @@
                 </tr>
             </table>
         </header>
+
         <main>
             <div class="mt-2 card">
                 <div class="card-header">
@@ -245,17 +163,17 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th class="col-1">탭</th>
-                                <th class="col-3">제목</th>
-                                <th class="col-1">작성자</th>
-                                <th class="col-1">작성일</th>
+                                <th class="col-2">카테고리</th>
+                                <th class="col-4">제목</th>
+                                <th class="col-2">작성자</th>
+                                <th class="col-2">작성일</th>
                                 <th class="col-1">조회</th>
                                 <th class="col-1">추천</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="p" items="${pinnedPosts}">
-                                <tr class="table table-secondary">
+                                <tr class="table table-secondary ">
                                     <td>${category_name[p.category]}</td>
                                     <td><c:url
                                             var="commPostDetailsPage"
@@ -267,7 +185,7 @@
                                         class="custom-link">${p.title}</a>
                                     </td>
                                     <td>${userNicknames[p.author]}</td>
-                                    <td>${p.modifiedTime}</td>
+                                    <td>${p.formattedCreatedTime}</td>
                                     <td>${p.views}</td>
                                     <td>${p.likes}</td>
                                 </tr>
@@ -285,7 +203,7 @@
                                         class="custom-link">${p.title}</a>
                                     </td>
                                     <td>${userNicknames[p.author]}</td>
-                                    <td>${p.modifiedTime}</td>
+                                    <td>${p.formattedCreatedTime}</td>
                                     <td>${p.views}</td>
                                     <td>${p.likes}</td>
                                 </tr>
