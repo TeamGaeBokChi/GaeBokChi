@@ -129,7 +129,7 @@
                                         <span>드라이버 평균 거리: 데이터 없음</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <span>드라이버 평균 거리:
+                                        <span>드라이버 평균 거리:  
                                             ${post.driverDistance}m</span>
                                     </c:otherwise>
                                 </c:choose>
