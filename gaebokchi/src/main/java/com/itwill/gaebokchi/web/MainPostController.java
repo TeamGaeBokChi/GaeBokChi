@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
+
 import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER;
 
 import org.springframework.core.io.ByteArrayResource;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itwill.gaebokchi.dto.JoinPostSearchDto;
 import com.itwill.gaebokchi.dto.MainPostCreateDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.MainPostSearchDto;
@@ -61,7 +65,10 @@ public class MainPostController {
 	@GetMapping("/list")
 	public String mainPostList(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
-			@RequestParam(name = "userid", required = false) String userid, HttpSession session, Model model) {
+			@RequestParam(name = "userid", required = false) String userid, 
+			@RequestParam(value = "category", required = false) String category,
+			@RequestParam(value = "keyword", required = false) String keyword,
+			HttpSession session, Model model) {
 		log.debug("list()");
 
 		List<MainPostListDto> posts;
@@ -93,11 +100,14 @@ public class MainPostController {
 		model.addAttribute("pageSize", pageSize);
 
 		if (userid != null) {
-			return "/user/myLessonList";
+			return "/user/myLessonList"; // 사용자가 로그인한 상태에서는 다른 뷰로 이동
 		}
 
-		return "/mainPost/list";
+		return "/mainPost/list"; // 그 외의 경우는 메인 게시글 리스트 뷰로 이동
 	}
+	
+	
+	
 
 	@GetMapping("/details")
 	public String mainPostDetails(@RequestParam(name = "id") Integer id,
@@ -181,28 +191,44 @@ public class MainPostController {
 	}
 
 	@GetMapping("/search")
-	public String searchPosts(MainPostSearchDto dto, MyPostSearchDto myDto, Model model) {
-		if (myDto.getUserid().equals("")) {
-			log.debug("searchPosts()");
-			List<MainPostListDto> posts = mainPostService.searchRead(dto);
-			model.addAttribute("post", posts);
+	public String searchPosts(MainPostSearchDto dto, MyPostSearchDto myDto,
+	                          @RequestParam(name = "page", required = false, defaultValue = "1") int page,
+	                          @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
+	                          Model model) {
+	    List<MainPostListDto> posts;
+	    List<Clubs> clubs = mainPostService.clubTypes();
+	    int pageBlockSize = 10;
 
-			List<Clubs> clubs = mainPostService.clubTypes();
-			model.addAttribute("clubs", clubs);
+	    if (myDto != null && myDto.getUserid() != null && !myDto.getUserid().isEmpty()) {
+	        log.debug("searchPosts() by userid");
+	        posts = mainPostService.searchReadByUserid(myDto);
+	        model.addAttribute("userid", myDto.getUserid()); // 해당 사용자의 ID를 뷰로 전달
+	    } else {
+	        log.debug("searchPosts()");
+	        posts = mainPostService.searchRead(dto);
+	    }
 
-			return "/mainPost/list"; // 해당하는 뷰의 경로와 이름
-		} else {
-			log.debug("searchPosts()");
-			List<MainPostListDto> posts = mainPostService.searchReadByUserid(myDto);
-			model.addAttribute("post", posts);
+	    // 페이징 처리
+	    int totalPosts = posts.size(); // 전체 검색 결과 수
+	    int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
+	    int startPage = ((page - 1) / pageBlockSize) * pageBlockSize + 1;
+	    int endPage = Math.min(startPage + pageBlockSize - 1, totalPages);
 
-			List<Clubs> clubs = mainPostService.clubTypes();
-			model.addAttribute("clubs", clubs);
+	    // 페이징된 결과 가져오기
+	    int startIndex = (page - 1) * pageSize;
+	    int endIndex = Math.min(startIndex + pageSize, totalPosts);
+	    List<MainPostListDto> pagedPosts = posts.subList(startIndex, endIndex);
 
-			model.addAttribute("userid", myDto.getUserid());
+	    model.addAttribute("post", pagedPosts);
+	    model.addAttribute("clubs", clubs);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("startPage", startPage);
+	    model.addAttribute("endPage", endPage);
+	    model.addAttribute("pageSize", pageSize);
 
-			return "/mainPost/list";
-		}
+	    return "/mainPost/list";
 	}
+
 
 }
