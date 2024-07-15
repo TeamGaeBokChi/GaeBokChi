@@ -30,6 +30,7 @@ public class CommPostListDto {
 	private Integer likes;
 	private ByteArrayResource mediaResource; // 이미지 데이터 필드 추가
 	private LocalDateTime createdTime;
+	private LocalDateTime modifiedTime;
 
 	// 포맷팅된 날짜를 저장할 필드 추가
 	private String formattedCreatedTime;

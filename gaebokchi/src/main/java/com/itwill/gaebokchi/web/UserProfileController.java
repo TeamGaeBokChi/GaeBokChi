@@ -198,12 +198,12 @@ public class UserProfileController {
 	}
 	
 	@GetMapping("/mylessons")
-	public String myLessonList(HttpSession session) {
-		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
+	public String myLessonList(@RequestParam(name = "userid") String userid, HttpSession session) {
+		String sessionUserid = (String) session.getAttribute(SESSION_ATTR_USER);
 		
 		log.debug("myLessonList()");
 
-		return "redirect: /gaebokchi/mainPost/list?userid=" + userid;
+		return "redirect: /gaebokchi/mainPost/list?userid=" + sessionUserid;
 	}
 	
 	@GetMapping("/myposts")
