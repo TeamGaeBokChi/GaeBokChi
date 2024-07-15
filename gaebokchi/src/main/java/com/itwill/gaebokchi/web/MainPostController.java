@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itwill.gaebokchi.dto.JoinPostSearchDto;
 import com.itwill.gaebokchi.dto.MainPostCreateDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.MainPostSearchDto;
@@ -42,7 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/mainPost")
 public class MainPostController {
 	private final MainPostService mainPostService;
-	
+
 //	private final MainPostCreateDto mainPostCreatDto;
 
 	@GetMapping("/create")
@@ -61,80 +64,77 @@ public class MainPostController {
 
 	@GetMapping("/list")
 	public String mainPostList(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
-							   @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
-	                           @RequestParam(name = "userid", required = false) String userid,
-	                           HttpSession session,
-	                           Model model) {
-	    log.debug("list()");
-	    
-	    List<MainPostListDto> posts;
-	    int totalPosts;
-	    int pageBlockSize = 10;
-	    
-	    String sessionUserid = (String) session.getAttribute(SESSION_ATTR_USER);
-	    
-	    if (userid == null) {
-	    	posts = mainPostService.getPagedPosts(page, pageSize);
-	    	totalPosts = mainPostService.getTotalPostCount();
-	    } else {
-	    	posts = mainPostService.getPagedPostsByUserid(page, sessionUserid, pageSize);
-	    	totalPosts = mainPostService.getTotalPostCountByUserid(sessionUserid);
-	    }
+			@RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
+			@RequestParam(name = "userid", required = false) String userid, 
+			@RequestParam(value = "category", required = false) String category,
+			@RequestParam(value = "keyword", required = false) String keyword,
+			HttpSession session, Model model) {
+		log.debug("list()");
 
-	    int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
-	    int startPage = ((page - 1) / pageBlockSize) * pageBlockSize + 1;
-	    int endPage = Math.min(startPage + pageBlockSize - 1, totalPages);
+		List<MainPostListDto> posts;
+		int totalPosts;
+		int pageBlockSize = 10;
 
-	    List<Clubs> clubs = mainPostService.clubTypes();
+		String sessionUserid = (String) session.getAttribute(SESSION_ATTR_USER);
 
-	    model.addAttribute("post", posts);
-	    model.addAttribute("clubs", clubs);
-	    model.addAttribute("currentPage", page);
-	    model.addAttribute("totalPages", totalPages);
-	    model.addAttribute("startPage", startPage);
-	    model.addAttribute("endPage", endPage);
-	    model.addAttribute("pageSize", pageSize);
-	    
-	    if (userid != null) {
-	    	return "/user/myLessonList";
-	    }
-	    
-	    return "/mainPost/list";
+		if (userid == null) {
+			posts = mainPostService.getPagedPosts(page, pageSize);
+			totalPosts = mainPostService.getTotalPostCount();
+		} else {
+			posts = mainPostService.getPagedPostsByUserid(page, sessionUserid, pageSize);
+			totalPosts = mainPostService.getTotalPostCountByUserid(sessionUserid);
+		}
+
+		int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
+		int startPage = ((page - 1) / pageBlockSize) * pageBlockSize + 1;
+		int endPage = Math.min(startPage + pageBlockSize - 1, totalPages);
+
+		List<Clubs> clubs = mainPostService.clubTypes();
+
+		model.addAttribute("post", posts);
+		model.addAttribute("clubs", clubs);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("pageSize", pageSize);
+
+		if (userid != null) {
+			return "/user/myLessonList"; // 사용자가 로그인한 상태에서는 다른 뷰로 이동
+		}
+
+		return "/mainPost/list"; // 그 외의 경우는 메인 게시글 리스트 뷰로 이동
 	}
+	
+	
+	
 
-	   @GetMapping("/details")
-	   public String mainPostDetails(@RequestParam(name = "id") Integer id, 
-	                                 @RequestParam(name = "commentId", required = false) Integer commentId, 
-	                                 Model model, 
-	                                 HttpSession session,
-	                                 RedirectAttributes redirectAttributes) {
-	       log.debug("mainPostDetails(id={})", id);
+	@GetMapping("/details")
+	public String mainPostDetails(@RequestParam(name = "id") Integer id,
+			@RequestParam(name = "commentId", required = false) Integer commentId, Model model, HttpSession session,
+			RedirectAttributes redirectAttributes) {
+		log.debug("mainPostDetails(id={})", id);
 
-	       // 세션에서 사용자 정보 확인
-	       Object sessionUser = session.getAttribute(SESSION_ATTR_USER);
+		// 세션에서 사용자 정보 확인
+		Object sessionUser = session.getAttribute(SESSION_ATTR_USER);
 
-	       // 로그인하지 않은 사용자인 경우
-	       if (sessionUser == null) {
-	           // 경고 메시지 설정
-	           redirectAttributes.addFlashAttribute("warningMessage", "로그인한 사용자만 볼 수 있습니다.");
-	           // 홈페이지로 리다이렉트
-	           return "redirect:/user/signin";
-	       }
+		// 로그인하지 않은 사용자인 경우
+		if (sessionUser == null) {
+			// 경고 메시지 설정
+			redirectAttributes.addFlashAttribute("warningMessage", "로그인한 사용자만 볼 수 있습니다.");
+			// 홈페이지로 리다이렉트
+			return "redirect:/user/signin";
+		}
 
-	       // 로그인한 사용자인 경우, 기존 로직 수행
-	       Post post = mainPostService.selectPostId(id);
-	       log.debug("{}", post);
-	       model.addAttribute("commentId", commentId);
-	       model.addAttribute("post", post);
-	       
-	       // 뷰 이름 반환
-	       return "details"; // 또는 적절한 뷰 이름
-	   }
-	
-	
-	
-	
-	
+		// 로그인한 사용자인 경우, 기존 로직 수행
+		Post post = mainPostService.selectPostId(id);
+		log.debug("{}", post);
+		model.addAttribute("commentId", commentId);
+		model.addAttribute("post", post);
+
+		// 뷰 이름 반환
+		return "/mainPost/details"; // 또는 적절한 뷰 이름
+	}
 
 	@GetMapping("/modify")
 	public void mainPostModify(@RequestParam(name = "id") Integer id, Model model) {
@@ -149,7 +149,7 @@ public class MainPostController {
 
 	@GetMapping("/video")
 	@ResponseBody
-	public Resource test(@RequestParam (name = "file") String file) throws IOException {
+	public Resource test(@RequestParam(name = "file") String file) throws IOException {
 		log.info("file={}", file);
 
 		Path path = Paths.get(file);
@@ -169,7 +169,7 @@ public class MainPostController {
 	}
 
 	@GetMapping("/delete")
-	public String deleteMainPost(@RequestParam (name = "id") int id) {
+	public String deleteMainPost(@RequestParam(name = "id") int id) {
 		log.debug("deleteMainPost(id={})", id);
 
 		mainPostService.deleteById(id);
@@ -191,28 +191,43 @@ public class MainPostController {
 	}
 
 	@GetMapping("/search")
-	public String searchPosts(MainPostSearchDto dto, MyPostSearchDto myDto, Model model) {
-		if (myDto.getUserid().equals("")) {
-			log.debug("searchPosts()");
-			List<MainPostListDto> posts = mainPostService.searchRead(dto);
-			model.addAttribute("post", posts);
+	public String searchPosts(MainPostSearchDto dto, MyPostSearchDto myDto,
+	                          @RequestParam(name = "page", required = false, defaultValue = "1") int page,
+	                          @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
+	                          Model model) {
+	    List<MainPostListDto> posts;
+	    List<Clubs> clubs = mainPostService.clubTypes();
+	    int pageBlockSize = 10;
 
-			List<Clubs> clubs = mainPostService.clubTypes();
-			model.addAttribute("clubs", clubs);
-			
-			return "/mainPost/list"; // 해당하는 뷰의 경로와 이름
-		} else {
-			log.debug("searchPosts()");
-			List<MainPostListDto> posts = mainPostService.searchReadByUserid(myDto);
-			model.addAttribute("post", posts);
+	    if (myDto != null && myDto.getUserid() != null && !myDto.getUserid().isEmpty()) {
+	        log.debug("searchPosts() by userid");
+	        posts = mainPostService.searchReadByUserid(myDto);
+	        model.addAttribute("userid", myDto.getUserid()); // 해당 사용자의 ID를 뷰로 전달
+	    } else {
+	        log.debug("searchPosts()");
+	        posts = mainPostService.searchRead(dto);
+	    }
 
-			List<Clubs> clubs = mainPostService.clubTypes();
-			model.addAttribute("clubs", clubs);
-			
-			model.addAttribute("userid", myDto.getUserid());
-			
-			return "/mainPost/list";
-		}
+	    // 페이징 처리
+	    int totalPosts = posts.size(); // 전체 검색 결과 수
+	    int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
+	    int startPage = ((page - 1) / pageBlockSize) * pageBlockSize + 1;
+	    int endPage = Math.min(startPage + pageBlockSize - 1, totalPages);
+
+	    // 페이징된 결과 가져오기
+	    int startIndex = (page - 1) * pageSize;
+	    int endIndex = Math.min(startIndex + pageSize, totalPosts);
+	    List<MainPostListDto> pagedPosts = posts.subList(startIndex, endIndex);
+
+	    model.addAttribute("post", pagedPosts);
+	    model.addAttribute("clubs", clubs);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("startPage", startPage);
+	    model.addAttribute("endPage", endPage);
+	    model.addAttribute("pageSize", pageSize);
+
+	    return "/mainPost/list";
 	}
 
 

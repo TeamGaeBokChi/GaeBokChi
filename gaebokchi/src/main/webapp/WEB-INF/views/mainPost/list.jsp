@@ -21,6 +21,11 @@
 		<%@ include file="../fragments/header.jspf"%>
 	</header>
 
+	<c:if test="${not empty userid}">
+		<div class="row">
+			<%@ include file="../fragments/menu.jspf"%>
+		</div>
+	</c:if>
 
 	<main>
 		<div class="container">
@@ -112,95 +117,93 @@
 								</div>
 							</div>
 						</div>
-
-
-						<!-- 글 작성하기 버튼 -->
-						<c:if
-							test="${signedInUserGrade eq 'G21' || signedInUserGrade eq 'G22' || signedInUserGrade eq 'G23' || signedInUserGrade eq 'G24' || signedInUserGrade eq 'G01' }">
-							<div class="col-auto">
-								<button type="button" class="form-control"
-									id="btnCreateMainPost" onclick="location.href='create'">글쓰기
-									⮟</button>
-							</div>
-						</c:if>
+					</form>
 				</div>
-				</form>
-			</div>
 
-			<div class="card-body mb-1">
-				<!-- 메인 게시판 목록 영역 -->
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th class="col-1">클럽종류</th>
-							<th class="col-4">제목</th>
-							<th class="col-1">작성자</th>
-							<th class="col-1">조회</th>
-							<th class="col-1">좋아요</th>
-							<th class="col-1">작성일</th>
-							<th class="col-1">채택</th>
-						</tr>
-					</thead>
-					<!-- 메인 게시판 목록 생성 영역 -->
-					<tbody>
-						<c:forEach var="p" items="${post}">
+				<!-- 글 작성하기 버튼 -->
+				<c:if
+					test="${signedInUserGrade eq 'G21' || signedInUserGrade eq 'G22' || signedInUserGrade eq 'G23' || signedInUserGrade eq 'G24' || signedInUserGrade eq 'G01' }">
+					<div class="col-auto">
+						<button type="button" class="form-control" id="btnCreateMainPost"
+							onclick="location.href='create'">글쓰기 ⮟</button>
+					</div>
+				</c:if>
+
+				<div class="card-body mb-1">
+					<!-- 메인 게시판 목록 영역 -->
+					<table class="table table-hover">
+						<thead>
 							<tr>
-								<td class="text-center" id="club">${p.clubType}</td>
-								<td id="post"><c:url var="mainPostDetailsPage"
-										value="/mainPost/details">
-										<c:param name="id" value="${p.id}" />
-									</c:url> <a href="${mainPostDetailsPage}">${p.title}</a></td>
-								<td id="author">${p.author}</td>
-								<td class="text-center">${p.views}</td>
-								<td class="text-center">${p.likes}</td>
-								<td class="text-center">${p.createdTime}</td>
-								<td class="text-center">${p.selection}</td>
+								<th class="col-1">클럽종류</th>
+								<th class="col-4">제목</th>
+								<th class="col-1">작성자</th>
+								<th class="col-1">조회</th>
+								<th class="col-1">좋아요</th>
+								<th class="col-1">작성일</th>
+								<th class="col-1">채택</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<!-- 메인 게시판 목록 생성 영역 -->
+						<tbody>
+							<c:forEach var="p" items="${post}">
+								<tr>
+									<td class="text-center" id="club">${p.clubType}</td>
+									<td id="post"><c:url var="mainPostDetailsPage"
+											value="/mainPost/details">
+											<c:param name="id" value="${p.id}" />
+										</c:url> <a href="${mainPostDetailsPage}">${p.title}</a></td>
+									<td id="author">${p.author}</td>
+									<td class="text-center">${p.views}</td>
+									<td class="text-center">${p.likes}</td>
+									<td class="text-center">${p.createdTime}</td>
+									<td class="text-center">${p.selection}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 
-				<!-- 페이징 처리 부분 -->
-				<nav aria-label="Page navigation">
-					<ul class="pagination justify-content-center">
-						<c:choose>
-							<c:when test="${currentPage > 1}">
-								<li class="page-item"><a class="page-link"
-									href="?page=${currentPage - 1}&size=${pageSize}&searchCategory=${param.searchCategory}&clubSelect=${param.clubSelect}&textSearchSelect=${param.textSearchSelect}&selectSelection=${param.selectSelection}"
-									aria-label="Previous"> <span aria-hidden="true">«</span>
-								</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item disabled"><a class="page-link"
-									href="#" aria-label="Previous"> <span aria-hidden="true">«</span>
-								</a></li>
-							</c:otherwise>
-						</c:choose>
+					<!-- 페이징 처리 부분 -->
+					<nav aria-label="Page navigation">
+						<ul class="pagination justify-content-center">
+							<c:choose>
+								<c:when test="${currentPage > 1}">
+									<li class="page-item"><a class="page-link"
+										href="?page=${currentPage - 1}&size=${pageSize}&searchCategory=${param.searchCategory}&clubSelect=${param.clubSelect}&textSearchSelect=${param.textSearchSelect}&selectSelection=${param.selectSelection}"
+										aria-label="Previous"> <span aria-hidden="true">«</span>
+									</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item disabled"><a class="page-link"
+										href="#" aria-label="Previous"> <span aria-hidden="true">«</span>
+									</a></li>
+								</c:otherwise>
+							</c:choose>
 
-						<c:forEach begin="${startPage}" end="${endPage}" var="i">
-							<li class="page-item ${i == currentPage ? 'active' : ''}"><a
-								class="page-link"
-								href="?page=${i}&size=${pageSize}&searchCategory=${param.searchCategory}&clubSelect=${param.clubSelect}&textSearchSelect=${param.textSearchSelect}&selectSelection=${param.selectSelection}">
-									${i} </a></li>
-						</c:forEach>
+							<c:forEach begin="${startPage}" end="${endPage}" var="i">
+								<li class="page-item ${i == currentPage ? 'active' : ''}">
+									<a class="page-link"
+									href="?page=${i}&size=${pageSize}&searchCategory=${param.searchCategory}&clubSelect=${param.clubSelect}&textSearchSelect=${param.textSearchSelect}&selectSelection=${param.selectSelection}">
+										${i} </a>
+								</li>
+							</c:forEach>
 
-						<c:choose>
-							<c:when test="${currentPage < totalPages}">
-								<li class="page-item"><a class="page-link"
-									href="?page=${currentPage + 1}&size=${pageSize}&searchCategory=${param.searchCategory}&clubSelect=${param.clubSelect}&textSearchSelect=${param.textSearchSelect}&selectSelection=${param.selectSelection}"
-									aria-label="Next"> <span aria-hidden="true">»</span>
-								</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item disabled"><a class="page-link"
-									href="#" aria-label="Next"> <span aria-hidden="true">»</span>
-								</a></li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
-				</nav>
+							<c:choose>
+								<c:when test="${currentPage < totalPages}">
+									<li class="page-item"><a class="page-link"
+										href="?page=${currentPage + 1}&size=${pageSize}&searchCategory=${param.searchCategory}&clubSelect=${param.clubSelect}&textSearchSelect=${param.textSearchSelect}&selectSelection=${param.selectSelection}"
+										aria-label="Next"> <span aria-hidden="true">»</span>
+									</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item disabled"><a class="page-link"
+										href="#" aria-label="Next"> <span aria-hidden="true">»</span>
+									</a></li>
+								</c:otherwise>
+							</c:choose>
+						</ul>
+					</nav>
+				</div>
 			</div>
-		</div>
 		</div>
 	</main>
 

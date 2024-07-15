@@ -410,6 +410,14 @@
         WHERE
             rnum &gt; #{startRow}
     </select>
+    
+    
+	<select id="getTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM posts
+		where category = 'P001'
+	</select>
+    
 
     <select id="getPostListByUserid" resultType="com.itwill.gaebokchi.repository.Post">
         SELECT *
@@ -449,11 +457,6 @@
             rnum &gt; #{startRow}
     </select>
 
-	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*)
-		FROM posts
-		where category = 'P001'
-	</select>
 
     <select id="getTotalCountByUserid" resultType="int">
         SELECT COUNT(*)

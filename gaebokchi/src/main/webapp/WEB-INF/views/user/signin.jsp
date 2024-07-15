@@ -24,14 +24,17 @@
 			alert("전문가 회원 가입을 축하드립니다! 관리자 승인 후 전문가 등급으로 변경됩니다.");
 		}
 	</script>
-
-</c:if>
+	</c:if>
 <c:if test="${not empty warningMessage}">
-	<script>
+	
 <div class="alert alert-warning" role="alert">
             ${warningMessage}</div>
-            </script>
+            
+
 </c:if>
+
+
+
 </head>
 <body>
 
