@@ -26,7 +26,13 @@
                     <a href="/gaebokchi/community/comm_main">COMMUNITY</a>
                 </h2>
                 <h7>다양한 이야기들을 함께 나눠요.</h7>
-            </div> 
+            </div>
+
+            <div class="ad">
+                <c:url var="ad" value="images/ad.png" />
+                <img src="${ad}" alt="ad picture">
+            </div>
+            
             <table class="table">
                 <colgroup>
                     <col style="width: 50%;">
@@ -36,14 +42,19 @@
                     <td>
                         <table class="table">
                             <thead>
+                                <th class="text-center" colspan="3">인기
+                                    많은 게시물 - 잡담</th>
                                 <tr>
-                                    <th class="text-center" colspan="3">인기
-                                        많은 게시물 - 잡담</th>
+                                    <th>제목</th>
+                                    <th>조회</th>
+                                    <th>추천</th>
                                 </tr>
+
                             </thead>
                             <tbody>
                                 <c:forEach var="p" items="${top5ByF001}">
                                     <tr class="table">
+
                                         <td><c:url
                                                 var="commPostDetailsPage"
                                                 value="/community/comm_details">
@@ -53,8 +64,8 @@
                                             href="${commPostDetailsPage}"
                                             class="custom-link">${p.title}</a>
                                         </td>
-                                        <td>${p.views}👓</td>
-                                        <td>${p.likes}❤️</td>
+                                        <td>${p.views}</td>
+                                        <td>${p.likes}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -66,6 +77,11 @@
                                 <tr>
                                     <th class="text-center" colspan="3">인기
                                         많은 게시물 - 팁/노하우</th>
+                                </tr>
+                                <tr>
+                                    <th>제목</th>
+                                    <th>조회</th>
+                                    <th>추천</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,8 +96,8 @@
                                             href="${commPostDetailsPage}"
                                             class="custom-link">${p.title}</a>
                                         </td>
-                                        <td>${p.views}👓</td>
-                                        <td>${p.likes}❤️</td>
+                                        <td>${p.views}</td>
+                                        <td>${p.likes}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -134,7 +150,7 @@
                             <div class="col-1">
                                 <input type="submit"
                                     class="form-control btn btn-outline-secondary"
-                                    value="🔍" />
+                                    value="검색" />
                             </div>
                             <div class="col-2">
                                 <c:url var="createPostUrl"
