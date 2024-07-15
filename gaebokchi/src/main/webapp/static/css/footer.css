@@ -1,12 +1,11 @@
 /* home.jsp footer */
-
 @charset "UTF-8";
 
 footer {
-    color: white;
-    background: #2A7E50;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    color: #474747;
+    background: #e4e4e4;
+    padding-top: 20px;
+    padding-bottom: 10px;
 }
 
 footer .container {
@@ -21,49 +20,64 @@ footer .container .left {
     flex: 1
 }
 
-footer .container .left h1{
+footer .container .left h1 {
+    font-family: 'Freesentation-9Black';
     margin: 0;
     font-weight: bold;
 }
 
-footer .container .left p{
+footer .container .left p {
+    font-family: 'SUIT-Regular';
     margin: 0;
     font-size: 13px;
 }
 
-footer .container .right{
+footer .container .right {
     flex: 3;
+    align-items: flex-start;
     padding-left: 50px;
 }
 
-footer .container .right{
+footer .container .right {
     display: flex;
-    align-items: center;
-    justify-content: center;    
+    align-items: flex-start;
+    justify-content: center;
 }
 
-footer .container .right .list{
+footer .container .right .list {
     flex: 1;
+  
     margin-left: 20px;
 }
 
-footer .container .right .list h3{
+footer .container .right .list h4 {
     padding-left: 5px;
     padding-right: 5px;
     margin: 0;
     padding-bottom: 10px;
     border-bottom: 1px solid white;
+    margin-bottom: 10px;
 }
 
-footer .container .right .list ul{
+footer .container .right .list ul {
     list-style: none;
     padding: 0;
 }
 
-footer .container .right .list ul li{
+footer .container .right .list ul li {
+    font-size: 14px;
     padding: 5px 5px;
 }
 
-footer .container .right .list ul li:hover{
+footer .container .right .list ul p {
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+footer .container .right .list ul li:hover {
     background: #222;
+}
+
+footer .text-center span {
+    font-size: 12px;
 }

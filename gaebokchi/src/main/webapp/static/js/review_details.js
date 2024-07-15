@@ -8,17 +8,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const btnLikesNotLoggedIn = document.getElementById('btnLikes-notloggedIn');
 	let likedByCurrentUser = false; // 현재 사용자가 좋아요를 눌렀는지 여부를 추적
-	
-	const focusCommentId = document.querySelector('input#commentId').value;
-	if (focusCommentId) {
-		const commentElement = document.getElementById(`comment-${focusCommentId}`);
-		if (commentElement) {
-			commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+	// focusCommentId 체크
+	const focusCommentIdElement = document.querySelector('input#commentId');
+	if (focusCommentIdElement) {
+		const focusCommentId = focusCommentIdElement.value;
+		if (focusCommentId) {
+			const commentElement = document.getElementById(`comment-${focusCommentId}`);
+			if (commentElement) {
+				commentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			} else {
+				console.warn(`Element with id 'comment-${focusCommentId}' not found.`);
+			}
 		} else {
-			console.warn(`Element with id 'comment-${focusCommentId}' not found.`);
+			console.error('focusCommentId is null or undefined.');
 		}
-	} else {
-		console.error('focusCommentId is null or undefined.');
 	}
 
 	// 게시물 삭제 버튼 클릭 이벤트 처리
@@ -133,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
-
 	// 좋아요 버튼 클릭 이벤트 처리
 	if (btnLikes) {
 		btnLikes.addEventListener('click', () => {
@@ -197,38 +200,15 @@ document.addEventListener('DOMContentLoaded', () => {
 			})
 				.then(response => {
 					if (response.ok) {
-						return response.json();
+						alert('댓글이 등록되었습니다.');
+						location.reload();
 					} else {
 						throw new Error('댓글 등록에 실패했습니다.');
 					}
-				})
-				.then(newComment => {
-					console.log('New Comment:', newComment); // 서버 응답 데이터 확인
-					displayComment(newComment); // 댓글 표시
-					alert('댓글이 등록되었습니다.');
-					document.querySelector('input[name="author"]').value = '';
-					document.querySelector('textarea[name="content"]').value = '';
-
-					// 댓글 등록 후 페이지 새로고침
-					location.reload();
 				})
 				.catch(error => {
 					console.error('Error:', error);
 				});
 		});
-	}
-
-	function displayComment(comment) {
-		const commentDiv = document.createElement('div');
-		commentDiv.classList.add('comment');
-		commentDiv.innerHTML = `
-            <b>${comment.author}</b>
-            <p>${comment.content}</p>
-            <small>${comment.modifiedTime ? new Date(comment.modifiedTime).toLocaleString() : '시간 없음'}</small>
-            <input type="hidden" name="commentId" value="${comment.id}">
-            <button class="btn btn-outline-success btnUpdateComment">수정</button>
-            <button class="btn btn-outline-danger btnDeleteComment">삭제</button>
-        `;
-		commentList.appendChild(commentDiv);
 	}
 });

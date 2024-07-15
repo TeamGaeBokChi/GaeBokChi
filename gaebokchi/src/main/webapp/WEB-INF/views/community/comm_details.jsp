@@ -243,7 +243,7 @@ body {
 							<b>${userNicknames[comment.author]}</b>
 							<p>${comment.content}</p>
 							<div>
-								<small class="text-muted">${comment.modifiedTime}</small> <input
+								<small class="text-muted">${comment.formattedModifiedTime}</small> <input
 									type="hidden" name="commentId" value="${comment.id}">
 								<c:if
 									test="${comment.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
