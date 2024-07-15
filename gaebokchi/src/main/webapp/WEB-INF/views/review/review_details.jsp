@@ -16,8 +16,6 @@
 
 <link rel="stylesheet" href="../css/review_details.css" />
 </head>
-<<<<<<< HEAD
-=======
 <body>
 	<div class="container-fluid">
 		<header>
@@ -148,8 +146,6 @@
 			</div>
 		</div>
 	</div>
->>>>>>> branch 'final' of https://github.com/TeamGaeBokChi/GaeBokChi.git
-
 <body>
     <header>
         <%@ include file="../fragments/header.jspf"%>
@@ -210,13 +206,14 @@
                                     onclick="location.href='/gaebokchi/user/signin';">
                                     공감</button>
                             </c:otherwise>
-                        </c:choose> 
+                        </c:choose>
                     </div>
                 </c:if>
             </div>
 
-            <span>댓글 목록</span>
+
             <div class="commentArea">
+                <span>댓글 목록</span>
                 <c:if test="${not empty loggedInUser}">
                     <form class="comment-form">
                         <div class="input-group mb-3">
@@ -226,7 +223,7 @@
                                     value="${loggedInUser.userid}">
                             </div>
                             <div class="col-8">
-                                <textarea name="content" id="content"
+                                <textarea name="content"
                                     class="form-control" rows="2"
                                     placeholder="댓글을 입력하세요"></textarea>
                             </div>
@@ -243,7 +240,7 @@
 
 
 
-                <div class="comment-list">
+                <div class="comment-list mt-3 mb-3">
                     <c:forEach var="comment" items="${commentlist}">
                         <div class="comment">
                             <b>${userNicknames[comment.author]}</b>
@@ -256,13 +253,13 @@
                                     test="${comment.author eq loggedInUser.userid or loggedInUser.userid eq 'admin'}">
                                     <button id="btnUpdateComment"
                                         class="btn btn-success btn-register-comment"
-                                        type="submit">수정</button>
+                                        type="submit">수정하기</button>
                                     <input type="hidden"
                                         name="commentId"
                                         value="${comment.id}">
                                     <button id="btnDeleteComment"
                                         class="btn btn-success btn-register-comment"
-                                        type="submit">삭제</button>
+                                        type="submit">삭제하기</button>
                                 </c:if>
                             </div>
                         </div>
@@ -271,7 +268,7 @@
 
 
 
-                <div class="d-flex justify-content-end mt-2">
+                <div class="d-flex justify-content-end mt-2 mb-3">
                     <c:url var="postModifyPage"
                         value="/review/review_modify">
                         <c:param name="id" value="${post.id}" />
@@ -283,12 +280,12 @@
                             <input type="hidden" name="id"
                                 value="${post.id}" />
                             <button type="submit"
-                                class="btn btn-outline-primary btn-custom ms-2">✏수정</button>
+                                class="btn btn-outline-primary btn-custom ms-2">수정하기</button>
                         </form>
                         <input type="hidden" name="postId"
                             value="${post.id}" />
                         <button id="btnDelete"
-                            class="btn btn-outline-danger btn-custom ms-2">삭제</button>
+                            class="btn btn-outline-danger btn-custom ms-2">삭제하기</button>
                     </c:if>
                 </div>
             </div>
@@ -326,4 +323,6 @@
     <c:url var="review_details_js" value="/js/review_details.js" />
     <script src="${review_details_js}"></script>
 </body>
+
+
 </html>

@@ -18,7 +18,6 @@ body {
 .card {
     margin-top: 100px;
     width: 1280px;
-    padding: 20px;
 }
 
 .card h2 {
@@ -40,7 +39,11 @@ body {
 
 div.mb-2 {
     border-top: 1px solid #808080;
-    padding: 20px 0;
+    padding: 20PX 10px 0px 10px;
+}
+
+div.post-info {
+    padding: 0px 20px;
 }
 
 .card-header span {
@@ -51,11 +54,9 @@ div.mb-2 {
 
 .card-body {
     padding: 0px auto !important;
-    border-bottom: 1px solid #d1d1d1;
-    margin-bottom: 30px;
 }
 
-span {
+.commentArea span {
     font-family: 'SUIT-Regular', SUIT-Regular;
     padding-left: 20px;
     padding-bottom: 10px;
@@ -71,7 +72,7 @@ span {
     background-color: #f8f9fa;
     border-radius: 10px;
     padding: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .btn-like button {
@@ -93,19 +94,26 @@ span {
     margin-bottom: 30px;
 }
 
+.commentArea {
+    border: 1px solid #adadad;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
 .comment-form {
     margin-bottom: 20px;
 }
 
 .comment-list {
-    min-height: 600px;
     overflow-y: auto;
     max-height: 1000px;
 }
 
-.comment {
-    border-bottom: 1px solid #dee2e6;
-    padding: 10px 0;
+#comment {
+    border-bottom: 1px solid #c0c0c0;
+    padding: 10px;
+    margin: 10px;
 }
 
 .comment:last-child {
@@ -142,11 +150,6 @@ span {
     margin-bottom: 0; /* 기본 마진 제거 */
 }
 
-.comment-form .btn-register-comment {
-    height: 50px; /* 버튼 높이 조정 */
-    padding: 10px 20px; /* 버튼 안쪽 여백 조정 */
-    margin-left: 10px; /* 좌측 여백 설정 */
-}
 
 .image-container {
     max-width: 100%; /* 최대 너비 설정 */
