@@ -36,6 +36,10 @@ body {
     margin-bottom: 30px;
 }
 
+.ad {
+	border: 1px solid black;
+	border-radius: 10px;
+}
 /* 테이블 스타일 */
 table {
     background-color: white; /* 테이블 전체 배경색 흰색 */
