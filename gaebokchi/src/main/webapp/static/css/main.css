@@ -27,18 +27,22 @@
     font-style: normal;
 }
 
+div .container-fluid .title{
+    padding:0px !important;
+}
+
 .header {
     background-position: center;
     background-size: cover;
-    height: calc(100%-700px);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .image-category {
+    max-width: 960px;
     text-align: center; /* 내부 요소들을 가운데 정렬 */
-    padding: 20px; /* 선택적으로 padding을 추가하여 간격을 조정 */
+    padding: 5px; /* 선택적으로 padding을 추가하여 간격을 조정 */
     margin-top: 100px;
 }
 
@@ -50,6 +54,7 @@
 
 .card-img-top {
     object-fit: cover;
+    width: 150px;
 }
 
 .card {
@@ -164,4 +169,8 @@
     font-family: 'Freesentation-9Black', Freesentation-9Black;
     font-size: 40px;
     margin-bottom: 50px;
+}
+
+.review .row .instagram-media {
+    margin: 5px;
 }

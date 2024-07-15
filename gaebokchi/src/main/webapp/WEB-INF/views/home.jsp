@@ -27,11 +27,12 @@
         <c:set var="pageTitle" value="Home" scope="page" />
         <%@ include file="./fragments/header.jspf"%>
     </div>
-    
+
     <section class="header container-fluid">
         <div class="title">
             <c:url var="mainTitle" value="images/main.png" />
-            <img src="${mainTitle}" alt="main picture" style="object-fit: cover; width: 100%; height: 100%;">
+            <img src="${mainTitle}" alt="main picture"
+                style="object-fit: cover; width: 100%; height: 100%;">
         </div>
     </section>
 
@@ -40,17 +41,7 @@
     <section class="image-category container">
         <h2>클럽별 레슨받기</h2>
         <ul class="row list-unstyled" id="clubCategory">
-            <li class="col-md-2 col-6">
-                <div class="card text-center">
-                    <a href="/gaebokchi/mainPost/list"> <img
-                        src="images/전체클럽.png" class="card-img-top"
-                        alt="Category 1">
-                        <div class="card-body">
-                            <h5 class="card-title">전체 클럽</h5>
-                        </div>
-                    </a>
-                </div>
-            </li>
+
             <li class="col-md-2 col-6">
                 <div class="card text-center">
                     <a
@@ -301,9 +292,27 @@
     <!--------------- 리뷰 게시판 ------------------>
 
     <section class="review container">
-        <h2>이용자 후기</h2>
-
-
+        <h2>GOLFRO INSTAGRAM</h2>
+        <div class="row d-flex">
+            <blockquote class="col-2 instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/Cip3Dhpviwm/?img_index=1"
+                data-instgrm-version="14"></blockquote>
+            <blockquote class="col-2 instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/Cls5BewPSeh/"
+                data-instgrm-version="14"></blockquote>
+            <blockquote class="col-2 instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/B6vYBIOBJS6/?img_index=1"
+                data-instgrm-version="14"></blockquote>
+                <blockquote class="col-2 instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/B6vYBIOBJS6/?img_index=1"
+                data-instgrm-version="14"></blockquote>
+                <blockquote class="col-2 instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/B6vYBIOBJS6/?img_index=1"
+                data-instgrm-version="14"></blockquote>
+                <blockquote class="col-2 instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/B6vYBIOBJS6/?img_index=1"
+                data-instgrm-version="14"></blockquote>
+                
     </section>
 
     <footer>
@@ -328,10 +337,9 @@
                         <li>오시는 길</li>
                         <li>개인정보 처리방침</li>
                         <li>문의하기</li>
-                        <p> > 평일: 전체 문의 상담
-                        토요일, 공휴일: ~ 오후 2시 문의 상담
-                        일요일: 휴무</p>
-                        
+                        <p>> 평일: 전체 문의 상담 토요일, 공휴일: ~ 오후 2시 문의 상담
+                            일요일: 휴무</p>
+
                     </ul>
                 </div>
             </div>
@@ -347,6 +355,7 @@
 
     <c:url var="main_header" value="js/main_header.js" />
     <script src="${main_header}"></script>
+    <script async src="https://www.instagram.com/embed.js"></script>
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
