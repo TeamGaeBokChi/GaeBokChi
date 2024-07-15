@@ -23,6 +23,8 @@ public interface PostDao {
 	List<Post> searchMyPost(MyPostSearchDto dto);
     
 	List<Post> getPostList(@Param("startRow") int startRow, @Param("endRow") int endRow);
+	List<Post> getPostListByUserid(@Param("startRow") int startRow, String author, @Param("endRow") int endRow);
 
 	int getTotalCount();
+	int getTotalCountByUserid(String author);
 }

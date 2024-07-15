@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import static com.itwill.gaebokchi.filter.AuthenticationFilter.SESSION_ATTR_USER;
+
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.itwill.gaebokchi.dto.JoinPostListDto;
 import com.itwill.gaebokchi.dto.MainPostCreateDto;
 import com.itwill.gaebokchi.dto.MainPostListDto;
 import com.itwill.gaebokchi.dto.MainPostSearchDto;
@@ -58,14 +59,26 @@ public class MainPostController {
 	}
 
 	@GetMapping("/list")
-	public void mainPostList(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
-	                         @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize, 
-	                         Model model) {
+	public String mainPostList(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+							   @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
+	                           @RequestParam(name = "userid", required = false) String userid,
+	                           HttpSession session,
+	                           Model model) {
 	    log.debug("list()");
+	    
+	    List<MainPostListDto> posts;
+	    int totalPosts;
 	    int pageBlockSize = 10;
-
-	    List<MainPostListDto> posts = mainPostService.getPagedPosts(page, pageSize);
-	    int totalPosts = mainPostService.getTotalPostCount();
+	    
+	    String sessionUserid = (String) session.getAttribute(SESSION_ATTR_USER);
+	    
+	    if (userid == null) {
+	    	posts = mainPostService.getPagedPosts(page, pageSize);
+	    	totalPosts = mainPostService.getTotalPostCount();
+	    } else {
+	    	posts = mainPostService.getPagedPostsByUserid(page, sessionUserid, pageSize);
+	    	totalPosts = mainPostService.getTotalPostCountByUserid(sessionUserid);
+	    }
 
 	    int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
 	    int startPage = ((page - 1) / pageBlockSize) * pageBlockSize + 1;
@@ -80,6 +93,12 @@ public class MainPostController {
 	    model.addAttribute("startPage", startPage);
 	    model.addAttribute("endPage", endPage);
 	    model.addAttribute("pageSize", pageSize);
+	    
+	    if (userid != null) {
+	    	return "/user/myLessonList";
+	    }
+	    
+	    return "/mainPost/list";
 	}
 
 	@GetMapping("/details")
