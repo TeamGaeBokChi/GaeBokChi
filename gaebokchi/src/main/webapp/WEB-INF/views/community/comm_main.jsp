@@ -7,80 +7,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>자유게시판</title>
+<title>커뮤니티</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous" />
-<style>
-body {
-	background-color: #ffffff;
-	display: flex;
-	justify-content: center;
-	padding: 20px;
-}
-
-.container-fluid {
-	background-color: white;
-	border-radius: 10px;
-	padding: 20px;
-	max-width: 1000px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	margin: 0 auto;
-	margin-top: 80px;
-}
-
-table {
-	background-color: white; /* 테이블 전체 배경색 흰색 */
-}
-
-table thead {
-	background-color: #e9f5e9;
-}
-
-table tbody tr {
-	background-color: white; /* 테이블 행 배경색 흰색 */
-}
-
-table tbody tr:hover {
-	background-color: #f1f1f1;
-}
-
-th, td {
-	text-align: center;
-	background-color: white; /* 테이블 헤더 및 데이터 셀 배경색 흰색 */
-}
-
-.card-header {
-	background-color: #d4edda;
-}
-
-.btn-outline-secondary {
-	color: #28a745;
-	border-color: #28a745;
-}
-
-.btn-outline-secondary:hover {
-	background-color: #28a745;
-	color: white;
-}
-
-.custom-link {
-	color: black;
-	text-decoration: none;
-}
-
-.custom-link:hover {
-	text-decoration: underline; /* 원하는 경우 호버 시 밑줄 추가 */
-}
-
-footer.text-center {
-	display: flex;
-	justify-content: center;
-	margin-top: 20px; /* 필요에 따라 상단 마진을 조정할 수 있습니다. */
-}
-</style>
+<link rel="stylesheet" href="../css/comm_main.css" />
 </head>
 <body>
 	<div class="container-fluid">
