@@ -109,11 +109,11 @@
                     </form>
                 </c:if>
 
-
-
+                <!-- 포커싱할 댓글 id -->
+                <input type="hidden" id="commentId" value="${commentId}" />
                 <div class="comment-list mt-3 mb-3">
                     <c:forEach var="comment" items="${commentlist}">
-                        <div class="comment">
+                        <div class="comment" id="comment-${comment.id}">
                             <b>${userNicknames[comment.author]}</b>
                             <p>${comment.content}</p>
                             <div>

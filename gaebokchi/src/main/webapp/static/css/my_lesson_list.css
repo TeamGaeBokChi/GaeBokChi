@@ -1,0 +1,123 @@
+@charset "UTF-8";
+/* 폰트 */
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+        format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+        format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src:
+        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.card {
+    width: 1000px;
+}
+
+.card h2 {
+    font-family: 'Freesentation-9Black';
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 10px;
+}
+
+.card h7 {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+    color: #808080;
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 50px;
+}
+
+.card-header {
+    font-family: 'SUIT-Regular';
+    font-weight: 500;
+    background-color: white !important; /* 배경색을 투명으로 설정 */
+    border: none !important; /* 선택적으로 테두리 제거 */
+}
+
+.row {
+    background-color: transparent; /* 배경색을 투명으로 설정 */
+    border: none; /* 선택적으로 테두리 제거 */
+}
+
+#btnAllRead {
+    font-family: 'SUIT-Regular';
+    color: #4d4d4d;
+}
+
+#author {
+    padding-left: 30px;
+}
+
+#searchCategory {
+    font-weight: bold;
+    border: 1px solid black;
+}
+
+#searchButton {
+  background:#2A7E50;
+    color: white;
+    text-align: center;
+    width: 70px;
+}
+
+#btnCreateMainPost {
+    color:black;
+    font-weight:700;
+    border: 2px solid #2A7E50;
+    background:white;
+    width: 100px;
+}
+.table thead {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+.table thead th {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    color: #1c1c1c;
+    text-align: center;
+    padding: 10px;
+}
+
+.table tbody tr {
+    font-family: 'SUIT-Regular', SUIT-Regular;
+    font-size: 16px;
+    text-decoration: none !important;
+    color: #191919;
+}
+
+#club {
+    color: #2A7E50;
+}
+
+#post a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.container {
+    width: 1080px;
+    margin: 0 auto;
+    margin-top: 150px;
+    max-width: 1280px;
+    padding: 40px 40px 160px;
+}
