@@ -222,7 +222,7 @@ footer.text-center {
 										</c:url> <a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
 									</td>
 									<td>${userNicknames[p.author]}</td>
-									<td>${p.modifiedTime}</td>
+									<td>${p.formattedCreatedTime}</td>
 									<td>${p.views}</td>
 									<td>${p.likes}</td>
 								</tr>
@@ -236,7 +236,7 @@ footer.text-center {
 										</c:url> <a href="${commPostDetailsPage}" class="custom-link">${p.title}</a>
 									</td>
 									<td>${userNicknames[p.author]}</td>
-									<td>${p.modifiedTime}</td>
+									<td>${p.formattedCreatedTime}</td>
 									<td>${p.views}</td>
 									<td>${p.likes}</td>
 								</tr>

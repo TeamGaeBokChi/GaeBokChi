@@ -28,7 +28,7 @@
 				<input type="hidden" id="postId" value="${post.id}" />
 				<h2 class="card-title">${post.title}</h2>
 				<small class="text-black">${categoryMap[post.category]} -
-					${post.createdTime}</small>
+					${post.formattedCreatedTime}</small>
 			</div>
 			<div class="card-body">
 				<div class="post-info d-flex justify-content-between mb-3">
@@ -168,7 +168,7 @@
                     </div>
                     <small class="text-black">작성일
                         ${categoryMap[post.category]}
-                        ${post.createdTime}</small>
+                        ${post.formattedCreatedTime}</small>
                 </div>
             </div>
             <div class="card-body">

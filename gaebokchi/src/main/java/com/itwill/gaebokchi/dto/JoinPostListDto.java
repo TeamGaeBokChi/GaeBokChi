@@ -1,38 +1,53 @@
 package com.itwill.gaebokchi.dto;
 
-import java.time.LocalDateTime;
-
 import com.itwill.gaebokchi.repository.JoinPost;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
- 
-// DTO(Data Transfer Object)
-// 뷰 <--> 컨트롤러, 컨트롤러 <--> 서비스 사이에서 데이터를 주고 받을 때 사용하는 객체.
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Data
-@NoArgsConstructor @AllArgsConstructor @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class JoinPostListDto {
-    private Integer id;
-    private String title;
-    private String gcadress;
-    private LocalDateTime teeoff;
-    private Integer hole;
-    private Integer greenfee;
-    private String author;
-    private String content;
-    private Integer views;
-    private LocalDateTime modifiedTime;
-    private String category;
+	private Integer id;
+	private String title;
+	private String gcadress;
+	private LocalDateTime teeoff;
+	private Integer hole;
+	private Integer greenfee;
+	private String author;
+	private String content;
+	private Integer views;
+	private LocalDateTime modifiedTime;
+	private String category;
 
+	private String formattedTeeoff;
 
-    public static JoinPostListDto fromEntity(JoinPost joinpost) {
-        return JoinPostListDto.builder()
-                .id(joinpost.getId()).title(joinpost.getTitle()).gcadress(joinpost.getGcadress()).teeoff(joinpost.getTeeoff())
-                .hole(joinpost.getHole()).greenfee(joinpost.getGreenfee()).author(joinpost.getAuthor()).content(joinpost.getContent())
-                .views(joinpost.getViews()).modifiedTime(joinpost.getModifiedTime()).category(joinpost.getCategory()).build();
+	public static JoinPostListDto fromEntity(JoinPost joinpost) {
+		String formattedTeeoff = formatDateTime(joinpost.getTeeoff());
 
-    }
+		return JoinPostListDto.builder().id(joinpost.getId()).title(joinpost.getTitle())
+				.gcadress(joinpost.getGcadress()).teeoff(joinpost.getTeeoff()).formattedTeeoff(formattedTeeoff)
+				.hole(joinpost.getHole()).greenfee(joinpost.getGreenfee()).author(joinpost.getAuthor())
+				.content(joinpost.getContent()).views(joinpost.getViews()).modifiedTime(joinpost.getModifiedTime())
+				.category(joinpost.getCategory()).build();
+	}
 
+	// LocalDateTime을 포맷팅하여 문자열로 변환하는 메서드
+	private static String formatDateTime(LocalDateTime dateTime) {
+		if (dateTime != null) {
+			// 포맷 정의
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			// 포맷 적용
+			return dateTime.format(formatter);
+		} else {
+			return null;
+		}
+	}
 }
