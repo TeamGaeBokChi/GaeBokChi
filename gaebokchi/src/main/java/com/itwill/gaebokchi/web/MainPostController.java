@@ -123,7 +123,7 @@ public class MainPostController {
 		model.addAttribute("post", post);
 
 		// 뷰 이름 반환
-		return "details"; // 또는 적절한 뷰 이름
+		return "/mainPost/details"; // 또는 적절한 뷰 이름
 	}
 
 	@GetMapping("/modify")

@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				htmlString += `
 				<div class="comment ${highlightClass}" id="comment-${mainComment.id}">
 					<div class="comment-thumb">
-						<img id="image-${mainComment.id}" class="pofile-image"
+						<img id="image-${mainComment.id}" class="profile-image"
 							src="../user/file/image?file=${encodeURIComponent(mainComment.image)}"
 							alt="Uploaded Image">
 					</div>
