@@ -151,7 +151,7 @@
 
 
                             <!-- 댓글 리스트 영역 -->
-                            <div class="comments-section form-control"></div>
+                            <div class="comments-section form-control mb-3"></div>
 
                             <!-- <form action="submit_comment_url" method="post"> -->
                             <div class="form-group">
@@ -177,7 +177,7 @@
                                 <c:if
                                     test="${signedInUserGrade eq 'G10'}">
                                     <button id="btnRegisterComment"
-                                        class="btn btn-primary mt-3 form-control">피드백
+                                        class="btn form-control">피드백
                                         작성하기</button>
                                 </c:if>
                             </div>
