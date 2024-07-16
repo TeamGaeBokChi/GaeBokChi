@@ -21,7 +21,6 @@
 
 </head>
 
-
 <body>
     <div class="container-fluid">
         <c:set var="pageTitle" value="Home" scope="page" />
@@ -118,7 +117,7 @@
         </section>
 
         <!--------------- 프로 랭킹 및 광고 ------------------>
-        
+
         <section class="meet-pro container">
             <h2>인기 순위</h2>
             <div class="meet-pro-box">
@@ -140,10 +139,7 @@
                                     <td>${status.index + 1}</td>
                                     <td>
                                         <div class="rank-thum">
-                                            <img id="image-${r.id}"
-                                                class="profile-image"
-                                                data-file="${r.image}"
-                                                alt="Uploaded Image">
+                                            <img id="image-${r.id}" class="profile-image" data-file="${r.image}" alt="Uploaded Image">
                                         </div>
                                     </td>
                                     <td>${r.name}</td>
@@ -158,12 +154,16 @@
 
 
 
+        <!-- ---- 광고 배너  -->
+        <div class="ad-slider">
+        
+        </div>
         <!--------------- HOT 게시글 ------------------>
 
         <section class="hot-posts container">
             <h2>HOT 게시글</h2>
 
-           
+
             <div class="bn">
                 <div class="bn1" id="bnv">
                     <Strong>조회수 높은</Strong>
@@ -304,42 +304,39 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-    
+
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const slider = document.querySelector('.instagram-slider');
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        slider.addEventListener('mousedown', (e) => {
-            isDown = true;
-            slider.classList.add('active');
-            startX = e.pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
+        document.addEventListener('DOMContentLoaded', function () {
+            const slider = document.querySelector('.instagram-slider');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+    
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('active');
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+    
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+    
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+    
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 3; // 스크롤 속도 조정
+                slider.scrollLeft = scrollLeft - walk;
+            });
         });
-
-        slider.addEventListener('mouseleave', () => {
-            isDown = false;
-            slider.classList.remove('active');
-        });
-
-        slider.addEventListener('mouseup', () => {
-            isDown = false;
-            slider.classList.remove('active');
-        });
-
-        slider.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 3; // 스크롤 속도 조정
-            slider.scrollLeft = scrollLeft - walk;
-        });
-    });
-</script>
-
-
-
+	</script>
 </body>
 </html>

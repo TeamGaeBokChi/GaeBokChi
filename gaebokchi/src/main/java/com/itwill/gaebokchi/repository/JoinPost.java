@@ -1,8 +1,6 @@
 package com.itwill.gaebokchi.repository;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import lombok.AllArgsConstructor;
@@ -36,7 +34,7 @@ public class JoinPost {
 	private LocalDateTime modifiedTime;
 
 	// 포맷팅된 teeoff 시간을 저장할 필드 추가
-	private String formattedTeeoff;
+	// private String formattedTeeoff;
 
 	public String getFormattedTeeoff() {
 		return formatDateTime(this.teeoff);

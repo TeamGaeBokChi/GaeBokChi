@@ -1,6 +1,5 @@
 package com.itwill.gaebokchi.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.itwill.gaebokchi.repository.CommPost;
 import org.springframework.core.io.ByteArrayResource;
 import lombok.AllArgsConstructor;
@@ -13,8 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Data

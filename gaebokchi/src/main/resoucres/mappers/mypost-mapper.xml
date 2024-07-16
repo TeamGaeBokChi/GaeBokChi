@@ -42,18 +42,18 @@
 		resultType="com.itwill.gaebokchi.repository.MyPost">
 		SELECT *
 		FROM (
-		SELECT
-		A.*,
-		ROWNUM AS rnum
-		FROM (
-		SELECT *
-		FROM posts
-		WHERE category NOT IN('P001')
-		AND author = #{author}
-		ORDER BY created_time DESC
-		) A
-		WHERE ROWNUM &lt;= #{endRow}
-		)
+		  SELECT
+		      A.*,
+		      ROWNUM AS rnum
+		  FROM (
+		      SELECT *
+		      FROM posts
+		      WHERE category NOT IN('P001')
+		      AND author = #{author}
+		      ORDER BY created_time DESC
+		      ) A
+		      WHERE ROWNUM &lt;= #{endRow}
+		  )
 		WHERE rnum &gt; #{startRow}
 	</select>
 
