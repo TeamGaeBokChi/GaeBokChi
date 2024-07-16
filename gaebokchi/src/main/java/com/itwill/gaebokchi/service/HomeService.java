@@ -31,13 +31,7 @@ public class HomeService {
 	}
 	
 	
-	public List<Post> viewsRank(){
-		log.debug("viewsRank()");
-		
-		List<Post> viewsRank = postDao.getUsersViewsRank();
-		System.out.println(viewsRank);
-		return viewsRank;
-	}
+
 	
 	public List<Post> likesRank(){
 		log.debug("viewsRank()");

@@ -209,12 +209,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${viewsRank}" var="v">
+                                <c:forEach items="${likesRank}" var="l">
                                     <tr>
+                                        <c:url value="/mainPost/details" var="mainPostDetailsPage">
+                                        	<c:param name="id" value="${l.id}" />
+                                        </c:url>
                                         <td><a
-                                            href="${postViewsRank}">${v.title}</a></td>
-                                        <td>${v.views}</td>
-                                        <td>${v.likes}</td>
+                                            href="${mainPostDetailsPage}">${l.title}</a></td>
+                                        <td>${l.views}</td>
+                                        <td>${l.likes}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>

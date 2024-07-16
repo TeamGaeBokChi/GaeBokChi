@@ -25,11 +25,9 @@ public class HomeController {
 	public String home(Model model) {
 		log.debug("home()");
 		List<Home> home = homeService.pointsRank();
-		List<Post> viewsRank = homeService.viewsRank();
 		List<Post> likesRank = homeService.likesRank();
 		System.out.println(home);
 		model.addAttribute("rank", home);
-		model.addAttribute("viewsRank", viewsRank);
 		model.addAttribute("likesRank", likesRank);
 		return "home"; // 뷰(JSP 파일)의 이름.
 	}
