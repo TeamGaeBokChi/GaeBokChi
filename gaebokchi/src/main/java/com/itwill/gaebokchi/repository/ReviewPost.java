@@ -1,8 +1,6 @@
 package com.itwill.gaebokchi.repository;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import lombok.AllArgsConstructor;
@@ -36,8 +34,8 @@ public class ReviewPost {
 	private LocalDateTime modifiedTime;
 
 	// 포맷팅된 날짜를 저장할 필드 추가
-	private String formattedCreatedTime;
-	private String formattedModifiedTime;
+	// private String formattedCreatedTime;
+	// private String formattedModifiedTime;
 
 	public String getFormattedCreatedTime() {
 		return formatDateTime(this.createdTime);

@@ -157,10 +157,16 @@
                                         <td>${status.index + 1}</td>
                                         <td>
                                             <div class="rank-thum">
-                                                <img id="image-${r.id}"
+
+                                                <input type="hidden"
+                                                    id="imagePath-${status.index}"
+                                                    value="${r.image}" />
+                                                <img
+                                                    id="image-${status.index}"
                                                     class="profile-image"
-                                                    data-file="${r.image}"
+                                                    src=""
                                                     alt="Uploaded Image">
+
                                             </div>
                                         </td>
                                         <td>${r.name}</td>
@@ -191,29 +197,30 @@
 
                 <!--------------- HOT 게시글 ------------------>
 
-              <section class="hot-posts flex-item">
-    <div class="bn1" id="bnv" style="width: 100%;">
+                <section class="hot-posts flex-item">
+                    <div class="bn1" id="bnv" style="width: 100%;">
 
-        <table style="width: 100%;">
-            <thead>
-                <tr>
-                    <th>제목</th>
-                    <th>조회</th>
-                    <th>추천</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${viewsRank}" var="v">
-                    <tr>
-                        <td><a href="${postViewsRank}">${v.title}</a></td>
-                        <td>${v.views}</td>
-                        <td>${v.likes}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </div>
-</section>
+                        <table style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>제목</th>
+                                    <th>조회</th>
+                                    <th>추천</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${viewsRank}" var="v">
+                                    <tr>
+                                        <td><a
+                                            href="${postViewsRank}">${v.title}</a></td>
+                                        <td>${v.views}</td>
+                                        <td>${v.likes}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
 
             </section>
 
@@ -334,6 +341,28 @@
         });
     });
 </script>
+
+
+    <script>
+                                                // 이미지 URL을 가져와서 이미지 태그에 설정
+                                                var file = document.getElementById('imagePath-${status.index}').value;
+                                                var imageUrl = './user/file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
+                                                    
+                                                fetch(imageUrl)
+                                                    .then(response => response.blob())
+                                                    .then(blob => {
+                                                        var reader = new FileReader();
+                                                        reader.onload = function() {
+                                                            document.getElementById('image-${status.index}').src = reader.result;
+                                                        };
+                                                        reader.readAsDataURL(blob);
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Error fetching image:', error);
+                                                    });
+                                            </script>
+
+
 
     <script>
 document.addEventListener('DOMContentLoaded', function () {

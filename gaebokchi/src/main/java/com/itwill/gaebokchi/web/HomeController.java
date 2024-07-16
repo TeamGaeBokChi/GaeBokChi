@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller // 디스패쳐 서블릿에서 메서드를 호출할 컨트롤러 컴포넌트.
 public class HomeController {
 	
-	
 	@Autowired
 	private HomeService homeService;
 	
@@ -33,11 +32,6 @@ public class HomeController {
 		model.addAttribute("viewsRank", viewsRank);
 		model.addAttribute("likesRank", likesRank);
 		return "home"; // 뷰(JSP 파일)의 이름.
-	
-	
-	
 	}
-	
-
 	
 }
