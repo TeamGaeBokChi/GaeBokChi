@@ -95,7 +95,7 @@ button.btn-like:hover {
 }
 
 .comment-list {
-    min-height: 200px;
+    min-height: 150px;
     overflow-y: auto;
     max-height: 1000px;
     padding: 5 0px;

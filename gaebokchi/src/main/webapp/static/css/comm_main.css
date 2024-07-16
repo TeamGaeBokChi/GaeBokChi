@@ -91,7 +91,7 @@ th, td {
 main .card {
     font-family: 'SUIT-Regular', SUIT-Regular;
     margin-top: 30px !important;
-    border: 2px solid black;
+    border: 1px solid #c0c0c0;
 }
 
 .card-header {
@@ -110,6 +110,11 @@ main .card {
     color: white;
 }
 
+.all {
+     font-family: 'Pretendard-Regular', Pretendard-Regular;
+     margin-top: 50px;
+     font-weight: bold;
+}
 /* 커스텀 링크 스타일 */
 .custom-link {
     color: black;
