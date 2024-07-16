@@ -1,314 +1,324 @@
 @charset "UTF-8";
 
 @font-face {
-    font-family: 'Freesentation-9Black';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
-        format('woff2');
-    font-weight: 900;
-    font-style: normal;
+	font-family: 'Freesentation-9Black';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+		format('woff2');
+	font-weight: 900;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src:
-        url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
-        format('woff');
-    font-weight: 400;
-    font-style: normal;
+	font-family: 'Pretendard-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'ChosunGu';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff')
-        format('woff');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'ChosunGu';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 div .container-fluid .title {
-    padding: 0px !important;
+	padding: 0px !important;
 }
 
 .header {
-    background-position: center;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	background-position: center;
+	background-size: cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 main {
-    padding-left: 120px !important;
-    padding-right: 120px !important;
-    padding-bottom: 50px;
+	padding-left: 120px !important;
+	padding-right: 120px !important;
+	padding-bottom: 50px;
 }
 
 .image-category {
-    max-width: 960px;
-    text-align: center; /* 내부 요소들을 가운데 정렬 */
-    padding: 5px; /* 선택적으로 padding을 추가하여 간격을 조정 */
-    margin-top: 100px;
+	max-width: 960px;
+	text-align: center; /* 내부 요소들을 가운데 정렬 */
+	padding: 5px; /* 선택적으로 padding을 추가하여 간격을 조정 */
+	margin-top: 100px;
 }
 
 .image-category h2 {
-    font-family: 'Freesentation-9Black', Freesentation-9Black;
-    font-size: 40px;
-    margin-bottom: 50px;
-    margin-top: 50px;
+	font-family: 'Freesentation-9Black', Freesentation-9Black;
+	font-size: 40px;
+	margin-bottom: 50px;
+	margin-top: 50px;
 }
 
 .card-img-top {
-    object-fit: cover;
-    width: 150px;
+	object-fit: cover;
+	width: 150px;
 }
 
 .card {
-    margin: 5px; /* 카드 간격 조정 */
+	margin: 5px; /* 카드 간격 조정 */
 }
 
 .card-body {
-    padding: 15px; /* 카드 내부 패딩 줄이기 */
+	padding: 15px; /* 카드 내부 패딩 줄이기 */
 }
 
 .card img {
-    transition: transform 0.3s ease;
+	transition: transform 0.3s ease;
 }
 
 .card:hover img {
-    transform: scale(1.05);
+	transform: scale(1.05);
 }
 
 .image-category h5 {
-    font-family: 'ChosunGu ', ChosunGu;
-    font-weight: bold;
-    text-decoration: none !important;
+	font-family: 'ChosunGu ', ChosunGu;
+	font-weight: bold;
+	text-decoration: none !important;
 }
 
 #clubCategory a {
-    text-decoration: none; /* 하이퍼링크 밑줄 제거 */
-    color: black;
+	text-decoration: none; /* 하이퍼링크 밑줄 제거 */
+	color: black;
 }
 
 .bn1 {
-    flex: 1;
-    text-align: center;
+	flex: 1;
+	text-align: center;
 }
 
 .bn1 th {
-    font-size: 16px;
-    font-weight: 700;
-    border-bottom: 1px solid #c4c4c4;
-    padding-bottom: 10px;
+	font-size: 16px;
+	font-weight: 700;
+	border-bottom: 1px solid #c4c4c4;
+	padding-bottom: 10px;
 }
 
 .bn1 td {
-    padding-left: 5px;
-    padding-right: 10px;
-    padding-top: 11px
+	padding-left: 5px;
+	padding-right: 10px;
+	padding-top: 11px
 }
 
 .bn1 a {
-    font-size: 15px;
-    display: block; /* <a> 태그를 블록 수준 요소로 변경 */
-    text-align: left; /* 텍스트를 좌측으로 정렬 */
-    padding-left: 10px;
-    text-decoration: none;
-    color: black;
-    border-right: 1px solid #d2d2d2;
+	font-size: 15px;
+	display: block; /* <a> 태그를 블록 수준 요소로 변경 */
+	text-align: left; /* 텍스트를 좌측으로 정렬 */
+	padding-left: 10px;
+	text-decoration: none;
+	color: black;
+	border-right: 1px solid #d2d2d2;
 }
 
 .title h2 {
-    font-family: 'Freesentation-9Black', Freesentation-9Black;
-    font-size: 40px;
-    margin-top: 150px;
-    margin-bottom: 50px;
+	font-family: 'Freesentation-9Black', Freesentation-9Black;
+	font-size: 40px;
+	margin-top: 150px;
+	margin-bottom: 50px;
 }
 
 .middleArea {
-    display: flex;
-    justify-content: space-between; /* 요소들을 좌우로 분산 배치 */
-    align-items: stretch; /* 요소들의 높이를 컨테이너 높이에 맞게 늘림 */
+	display: flex;
+	justify-content: space-between; /* 요소들을 좌우로 분산 배치 */
+	align-items: stretch; /* 요소들의 높이를 컨테이너 높이에 맞게 늘림 */
 }
 
 .semi-title {
-    padding: 5 30px;
+	padding: 5 30px;
 }
 
 .semi-title h4 {
-    font-family: 'Pretendard-Regular', Pretendard-Regular;
-    font-weight: bold;
-    margin-bottom: 20px;
+	font-family: 'Pretendard-Regular', Pretendard-Regular;
+	font-weight: bold;
+	margin-bottom: 20px;
 }
 
 .semi-title h6 {
-    font-family: 'SUIT-Regular', SUIT-Regular;
-    margin-bottom: 20px;
+	font-family: 'SUIT-Regular', SUIT-Regular;
+	margin-bottom: 20px;
 }
 
 .rank {
-    font-family: 'ChosunGu', ChosunGu;
-    border: 1px solid #ddd;
-    font-weight: 700;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
+	font-family: 'ChosunGu', ChosunGu;
+	border: 1px solid #ddd;
+	font-weight: 700;
+	padding: 20px;
+	border-radius: 10px;
+	border: 1px solid #ddd;
 }
 
 /* Optional: If you want the table to take full width */
 .rank table {
-    width: 100%;
+	width: 100%;
 }
 
 /* Optional: If you want to center the table horizontally */
 .rank {
-    display: flex;
-    justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 .profile-image {
-    max-width: 80px; /* 이미지의 최대 너비 설정 */
-    max-height: 80px; /* 이미지의 최대 높이 설정 */
-    width: auto; /* 비율에 따라 너비 조정 */
-    height: auto; /* 비율에 따라 높이 조정 */
+	max-width: 80px; /* 이미지의 최대 너비 설정 */
+	max-height: 80px; /* 이미지의 최대 높이 설정 */
+	width: auto; /* 비율에 따라 너비 조정 */
+	height: auto; /* 비율에 따라 높이 조정 */
 }
 
 .rank th {
-    background: #ffffff;
-    border-bottom: 3px solid #0080ff;
-    font-size: 20px;
-    position: text-center;
-    padding: 10px;
+	background: #ffffff;
+	border-bottom: 3px solid #0080ff;
+	font-size: 20px;
+	position: text-center;
+	padding: 10px;
 }
 
 .rank td {
-    padding: 10px;
-    border-bottom: 1px dashed #ececec;
+	padding: 10px;
+	border-bottom: 1px dashed #ececec;
 }
 
 .text-center {
-    text-align: center; /* 텍스트 중앙 정렬 */
+	text-align: center; /* 텍스트 중앙 정렬 */
 }
 
 .ad-slider {
-    position: relative;
-    overflow: hidden;
-    width: 300px;
-    height: 400px;
-    margin: 20px auto;
+	position: relative;
+	overflow: hidden;
+	width: 300px;
+	height: 400px;
+	margin: 20px auto;
 }
 
 .slider-container {
-    display: flex;
-    transition: transform 0.5s ease;
+	display: flex;
+	transition: transform 0.5s ease;
 }
 
 .slide {
-    flex: 0 0 100%;
-    
+	flex: 0 0 100%;
 }
 
 .slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .prev-btn, .next-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba(0, 0, 0, 0.5);
+	color: white;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
 }
 
 .prev-btn {
-    left: 10px;
+	left: 10px;
 }
 
 .next-btn {
-    right: 10px;
+	right: 10px;
 }
 
 .hot-posts {
-    font-family: 'SUIT-Regular', SUIT-Regular;
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
+	font-family: 'SUIT-Regular', SUIT-Regular;
+	border: 1px solid #ddd;
+	padding: 15px;
+	border-radius: 10px;
+	border: 1px solid #ddd;
 }
 
 .meet-pro {
-    flex: 1 1 45%; /* Adjust width based on your layout preference */
-    margin-right: 20px; /* Optional margin for spacing */
+	flex: 1 1 45%; /* Adjust width based on your layout preference */
+	margin-right: 20px; /* Optional margin for spacing */
 }
 
 .ad-slider {
-    flex: 1 1 30%; /* Adjust width based on your layout preference */
-    max-width: 30%;
-    /* Limit width to prevent it from growing too large */
-    margin-right: 20px; /* Optional margin for spacing */
-    /* Additional styling for ad slider */
+	flex: 1 1 30%; /* Adjust width based on your layout preference */
+	max-width: 30%;
+	/* Limit width to prevent it from growing too large */
+	margin-right: 20px; /* Optional margin for spacing */
+	/* Additional styling for ad slider */
 }
 
 .hot-posts {
-    flex: 1 1 45%; /* Adjust width based on your layout preference */
+	flex: 1 1 45%; /* Adjust width based on your layout preference */
 }
 
 .slider-container {
-    overflow: hidden; /* Hide overflow content */
+	width: 300px;
+	height: 200px;
+	
+	overflow: hidden;
 }
 
 .slide {
-    width: 100%; /* Ensure slides take up full width of container */
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+	opacity: 1;
 }
 
 /* 인스타그램 */
 .instagram {
-    text-align: left; /* 내부 요소들을 가운데 정렬 */
-    padding: 20px; /* 선택적으로 padding을 추가하여 간격을 조정 */
-    margin-top: 70px;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
+	text-align: left; /* 내부 요소들을 가운데 정렬 */
+	padding: 20px; /* 선택적으로 padding을 추가하여 간격을 조정 */
+	margin-top: 70px;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
 }
 
 .instagram-header {
-    display: flex;
-    justify-content: space-between; /* h2와 h5를 양쪽 끝으로 정렬 */
-    align-items: end; /* 세로 중앙 정렬 */
-    height: 100%;
-    margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between; /* h2와 h5를 양쪽 끝으로 정렬 */
+	align-items: end; /* 세로 중앙 정렬 */
+	height: 100%;
+	margin-bottom: 20px;
 }
 
 .instagram h2 {
-    font-family: 'Freesentation-9Black', Freesentation-9Black;
+	font-family: 'Freesentation-9Black', Freesentation-9Black;
 }
 
 .instagram-slider {
-    border: 1px solid gray;
-    border-radius: 10px;
-    padding: 20px 10px;
-    display: flex;
-    overflow-x: scroll;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;
-    display: flex;
-    padding: 20px 10px; /* Internet Explorer 10+ */
+	border: 1px solid gray;
+	border-radius: 10px;
+	padding: 20px 10px;
+	display: flex;
+	overflow-x: scroll;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none;
+	display: flex;
+	padding: 20px 10px; /* Internet Explorer 10+ */
 }
 
 .instagram-slider::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
+	display: none; /* Safari and Chrome */
 }
 
 .instagram-media {
-    display: inline-block;
-    min-width: 200px; /* 각 블록의 최소 너비 조정 */
-    margin: 0 10px !important; /* 각 블록 사이의 간격을 15px로 설정 */
-    flex: 0 0 auto;
+	display: inline-block;
+	min-width: 200px; /* 각 블록의 최소 너비 조정 */
+	margin: 0 10px !important; /* 각 블록 사이의 간격을 15px로 설정 */
+	flex: 0 0 auto;
 }
