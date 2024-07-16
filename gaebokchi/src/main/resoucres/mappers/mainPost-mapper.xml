@@ -492,7 +492,4 @@
         ORDER BY likes DESC
         FETCH FIRST 10 ROWS ONLY
     </select>
-
-
-
 </mapper>
