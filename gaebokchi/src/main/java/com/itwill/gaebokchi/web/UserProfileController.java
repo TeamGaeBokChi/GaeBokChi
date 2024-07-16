@@ -261,10 +261,10 @@ public class UserProfileController {
 		model.addAttribute("pinnedPosts", pinnedPosts);
 	}
 
-	@GetMapping("/user_grade") // 원하는 URL 경로를 지정합니다.
+	@GetMapping("/grade") // 원하는 URL 경로를 지정합니다.
 	public String grade() {
 		log.debug("grade()");
-		return "grade"; // 뷰의 이름을 반환합니다. 여기서는 "mypage"라는 뷰 이름을 반환합니다.
+		return "/user/grade"; // 뷰의 이름을 반환합니다. 여기서는 "mypage"라는 뷰 이름을 반환합니다.
 	}
 
 }
