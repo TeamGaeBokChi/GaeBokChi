@@ -64,7 +64,8 @@ table thead {
 	font-size: 20px;
 }
 table thead tr th.text-center {
-    border-bottom: 2px solid black !important;
+    border-bottom: 2px solid #0073e6 !important;
+    color: #0073e6;
 }
 
 table tbody tr {

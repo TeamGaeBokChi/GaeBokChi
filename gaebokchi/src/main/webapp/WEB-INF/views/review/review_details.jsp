@@ -22,7 +22,7 @@
         <%@ include file="../fragments/header.jspf"%>
     </header>
 
-    <div class="container">
+    <div class="container d-flex flex-column justify-content-center align-items-center" ">
         <div class="card border-0">
             <h2>REVIEW</h2>
             <h7>여러분의 후기를 남겨주세요.</h7>

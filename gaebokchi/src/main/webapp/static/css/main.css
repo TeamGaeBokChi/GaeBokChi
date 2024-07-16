@@ -59,6 +59,10 @@ main {
 	margin-top: 50px;
 }
 
+.text-left {
+    text-align: left !important;
+}
+
 .card-img-top {
 	object-fit: cover;
 	width: 150px;
@@ -122,7 +126,7 @@ main {
 .title h2 {
 	font-family: 'Freesentation-9Black', Freesentation-9Black;
 	font-size: 40px;
-	margin-top: 150px;
+	margin-top: 100px;
 	margin-bottom: 50px;
 }
 
@@ -280,8 +284,7 @@ main {
 /* 인스타그램 */
 .instagram {
 	text-align: left; /* 내부 요소들을 가운데 정렬 */
-	padding: 20px; /* 선택적으로 padding을 추가하여 간격을 조정 */
-	margin-top: 70px;
+	padding: 20px;
 	margin-bottom: 20px;
 	padding-bottom: 20px;
 }

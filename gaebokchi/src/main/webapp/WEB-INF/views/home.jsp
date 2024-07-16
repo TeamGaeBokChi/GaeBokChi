@@ -40,7 +40,7 @@
 
 		<!--------------- 글럽별 레슨받기 ------------------>
 		<section class="image-category container">
-			<h2>클럽별 레슨받기</h2>
+			<h2 class="text-left">클럽별 레슨받기</h2>
 			<ul class="row list-unstyled" id="clubCategory">
 				<li class="col-md-2 col-6">
 					<div class="card text-center">
