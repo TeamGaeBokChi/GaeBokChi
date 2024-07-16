@@ -345,32 +345,7 @@
     });
 </script>
 
-	<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const slider = document.querySelector('.slider-container');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    const slides = document.querySelectorAll('.slide');
-    let currentSlide = 0;
-
-    nextBtn.addEventListener('click', () => {
-        currentSlide = (currentSlide + 1) % slides.length;
-        updateSliderPosition();
-    });
-
-    prevBtn.addEventListener('click', () => {
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        updateSliderPosition();
-    });
-
-    function updateSliderPosition() {
-        const slideWidth = slides[0].clientWidth;
-        slider.style.transform = `translateX(${-currentSlide * slideWidth}px)`;
-    }
-});
-
-
-
+<script>
 const banners = document.querySelectorAll('.slide');
 let currentBanner = 0;
 
