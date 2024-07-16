@@ -99,7 +99,7 @@
             </div>
         </div>
 
-        <table class="table ">
+        <table class="table">
             <thead>
                 <tr>
                     <th class="col-1">티오프</th>
