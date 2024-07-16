@@ -131,7 +131,7 @@
             <div
                 class="semi-title container d-flex justify-content-between">
                 <h6>이분의 조언이 도움이 많이 되었어요!</h6>
-                <h6>GOLFRO 베스트 이야기</h6>
+                <h6>많은 사람들의 주목을 받은 게시글!</h6>
             </div>
 
 
@@ -191,30 +191,29 @@
 
                 <!--------------- HOT 게시글 ------------------>
 
-                <section class="hot-posts flex-item">
-                    <div class="bn1" id="bnv">
-                        <strong>조회수 높은</strong>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>제목</th>
-                                    <th>조회</th>
-                                    <th>추천</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${viewsRank}" var="v">
-                                    <tr>
-                                        <td><a
-                                            href="${postViewsRank}">${v.title}</a></td>
-                                        <td>${v.views}</td>
-                                        <td>${v.likes}</td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
+              <section class="hot-posts flex-item">
+    <div class="bn1" id="bnv" style="width: 100%;">
+
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>조회</th>
+                    <th>추천</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${viewsRank}" var="v">
+                    <tr>
+                        <td><a href="${postViewsRank}">${v.title}</a></td>
+                        <td>${v.views}</td>
+                        <td>${v.likes}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</section>
 
             </section>
 

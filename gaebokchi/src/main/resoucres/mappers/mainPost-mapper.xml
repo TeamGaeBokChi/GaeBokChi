@@ -482,7 +482,7 @@
 		title, views, likes
 		FROM posts
 		ORDER BY views DESC
-		FETCH FIRST 8 ROWS ONLY
+		FETCH FIRST 10 ROWS ONLY
 	</select>
 
 	<select id="getUsersLikesRank" resultType="Post">
