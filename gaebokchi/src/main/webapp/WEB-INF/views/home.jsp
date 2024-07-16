@@ -118,140 +118,137 @@
         </section>
 
         <!--------------- 프로 랭킹 및 광고 ------------------>
-        
-        <section class="meet-pro container">
-            <h2>인기 순위</h2>
-            <div class="meet-pro-box">
-                <div class="pro-rank text-center">
-                    <h4>실시간 프로 랭킹</h4>
+
+        <div class="title container">
+            <h2>실시간 인기 순위</h2>
+
+
+            <div
+                class="semi-title container d-flex justify-content-between">
+                <h4>실시간 프로 랭킹</h4>
+                <h4>HOT 게시글</h4>
+            </div>
+            <div
+                class="semi-title container d-flex justify-content-between">
+                <h6>이분의 조언이 도움이 많이 되었어요!</h6>
+                <h6>GOLFRO 베스트 이야기</h6>
+            </div>
+
+
+            <section class="middleArea container">
+
+
+                <section class="meet-pro flex-item">
+
                     <div class="rank">
                         <table class="text-center">
-
-                            <tr>
-                                <th>순위</th>
-                                <th></th>
-                                <th>이름</th>
-                                <th>보유 포인트</th>
-                            </tr>
-
-                            <c:forEach items="${rank}" var="r"
-                                varStatus="status">
+                            <thead>
                                 <tr>
-                                    <td>${status.index + 1}</td>
-                                    <td>
-                                        <div class="rank-thum">
-                                            <img id="image-${r.id}"
-                                                class="profile-image"
-                                                data-file="${r.image}"
-                                                alt="Uploaded Image">
-                                        </div>
-                                    </td>
-                                    <td>${r.name}</td>
-                                    <td>${r.point}</td>
+                                    <th>순위</th>
+                                    <th></th>
+                                    <th>이름</th>
+                                    <th>보유 포인트</th>
                                 </tr>
-                            </c:forEach>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${rank}" var="r"
+                                    varStatus="status">
+                                    <tr>
+                                        <td>${status.index + 1}</td>
+                                        <td>
+                                            <div class="rank-thum">
+                                                <img id="image-${r.id}"
+                                                    class="profile-image"
+                                                    data-file="${r.image}"
+                                                    alt="Uploaded Image">
+                                            </div>
+                                        </td>
+                                        <td>${r.name}</td>
+                                        <td>${r.point}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
                         </table>
                     </div>
+                </section>
+
+
+
+
+                <!-- ---- 광고 배너  -->
+                <div class="ad-slider flex-item">
+                    <div class="slider-container">
+                        <div class="slide">
+                            <img src="images/ad1.png" alt="Ad 1">
+                        </div>
+                        <div class="slide">
+                            <img src="images/ad2.png" alt="Ad 2">
+                        </div>
+                    </div>
+                    <button class="prev-btn">&lt;</button>
+                    <button class="next-btn">&gt;</button>
                 </div>
-            </div>
-        </section>
 
+                <!--------------- HOT 게시글 ------------------>
 
-
-        <!--------------- HOT 게시글 ------------------>
-
-        <section class="hot-posts container">
-            <h2>HOT 게시글</h2>
-
-           
-            <div class="bn">
-                <div class="bn1" id="bnv">
-                    <Strong>조회수 높은</Strong>
-                    <table>
-                        <thead>
-                            <th>클럽</th>
-                            <th>제목</th>
-                            <th>조회</th>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${viewsRank}" var="v">
+                <section class="hot-posts flex-item">
+                    <div class="bn1" id="bnv">
+                        <strong>조회수 높은</strong>
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td>${v.clubType}</td>
-                                    <c:url var="postViewsRank"
-                                        value="/mainPost/details">
-                                        <c:param name="id"
-                                            value="${v.id}" />
-                                    </c:url>
-                                    <td><a href="${postViewsRank}">${v.title}
-                                    </a></td>
-                                    <td>${v.views}</td>
+                                    <th>제목</th>
+                                    <th>조회</th>
+                                    <th>추천</th>
                                 </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${viewsRank}" var="v">
+                                    <tr>
+                                        <td><a
+                                            href="${postViewsRank}">${v.title}</a></td>
+                                        <td>${v.views}</td>
+                                        <td>${v.likes}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </section>
+
+
+
+
+            <!--------------- 인스타그램 ------------------>
+
+            <section class="instagram container">
+                <div class="instagram-header">
+                    <h2>GOLFRO INSTAGRAM</h2>
+                    <h5>@GOLFRO_KR</h5>
                 </div>
-
-
-
-                <div class="bn1" id="bnr">
-                    <strong>추천수 높은</strong>
-                    <table>
-                        <thead>
-                            <th>클럽</th>
-                            <th>제목</th>
-                            <th>추천</th>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${likesRank}" var="l">
-                                <tr>
-                                    <td>${l.clubType}</td>
-                                    <c:url var="postLikesRank"
-                                        value="/mainPost/details">
-                                        <c:param name="id"
-                                            value="${l.id}" />
-                                    </c:url>
-                                    <td><a href="${postLikesRank}">${l.title}
-                                    </a></td>
-                                    <td>${l.likes}</td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                <div class="instagram-slider">
+                    <blockquote class="instagram-media"
+                        data-instgrm-permalink="https://www.instagram.com/p/C9cQp2_ycqd/"
+                        data-instgrm-version="14"></blockquote>
+                    <blockquote class="instagram-media"
+                        data-instgrm-permalink="https://www.instagram.com/p/C9cRuiUSWK4/"
+                        data-instgrm-version="14"></blockquote>
+                    <blockquote class="instagram-media"
+                        data-instgrm-permalink="https://www.instagram.com/p/C9cRw_jyR4o/"
+                        data-instgrm-version="14"></blockquote>
+                    <blockquote class="instagram-media"
+                        data-instgrm-permalink="https://www.instagram.com/p/C9cR-K5Sz9Z/"
+                        data-instgrm-version="14"></blockquote>
+                    <blockquote class="instagram-media"
+                        data-instgrm-permalink="https://www.instagram.com/p/C9cSA_wSocX/"
+                        data-instgrm-version="14"></blockquote>
+                    <blockquote class="instagram-media"
+                        data-instgrm-permalink="https://www.instagram.com/p/C9cSnOKypk7/"
+                        data-instgrm-version="14"></blockquote>
                 </div>
-        </section>
-
-
-
-
-
-        <!--------------- 인스타그램 ------------------>
-
-        <section class="instagram container">
-            <div class="instagram-header">
-                <h2>GOLFRO INSTAGRAM</h2>
-                <h5>@GOLFRO_KR</h5>
-            </div>
-            <div class="instagram-slider">
-                <blockquote class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/p/C9cQp2_ycqd/"
-                    data-instgrm-version="14"></blockquote>
-                <blockquote class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/p/C9cRuiUSWK4/"
-                    data-instgrm-version="14"></blockquote>
-                <blockquote class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/p/C9cRw_jyR4o/"
-                    data-instgrm-version="14"></blockquote>
-                <blockquote class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/p/C9cR-K5Sz9Z/"
-                    data-instgrm-version="14"></blockquote>
-                <blockquote class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/p/C9cSA_wSocX/"
-                    data-instgrm-version="14"></blockquote>
-                <blockquote class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/p/C9cSnOKypk7/"
-                    data-instgrm-version="14"></blockquote>
-            </div>
-        </section>
+            </section>
     </main>
     <footer>
         <div class="container">
@@ -304,7 +301,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-    
+
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         const slider = document.querySelector('.instagram-slider');
@@ -337,6 +334,31 @@
             slider.scrollLeft = scrollLeft - walk;
         });
     });
+</script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const slider = document.querySelector('.slider-container');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    nextBtn.addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateSliderPosition();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        updateSliderPosition();
+    });
+
+    function updateSliderPosition() {
+        const slideWidth = slides[0].clientWidth;
+        slider.style.transform = `translateX(${-currentSlide * slideWidth}px)`;
+    }
+});
 </script>
 
 

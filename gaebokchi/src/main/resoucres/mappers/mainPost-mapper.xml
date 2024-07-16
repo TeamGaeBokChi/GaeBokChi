@@ -479,10 +479,10 @@
 
 	<select id="getUsersViewsRank" resultType="Post">
 		SELECT
-		club_type, title, views
+		title, views, likes
 		FROM posts
 		ORDER BY views DESC
-		FETCH FIRST 5 ROWS ONLY
+		FETCH FIRST 8 ROWS ONLY
 	</select>
 
 	<select id="getUsersLikesRank" resultType="Post">
@@ -490,7 +490,7 @@
 		club_type, title, likes
 		FROM posts
 		ORDER BY likes DESC
-		FETCH FIRST 5 ROWS ONLY
+		FETCH FIRST 8 ROWS ONLY
 	</select>
 
 
