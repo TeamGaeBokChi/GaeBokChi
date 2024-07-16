@@ -479,7 +479,11 @@
         rnum &gt; #{startRow}
     </select>
 
-
+    <select id="getTotalCountByUserid" resultType="int">
+      SELECT COUNT(*)
+      FROM posts
+      where author = #{author} and category = 'P001'
+   </select>
 
     <select id="getUsersLikesRank" resultType="Post">
         SELECT *

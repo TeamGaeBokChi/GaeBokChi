@@ -166,6 +166,25 @@
                                                     class="profile-image"
                                                     src=""
                                                     alt="Uploaded Image">
+                                                
+                                                <script>
+                                                    // 이미지 URL을 가져와서 이미지 태그에 설정
+                                                    var file = document.getElementById('imagePath-${status.index}').value;
+                                                    var imageUrl = './user/file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
+                                                        
+                                                    fetch(imageUrl)
+                                                        .then(response => response.blob())
+                                                        .then(blob => {
+                                                            var reader = new FileReader();
+                                                            reader.onload = function() {
+                                                                document.getElementById('image-${status.index}').src = reader.result;
+                                                            };
+                                                            reader.readAsDataURL(blob);
+                                                        })
+                                                        .catch(error => {
+                                                            console.error('Error fetching image:', error);
+                                                        });
+                                                </script>
 
                                             </div>
                                         </td>
@@ -344,28 +363,6 @@
         });
     });
 </script>
-
-
-    <script>
-                                                // 이미지 URL을 가져와서 이미지 태그에 설정
-                                                var file = document.getElementById('imagePath-${status.index}').value;
-                                                var imageUrl = './user/file/image?file=' + encodeURIComponent(file);  // 이미지 파일명에 맞게 설정
-                                                    
-                                                fetch(imageUrl)
-                                                    .then(response => response.blob())
-                                                    .then(blob => {
-                                                        var reader = new FileReader();
-                                                        reader.onload = function() {
-                                                            document.getElementById('image-${status.index}').src = reader.result;
-                                                        };
-                                                        reader.readAsDataURL(blob);
-                                                    })
-                                                    .catch(error => {
-                                                        console.error('Error fetching image:', error);
-                                                    });
-                                            </script>
-
-
 
     <script>
 document.addEventListener('DOMContentLoaded', function () {
