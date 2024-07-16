@@ -21,84 +21,14 @@
             <%@ include file="../fragments/menu.jspf"%>
 
             <div class="col-8">
-                <!-- 인기 게시물 리스트업부 -->
                 <div class="card border-0">
-                    <div class="card-header">
-                        <c:url var="mainPostSearch" value="/mainPost/search" />
-                        <form method="get" action="${mainPostSearch}">
-                            <input type="hidden" name="userid" value="${userid}" />
-
-                            <!-- 검색 전채 영역 -->
-                            <div class="row searchArea d-flex">
-
-                                <!-- 전체 목록 보기 버튼 -->
-                                <div class="col-auto">
-                                    <button type="button" class="form-control" id="btnAllRead" onclick="location.href='list'">전체글 목록</button>
-                                </div>
-
-                                <!-- select 태그 영역(카테고리 선택) -->
-                                <div class="col d-flex justify-content-center align-items-center flex-grow-1">
-                                    <div class="row w-100 justify-content-center align-items-center">
-                                        <div class="col-2 ">
-                                            <select class="form-control" name="searchCategory" id="searchCategory" onchange="toggleSearchField()">
-                                                <option value="searchClubs">클럽별 검색</option>
-                                                <option value="searchSelection">채택별 검색</option>
-                                                <option value="searchTitle">제목 검색</option>
-                                                <option value="searchContent">내용 검색</option>
-                                                <option value="searchTitleContent">제목+내용 검색</option>
-                                                <option value="searchAuthor">작성자 검색</option>
-                                            </select>
-                                        </div>
-                                        <!-- 동적 요소를 포함할 컨테이너 -->
-                                        <div class="col-4">
-                                            <!-- 초기값으로 클럽 선택 콤보박스 표시 -->
-                                            <div id="clubSelectField">
-                                                <select class="form-control" name="clubSelect" id="clubSelect">
-                                                    <c:forEach items="${clubs}" var="c">
-                                                        <option value="${c.id}">${c.name}</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-
-                                            <!-- 초기값으로 입력 필드는 숨김 -->
-                                            <div id="textSearchSelectField" style="display: none;">
-                                                <input type="text" class="form-control" name="textSearchSelect" placeholder="검색어를 입력하세요">
-                                            </div>
-
-                                            <div id="searchSelectionField" style="display: none;">
-                                                <select class="form-control" name="selectSelection" id="selectSelection">
-                                                    <option value="selectFalse">미완료</option>
-                                                    <option value="selectTrue">해결완료</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <!-- 검색 버튼 영역 -->
-                                        <div class="col-auto">
-                                            <input type="submit" class="form-control" value="검색" id="searchButton" />
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- 글 작성하기 버튼 -->
-                                <c:if test="${signedInUserGrade eq 'G21' || signedInUserGrade eq 'G22' || signedInUserGrade eq 'G23' || signedInUserGrade eq 'G24' || signedInUserGrade eq 'G01' }">
-                                    <div class="col-auto">
-                                        <button type="button" class="form-control" id="btnCreateMainPost" onclick="location.href='create'">글쓰기⮟</button>
-                                    </div>
-                                </c:if>
-                            </div>
-                        </form>
-                    </div>
-
                     <div class="card-body mb-1">
                         <!-- 메인 게시판 목록 영역 -->
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th class="col-1">클럽종류</th>
-                                    <th class="col-4">제목</th>
-                                    <th class="col-2">작성자</th>
+                                    <th class="col-3">제목</th>
                                     <th class="col-1">조회</th>
                                     <th class="col-1">좋아요</th>
                                     <th class="col-2">작성일</th>
@@ -116,7 +46,6 @@
                                                 <c:param name="id" value="${p.id}" />
                                             </c:url> <a href="${mainPostDetailsPage}">${p.title}</a>
                                         </td>
-                                        <td id="author">${p.author}</td>
                                         <td class="text-center">${p.views}</td>
                                         <td class="text-center">${p.likes}</td>
                                         <td class="text-center">${p.createdTime}</td>
@@ -125,7 +54,7 @@
                                 </c:forEach>
                             </tbody>
                         </table>
-
+    
                         <!-- 페이징 UI 추가 -->
                         <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
@@ -169,7 +98,6 @@
                                 </c:choose>
                             </ul>
                         </nav>
-                        
                     </div>
                 </div>
             </div>
@@ -179,34 +107,6 @@
 	   src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	   crossorigin="anonymous"></script>
-    
-       <c:url var="listJS" value="/js/list.js" />
-       <script src="${ listJS }"></script>
-    
-    <script type="text/javascript">
-		searchButton
-    
-		function toggleSearchField() {
-			var searchCategory = document.getElementById("searchCategory").value;
-     		var clubSelectField = document.getElementById("clubSelectField");
-      		var textSearchSelectField = document.getElementById("textSearchSelectField");
-       		var searchSelectionField = document.getElementById("searchSelectionField");
-    
-          	if (searchCategory === "searchClubs") {
-          		clubSelectField.style.display = "block";
-                textSearchSelectField.style.display = "none";
-                searchSelectionField.style.display = "none";
-      		} else if (searchCategory === "searchSelection") {
-      			clubSelectField.style.display = "none";
-                textSearchSelectField.style.display = "none";
-                searchSelectionField.style.display = "block";
-       		} else {
-                clubSelectField.style.display = "none";
-                textSearchSelectField.style.display = "block";
-                searchSelectionField.style.display = "none";
-    		}
-   		}
-	</script>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

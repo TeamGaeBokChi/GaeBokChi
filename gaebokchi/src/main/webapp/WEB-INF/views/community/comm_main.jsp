@@ -14,6 +14,11 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
     crossorigin="anonymous" />
 <link rel="stylesheet" href="../css/comm_main.css" />
+<style>
+.left-align-bold {
+    text-align: left;
+}
+</style>
 </head>
 <body>
 
@@ -26,25 +31,31 @@
                     <a href="/gaebokchi/community/comm_main">COMMUNITY</a>
                 </h2>
                 <h7>다양한 이야기들을 함께 나눠요.</h7>
-            </div> 
+            </div>
+
+            <div class="ad">
+                <c:url var="ad" value="/images/ad-1.png" />
+                <img src="${ad}" alt="ad picture">
+            </div>
+
             <table class="table">
                 <colgroup>
                     <col style="width: 50%;">
                     <col style="width: 50%;">
                 </colgroup>
                 <tr>
+                    <div class="best-posts">BEST 실시간 인기글</div>
                     <td>
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th class="text-center" colspan="3">인기
-                                        많은 게시물 - 잡담</th>
-                                </tr>
+                                <th class="text-center" colspan="3">잡담</th>
+
                             </thead>
                             <tbody>
                                 <c:forEach var="p" items="${top5ByF001}">
                                     <tr class="table">
-                                        <td><c:url
+
+                                        <td class="left-align-bold"><c:url
                                                 var="commPostDetailsPage"
                                                 value="/community/comm_details">
                                                 <c:param name="id"
@@ -53,8 +64,11 @@
                                             href="${commPostDetailsPage}"
                                             class="custom-link">${p.title}</a>
                                         </td>
-                                        <td>${p.views}👓</td>
-                                        <td>${p.likes}❤️</td>
+                                        <td><i class="bi bi-eye"></i>
+                                            ${p.views}</td>
+                                        <td><i
+                                            class="bi bi-hand-thumbs-up"></i>
+                                            ${p.likes}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -63,15 +77,16 @@
                     <td>
                         <table class="table table.no-boder">
                             <thead>
+
                                 <tr>
-                                    <th class="text-center" colspan="3">인기
-                                        많은 게시물 - 팁/노하우</th>
+                                    <th class="text-center" colspan="3">팁/노하우</th>
                                 </tr>
+
                             </thead>
                             <tbody>
                                 <c:forEach var="p" items="${top5ByF002}">
                                     <tr class="table">
-                                        <td><c:url
+                                        <td class="left-align-bold"><c:url
                                                 var="commPostDetailsPage"
                                                 value="/community/comm_details">
                                                 <c:param name="id"
@@ -80,8 +95,11 @@
                                             href="${commPostDetailsPage}"
                                             class="custom-link">${p.title}</a>
                                         </td>
-                                        <td>${p.views}👓</td>
-                                        <td>${p.likes}❤️</td>
+                                        <td><i class="bi bi-eye"></i>
+                                            ${p.views}</td>
+                                        <td><i
+                                            class="bi bi-hand-thumbs-up"></i>
+                                            ${p.likes}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -92,7 +110,9 @@
         </header>
 
         <main>
+            <h3 class="all">전체글</h3>
             <div class="mt-2 card">
+
                 <div class="card-header">
                     <!-- 카테고리 선택 폼 추가 -->
                     <c:url var="catesearchPage"
@@ -134,7 +154,7 @@
                             <div class="col-1">
                                 <input type="submit"
                                     class="form-control btn btn-outline-secondary"
-                                    value="🔍" />
+                                    value="검색" />
                             </div>
                             <div class="col-2">
                                 <c:url var="createPostUrl"
@@ -175,7 +195,7 @@
                             <c:forEach var="p" items="${pinnedPosts}">
                                 <tr class="table table-secondary ">
                                     <td>${category_name[p.category]}</td>
-                                    <td><c:url
+                                    <td class="left-align-bold"><c:url
                                             var="commPostDetailsPage"
                                             value="/community/comm_details">
                                             <c:param name="id"
@@ -193,7 +213,7 @@
                             <c:forEach var="p" items="${posts}">
                                 <tr class="table">
                                     <td>${category_name[p.category]}</td>
-                                    <td><c:url
+                                    <td class="left-align-bold"><c:url
                                             var="commPostDetailsPage"
                                             value="/community/comm_details">
                                             <c:param name="id"

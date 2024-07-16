@@ -1,176 +1,216 @@
 @charset "UTF-8";
 
 @font-face {
-    font-family: 'Freesentation-9Black';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
-        format('woff2');
-    font-weight: 900;
-    font-style: normal;
+	font-family: 'Freesentation-9Black';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2')
+		format('woff2');
+	font-weight: 900;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src:
-        url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
-        format('woff');
-    font-weight: 400;
-    font-style: normal;
+	font-family: 'Pretendard-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'ChosunGu';
-    src:
-        url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff')
-        format('woff');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'ChosunGu';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
-div .container-fluid .title{
-    padding:0px !important;
+
+
+div .container-fluid .title {
+	padding: 0px !important;
 }
 
 .header {
-    background-position: center;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	background-position: center;
+	background-size: cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+main {
+	padding-left: 120px !important;
+	padding-right: 120px !important;
+	padding-bottom: 50px;
 }
 
 .image-category {
-    max-width: 960px;
-    text-align: center; /* 내부 요소들을 가운데 정렬 */
-    padding: 5px; /* 선택적으로 padding을 추가하여 간격을 조정 */
-    margin-top: 100px;
+	max-width: 960px;
+	text-align: center; /* 내부 요소들을 가운데 정렬 */
+	padding: 5px; /* 선택적으로 padding을 추가하여 간격을 조정 */
+	margin-top: 100px;
 }
 
 .image-category h2 {
-    font-family: 'Freesentation-9Black', Freesentation-9Black;
-    font-size: 40px;
-    margin-bottom: 50px;
+	font-family: 'Freesentation-9Black', Freesentation-9Black;
+	font-size: 40px;
+	margin-bottom: 50px;
 }
 
 .card-img-top {
-    object-fit: cover;
-    width: 150px;
+	object-fit: cover;
+	width: 150px;
 }
 
 .card {
-    margin: 5px; /* 카드 간격 조정 */
+	margin: 5px; /* 카드 간격 조정 */
 }
 
 .card-body {
-    padding: 15px; /* 카드 내부 패딩 줄이기 */
+	padding: 15px; /* 카드 내부 패딩 줄이기 */
 }
 
 .card img {
-    transition: transform 0.3s ease;
+	transition: transform 0.3s ease;
 }
 
 .card:hover img {
-    transform: scale(1.05);
+	transform: scale(1.05);
 }
 
-.card-title {
-    font-family: 'ChosunGu ', ChosunGu;
-    font-weight: bold;
+.image-category h5 {
+	font-family: 'ChosunGu ', ChosunGu;
+	font-weight: bold;
+	text-decoration: none !important;
 }
 
+#clubCategory a {
+        text-decoration: none; /* 하이퍼링크 밑줄 제거 */
+        color: black;
+    }
 .hot-posts {
-    text-align: left; /* 내부 요소들을 가운데 정렬 */
-    padding: 20px; /* 선택적으로 padding을 추가하여 간격을 조정 */
-    margin-top: 100px;
+	text-align: left; /* 내부 요소들을 가운데 정렬 */
+	padding: 20px; /* 선택적으로 padding을 추가하여 간격을 조정 */
+	margin-top: 100px;
 }
 
 .hot-posts h2 {
-    font-family: 'Freesentation-9Black', Freesentation-9Black;
-    font-size: 40px;
-    margin-bottom: 20px;
+	font-family: 'Freesentation-9Black', Freesentation-9Black;
+	font-size: 40px;
+	margin-bottom: 20px;
 }
 
 .bn {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .bn1 {
-        flex: 1;
-        text-align: center;
-    }
+	flex: 1;
+	text-align: center;
+}
 
 /* 프로를 만나자 */
 .meet-pro {
-    margin-top: 100px;
+	margin-top: 100px;
 }
 
 .meet-pro h2 {
-    font-family: 'Freesentation-9Black', Freesentation-9Black;
-    font-size: 40px;
-    margin-bottom: 20px;
+	font-family: 'Freesentation-9Black', Freesentation-9Black;
+	font-size: 40px;
+	margin-bottom: 20px;
 }
 
 .meet-pro-box {
-    display: flex;
-    justify-content: space-between; /* 요소들을 좌우에 배치 */
-    padding: 20px; /* 선택적으로 padding을 추가하여 간격을 조정 */
-    margin-bottom: 20px;
-    padding-bottom: 20px;
+	display: flex;
+	justify-content: space-between; /* 요소들을 좌우에 배치 */
+	padding: 20px; /* 선택적으로 padding을 추가하여 간격을 조정 */
+	margin-bottom: 20px;
+	padding-bottom: 20px;
 }
 
 .pro-rank {
-    flex: 1; /* pro-rank가 차지하는 비율을 1로 설정 */
-    padding: 10px; /* 내부 여백 설정 */
+	flex: 1; /* pro-rank가 차지하는 비율을 1로 설정 */
+	padding: 10px; /* 내부 여백 설정 */
 }
 
 .pro-rank h4 {
-    font-family: 'Freesentation-9Black', Freesentation-9Black;
+	font-family: 'Freesentation-9Black', Freesentation-9Black;
 }
 
 .rank {
-    border: 1px solid #ddd; /* 테두리 선 스타일 및 색상 설정 */
+	border: 1px solid #ddd; /* 테두리 선 스타일 및 색상 설정 */
 }
 
 .recommend-pro {
-    /* recommend-pro가 차지하는 비율을 2로 설정 */
-    margin-left: 20px; /* 간격 추가 */
+	/* recommend-pro가 차지하는 비율을 2로 설정 */
+	margin-left: 20px; /* 간격 추가 */
 }
 
 .scrollbox {
-    display: flex;
-    overflow-x: auto; /* 가로 스크롤을 허용 */
-    white-space: nowrap; /* 요소들이 한 줄로 나열되도록 설정 */
-    width: 60%;
+	display: flex;
+	overflow-x: auto; /* 가로 스크롤을 허용 */
+	white-space: nowrap; /* 요소들이 한 줄로 나열되도록 설정 */
+	width: 60%;
 }
 
 .scroll-item {
-    flex: 0 0 auto; /* 요소들이 컨테이너의 크기를 벗어나지 않도록 설정 */
-    margin-right: 30px; /* 각 스크롤 항목 사이 간격 조정 */
+	flex: 0 0 auto; /* 요소들이 컨테이너의 크기를 벗어나지 않도록 설정 */
+	margin-right: 30px; /* 각 스크롤 항목 사이 간격 조정 */
 }
 
 .scroll-item img {
-    width: 200px;
-    height: auto;
+	width: 200px;
+	height: auto;
 }
 
 /* 리뷰게시판 */
-.review {
-    text-align: left; /* 내부 요소들을 가운데 정렬 */
-    padding: 20px; /* 선택적으로 padding을 추가하여 간격을 조정 */
-    margin-top: 100px;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
+.instagram {
+	text-align: left; /* 내부 요소들을 가운데 정렬 */
+	padding: 20px; /* 선택적으로 padding을 추가하여 간격을 조정 */
+	margin-top: 100px;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
 }
 
-.review h2 {
-    font-family: 'Freesentation-9Black', Freesentation-9Black;
-    font-size: 40px;
-    margin-bottom: 50px;
+.instagram-header {
+    display: flex;
+    justify-content: space-between; /* h2와 h5를 양쪽 끝으로 정렬 */
+    align-items: end; /* 세로 중앙 정렬 */
+     height: 100%;
+   margin-bottom: 20px;
 }
 
-.review .row .instagram-media {
-    margin: 5px;
+.instagram h2{
+	font-family: 'Freesentation-9Black', Freesentation-9Black;
+}
+
+.instagram-slider {
+	border: 1px solid gray;
+	border-radius: 10px;
+	padding: 20px 10px;
+	display: flex;
+	overflow-x: scroll;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none;
+	display: flex;
+	padding: 20px 10px; /* Internet Explorer 10+ */
+}
+
+.instagram-slider::-webkit-scrollbar {
+	display: none; /* Safari and Chrome */
+}
+
+.instagram-media {
+	display: inline-block;
+	min-width: 200px; /* 각 블록의 최소 너비 조정 */
+	margin: 0 10px !important; /* 각 블록 사이의 간격을 15px로 설정 */
+	flex: 0 0 auto;
 }

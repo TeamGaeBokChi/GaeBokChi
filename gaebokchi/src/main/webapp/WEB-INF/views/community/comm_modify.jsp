@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>새 글 쓰기</title>
+<title>커뮤니티｜GOLFRO<</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -27,13 +27,18 @@ body {
 	border-radius: 10px;
 	padding: 20px;
 	max-width: 1000px; /* 페이지를 더 넓게 조정 */
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	margin: 0 auto;
 	margin-top: 80px;
 }
 
 .card-header {
-	background-color: #2A7E50;
+	background: white !important;
+	margin-bottom: 50px;
+}
+
+.card-header h3 {
+	font-family: 'Freesentation-9Black', Freesentation-9Black;
+	padding-bottom: 20px;
 }
 
 .btn-outline-success {
@@ -61,59 +66,61 @@ body {
 			<%@ include file="../fragments/header.jspf"%>
 		</header>
 		<main>
-			<div class="mt-2 card">
-				<div class="card-header">
-					<h2></h2>
-				</div>
-				<div class="card-body">
-					<form id="modifyForm" enctype="multipart/form-data">
-						<input type="hidden" name="id" value="${post.id}" />
-						<div class="row mb-3">
-							<div class="col-auto">
-								<select class="form-control" name="category" id="categorySelect"
-									required>
-									<option value="${post.category}">카테고리 선택</option>
-									<option value="F001">잡담</option>
-									<option value="F002">팁/노하우</option>
-									<option value="F003">라운드/후기공유</option>
-								</select>
-							</div>
-							<div class="col">
-								<input class="form-control" type="text" name="title"
-									value="${post.title}" required autofocus />
-							</div>
-						</div>
-						<div class="mb-3">
-							<div id="editor-container"></div>
-							<textarea name="content" id="content" style="display: none;">${post.content}</textarea>
-						</div>
-						<div class="row mb-3">
-							<div class="row mb-3">
-								<div class="col">
-									<span id="currentFileName">${post.media}</span>
-								</div>
-							</div>
-							<div class="row mb-3">
-								<div class="col">
-									<input class="form-control" type="file" name="media"
-										id="mediaFile" accept="image/*" onchange="previewImage(event)" />
-								</div>
-							</div>
-							<div class="row mb-3">
-								<div class="col">
-									<img id="imagePreview" alt="사진 미리보기" />
-								</div>
-							</div>
-						</div>
-						<div class="d-grid gap-2">
-							<button id="btnUpdate" class="btn btn-outline-success"
-								type="button">업데이트</button>
-						</div>
 
-					</form>
+			<div class="mt-3 card border-0">
+				<div class="card-header border-0 form-control">
+					<h3>글 수정</h3>
 				</div>
 			</div>
-		</main>
+			<div class="card-body">
+				<form id="modifyForm" enctype="multipart/form-data">
+					<input type="hidden" name="id" value="${post.id}" />
+					<div class="row mb-3">
+						<div class="col-auto">
+							<select class="form-control" name="category" id="categorySelect"
+								required>
+								<option value="${post.category}">카테고리 선택</option>
+								<option value="F001">잡담</option>
+								<option value="F002">팁/노하우</option>
+								<option value="F003">라운드/후기공유</option>
+							</select>
+						</div>
+						<div class="col">
+							<input class="form-control" type="text" name="title"
+								value="${post.title}" required autofocus />
+						</div>
+					</div>
+					<div class="mb-3">
+						<div id="editor-container"></div>
+						<textarea name="content" id="content" style="display: none;">${post.content}</textarea>
+					</div>
+					<div class="row mb-3">
+						<div class="row mb-3">
+							<div class="col">
+								<span id="currentFileName">${post.media}</span>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col">
+								<input class="form-control" type="file" name="media"
+									id="mediaFile" accept="image/*" onchange="previewImage(event)" />
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col">
+								<img id="imagePreview" alt="사진 미리보기" />
+							</div>
+						</div>
+					</div>
+					<div class="d-grid gap-2">
+						<button id="btnUpdate" class="btn btn-outline-success"
+							type="button">완료</button>
+					</div>
+
+				</form>
+			</div>
+	</div>
+	</main>
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

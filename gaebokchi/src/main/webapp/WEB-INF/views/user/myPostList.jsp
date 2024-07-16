@@ -100,35 +100,6 @@
             
             		<main>
             			<div class="mt-2 card">
-            				<div class="card-header">
-            					<!-- 카테고리 선택 폼 추가 -->
-            					<c:url var="catesearchPage" value="/review/review_main" />
-            					<form method="get" action="${catesearchPage}">
-            						<div class="row">
-            							<div class="col-2">
-            								<select class="form-control" name="search-category">
-            									<option value="t"
-            										${selectedSearchCategory == 't' ? 'selected' : ''}>제목</option>
-            									<option value="c"
-            										${selectedSearchCategory == 'c' ? 'selected' : ''}>내용</option>
-            									<option value="tc"
-            										${selectedSearchCategory == 'tc' ? 'selected' : ''}>제목+내용</option>
-            									<option value="n"
-            										${selectedSearchCategory == 'n' ? 'selected' : ''}>닉네임</option>
-            								</select>
-            							</div>
-            							<div class="col-5">
-            								<input type="text" class="form-control" name="keyword"
-            									placeholder="검색어 입력" value="${keyword}" />
-            							</div>
-            							<div class="col-1">
-            								<input type="submit"
-            									class="form-control btn btn-outline-secondary" value="🔍" />
-            							</div>
-            						</div>
-            					</form>
-            				</div>
-            
             				<div class="card-body">
             					<table class="table table-hover">
             						<thead>
