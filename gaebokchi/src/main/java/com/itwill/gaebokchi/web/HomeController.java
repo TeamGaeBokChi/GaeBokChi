@@ -33,6 +33,9 @@ public class HomeController {
 		model.addAttribute("viewsRank", viewsRank);
 		model.addAttribute("likesRank", likesRank);
 		return "home"; // 뷰(JSP 파일)의 이름.
+	
+	
+	
 	}
 	
 
