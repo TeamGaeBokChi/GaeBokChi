@@ -164,7 +164,7 @@ body {
 /* 검색 및 로그인 */
 .right-section {
     justify-content: flex-end;
-    margin-right: 3%;
+    margin-right: 5%;
 }
 
 .right-section button {

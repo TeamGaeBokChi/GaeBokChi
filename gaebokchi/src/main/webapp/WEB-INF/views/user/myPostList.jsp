@@ -16,7 +16,44 @@
         	justify-content: center;
         	padding: 20px;
         }
-        
+        .container {
+    font-family: 'Pretendard-Regular';
+    width: 1080px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+#mypage {
+    margin-top: 150px;
+    max-width: 1280px;
+    padding: 40px 40px 160px;
+}
+
+#login-info {
+    background-color: white;
+    padding: 0;
+    border: none;
+}
+
+.card-header {
+    background: white;
+}
+
+.card-header h3 {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    font-weight: bold;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #000000;
+}
+
+tbody a {
+    text-decoration: none;
+    color: black;
+}
+
+tbody a:hover {
+    font-weight: bold;
+}
         .container {
             width: 1080px;
             margin: 0 auto;
@@ -88,15 +125,22 @@
         <%@ include file="../fragments/header.jspf"%>
     </header>
 
-    <div class="container">
-        <div class="row">
-            <%@ include file="../fragments/menu.jspf"%>
+   <div class="container" id="mypage">
 
-            <div class="col-8">
-                <div class="container-fluid">
-            		<header>
-            			<h4>내가 쓴 게시글</h4>
-            		</header>
+		<div class="row">
+
+			<%@ include file="../fragments/menu.jspf"%>
+
+
+
+			<div class="col-8">
+
+				<div class="card-header border-0" id="login-info">
+
+					<h3>내가 쓴 댓글 목록</h3>
+
+				</div>
+
             
             		<main>
             			<div class="mt-2 card">
