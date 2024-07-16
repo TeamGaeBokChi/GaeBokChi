@@ -2,3 +2,5 @@
 /target/
 # Ignore specific file
 gaebokchi/src/main/webapp/static/images/0000.gif
+/.apt_generated/
+/.apt_generated_tests/

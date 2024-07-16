@@ -8,6 +8,10 @@ body {
     padding: 20px;
 }
 
+main {
+    margin-bottom: 75px;
+}
+
 /* 컨테이너 스타일 */
 .container-fluid {
     background-color: white;

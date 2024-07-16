@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html>
@@ -8,64 +8,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>커뮤니티｜GOLFRO</title>
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous" />
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous" />
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
-	rel="stylesheet">
+    rel="stylesheet">
 <style>
 body {
-	background-color: #ffffff;
-	display: flex;
-	justify-content: center;
-	padding: 20px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
 }
 
 .container-fluid {
-	margin-top: 100px;
-	background-color: white;
-	border-radius: 10px;
-	padding: 20px;
-	max-width: 1000px; /* 페이지를 더 넓게 조정 */
-	margin: 0 auto;
-	margin-top: 80px;
-	background-color: white;
+    margin-top: 100px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 1000px; /* 페이지를 더 넓게 조정 */
+    margin: 0 auto;
+    margin-top: 80px;
+    background-color: white;
 }
 
-
 .card-header {
-	background: white !important;
-	margin-bottom: 50px;
+    background: white !important;
+    margin-bottom: 50px;
 }
 
 .card-header h3 {
-	font-family: 'Freesentation-9Black', Freesentation-9Black;
-	padding-bottom:20px;
+    font-family: 'Freesentation-9Black', Freesentation-9Black;
+    padding-bottom: 20px;
 }
 
 .btn-outline-success {
-	color: #28a745;
-	border-color: #28a745;
+    color: #28a745;
+    border-color: #28a745;
 }
 
 .btn-outline-success:hover {
-	background-color: #28a745;
-	color: white;
+    background-color: #28a745;
+    color: white;
 }
 
 .toolbar {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 #editor-container {
-	height: 600px; /* 에디터 높이 조정 */
+    height: 600px; /* 에디터 높이 조정 */
 }
 
 #imagePreview {
-	max-width: 100%;
-	max-height: 300px;
-	display: none;
+    max-width: 100%;
+    max-height: 300px;
+    display: none;
 }
 </style>
 </head>
@@ -73,66 +72,77 @@ body {
 
 
 
-	<div class="container-fluid">
-		<header>
-			<%@ include file="../fragments/header.jspf"%></header>
-		<main>
-			<div class="mt-3 card border-0">
-				<div class="card-header border-0 form-control">
-					<h3>새 글 작성하기</h3>
-				</div>
-			</div>
-			<div class="card-body">
-				<c:url var="commPostCreatePage" value="/community/comm_create" />
-				<form method="post" action="${commPostCreatePage}"
-					enctype="multipart/form-data" id="postForm">
-					<div class="row mb-3">
-						<div class="col-auto">
-							<select class="form-control" name="category" id="categorySelect"
-								required>
-								<option value="">카테고리 선택</option>
-								<option value="F001">잡담</option>
-								<option value="F002">팁/노하우</option>
-								<option value="F003">라운드 후기</option>
-							</select>
-						</div>
-						<div class="col">
-							<input class="form-control mb-2" type="text" name="title"
-								placeholder="제목 입력" required autofocus /> <input
-								class="form-control mb-2" type="hidden" name="author"
-								value="${loggedInUser.userid}" />
-						</div>
-					</div>
-					<div class="mb-3">
-						<div id="editor-container"></div>
-						<textarea name="content" id="content" style="display: none;"></textarea>
-					</div>
-					<div>
-						<div class="row mb-3">
-							<div class="col">
-								<input class="form-control" type="file" name="media"
-									id="mediaFile" accept="image/*" onchange="previewImage(event)" />
-							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col">
-								<img id="imagePreview" alt="사진 미리보기" />
-							</div>
-						</div>
-						<div class="d-grid gap-2">
-							<input class="btn btn-outline-success" type="submit" value="저장" />
-						</div>
-				</form>
-			</div>
-	</div>
-	</main>
-	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-	<script>
+    <div class="container-fluid">
+        <header>
+            <%@ include file="../fragments/header.jspf"%></header>
+        <main>
+            <div class="mt-3 card border-0">
+                <div class="card-header border-0 form-control">
+                    <h3>새 글 작성하기</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <c:url var="commPostCreatePage"
+                    value="/community/comm_create" />
+                <form method="post" action="${commPostCreatePage}"
+                    enctype="multipart/form-data" id="postForm">
+                    <div class="row mb-3">
+                        <div class="col-auto">
+                            <select class="form-control" name="category"
+                                id="categorySelect" required>
+                                <option value="">카테고리 선택</option>
+                                <option value="F001">잡담</option>
+                                <option value="F002">팁/노하우</option>
+                                <option value="F003">라운드 후기</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input class="form-control mb-2" type="text"
+                                name="title" placeholder="제목 입력"
+                                required autofocus /> <input
+                                class="form-control mb-2" type="hidden"
+                                name="author"
+                                value="${loggedInUser.userid}" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div id="editor-container"></div>
+                        <textarea name="content" id="content"
+                            style="display: none;"></textarea>
+                    </div>
+                    <div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input class="form-control" type="file"
+                                    name="media" id="mediaFile"
+                                    accept="image/*"
+                                    onchange="previewImage(event)" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <img id="imagePreview" alt="사진 미리보기" />
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <input class="btn btn-outline-success"
+                                type="submit" value="저장" />
+                        </div>
+                </form>
+
+            </div>
+        </main>
+    </div>
+
+   
+</body>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
     var quill = new Quill('#editor-container', {
         theme: 'snow',
         modules: {
