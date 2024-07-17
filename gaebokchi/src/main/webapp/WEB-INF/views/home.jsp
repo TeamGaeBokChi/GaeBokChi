@@ -123,7 +123,7 @@
 			</div>
 			<div class="semi-title container d-flex justify-content-between">
 				<h6>이분의 조언이 도움이 많이 되었어요!</h6>
-				<h6>많은 사람들의 주목을 받은 게시글!</h6>
+				<h6>많은 사람들의 추천을 받은 게시글!</h6>
 			</div>
 
 
@@ -190,10 +190,10 @@
 				<div class="ad-slider flex-item">
 					<div class="slider-container">
 						<div class="slide active">
-							<img src="images/ad1.png" alt="Ad 1">
+							<img src="images/ad3.png" alt="Ad 1">
 						</div>
 						<div class="slide">
-							<img src="images/ad2.png" alt="Ad 2">
+							<img src="images/ad4.png" alt="Ad 2">
 						</div>
 					</div>
 				</div>
