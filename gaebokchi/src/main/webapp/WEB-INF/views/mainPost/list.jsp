@@ -136,7 +136,7 @@
 							<tr>
 								<th class="col-1">클럽종류</th>
 								<th class="col-4">제목</th>
-								<th class="col-1">작성자</th>
+								<th class="col-2">작성자</th>
 								<th class="col-1">조회</th>
 								<th class="col-1">좋아요</th>
 								<th class="col-1">작성일</th>
