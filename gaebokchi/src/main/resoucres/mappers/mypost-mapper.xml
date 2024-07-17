@@ -55,6 +55,7 @@
 		      WHERE ROWNUM &lt;= #{endRow}
 		  )
 		WHERE rnum &gt; #{startRow}
+		
 	</select>
 
 	<select id="selectTotalPostCount" resultType="int">

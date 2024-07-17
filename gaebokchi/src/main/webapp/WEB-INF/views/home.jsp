@@ -30,7 +30,7 @@
 
 	<section class="header container-fluid">
 		<div class="title">
-			<c:url var="mainTitle" value="images/main.png" />
+			<c:url var="mainTitle" value="images/000.gif" />
 			<img src="${mainTitle}" alt="main picture"
 				style="object-fit: cover; width: 100%; height: 100%;">
 		</div>

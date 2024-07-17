@@ -214,16 +214,19 @@ public class UserProfileController {
 		String userid = (String) session.getAttribute(SESSION_ATTR_USER);
 
 		log.debug("myPostList()");
+		System.out.println(userid);
 
 		List<MyPostListDto> posts;
 
 		int pageBlockSize = 10;
 
 		if (keyword != null && !keyword.isEmpty()) {
+			System.out.println("if");
 			MyPostListSearchDto searchDto = new MyPostListSearchDto();
 			searchDto.setKeyword(keyword);
 			posts = myPostService.search(searchDto);
 		} else {
+			System.out.println("else");
 			posts = myPostService.getPagedPosts(page, userid, pageSize);
 		}
 

@@ -10,17 +10,67 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <c:url var="css" value="/css/my_lesson_list.css" />
     <link rel="stylesheet" type="text/css" href="${css}">
+
+<style>
+body {
+	background-color: #ffffff;
+	display: flex;
+	justify-content: center;
+}
+
+.container {
+	font-family: 'Pretendard-Regular';
+	width: 1080px;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+
+#mypage {
+	margin-top: 150px;
+	max-width: 1280px;
+	padding: 40px 40px 160px;
+}
+
+#login-info {
+	background-color: white;
+	padding: 0;
+	border: none;
+}
+
+.card-header {
+	background: white;
+}
+
+.card-header h3 {
+	font-family: 'Pretendard-Regular', Pretendard-Regular;
+	font-weight: bold;
+	padding-bottom: 15px;
+	border-bottom: 3px solid #000000;
+}
+</style>
+
+
 </head>
 <body>
     <header>
         <%@ include file="../fragments/header.jspf"%>
     </header>
 
-    <div class="container">
+  <div class="container" id="mypage">
+  
         <div class="row">
             <%@ include file="../fragments/menu.jspf"%>
 
             <div class="col-8">
+            
+            <div class="card-header border-0" id="login-info">
+
+					<h3>레슨 신청 목록</h3>
+
+				</div>
+            
+            
+            
                 <div class="card border-0">
                     <div class="card-body mb-1">
                         <!-- 메인 게시판 목록 영역 -->
