@@ -134,6 +134,13 @@
                 <span class="card-link">가입 승인으로 이동</span>
             </a>
         </div>
+        <div class="card">
+            <a href="/gaebokchi">
+                <div class="card-icon"><i class="fas fa-home"></i></div>
+                <h2>메인 홈 페이지</h2>
+                <span class="card-link">메인으로 이동</span>
+            </a>
+        </div>
     </div>
 </div>
 </body>

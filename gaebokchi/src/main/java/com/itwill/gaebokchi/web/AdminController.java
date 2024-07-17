@@ -1,5 +1,7 @@
 package com.itwill.gaebokchi.web;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Map;
 
@@ -101,10 +103,10 @@ public class AdminController {
 	}
 
 	@PostMapping("deleteUser")
-	public String deleteUser(@RequestParam(name = "userid") String userid) {
-		userService.deleteUser(userid);
-		return "redirect:/admin/adminMembers";
-	}
+	public String deleteUser(@RequestParam(name = "userid") String userid) throws SQLException, SQLIntegrityConstraintViolationException {
+    	userService.deleteUser(userid);
+    	return "redirect:/admin/adminMembers";
+    }
 
 	@PostMapping("/deletePost")
 	public String deletePost(@RequestParam(name = "id") int id) {

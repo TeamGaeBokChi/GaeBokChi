@@ -71,14 +71,12 @@
                     <ul class="dropdown-menu">
                         <li><a href="/gaebokchi/user/mypage">마이페이지</a></li>
                         <li><a href="/gaebokchi/user/signout">로그아웃</a></li>
-                        <li><a href="/">고객센터</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${empty signedInUser}">
                     <%-- 세션에 로그인 정보가 없는 경우 --%>
                     <ul class="dropdown-menu">
                         <li><a href="/gaebokchi/user/signin">로그인</a></li>
-                        <li><a href="/">고객센터</a></li>
                     </ul>
                 </c:if>
             </div>

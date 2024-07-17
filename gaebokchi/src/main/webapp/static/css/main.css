@@ -313,7 +313,7 @@ main {
 	scrollbar-width: none; /* Firefox */
 	-ms-overflow-style: none;
 	display: flex;
-	padding: 20px 10px; /* Internet Explorer 10+ */
+	padding: 30px 10px; /* Internet Explorer 10+ */
 }
 
 .instagram-slider::-webkit-scrollbar {

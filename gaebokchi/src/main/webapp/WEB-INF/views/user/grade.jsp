@@ -106,7 +106,7 @@
 
                     <div class="card-header border-0" id="login-info">
 
-                        <h3>로그인 정보</h3>
+                        <h3>회원 등급 안내</h3>
 
 
 

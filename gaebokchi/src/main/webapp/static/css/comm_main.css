@@ -103,6 +103,10 @@ main .card {
     background-color: #0080ff;
 }
 
+.card-body {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    font-size: 15px;
+}
 
 /* 버튼 스타일 */
 .btn-outline-secondary {

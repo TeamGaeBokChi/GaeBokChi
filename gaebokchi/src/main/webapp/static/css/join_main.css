@@ -67,6 +67,11 @@ body {
     margin-right: 30px;
 }
 
+.table {
+    font-family: 'Pretendard-Regular', Pretendard-Regular;
+    font-size: 15px;
+}
+
 select#category {
     font-weight: bold;
     border: 1px solid black;

@@ -102,13 +102,13 @@ tbody a:hover {
 
 						<tr>
 
-							<th class="text-center">포스트 번호</th>
+							<th class="text-center col-1">포스트 번호</th>
 
-							<th class="text-center">내용</th>
+							<th class="text-center col-4">내용</th>
 
-							<th class="text-center">채택</th>
+							<th class="text-center col-1">채택</th>
 
-							<th class="text-center">작성시간</th>
+							<th class="text-center col-2">작성시간</th>
 
 						</tr>
 
@@ -199,7 +199,6 @@ tbody a:hover {
 								</c:choose>
 
 								<td>${c.modifiedTime}</td>
-
 							</tr>
 
 						</c:forEach>
