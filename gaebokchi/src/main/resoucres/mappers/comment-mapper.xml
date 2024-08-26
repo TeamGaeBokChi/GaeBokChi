@@ -34,7 +34,6 @@
 		UPDATE comments SET content = #{content} WHERE id = #{id}
 	</update>
 	
-	
 	<update id="updateUserPoint">
 		UPDATE users SET point = point + 300 WHERE userid = (select author from comments where id = #{id})
 	</update>
@@ -42,8 +41,4 @@
 	<delete id="deleteCommentById">
 		DELETE FROM comments WHERE id = #{id}
 	</delete>
-	
-	<select id="selectCommentById" resultType="Comment">
-	 SELECT * 
-	</select>
 </mapper>
